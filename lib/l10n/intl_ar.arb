@@ -1,5 +1,9 @@
 {
   "appTitle":"محادثة رسمية من نوع Copilot",
-  "Rich Chat Copilot - Powered by":"محادثة رسمية من نوع Copilot - تم التشغيل من قبل"
-
+  "Rich Chat Copilot - Powered by":"محادثة رسمية من نوع Copilot - تم التشغيل من قبل",
+  "home":"الصفحة الرئيسية",
+  "settings":"الاعدادات",
+  "theme":"المظهر",
+  "language":"اللغة",
+  "welcomeMessage":"مرحبا بك في محادثة رسمية من نوع Copilot"
 }

@@ -22,6 +22,12 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "appTitle": MessageLookupByLibrary.simpleMessage("Rich Chat Copilot")
+        "appTitle": MessageLookupByLibrary.simpleMessage("Rich Chat Copilot"),
+        "home": MessageLookupByLibrary.simpleMessage("Home"),
+        "language": MessageLookupByLibrary.simpleMessage("Language"),
+        "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "theme": MessageLookupByLibrary.simpleMessage("Theme"),
+        "welcomeMessage": MessageLookupByLibrary.simpleMessage(
+            "Welcome to the Copilot Chatbot. What would you like to chat about?")
       };
 }

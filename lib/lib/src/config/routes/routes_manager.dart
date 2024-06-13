@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/home/home_screen.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/main/main_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/settings/settings_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/splash/splash_screen.dart';
 
@@ -9,6 +10,7 @@ class Routes {
   static const String signIn = "/signIn";
   static const String homeScreen = "/homeScreen";
   static const String settingsScreen = "/settingsScreen";
+  static const String mainScreen = "/mainScreen";
 }
 
 class RoutesManager {
@@ -29,6 +31,8 @@ class RoutesManager {
         return _materialRoute(const HomeScreen());
       case Routes.settingsScreen:
         return _materialRoute(const SettingsScreen());
+      case Routes.mainScreen:
+        return _materialRoute(const MainScreen());
       default:
         return _materialRoute(const SplashScreen());
     }

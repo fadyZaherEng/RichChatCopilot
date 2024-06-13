@@ -9,5 +9,8 @@ Future<void> initializeBlocDependencies() async {
         injector(),
         injector(),
       ));
-  injector.registerFactory<SettingsBloc>(() => SettingsBloc(injector()));
+  injector.registerFactory<SettingsBloc>(() => SettingsBloc(
+        injector(),
+        injector(),
+      ));
 }

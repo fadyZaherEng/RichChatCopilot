@@ -1,4 +1,9 @@
 {
   "appTitle": "Rich Chat Copilot",
-  "Rich Chat Copilot - Powered by OpenAI": "Rich Chat Copilot - Powered by OpenAI"
+  "Rich Chat Copilot - Powered by OpenAI": "Rich Chat Copilot - Powered by OpenAI",
+  "home": "Home",
+  "settings": "Settings",
+  "theme": "Theme",
+  "language": "Language",
+  "welcomeMessage": "Welcome to the Copilot Chatbot. What would you like to chat about?"
 }

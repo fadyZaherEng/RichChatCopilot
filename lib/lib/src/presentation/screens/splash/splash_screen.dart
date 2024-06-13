@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:rich_chat_copilot/lib/src/config/routes/routes_manager.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
 
@@ -16,7 +17,14 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   final String _switchLogo = "";
-
+@override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await Future.delayed(const Duration(seconds: 3));
+      Navigator.pushReplacementNamed(context, Routes.mainScreen);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +48,11 @@ class _SplashScreenState extends State<SplashScreen>
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        width: 220,
-                        height: 220,
-                        "ImagePaths.splashLogo",
-                      ),
+                      // Image.asset(
+                      //   width: 220,
+                      //   height: 220,
+                      //   "ImagePaths.splashLogo",
+                      // ),
                       Container(
                         color: ColorSchemes.iconBackGround,
                         child: Padding(
@@ -95,16 +103,16 @@ class _SplashScreenState extends State<SplashScreen>
                                   ),
                             )
                           ])),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    left: 0,
-                    child: SvgPicture.asset(
-                      width: MediaQuery.sizeOf(context).width,
-                      "ImagePaths.splashBackground",
-                      color: ColorSchemes.primary.withOpacity(0.6),
-                    ),
-                  ),
+                  // Positioned(
+                  //   bottom: 0,
+                  //   right: 0,
+                  //   left: 0,
+                  //   child: SvgPicture.asset(
+                  //     width: MediaQuery.sizeOf(context).width,
+                  //     "ImagePaths.splashBackground",
+                  //     color: ColorSchemes.primary.withOpacity(0.6),
+                  //   ),
+                  // ),
                 ])
               : Center(
                   child: Column(
@@ -122,60 +130,60 @@ class _SplashScreenState extends State<SplashScreen>
                       Stack(
                         alignment: Alignment.center,
                         children: [
-                          SvgPicture.asset(
-                            width: 232,
-                            height: 232,
-                            "ImagePaths.switchSplash",
-                            fit: BoxFit.cover,
-                            color: ColorSchemes.primary,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: ColorSchemes.gray,
-                                // color of the border
-                                width: 2, // width of the border
-                              ),
-                            ),
-                            child: ClipOval(
-                              child: Image.network(
-                                height: 130,
-                                width: 130,
-                                _switchLogo,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    Image.asset(
-                                  height: 130,
-                                  width: 130,
-                                 " ImagePaths.imagePlaceHolder",
-                                  fit: BoxFit.cover,
-                                ),
-                                loadingBuilder: (BuildContext context,
-                                    Widget child,
-                                    ImageChunkEvent? loadingProgress) {
-                                  if (loadingProgress == null) return child;
-                                  return SizedBox(
-                                    width: 130,
-                                    height: 130,
-                                    child: Center(
-                                      child: CircularProgressIndicator(
-                                        color: ColorSchemes.primary,
-                                        value: loadingProgress
-                                                    .expectedTotalBytes !=
-                                                null
-                                            ? loadingProgress
-                                                    .cumulativeBytesLoaded /
-                                                loadingProgress
-                                                    .expectedTotalBytes!
-                                            : null,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
+                          // SvgPicture.asset(
+                          //   width: 232,
+                          //   height: 232,
+                          //   "ImagePaths.switchSplash",
+                          //   fit: BoxFit.cover,
+                          //   color: ColorSchemes.primary,
+                          // ),
+                          // Container(
+                          //   decoration: BoxDecoration(
+                          //     shape: BoxShape.circle,
+                          //     border: Border.all(
+                          //       color: ColorSchemes.gray,
+                          //       // color of the border
+                          //       width: 2, // width of the border
+                          //     ),
+                          //   ),
+                          //   child: ClipOval(
+                          //     child: Image.network(
+                          //       height: 130,
+                          //       width: 130,
+                          //       _switchLogo,
+                          //       fit: BoxFit.cover,
+                          //       errorBuilder: (context, error, stackTrace) =>
+                          //           Image.asset(
+                          //         height: 130,
+                          //         width: 130,
+                          //        " ImagePaths.imagePlaceHolder",
+                          //         fit: BoxFit.cover,
+                          //       ),
+                          //       loadingBuilder: (BuildContext context,
+                          //           Widget child,
+                          //           ImageChunkEvent? loadingProgress) {
+                          //         if (loadingProgress == null) return child;
+                          //         return SizedBox(
+                          //           width: 130,
+                          //           height: 130,
+                          //           child: Center(
+                          //             child: CircularProgressIndicator(
+                          //               color: ColorSchemes.primary,
+                          //               value: loadingProgress
+                          //                           .expectedTotalBytes !=
+                          //                       null
+                          //                   ? loadingProgress
+                          //                           .cumulativeBytesLoaded /
+                          //                       loadingProgress
+                          //                           .expectedTotalBytes!
+                          //                   : null,
+                          //             ),
+                          //           ),
+                          //         );
+                          //       },
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                       const SizedBox(
@@ -186,11 +194,11 @@ class _SplashScreenState extends State<SplashScreen>
                           height: 20,
                         ),
                       ),
-                      Image.asset(
-                        width: 120,
-                        height: 120,
-                        "ImagePaths.splashLogo",
-                      ),
+                      // Image.asset(
+                      //   width: 120,
+                      //   height: 120,
+                      //   "ImagePaths.splashLogo",
+                      // ),
                       const SizedBox(
                         height: 48,
                       ),
