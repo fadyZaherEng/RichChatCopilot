@@ -7,8 +7,13 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:rich_chat_copilot/generated/l10n.dart';
 import 'package:rich_chat_copilot/lib/src/config/routes/routes_manager.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/app_theme.dart';
+import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
+import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
+import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
 import 'package:rich_chat_copilot/lib/src/di/injector.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/main/main_bloc.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/blocs/main/main_state.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/blocs/settings/settings_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/restart_widget.dart';
 
 void main() async {
@@ -33,8 +38,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<MainCubit>(create: (context) => injector()),
+        BlocProvider<SettingsBloc>(create: (context) => injector()),
       ],
-      child: BlocBuilder<MainCubit, Locale>(
+      child: BlocBuilder<MainCubit, MainState>(
         buildWhen: (previousState, currentState) {
           return previousState != currentState;
         },
@@ -42,7 +48,7 @@ class MyApp extends StatelessWidget {
           return  MaterialApp(
             // useInheritedMediaQuery: true,
             // builder: DevicePreview.appBuilder,
-            darkTheme:AppTheme(state.languageCode).light,
+            darkTheme:AppTheme(state is GetLocalAndThemeState? state.locale.languageCode : Constants.en).light,
             navigatorKey: navigatorKey,
             navigatorObservers: [
               ChuckerFlutter.navigatorObserver,
@@ -51,7 +57,7 @@ class MyApp extends StatelessWidget {
             themeMode: ThemeMode.light,
             supportedLocales: S.delegate.supportedLocales,
             onGenerateRoute: RoutesManager.getRoute,
-            initialRoute: Routes.homeScreen,
+            initialRoute: Routes.settingsScreen,
             localizationsDelegates: const [
               S.delegate,
               GlobalMaterialLocalizations.delegate,
@@ -59,8 +65,8 @@ class MyApp extends StatelessWidget {
               GlobalCupertinoLocalizations.delegate,
             ],
             debugShowCheckedModeBanner: false,
-            theme: AppTheme(state.languageCode).light,
-            locale: state,
+            theme: AppTheme(state is GetLocalAndThemeState? state.locale.languageCode : Constants.en).light,
+            locale: Locale(state is GetLocalAndThemeState? state.locale.languageCode : Constants.en),
           );
         },
       ),

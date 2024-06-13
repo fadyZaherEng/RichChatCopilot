@@ -13,4 +13,8 @@ class Constants {
   static const String low = "low";
   static const String min = "min";
   static const String defaultPriority = "default";
+  static const String en = "en";
+  static const String ar = "ar";
+  static const String light = "light";
+  static const String dark = "dark";
 }
