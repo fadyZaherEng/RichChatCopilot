@@ -1,6 +1,4 @@
 import 'package:chucker_flutter/chucker_flutter.dart';
-import 'package:device_preview/device_preview.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -8,17 +6,20 @@ import 'package:rich_chat_copilot/generated/l10n.dart';
 import 'package:rich_chat_copilot/lib/src/config/routes/routes_manager.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/app_theme.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
-import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
-import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
 import 'package:rich_chat_copilot/lib/src/di/injector.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/main/main_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/main/main_state.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/settings/settings_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/restart_widget.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const RestartWidget(MyApp()));
   // runApp(
   //   DevicePreview(
