@@ -5,5 +5,8 @@
   "settings":"الاعدادات",
   "theme":"المظهر",
   "language":"اللغة",
-  "welcomeMessage":"مرحبا بك في محادثة رسمية من نوع Copilot"
+  "welcomeMessage":"مرحبا بك في محادثة رسمية من نوع Copilot",
+  "chats": "المحادثات",
+  "groups": "المجموعات",
+  "globes": "المناطق"
 }

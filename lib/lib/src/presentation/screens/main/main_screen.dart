@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rich_chat_copilot/generated/l10n.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
 import 'package:rich_chat_copilot/lib/src/core/base/widget/base_stateful_widget.dart';
-import 'package:rich_chat_copilot/lib/src/presentation/screens/home/home_screen.dart';
-import 'package:rich_chat_copilot/lib/src/presentation/screens/settings/settings_screen.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/chats/chats_screen.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/globe/globe_screen.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/groups/groups_screen.dart';
 
 class MainScreen extends BaseStatefulWidget {
   const MainScreen({super.key});
@@ -14,10 +16,24 @@ class MainScreen extends BaseStatefulWidget {
 
 class _MainScreenState extends BaseState<MainScreen> {
   final List<Widget> _screens = [
-    const HomeScreen(),
-    const SettingsScreen(),
+    const ChatsScreen(),
+    const GroupsScreen(),
+    const GlobeScreen(),
   ];
   int _selectedIndex = 0;
+  final PageController _pageController = PageController();
+
+  @override
+  void initState() {
+    super.initState();
+    // _pageController.addListener(() {
+    //   setState(() {
+    //     _selectedIndex = _pageController.page!.toInt();
+    //     _pageController.animateToPage(_selectedIndex,
+    //         duration: const Duration(milliseconds: 300), curve: Curves.ease);
+    //   });
+    // });
+  }
 
   @override
   Widget baseBuild(BuildContext context) {
@@ -25,24 +41,46 @@ class _MainScreenState extends BaseState<MainScreen> {
       appBar: AppBar(
         title: Text(S.of(context).appTitle),
       ),
-      body: _screens[_selectedIndex],
+      body: PageView(
+        controller: _pageController,
+        physics: const NeverScrollableScrollPhysics(),
+        onPageChanged: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        children: _screens,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: const Icon(Icons.home),
-            label: S.of(context).home,
+            icon: const Icon(CupertinoIcons.chat_bubble_2_fill),
+            label: S.of(context).chats,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.settings),
-            label: S.of(context).settings,
+            icon: const Icon(CupertinoIcons.group),
+            label: S.of(context).groups,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(CupertinoIcons.globe),
+            label: S.of(context).globes,
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor:ColorSchemes.primary,
-        selectedIconTheme:  IconThemeData(color: ColorSchemes.primary),
+        selectedItemColor: ColorSchemes.primary,
+        selectedIconTheme: IconThemeData(color: ColorSchemes.primary),
         unselectedItemColor: ColorSchemes.gray,
         backgroundColor: ColorSchemes.white,
-        onTap: _onItemTapped,
+        onTap: (int index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+          _pageController.animateToPage(
+            index,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.ease,
+          );
+        },
         showSelectedLabels: true,
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
@@ -54,13 +92,13 @@ class _MainScreenState extends BaseState<MainScreen> {
             .textTheme
             .labelLarge!
             .copyWith(color: ColorSchemes.primary),
-
       ),
     );
   }
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 }

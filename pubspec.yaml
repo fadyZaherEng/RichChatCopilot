@@ -71,6 +71,15 @@ dependencies:
   device_preview:
   flutter_localizations:
     sdk: flutter
+  country_picker: ^2.0.17
+  rounded_loading_button:
+  lottie: ^2.2.0
+  pinput: ^2.2.11
+  google_fonts:
+  image_picker:
+  image_cropper:
+  uuid: ^3.0.7
+
 
 dev_dependencies:
   flutter_test:
@@ -99,6 +108,8 @@ flutter:
   assets:
     - assets/fonts/
     - assets/images/
+    - assets/images/log2.json
+    - assets/images/user.jpg
   fonts:
     - family: Almarai-Bold
       fonts:

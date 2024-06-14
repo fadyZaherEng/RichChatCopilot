@@ -5,5 +5,8 @@
   "settings": "Settings",
   "theme": "Theme",
   "language": "Language",
-  "welcomeMessage": "Welcome to the Copilot Chatbot. What would you like to chat about?"
+  "welcomeMessage": "Welcome to the Copilot Chatbot. What would you like to chat about?",
+  "chats": "Chats",
+  "groups": "Groups",
+  "globes": "Globes"
 }
