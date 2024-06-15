@@ -24,9 +24,7 @@ class UserInfoBodyWidget extends StatelessWidget {
         const SizedBox(height: 20),
         TextFormField(
           controller: nameController,
-          onChanged: (value) {
-            onChanged(value);
-          },
+          onChanged: (value)=>onChanged(value),
           keyboardType: TextInputType.text,
           decoration: InputDecoration(
             border: OutlineInputBorder(
@@ -44,7 +42,8 @@ class UserInfoBodyWidget extends StatelessWidget {
           successColor: Colors.green,
           errorColor: Colors.red,
           color: Theme.of(context).primaryColor,
-          child: Text(S.of(context).continues,
+          child: Text(
+              S.of(context).continues,
               style: Theme.of(context)
                   .textTheme
                   .bodyLarge
