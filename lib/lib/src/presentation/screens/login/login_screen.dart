@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rich_chat_copilot/generated/l10n.dart';
+import 'package:rich_chat_copilot/lib/src/config/routes/routes_manager.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
 import 'package:rich_chat_copilot/lib/src/core/base/widget/base_stateful_widget.dart';
 import 'package:rich_chat_copilot/lib/src/core/resources/image_paths.dart';
@@ -69,6 +70,10 @@ class _LogInScreenState extends BaseState<LogInScreen> {
             path: ImagePaths.icSuccess,
             backgroundColor: ColorSchemes.green,
           );
+          Navigator.pushNamed(context,Routes.otpScreen,arguments: {
+            "verificationCode":state.verificationId,
+            "phoneNumber":_phoneController.text,
+          });
         }
       },
       builder: (context, state) {

@@ -26,6 +26,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Add your phone number, we\'ll send you a verification code"),
         "appTitle": MessageLookupByLibrary.simpleMessage("Rich Chat Copilot"),
         "chats": MessageLookupByLibrary.simpleMessage("Chats"),
+        "didReceiveTheCode":
+            MessageLookupByLibrary.simpleMessage("Didn\'t recieve the code"),
+        "enterThe6Digit": MessageLookupByLibrary.simpleMessage(
+            "Enter the 6 digit code sent to your mobile number"),
         "globes": MessageLookupByLibrary.simpleMessage("Globes"),
         "groups": MessageLookupByLibrary.simpleMessage("Groups"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
@@ -33,10 +37,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
+        "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
         "richChat": MessageLookupByLibrary.simpleMessage("Rich Chat"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
+        "verification": MessageLookupByLibrary.simpleMessage("Verification"),
         "welcomeMessage": MessageLookupByLibrary.simpleMessage(
             "Welcome to the Copilot Chatbot. What would you like to chat about?")
       };

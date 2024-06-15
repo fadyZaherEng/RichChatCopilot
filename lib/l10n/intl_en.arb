@@ -14,5 +14,9 @@
   "logout": "Logout",
   "login": "Login",
   "addYourPhoneNumberMessage": "Add your phone number, we'll send you a verification code",
-  "search": "Search"
+  "search": "Search",
+  "verification": "Verification",
+  "enterThe6Digit": "Enter the 6 digit code sent to your mobile number",
+  "resendCode":  "Resend Code",
+  "didReceiveTheCode": "Didn't recieve the code"
 }

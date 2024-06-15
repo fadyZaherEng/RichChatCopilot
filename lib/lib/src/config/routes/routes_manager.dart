@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/home/home_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/login/login_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/main/main_screen.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/otp/otp_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/settings/settings_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/splash/splash_screen.dart';
 
@@ -13,6 +14,7 @@ class Routes {
   static const String settingsScreen = "/settingsScreen";
   static const String mainScreen = "/mainScreen";
   static const String chatScreen = "/chatScreen";
+  static const String otpScreen = "/otpScreen";
 
 }
 
@@ -33,6 +35,13 @@ class RoutesManager {
         return _materialRoute(const SettingsScreen());
       case Routes.mainScreen:
         return _materialRoute(const MainScreen());
+      case Routes.otpScreen:
+        Map<String, dynamic> arg =
+        routeSettings.arguments as Map<String, dynamic>;
+        return _materialRoute(OtpScreen(
+          phoneNumber: arg["phoneNumber"],
+          verificationCode: arg["verificationCode"],
+        ));
       default:
         return _materialRoute(const SplashScreen());
     }

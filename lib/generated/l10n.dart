@@ -201,6 +201,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Verification`
+  String get verification {
+    return Intl.message(
+      'Verification',
+      name: 'verification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the 6 digit code sent to your mobile number`
+  String get enterThe6Digit {
+    return Intl.message(
+      'Enter the 6 digit code sent to your mobile number',
+      name: 'enterThe6Digit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Resend Code`
+  String get resendCode {
+    return Intl.message(
+      'Resend Code',
+      name: 'resendCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Didn't recieve the code`
+  String get didReceiveTheCode {
+    return Intl.message(
+      'Didn\'t recieve the code',
+      name: 'didReceiveTheCode',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
