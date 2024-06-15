@@ -26,8 +26,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Add your phone number, we\'ll send you a verification code"),
         "appTitle": MessageLookupByLibrary.simpleMessage("Rich Chat Copilot"),
         "chats": MessageLookupByLibrary.simpleMessage("Chats"),
+        "continues": MessageLookupByLibrary.simpleMessage("Continue"),
         "didReceiveTheCode":
             MessageLookupByLibrary.simpleMessage("Didn\'t recieve the code"),
+        "enterName": MessageLookupByLibrary.simpleMessage("Enter Name"),
         "enterThe6Digit": MessageLookupByLibrary.simpleMessage(
             "Enter the 6 digit code sent to your mobile number"),
         "globes": MessageLookupByLibrary.simpleMessage("Globes"),
@@ -42,6 +44,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
+        "userInformation":
+            MessageLookupByLibrary.simpleMessage("User Information"),
         "verification": MessageLookupByLibrary.simpleMessage("Verification"),
         "welcomeMessage": MessageLookupByLibrary.simpleMessage(
             "Welcome to the Copilot Chatbot. What would you like to chat about?")

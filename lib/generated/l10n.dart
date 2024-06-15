@@ -241,6 +241,36 @@ class S {
       args: [],
     );
   }
+
+  /// `User Information`
+  String get userInformation {
+    return Intl.message(
+      'User Information',
+      name: 'userInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter Name`
+  String get enterName {
+    return Intl.message(
+      'Enter Name',
+      name: 'enterName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue`
+  String get continues {
+    return Intl.message(
+      'Continue',
+      name: 'continues',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

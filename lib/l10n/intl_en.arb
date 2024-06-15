@@ -18,5 +18,8 @@
   "verification": "Verification",
   "enterThe6Digit": "Enter the 6 digit code sent to your mobile number",
   "resendCode":  "Resend Code",
-  "didReceiveTheCode": "Didn't recieve the code"
+  "didReceiveTheCode": "Didn't recieve the code",
+  "userInformation": "User Information",
+  "enterName": "Enter Name",
+  "continues": "Continue"
 }

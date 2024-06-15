@@ -27,8 +27,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "appTitle":
             MessageLookupByLibrary.simpleMessage("محادثة رسمية من نوع Copilot"),
         "chats": MessageLookupByLibrary.simpleMessage("المحادثات"),
+        "continues": MessageLookupByLibrary.simpleMessage("Continue"),
         "didReceiveTheCode":
             MessageLookupByLibrary.simpleMessage("Didn\'t recieve the code"),
+        "enterName": MessageLookupByLibrary.simpleMessage("Enter Name"),
         "globes": MessageLookupByLibrary.simpleMessage("المناطق"),
         "groups": MessageLookupByLibrary.simpleMessage("المجموعات"),
         "home": MessageLookupByLibrary.simpleMessage("الصفحة الرئيسية"),
@@ -41,6 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "search": MessageLookupByLibrary.simpleMessage("بحث"),
         "settings": MessageLookupByLibrary.simpleMessage("الاعدادات"),
         "theme": MessageLookupByLibrary.simpleMessage("المظهر"),
+        "userInformation":
+            MessageLookupByLibrary.simpleMessage("User Information"),
         "verification": MessageLookupByLibrary.simpleMessage("أثبات الهوية"),
         "welcomeMessage": MessageLookupByLibrary.simpleMessage(
             "مرحبا بك في محادثة رسمية من نوع Copilot")

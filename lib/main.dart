@@ -13,6 +13,7 @@ import 'package:rich_chat_copilot/lib/src/presentation/blocs/main/main_state.dar
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/settings/settings_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/login/login_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/otp/otp_screen.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/user_information/user_information_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/restart_widget.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -79,10 +80,7 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             theme: AppTheme(state is GetLocalAndThemeState? state.locale.languageCode : Constants.en).light,
             locale: Locale(state is GetLocalAndThemeState? state.locale.languageCode : Constants.en),
-            home: OtpScreen(
-              phoneNumber: "8888888888888",
-              verificationCode: "88",
-            ),
+            home: UserInformationScreen(),
           );
         },
       ),
