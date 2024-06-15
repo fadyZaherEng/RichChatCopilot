@@ -79,6 +79,10 @@ dependencies:
   image_picker:
   image_cropper:
   uuid: ^3.0.7
+  firebase_auth:
+  firebase_storage:
+  cloud_firestore:
+
 
 
 dev_dependencies:
@@ -108,6 +112,7 @@ flutter:
   assets:
     - assets/fonts/
     - assets/images/
+    - assets/images/ic_success.svg
     - assets/images/log2.json
     - assets/images/user.jpg
   fonts:

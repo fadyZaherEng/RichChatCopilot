@@ -12,6 +12,7 @@ import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/login/log_in_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/login/widgets/logo_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/login/widgets/phone_number_widget.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/widgets/custom_snack_bar_widget.dart';
 
 class LogInScreen extends BaseStatefulWidget {
   const LogInScreen({super.key});
@@ -36,6 +37,7 @@ class _LogInScreenState extends BaseState<LogInScreen> {
   );
 
   LogInBloc get _bloc => BlocProvider.of<LogInBloc>(context);
+  String _uId = '';
 
   @override
   Widget baseBuild(BuildContext context) {
@@ -45,6 +47,28 @@ class _LogInScreenState extends BaseState<LogInScreen> {
           _phoneController.text = state.value;
         } else if (state is LogInOnChangeCountryState) {
           _selectedCountry = state.country;
+        } else if (state is LogInSuccessState) {
+          _uId = state.uId;
+          CustomSnackBarWidget.show(
+            context: context,
+            message: state.MSG,
+            path: ImagePaths.icSuccess,
+            backgroundColor: ColorSchemes.green,
+          );
+        } else if (state is LogInErrorState) {
+          CustomSnackBarWidget.show(
+            context: context,
+            message: state.message,
+            path: ImagePaths.icCancel,
+            backgroundColor: ColorSchemes.red,
+          );
+        } else if (state is LogInCodeSentState) {
+          CustomSnackBarWidget.show(
+            context: context,
+            message: state.verificationId,
+            path: ImagePaths.icSuccess,
+            backgroundColor: ColorSchemes.green,
+          );
         }
       },
       builder: (context, state) {
@@ -75,13 +99,16 @@ class _LogInScreenState extends BaseState<LogInScreen> {
                   ),
                   const SizedBox(height: 20),
                   PhoneNumberWidget(
-                    textEditingController: _phoneController,
-                    onChange: (value) =>
-                        _bloc.add(LogInOnChangePhoneNumberEvent(value)),
-                    onChangedCountry: (selectedCountry) =>
-                        _bloc.add(LogInOnChangeCountryEvent(selectedCountry)),
-                    selectedCountry: _selectedCountry,
-                  )
+                      textEditingController: _phoneController,
+                      onChange: (value) =>
+                          _bloc.add(LogInOnChangePhoneNumberEvent(value)),
+                      onChangedCountry: (selectedCountry) =>
+                          _bloc.add(LogInOnChangeCountryEvent(selectedCountry)),
+                      selectedCountry: _selectedCountry,
+                      sendOtpVerificationCode: () {
+                        _bloc.add(LogInOnLogInEvent(
+                            "+${_selectedCountry.phoneCode}${_phoneController.text}"));
+                      })
                 ],
               ),
             ),

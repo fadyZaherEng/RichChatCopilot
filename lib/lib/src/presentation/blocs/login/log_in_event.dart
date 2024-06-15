@@ -10,3 +10,7 @@ class LogInOnChangeCountryEvent extends LogInEvent{
   final Country country;
   LogInOnChangeCountryEvent(this.country);
 }
+class LogInOnLogInEvent extends LogInEvent{
+  final String phoneNumber;
+  LogInOnLogInEvent(this.phoneNumber);
+}

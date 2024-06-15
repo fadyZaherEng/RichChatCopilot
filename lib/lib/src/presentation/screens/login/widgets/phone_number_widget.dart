@@ -11,12 +11,14 @@ class PhoneNumberWidget extends StatefulWidget {
   final void Function(String value) onChange;
   final Country selectedCountry;
   final void Function(Country)onChangedCountry;
+  final void Function() sendOtpVerificationCode;
 
   const PhoneNumberWidget({super.key,
   required this.textEditingController,
   required this.onChange,
   required this.selectedCountry,
   required this.onChangedCountry,
+  required this.sendOtpVerificationCode,
   });
 
   @override
@@ -98,6 +100,7 @@ class _PhoneNumberWidgetState extends State<PhoneNumberWidget> {
     return InkWell(
       onTap:(){
         //To Do Go TO Otp Screen
+        widget.sendOtpVerificationCode();
       },
       child: Container(
         height: 40,
