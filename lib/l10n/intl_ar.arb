@@ -8,5 +8,11 @@
   "welcomeMessage":"مرحبا بك في محادثة رسمية من نوع Copilot",
   "chats": "المحادثات",
   "groups": "المجموعات",
-  "globes": "المناطق"
+  "globes": "المناطق",
+  "richChat": "محادثة رسمية",
+  "phoneNumber": "رقم الهاتف",
+  "logout": "تسجيل الخروج",
+  "login": "تسجيل الدخول",
+  "addYourPhoneNumberMessage": "اضف رقم هاتفك, سوف نرسل لك رمز التحقق.",
+  "search": "بحث"
 }

@@ -7,9 +7,11 @@ import 'package:rich_chat_copilot/lib/src/config/routes/routes_manager.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/app_theme.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
 import 'package:rich_chat_copilot/lib/src/di/injector.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/blocs/login/log_in_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/main/main_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/main/main_state.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/settings/settings_bloc.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/login/login_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/restart_widget.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -29,17 +31,25 @@ void main() async {
   // );
 }
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
 
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider<MainCubit>(create: (context) => injector()),
         BlocProvider<SettingsBloc>(create: (context) => injector()),
+        BlocProvider<LogInBloc>(create: (context) => injector()),
       ],
       child: BlocBuilder<MainCubit, MainState>(
         buildWhen: (previousState, currentState) {
@@ -58,7 +68,7 @@ class MyApp extends StatelessWidget {
             themeMode: ThemeMode.light,
             supportedLocales: S.delegate.supportedLocales,
             onGenerateRoute: RoutesManager.getRoute,
-            initialRoute: Routes.settingsScreen,
+            //initialRoute: Routes.logInScreen,
             localizationsDelegates: const [
               S.delegate,
               GlobalMaterialLocalizations.delegate,
@@ -68,6 +78,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: AppTheme(state is GetLocalAndThemeState? state.locale.languageCode : Constants.en).light,
             locale: Locale(state is GetLocalAndThemeState? state.locale.languageCode : Constants.en),
+            home: LogInScreen(),
           );
         },
       ),

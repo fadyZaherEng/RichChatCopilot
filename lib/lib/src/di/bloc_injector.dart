@@ -1,4 +1,5 @@
 import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/blocs/login/log_in_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/main/main_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/settings/settings_bloc.dart';
 
@@ -13,4 +14,5 @@ Future<void> initializeBlocDependencies() async {
         injector(),
         injector(),
       ));
+  injector.registerFactory<LogInBloc>(() => LogInBloc());
 }

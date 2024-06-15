@@ -29,7 +29,8 @@ class MainCubit extends Cubit<MainState> {
     final theme = _getThemeUseCase();
     await _setThemeUseCase(theme ? Constants.dark : Constants.light);
     emit(GetLocalAndThemeState(
-        locale: Locale(language),
-        theme: theme ? Constants.dark : Constants.light));
+      locale: Locale(language),
+      theme: theme ? Constants.dark : Constants.light,
+    ));
   }
 }

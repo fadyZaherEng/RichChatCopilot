@@ -22,6 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "addYourPhoneNumberMessage": MessageLookupByLibrary.simpleMessage(
+            "اضف رقم هاتفك, سوف نرسل لك رمز التحقق."),
         "appTitle":
             MessageLookupByLibrary.simpleMessage("محادثة رسمية من نوع Copilot"),
         "chats": MessageLookupByLibrary.simpleMessage("المحادثات"),
@@ -29,6 +31,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "groups": MessageLookupByLibrary.simpleMessage("المجموعات"),
         "home": MessageLookupByLibrary.simpleMessage("الصفحة الرئيسية"),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
+        "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
+        "logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
+        "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
+        "richChat": MessageLookupByLibrary.simpleMessage("محادثة رسمية"),
+        "search": MessageLookupByLibrary.simpleMessage("بحث"),
         "settings": MessageLookupByLibrary.simpleMessage("الاعدادات"),
         "theme": MessageLookupByLibrary.simpleMessage("المظهر"),
         "welcomeMessage": MessageLookupByLibrary.simpleMessage(

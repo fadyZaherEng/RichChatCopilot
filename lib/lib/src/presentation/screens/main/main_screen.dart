@@ -24,18 +24,6 @@ class _MainScreenState extends BaseState<MainScreen> {
   final PageController _pageController = PageController();
 
   @override
-  void initState() {
-    super.initState();
-    // _pageController.addListener(() {
-    //   setState(() {
-    //     _selectedIndex = _pageController.page!.toInt();
-    //     _pageController.animateToPage(_selectedIndex,
-    //         duration: const Duration(milliseconds: 300), curve: Curves.ease);
-    //   });
-    // });
-  }
-
-  @override
   Widget baseBuild(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

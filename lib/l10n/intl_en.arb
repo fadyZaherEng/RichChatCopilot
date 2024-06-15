@@ -8,5 +8,11 @@
   "welcomeMessage": "Welcome to the Copilot Chatbot. What would you like to chat about?",
   "chats": "Chats",
   "groups": "Groups",
-  "globes": "Globes"
+  "globes": "Globes",
+  "richChat": "Rich Chat",
+  "phoneNumber": "Phone Number",
+  "logout": "Logout",
+  "login": "Login",
+  "addYourPhoneNumberMessage": "Add your phone number, we'll send you a verification code",
+  "search": "Search"
 }
