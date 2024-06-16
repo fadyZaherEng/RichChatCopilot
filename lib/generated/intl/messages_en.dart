@@ -22,6 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "OTPSMSNotValid":
+            MessageLookupByLibrary.simpleMessage("OTP SMS Not Valid"),
         "addYourPhoneNumberMessage": MessageLookupByLibrary.simpleMessage(
             "Add your phone number, we\'ll send you a verification code"),
         "appTitle": MessageLookupByLibrary.simpleMessage("Rich Chat Copilot"),
@@ -42,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
         "richChat": MessageLookupByLibrary.simpleMessage("Rich Chat"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
+        "sentTo": MessageLookupByLibrary.simpleMessage("Sent to"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
         "userInformation":

@@ -5,6 +5,7 @@ import 'package:rich_chat_copilot/lib/src/presentation/screens/main/main_screen.
 import 'package:rich_chat_copilot/lib/src/presentation/screens/otp/otp_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/settings/settings_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/splash/splash_screen.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/user_information/user_information_screen.dart';
 
 class Routes {
   static const String splash = "/";
@@ -15,6 +16,7 @@ class Routes {
   static const String mainScreen = "/mainScreen";
   static const String chatScreen = "/chatScreen";
   static const String otpScreen = "/otpScreen";
+  static const String userInfoScreen = "/userInfoScreen";
 
 }
 
@@ -24,9 +26,12 @@ class RoutesManager {
     switch (routeSettings.name) {
       case Routes.splash:
         return _materialRoute(const SplashScreen());
-      case Routes.landing:
-      //  return _materialRoute(const LandingScreen());
-        return _materialRoute(const SplashScreen());
+      case Routes.userInfoScreen:
+        Map<String, dynamic> arg =
+        routeSettings.arguments as Map<String, dynamic>;
+        return _materialRoute( UserInformationScreen(
+          phoneNumber: arg["phoneNumber"],
+        ));
       case Routes.logInScreen:
         return _materialRoute(const LogInScreen());
       case Routes.homeScreen:

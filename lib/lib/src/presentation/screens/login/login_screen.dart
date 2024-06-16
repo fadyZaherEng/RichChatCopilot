@@ -25,16 +25,16 @@ class LogInScreen extends BaseStatefulWidget {
 class _LogInScreenState extends BaseState<LogInScreen> {
   final TextEditingController _phoneController = TextEditingController();
   Country _selectedCountry = Country(
-    phoneCode: "02",
+    phoneCode: "20",
     countryCode: "EG",
     e164Sc: 0,
     geographic: true,
     level: 1,
-    name: "India",
-    example: "India",
-    displayName: "India",
-    displayNameNoCountryCode: "IN",
-    e164Key: "IN",
+    name: "Egypt",
+    example: "Egypt",
+    displayName: "Egypt",
+    displayNameNoCountryCode: "Egypt",
+    e164Key: "+20",
   );
 
   LogInBloc get _bloc => BlocProvider.of<LogInBloc>(context);
@@ -63,17 +63,6 @@ class _LogInScreenState extends BaseState<LogInScreen> {
             path: ImagePaths.icCancel,
             backgroundColor: ColorSchemes.red,
           );
-        } else if (state is LogInCodeSentState) {
-          CustomSnackBarWidget.show(
-            context: context,
-            message: state.verificationId,
-            path: ImagePaths.icSuccess,
-            backgroundColor: ColorSchemes.green,
-          );
-          Navigator.pushNamed(context,Routes.otpScreen,arguments: {
-            "verificationCode":state.verificationId,
-            "phoneNumber":_phoneController.text,
-          });
         }
       },
       builder: (context, state) {
@@ -112,7 +101,8 @@ class _LogInScreenState extends BaseState<LogInScreen> {
                       selectedCountry: _selectedCountry,
                       sendOtpVerificationCode: () {
                         _bloc.add(LogInOnLogInEvent(
-                            "+${_selectedCountry.phoneCode}${_phoneController.text}"));
+                            "+${_selectedCountry.phoneCode}${_phoneController.text}",
+                            context));
                       })
                 ],
               ),

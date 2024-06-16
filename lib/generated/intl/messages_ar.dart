@@ -22,15 +22,19 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "OTPSMSNotValid":
+            MessageLookupByLibrary.simpleMessage("رمز التحقق غير صحيح"),
         "addYourPhoneNumberMessage": MessageLookupByLibrary.simpleMessage(
             "اضف رقم هاتفك, سوف نرسل لك رمز التحقق."),
         "appTitle":
             MessageLookupByLibrary.simpleMessage("محادثة رسمية من نوع Copilot"),
         "chats": MessageLookupByLibrary.simpleMessage("المحادثات"),
-        "continues": MessageLookupByLibrary.simpleMessage("Continue"),
+        "continues": MessageLookupByLibrary.simpleMessage("التالي"),
         "didReceiveTheCode":
-            MessageLookupByLibrary.simpleMessage("Didn\'t recieve the code"),
-        "enterName": MessageLookupByLibrary.simpleMessage("Enter Name"),
+            MessageLookupByLibrary.simpleMessage("لم تستلم الرمز"),
+        "enterName": MessageLookupByLibrary.simpleMessage("أدخل الاسم"),
+        "enterThe6Digit": MessageLookupByLibrary.simpleMessage(
+            "أدخل الرمز الذي تم ارساله على رقم هاتفك"),
         "globes": MessageLookupByLibrary.simpleMessage("المناطق"),
         "groups": MessageLookupByLibrary.simpleMessage("المجموعات"),
         "home": MessageLookupByLibrary.simpleMessage("الصفحة الرئيسية"),
@@ -38,13 +42,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
-        "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
+        "resendCode": MessageLookupByLibrary.simpleMessage("اعادة ارسال الرمز"),
         "richChat": MessageLookupByLibrary.simpleMessage("محادثة رسمية"),
         "search": MessageLookupByLibrary.simpleMessage("بحث"),
+        "sentTo": MessageLookupByLibrary.simpleMessage("ارسلت ل"),
         "settings": MessageLookupByLibrary.simpleMessage("الاعدادات"),
         "theme": MessageLookupByLibrary.simpleMessage("المظهر"),
         "userInformation":
-            MessageLookupByLibrary.simpleMessage("User Information"),
+            MessageLookupByLibrary.simpleMessage("معلومات المستخدم"),
         "verification": MessageLookupByLibrary.simpleMessage("أثبات الهوية"),
         "welcomeMessage": MessageLookupByLibrary.simpleMessage(
             "مرحبا بك في محادثة رسمية من نوع Copilot")

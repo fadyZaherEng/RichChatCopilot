@@ -271,6 +271,26 @@ class S {
       args: [],
     );
   }
+
+  /// `OTP SMS Not Valid`
+  String get OTPSMSNotValid {
+    return Intl.message(
+      'OTP SMS Not Valid',
+      name: 'OTPSMSNotValid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sent to`
+  String get sentTo {
+    return Intl.message(
+      'Sent to',
+      name: 'sentTo',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

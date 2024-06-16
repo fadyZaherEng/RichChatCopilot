@@ -12,5 +12,6 @@ class LogInOnChangeCountryEvent extends LogInEvent{
 }
 class LogInOnLogInEvent extends LogInEvent{
   final String phoneNumber;
-  LogInOnLogInEvent(this.phoneNumber);
+  final BuildContext context;
+  LogInOnLogInEvent(this.phoneNumber, this.context);
 }

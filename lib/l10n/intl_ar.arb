@@ -16,11 +16,13 @@
   "addYourPhoneNumberMessage": "اضف رقم هاتفك, سوف نرسل لك رمز التحقق.",
   "search": "بحث",
   "verification": "أثبات الهوية",
-  "enterthe6Digit": "Enter the 6 digit code sent to your mobile number",
-  "resendCode":  "Resend Code",
-  "didReceiveTheCode": "Didn't recieve the code",
-  "userInformation": "User Information",
-  "enterName": "Enter Name",
-  "continues": "Continue"
+  "enterThe6Digit": "أدخل الرمز الذي تم ارساله على رقم هاتفك",
+  "resendCode":  "اعادة ارسال الرمز",
+  "didReceiveTheCode": "لم تستلم الرمز",
+  "userInformation": "معلومات المستخدم",
+  "enterName": "أدخل الاسم",
+  "continues": "التالي",
+  "OTPSMSNotValid": "رمز التحقق غير صحيح",
+  "sentTo": "ارسلت ل"
 
 }

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class User extends Equatable {
+class UserModel extends Equatable {
   String uId;
   String name;
   String phoneNumber;
@@ -14,7 +14,7 @@ class User extends Equatable {
   List<String> friendsRequestsUIds;
   List<String> sentFriendsRequestsUIds;
 
-  User({
+  UserModel({
     this.uId = '',
     this.name = '',
     this.phoneNumber = '',
@@ -29,8 +29,8 @@ class User extends Equatable {
     this.sentFriendsRequestsUIds = const [],
   });
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
       uId: json['uId'],
       name: json['name'],
       phoneNumber: json['phoneNumber'],
@@ -78,7 +78,7 @@ class User extends Equatable {
       ];
 
 //copy with
-  User copyWith({
+  UserModel copyWith({
     String? uId,
     String? name,
     String? phoneNumber,
@@ -92,7 +92,7 @@ class User extends Equatable {
     List<String>? friendsRequestsUIds,
     List<String>? sentFriendsRequestsUIds,
   }) {
-    return User(
+    return UserModel(
       uId: uId ?? this.uId,
       name: name ?? this.name,
       phoneNumber: phoneNumber ?? this.phoneNumber,
@@ -110,8 +110,8 @@ class User extends Equatable {
   }
 
   //deep copy equatable deep clone
-  User deepClone() {
-    return User(
+  UserModel deepClone() {
+    return UserModel(
       uId: uId,
       name: name,
       phoneNumber: phoneNumber,

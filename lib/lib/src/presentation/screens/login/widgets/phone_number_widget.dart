@@ -1,6 +1,7 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rich_chat_copilot/generated/l10n.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
@@ -32,6 +33,11 @@ class _PhoneNumberWidgetState extends State<PhoneNumberWidget> {
         controller: widget.textEditingController,
         maxLength: 10,
         keyboardType: TextInputType.phone,
+        // inputFormatters: [
+        //   LengthLimitingTextInputFormatter(10),
+        //   FilteringTextInputFormatter.digitsOnly.
+        //   //deny zero
+        // ],
         decoration: InputDecoration(
           label: Text(S.of(context).phoneNumber),
           hintText: '',
@@ -43,6 +49,10 @@ class _PhoneNumberWidgetState extends State<PhoneNumberWidget> {
           suffixIcon:widget.textEditingController.text.length>9? _buildSuffixWidget(context):const SizedBox.shrink(),
         ),
         onChanged: (value){
+          if(value.startsWith("0")){
+            widget.textEditingController.text = value.substring(1);
+            value = widget.textEditingController.text;
+          }
          widget.onChange(value);
         }
     );

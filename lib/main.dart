@@ -80,7 +80,7 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             theme: AppTheme(state is GetLocalAndThemeState? state.locale.languageCode : Constants.en).light,
             locale: Locale(state is GetLocalAndThemeState? state.locale.languageCode : Constants.en),
-            home: UserInformationScreen(),
+            home:LogInScreen(),
           );
         },
       ),

@@ -21,5 +21,7 @@
   "didReceiveTheCode": "Didn't recieve the code",
   "userInformation": "User Information",
   "enterName": "Enter Name",
-  "continues": "Continue"
+  "continues": "Continue",
+  "OTPSMSNotValid": "OTP SMS Not Valid",
+  "sentTo": "Sent to"
 }

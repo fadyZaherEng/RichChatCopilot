@@ -17,4 +17,7 @@ class Constants {
   static const String ar = "ar";
   static const String light = "light";
   static const String dark = "dark";
+  static const String users = "users";
+  static const String user = "user";
+  static const String phoneNumber = "phoneNumber";
 }

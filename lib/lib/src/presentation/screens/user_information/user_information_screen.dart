@@ -5,7 +5,12 @@ import 'package:rich_chat_copilot/lib/src/presentation/screens/user_information/
 import 'package:rich_chat_copilot/lib/src/presentation/screens/user_information/widgets/user_info_image_widget.dart';
 
 class UserInformationScreen extends BaseStatefulWidget {
-  const UserInformationScreen({super.key});
+  final String phoneNumber;
+
+  const UserInformationScreen({
+    super.key,
+    required this.phoneNumber,
+  });
 
   @override
   BaseState<UserInformationScreen> baseCreateState() =>
@@ -38,8 +43,7 @@ class _UserInformationScreenState extends BaseState<UserInformationScreen> {
                       _nameController.text = value;
                     });
                   },
-                  continuePressed: () {
-                  },
+                  continuePressed: () {},
                 )
               ],
             ),
