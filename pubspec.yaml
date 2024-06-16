@@ -37,7 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   dio: ^5.2.1+1
   get_it: ^7.6.0
-  intl: ^0.18.0
+  intl: ^0.18.1
   retrofit: ^4.0.1
   shared_preferences: ^2.2.0
   device_info_plus: ^9.1.0
@@ -72,7 +72,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   country_picker: ^2.0.17
-  rounded_loading_button:
   lottie: ^2.2.0
   pinput: ^2.2.11
   google_fonts:

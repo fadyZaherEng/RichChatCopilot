@@ -3,7 +3,6 @@ import 'package:rich_chat_copilot/generated/l10n.dart';
 import 'package:rich_chat_copilot/lib/src/core/base/widget/base_stateful_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/user_information/widgets/user_info_body_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/user_information/widgets/user_info_image_widget.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class UserInformationScreen extends BaseStatefulWidget {
   const UserInformationScreen({super.key});
@@ -15,8 +14,6 @@ class UserInformationScreen extends BaseStatefulWidget {
 
 class _UserInformationScreenState extends BaseState<UserInformationScreen> {
   final TextEditingController _nameController = TextEditingController();
-  final RoundedLoadingButtonController _btnRoundController =
-      RoundedLoadingButtonController();
 
   @override
   Widget baseBuild(BuildContext context) {
@@ -41,9 +38,7 @@ class _UserInformationScreenState extends BaseState<UserInformationScreen> {
                       _nameController.text = value;
                     });
                   },
-                  btnRoundController: _btnRoundController,
                   continuePressed: () {
-                    _btnRoundController.error();
                   },
                 )
               ],

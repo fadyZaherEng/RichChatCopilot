@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:rich_chat_copilot/generated/l10n.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/widgets/lodaing_animation_button.dart';
 
 class UserInfoBodyWidget extends StatelessWidget {
   final TextEditingController nameController;
   final void Function(String value) onChanged;
   final void Function() continuePressed;
-  final RoundedLoadingButtonController btnRoundController;
 
   const UserInfoBodyWidget({
     super.key,
     required this.nameController,
     required this.onChanged,
-    required this.btnRoundController,
     required this.continuePressed,
   });
 
@@ -24,7 +22,7 @@ class UserInfoBodyWidget extends StatelessWidget {
         const SizedBox(height: 20),
         TextFormField(
           controller: nameController,
-          onChanged: (value)=>onChanged(value),
+          onChanged: (value) => onChanged(value),
           keyboardType: TextInputType.text,
           decoration: InputDecoration(
             border: OutlineInputBorder(
@@ -35,20 +33,14 @@ class UserInfoBodyWidget extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 30),
-        RoundedLoadingButton(
-          controller: btnRoundController,
-          onPressed:continuePressed,
-          successIcon: Icons.check,
+        LoadingAnimationButton(
+          valueColor: ColorSchemes.white,
           successColor: Colors.green,
-          errorColor: Colors.red,
-          color: Theme.of(context).primaryColor,
-          child: Text(
-              S.of(context).continues,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge
-                  ?.copyWith(color: ColorSchemes.white)),
-        )
+          errorColor: ColorSchemes.red,
+          borderColor: Colors.transparent,
+          borderWidth: 1,
+          onTap: continuePressed,
+        ),
       ],
     );
   }

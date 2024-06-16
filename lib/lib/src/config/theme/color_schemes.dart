@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ColorSchemes {
-  static Color primary = const Color.fromRGBO(114, 16, 255, 1);
+  static const Color primary =  Color.fromRGBO(114, 16, 255, 1);
   static const Color secondary = Color.fromRGBO(243, 154, 74, 1);
   static Color iconBackGround =const Color.fromRGBO(244, 236, 255, 1);
   static const Color black = Color.fromRGBO(34, 34, 34, 1);
