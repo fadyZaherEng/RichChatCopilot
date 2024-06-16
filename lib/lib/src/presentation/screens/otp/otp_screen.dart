@@ -66,8 +66,8 @@ class _OtpScreenState extends BaseState<OtpScreen> {
                       ?.copyWith(color: ColorSchemes.black),
                 ),
                 const SizedBox(height: 15),
-                Text(
-                  S.of(context).sentTo + ' ' +"\u00a0${widget.phoneNumber}",
+                Text(//enhance numer language direction
+                  S.of(context).sentTo + ' ' +"\u{ff0e} ${widget.phoneNumber}",
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge
