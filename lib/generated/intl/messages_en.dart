@@ -27,30 +27,53 @@ class MessageLookup extends MessageLookupByLibrary {
         "addYourPhoneNumberMessage": MessageLookupByLibrary.simpleMessage(
             "Add your phone number, we\'ll send you a verification code"),
         "appTitle": MessageLookupByLibrary.simpleMessage("Rich Chat Copilot"),
+        "camera": MessageLookupByLibrary.simpleMessage("Camera"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chats": MessageLookupByLibrary.simpleMessage("Chats"),
+        "chooseFile": MessageLookupByLibrary.simpleMessage("Choose File"),
+        "chooseImage": MessageLookupByLibrary.simpleMessage("Choose Image"),
         "continues": MessageLookupByLibrary.simpleMessage("Continue"),
         "didReceiveTheCode":
             MessageLookupByLibrary.simpleMessage("Didn\'t recieve the code"),
+        "enterMessage": MessageLookupByLibrary.simpleMessage("Enter Message"),
         "enterName": MessageLookupByLibrary.simpleMessage("Enter Name"),
         "enterThe6Digit": MessageLookupByLibrary.simpleMessage(
             "Enter the 6 digit code sent to your mobile number"),
+        "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
         "globes": MessageLookupByLibrary.simpleMessage("Globes"),
         "groups": MessageLookupByLibrary.simpleMessage("Groups"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+        "noChats": MessageLookupByLibrary.simpleMessage("No Chats"),
+        "noGlobes": MessageLookupByLibrary.simpleMessage("No Globes"),
+        "noGroups": MessageLookupByLibrary.simpleMessage("No Groups"),
+        "noMessages": MessageLookupByLibrary.simpleMessage("No Messages"),
+        "noUsers": MessageLookupByLibrary.simpleMessage("No Users"),
+        "ok": MessageLookupByLibrary.simpleMessage("Ok"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
         "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
         "richChat": MessageLookupByLibrary.simpleMessage("Rich Chat"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
+        "send": MessageLookupByLibrary.simpleMessage("Send"),
         "sentTo": MessageLookupByLibrary.simpleMessage("Sent to"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
+        "uploadCamera":
+            MessageLookupByLibrary.simpleMessage("Upload from Camera"),
+        "uploadFile": MessageLookupByLibrary.simpleMessage("Upload File"),
+        "uploadGallery":
+            MessageLookupByLibrary.simpleMessage("Upload from Gallery"),
+        "uploadMedia": MessageLookupByLibrary.simpleMessage("Upload Media"),
         "userInformation":
             MessageLookupByLibrary.simpleMessage("User Information"),
         "verification": MessageLookupByLibrary.simpleMessage("Verification"),
         "welcomeMessage": MessageLookupByLibrary.simpleMessage(
-            "Welcome to the Copilot Chatbot. What would you like to chat about?")
+            "Welcome to the Copilot Chatbot. What would you like to chat about?"),
+        "youShouldHaveCameraPermission": MessageLookupByLibrary.simpleMessage(
+            "You should have camera permission"),
+        "youShouldHaveGalleryPermission": MessageLookupByLibrary.simpleMessage(
+            "You should have gallery permission")
       };
 }

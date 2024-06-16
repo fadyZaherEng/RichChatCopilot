@@ -11,6 +11,7 @@ import 'package:rich_chat_copilot/lib/src/presentation/blocs/login/log_in_bloc.d
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/main/main_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/main/main_state.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/settings/settings_bloc.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/blocs/user_info/user_info_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/login/login_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/otp/otp_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/user_information/user_information_screen.dart';
@@ -52,6 +53,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<MainCubit>(create: (context) => injector()),
         BlocProvider<SettingsBloc>(create: (context) => injector()),
         BlocProvider<LogInBloc>(create: (context) => injector()),
+        BlocProvider<UserInfoBloc>(create: (context) => injector()),
       ],
       child: BlocBuilder<MainCubit, MainState>(
         buildWhen: (previousState, currentState) {
@@ -80,7 +82,7 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             theme: AppTheme(state is GetLocalAndThemeState? state.locale.languageCode : Constants.en).light,
             locale: Locale(state is GetLocalAndThemeState? state.locale.languageCode : Constants.en),
-            home:LogInScreen(),
+            home:UserInformationScreen(phoneNumber: ""),
           );
         },
       ),
