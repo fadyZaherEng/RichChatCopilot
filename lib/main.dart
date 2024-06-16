@@ -72,7 +72,7 @@ class _MyAppState extends State<MyApp> {
             themeMode: ThemeMode.light,
             supportedLocales: S.delegate.supportedLocales,
             onGenerateRoute: RoutesManager.getRoute,
-            //initialRoute: Routes.logInScreen,
+            initialRoute: Routes.logInScreen,
             localizationsDelegates: const [
               S.delegate,
               GlobalMaterialLocalizations.delegate,
@@ -82,10 +82,6 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             theme: AppTheme(state is GetLocalAndThemeState? state.locale.languageCode : Constants.en).light,
             locale: Locale(state is GetLocalAndThemeState? state.locale.languageCode : Constants.en),
-            home:OtpScreen(
-              phoneNumber: "+201255555555",
-              verificationCode: "",
-            )
           );
         },
       ),
