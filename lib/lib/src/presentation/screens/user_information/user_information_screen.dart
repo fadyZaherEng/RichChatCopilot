@@ -42,8 +42,10 @@ class _UserInformationScreenState extends BaseState<UserInformationScreen> {
     return BlocConsumer<UserInfoBloc, UserInfoState>(
         listener: (context, state) {
       if (state is SelectImageState) {
+        showLoading();
         _cropperImage(state.image);
       } else if (state is ShowImageState) {
+        hideLoading();
         _image = state.image;
       }
     }, builder: (context, state) {
@@ -148,6 +150,7 @@ class _UserInformationScreenState extends BaseState<UserInformationScreen> {
   Future<void> _getImage(
     ImageSource img,
   ) async {
+    showLoading();
     if (img == ImageSource.gallery) {
       final picker = ImagePicker();
       final pickedFile = await picker.pickImage(source: img);
