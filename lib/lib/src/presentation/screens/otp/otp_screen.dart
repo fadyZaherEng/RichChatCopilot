@@ -10,7 +10,9 @@ import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
 import 'package:rich_chat_copilot/lib/src/core/base/widget/base_stateful_widget.dart';
 import 'package:rich_chat_copilot/lib/src/core/resources/image_paths.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
+import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
+import 'package:rich_chat_copilot/lib/src/domain/usecase/get_language_use_case.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/otp/widgets/otp_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/custom_snack_bar_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,11 +32,19 @@ class OtpScreen extends BaseStatefulWidget {
 }
 
 class _OtpScreenState extends BaseState<OtpScreen> {
-  TextEditingController _otpController = TextEditingController();
+  final TextEditingController _otpController = TextEditingController();
   FirebaseFirestore db = FirebaseFirestore.instance;
   String _otpCode = '';
   String _uId = '';
   UserModel _user = UserModel();
+  bool isArabic = false;
+  bool _isLoading = false;
+
+  @override
+  void didChangeDependencies() async {
+    super.didChangeDependencies();
+    isArabic = GetLanguageUseCase(injector())() == Constants.ar;
+  }
 
   @override
   Widget baseBuild(BuildContext context) {
@@ -66,8 +76,10 @@ class _OtpScreenState extends BaseState<OtpScreen> {
                       ?.copyWith(color: ColorSchemes.black),
                 ),
                 const SizedBox(height: 15),
-                Text(//enhance numer language direction
-                  S.of(context).sentTo + ' ' +"\u{ff0e} ${widget.phoneNumber}",
+                Text(
+                  isArabic
+                      ? "${S.of(context).sentTo} \u200E${widget.phoneNumber}"
+                      : "${S.of(context).sentTo} \u200F${widget.phoneNumber}",
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge
@@ -80,31 +92,50 @@ class _OtpScreenState extends BaseState<OtpScreen> {
                   onCompleted: (pin) {
                     setState(() {
                       _otpCode = pin;
+                      _isLoading = true;
                     });
                     _verifyCode(context);
                   },
                 ),
                 const SizedBox(height: 30),
-                Text(
-                  S.of(context).didReceiveTheCode,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(color: ColorSchemes.black),
-                ),
-                const SizedBox(height: 15),
-                InkWell(
-                  onTap: () {
-                    //to do resend code
-                  },
-                  child: Text(
-                    S.of(context).resendCode,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(color: ColorSchemes.primary),
+                Visibility(
+                  visible: _isLoading,
+                  child: Container(
+                    height: 30,
+                    width: 30,
+                    margin: const EdgeInsets.all(10),
+                    alignment: Alignment.center,
+                    child: const CircularProgressIndicator(
+                      color: ColorSchemes.primary,
+                    ),
                   ),
-                )
+                ),
+                Visibility(
+                    visible: !_isLoading,
+                    child: Column(
+                      children: [
+                        Text(
+                          S.of(context).didReceiveTheCode,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(color: ColorSchemes.black),
+                        ),
+                        const SizedBox(height: 15),
+                        InkWell(
+                          onTap: () {
+                            //to do resend code
+                          },
+                          child: Text(
+                            S.of(context).resendCode,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.copyWith(color: ColorSchemes.primary),
+                          ),
+                        )
+                      ],
+                    ))
               ],
             ),
           ),
@@ -132,15 +163,26 @@ class _OtpScreenState extends BaseState<OtpScreen> {
         Navigator.pushReplacementNamed(context, Routes.homeScreen);
       } else {
         //if user not exists navigate to user info
-        Navigator.pushReplacementNamed(context, Routes.userInfoScreen,
-            arguments: {"phoneNumber": widget.phoneNumber});
+        Navigator.pushReplacementNamed(
+          context,
+          Routes.userInfoScreen,
+          arguments: {"phoneNumber": widget.phoneNumber},
+        );
       }
+      setState(() {
+        _isLoading = false;
+      });
     }).catchError((onError) {
       CustomSnackBarWidget.show(
           context: context,
           message: S.of(context).OTPSMSNotValid,
           path: ImagePaths.icCancel,
           backgroundColor: ColorSchemes.red);
+      Future.delayed(const Duration(milliseconds: 800), () {
+        setState(() {
+          _isLoading = false;
+        });
+      });
     });
   }
 

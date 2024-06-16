@@ -1,4 +1,5 @@
 // ignore_for_file: deprecated_member_use
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
@@ -41,13 +42,16 @@ class CustomSnackBarWidget {
               const SizedBox(
                 width: 25,
               ),
-              Text(
-                message,
-                maxLines: 3,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge
-                    ?.copyWith(color: ColorSchemes.black),
+              Expanded(
+                child: Text(
+                  message,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(color: ColorSchemes.black),
+                ),
               )
             ],
           ),

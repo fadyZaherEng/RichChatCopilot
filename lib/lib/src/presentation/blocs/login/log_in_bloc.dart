@@ -63,6 +63,9 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
       },
       timeout: const Duration(seconds: 60),
     );
+    await Future.delayed(const Duration(milliseconds: 700));
+    emit(LogInFinishState());
+
     // if (credential != null) {
     //   final UserCredential userCredential =
     //       await firebaseAuth.signInWithCredential(credential);

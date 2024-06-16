@@ -63,6 +63,10 @@ class _LogInScreenState extends BaseState<LogInScreen> {
             path: ImagePaths.icCancel,
             backgroundColor: ColorSchemes.red,
           );
+        } else if (state is LogInLoadingState) {
+       //   showLoading();
+        } else if (state is LogInFinishState) {
+         // hideLoading();
         }
       },
       builder: (context, state) {
@@ -75,35 +79,31 @@ class _LogInScreenState extends BaseState<LogInScreen> {
                   const SizedBox(height: 30),
                   const LogoWidget(),
                   const SizedBox(height: 20),
-                  Text(
-                    S.of(context).richChat,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  Text(S.of(context).richChat,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: ColorSchemes.black,
                           fontWeight: Constants.fontWeightBold,
-                          fontSize: 23,
-                        ),
-                  ),
+                          fontSize: 23)),
                   const SizedBox(height: 5),
-                  Text(
-                    S.of(context).addYourPhoneNumberMessage,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  Text(S.of(context).addYourPhoneNumberMessage,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: ColorSchemes.black,
-                          fontWeight: Constants.fontWeightSemiBold,
-                        ),
-                  ),
+                          fontWeight: Constants.fontWeightSemiBold)),
                   const SizedBox(height: 20),
                   PhoneNumberWidget(
-                      textEditingController: _phoneController,
-                      onChange: (value) =>
-                          _bloc.add(LogInOnChangePhoneNumberEvent(value)),
-                      onChangedCountry: (selectedCountry) =>
-                          _bloc.add(LogInOnChangeCountryEvent(selectedCountry)),
-                      selectedCountry: _selectedCountry,
-                      sendOtpVerificationCode: () {
-                        _bloc.add(LogInOnLogInEvent(
-                            "+${_selectedCountry.phoneCode}${_phoneController.text}",
-                            context));
-                      })
+                    textEditingController: _phoneController,
+                    isLoading:state is LogInLoadingState,
+                    onChange: (value) =>
+                        _bloc.add(LogInOnChangePhoneNumberEvent(value)),
+                    onChangedCountry: (selectedCountry) =>
+                        _bloc.add(LogInOnChangeCountryEvent(selectedCountry)),
+                    selectedCountry: _selectedCountry,
+                    sendOtpVerificationCode: () {
+                      _bloc.add(LogInOnLogInEvent(
+                          "+${_selectedCountry.phoneCode}${_phoneController.text}",
+                          context));
+                    },
+                  )
                 ],
               ),
             ),
