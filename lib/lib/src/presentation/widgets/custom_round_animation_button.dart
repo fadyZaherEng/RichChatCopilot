@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
 
-class LoadingAnimationButton extends StatefulWidget {
+class CustomRoundedAnimationButton extends StatefulWidget {
   final double height;
   final double width;
   final double borderRadius;
@@ -16,7 +16,7 @@ class LoadingAnimationButton extends StatefulWidget {
   final IconData errorIcon;
   final Function()? onTap;
 
-  const LoadingAnimationButton({
+  const CustomRoundedAnimationButton({
     super.key,
     this.height = 48,
     this.width = 300,
@@ -34,10 +34,10 @@ class LoadingAnimationButton extends StatefulWidget {
   });
 
   @override
-  State<LoadingAnimationButton> createState() => _LoadingAnimationButtonState();
+  State<CustomRoundedAnimationButton> createState() => _CustomRoundedAnimationButtonState();
 }
 
-class _LoadingAnimationButtonState extends State<LoadingAnimationButton> {
+class _CustomRoundedAnimationButtonState extends State<CustomRoundedAnimationButton> {
   bool isAnimated = false;
   bool isSuccess = false;
   bool isLoading = false;

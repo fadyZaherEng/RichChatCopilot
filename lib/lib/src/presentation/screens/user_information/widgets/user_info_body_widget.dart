@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rich_chat_copilot/generated/l10n.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
-import 'package:rich_chat_copilot/lib/src/presentation/widgets/lodaing_animation_button.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/widgets/custom_round_animation_button.dart';
 
 class UserInfoBodyWidget extends StatelessWidget {
   final TextEditingController nameController;
@@ -33,7 +33,7 @@ class UserInfoBodyWidget extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 30),
-        LoadingAnimationButton(
+        CustomRoundedAnimationButton(
           valueColor: ColorSchemes.white,
           successColor: Colors.green,
           errorColor: ColorSchemes.red,
