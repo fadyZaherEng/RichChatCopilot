@@ -291,6 +291,196 @@ class S {
       args: [],
     );
   }
+
+  /// `Camera`
+  String get camera {
+    return Intl.message(
+      'Camera',
+      name: 'camera',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gallery`
+  String get gallery {
+    return Intl.message(
+      'Gallery',
+      name: 'gallery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose Image`
+  String get chooseImage {
+    return Intl.message(
+      'Choose Image',
+      name: 'chooseImage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload from Camera`
+  String get uploadCamera {
+    return Intl.message(
+      'Upload from Camera',
+      name: 'uploadCamera',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload from Gallery`
+  String get uploadGallery {
+    return Intl.message(
+      'Upload from Gallery',
+      name: 'uploadGallery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose File`
+  String get chooseFile {
+    return Intl.message(
+      'Choose File',
+      name: 'chooseFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload File`
+  String get uploadFile {
+    return Intl.message(
+      'Upload File',
+      name: 'uploadFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send`
+  String get send {
+    return Intl.message(
+      'Send',
+      name: 'send',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter Message`
+  String get enterMessage {
+    return Intl.message(
+      'Enter Message',
+      name: 'enterMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Chats`
+  String get noChats {
+    return Intl.message(
+      'No Chats',
+      name: 'noChats',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Groups`
+  String get noGroups {
+    return Intl.message(
+      'No Groups',
+      name: 'noGroups',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Users`
+  String get noUsers {
+    return Intl.message(
+      'No Users',
+      name: 'noUsers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Messages`
+  String get noMessages {
+    return Intl.message(
+      'No Messages',
+      name: 'noMessages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Globes`
+  String get noGlobes {
+    return Intl.message(
+      'No Globes',
+      name: 'noGlobes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload Media`
+  String get uploadMedia {
+    return Intl.message(
+      'Upload Media',
+      name: 'uploadMedia',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ok`
+  String get ok {
+    return Intl.message(
+      'Ok',
+      name: 'ok',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You should have camera permission`
+  String get youShouldHaveCameraPermission {
+    return Intl.message(
+      'You should have camera permission',
+      name: 'youShouldHaveCameraPermission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You should have gallery permission`
+  String get youShouldHaveGalleryPermission {
+    return Intl.message(
+      'You should have gallery permission',
+      name: 'youShouldHaveGalleryPermission',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

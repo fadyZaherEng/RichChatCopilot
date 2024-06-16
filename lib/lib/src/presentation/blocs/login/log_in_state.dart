@@ -26,3 +26,4 @@ class LogInCodeSentState extends LogInState{
   final String verificationId;
   LogInCodeSentState({required this.verificationId});
 }
+class LogInFinishState extends LogInState{}

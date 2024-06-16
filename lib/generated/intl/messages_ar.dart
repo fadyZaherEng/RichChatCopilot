@@ -28,30 +28,53 @@ class MessageLookup extends MessageLookupByLibrary {
             "اضف رقم هاتفك, سوف نرسل لك رمز التحقق."),
         "appTitle":
             MessageLookupByLibrary.simpleMessage("محادثة رسمية من نوع Copilot"),
+        "camera": MessageLookupByLibrary.simpleMessage("كاميرا"),
+        "cancel": MessageLookupByLibrary.simpleMessage("الغاء"),
         "chats": MessageLookupByLibrary.simpleMessage("المحادثات"),
+        "chooseFile": MessageLookupByLibrary.simpleMessage("اختر ملف"),
+        "chooseImage": MessageLookupByLibrary.simpleMessage("اختر صورة"),
         "continues": MessageLookupByLibrary.simpleMessage("التالي"),
         "didReceiveTheCode":
             MessageLookupByLibrary.simpleMessage("لم تستلم الرمز"),
+        "enterMessage": MessageLookupByLibrary.simpleMessage("أدخل الرسالة"),
         "enterName": MessageLookupByLibrary.simpleMessage("أدخل الاسم"),
         "enterThe6Digit": MessageLookupByLibrary.simpleMessage(
             "أدخل الرمز الذي تم ارساله على رقم هاتفك"),
+        "gallery": MessageLookupByLibrary.simpleMessage("المعرض"),
         "globes": MessageLookupByLibrary.simpleMessage("المناطق"),
         "groups": MessageLookupByLibrary.simpleMessage("المجموعات"),
         "home": MessageLookupByLibrary.simpleMessage("الصفحة الرئيسية"),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
+        "noChats": MessageLookupByLibrary.simpleMessage("لا يوجد محادثات"),
+        "noGlobes": MessageLookupByLibrary.simpleMessage("لا يوجد مناطق"),
+        "noGroups": MessageLookupByLibrary.simpleMessage("لا يوجد مجموعات"),
+        "noMessages": MessageLookupByLibrary.simpleMessage("لا يوجد رسائل"),
+        "noUsers": MessageLookupByLibrary.simpleMessage("لا يوجد مستخدمين"),
+        "ok": MessageLookupByLibrary.simpleMessage("موافق"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
         "resendCode": MessageLookupByLibrary.simpleMessage("اعادة ارسال الرمز"),
         "richChat": MessageLookupByLibrary.simpleMessage("محادثة رسمية"),
         "search": MessageLookupByLibrary.simpleMessage("بحث"),
+        "send": MessageLookupByLibrary.simpleMessage("إرسال"),
         "sentTo": MessageLookupByLibrary.simpleMessage("ارسلت ل"),
         "settings": MessageLookupByLibrary.simpleMessage("الاعدادات"),
         "theme": MessageLookupByLibrary.simpleMessage("المظهر"),
+        "uploadCamera":
+            MessageLookupByLibrary.simpleMessage("تحميل من الكاميرا"),
+        "uploadFile": MessageLookupByLibrary.simpleMessage("تحميل ملف"),
+        "uploadGallery":
+            MessageLookupByLibrary.simpleMessage("تحميل من المعرض"),
+        "uploadMedia": MessageLookupByLibrary.simpleMessage("تحميل الوسائط"),
         "userInformation":
             MessageLookupByLibrary.simpleMessage("معلومات المستخدم"),
         "verification": MessageLookupByLibrary.simpleMessage("أثبات الهوية"),
         "welcomeMessage": MessageLookupByLibrary.simpleMessage(
-            "مرحبا بك في محادثة رسمية من نوع Copilot")
+            "مرحبا بك في محادثة رسمية من نوع Copilot"),
+        "youShouldHaveCameraPermission":
+            MessageLookupByLibrary.simpleMessage("يجب عليك السماح للكاميرا"),
+        "youShouldHaveGalleryPermission":
+            MessageLookupByLibrary.simpleMessage("يجب عليك السماح للمعرض")
       };
 }

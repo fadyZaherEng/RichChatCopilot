@@ -23,6 +23,24 @@
   "enterName": "أدخل الاسم",
   "continues": "التالي",
   "OTPSMSNotValid": "رمز التحقق غير صحيح",
-  "sentTo": "ارسلت ل"
-
+  "sentTo": "ارسلت ل",
+  "camera": "كاميرا",
+  "gallery": "المعرض",
+  "chooseImage": "اختر صورة",
+  "uploadCamera": "تحميل من الكاميرا",
+  "uploadGallery": "تحميل من المعرض",
+  "chooseFile": "اختر ملف",
+  "uploadFile": "تحميل ملف",
+  "send": "إرسال",
+  "enterMessage": "أدخل الرسالة",
+  "noChats": "لا يوجد محادثات",
+  "noGroups": "لا يوجد مجموعات",
+  "noGlobes": "لا يوجد مناطق",
+  "noMessages": "لا يوجد رسائل",
+  "noUsers": "لا يوجد مستخدمين",
+  "uploadMedia": "تحميل الوسائط",
+  "ok": "موافق",
+  "cancel": "الغاء",
+  "youShouldHaveCameraPermission": "يجب عليك السماح للكاميرا",
+  "youShouldHaveGalleryPermission": "يجب عليك السماح للمعرض"
 }

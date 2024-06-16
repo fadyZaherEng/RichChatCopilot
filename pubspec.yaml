@@ -81,6 +81,8 @@ dependencies:
   firebase_auth:
   firebase_storage:
   cloud_firestore:
+  flutter_image_compress:
+  crop_image: ^1.0.0
 
 
 
@@ -111,6 +113,7 @@ flutter:
   assets:
     - assets/fonts/
     - assets/images/
+    - assets/images/ic_camera.svg
     - assets/images/ic_cancel.svg
     - assets/images/ic_success.svg
     - assets/images/log2.json

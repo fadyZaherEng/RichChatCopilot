@@ -56,7 +56,7 @@ class _MainScreenState extends BaseState<MainScreen> {
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: ColorSchemes.primary,
-        selectedIconTheme: IconThemeData(color: ColorSchemes.primary),
+        selectedIconTheme: const IconThemeData(color: ColorSchemes.primary),
         unselectedItemColor: ColorSchemes.gray,
         backgroundColor: ColorSchemes.white,
         onTap: (int index) {
