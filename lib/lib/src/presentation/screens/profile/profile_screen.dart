@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rich_chat_copilot/generated/l10n.dart';
@@ -92,14 +93,44 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
                     ),
                   ),
                   const SizedBox(height: 10),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _buildDivider(),
+                        const SizedBox(width: 10),
+                        Text(
+                          _otherUser.aboutMe,
+                          style: GoogleFonts.openSans(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: ColorSchemes.black,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        _buildDivider(),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 10),
                   Text(
                     _otherUser.aboutMe,
                     style: GoogleFonts.openSans(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
                       color: ColorSchemes.black,
                     ),
                   ),
+                  const SizedBox(height: 10),
+                  _buildFriendRequestButton(
+                      currentUser: _currentUser, otherUser: _otherUser),
+                  const SizedBox(height: 10),
+                  _buildFriendsButton(
+                      currentUser: _currentUser, otherUser: _otherUser),
+                  const SizedBox(height: 10),
                 ],
               ),
             );
@@ -111,4 +142,82 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
       ),
     );
   }
+
+  Widget _buildFriendRequestButton({
+    required UserModel currentUser,
+    required UserModel otherUser,
+  }) {
+    if (currentUser.uId == otherUser.uId) {
+      if (otherUser.friendsRequestsUIds.isNotEmpty) {
+        return _buildButton(
+            text: S.of(context).viewFriendRequests,
+            onPressed: () {
+              //TODO: navigate to friend requests screen
+            });
+      } else {
+        return const SizedBox.shrink();
+      }
+    } else {
+      return const SizedBox.shrink();
+    }
+  }
+
+  Widget _buildFriendsButton({
+    required UserModel currentUser,
+    required UserModel otherUser,
+  }) {
+    if (currentUser.uId == otherUser.uId && otherUser.friendsUIds.isNotEmpty) {
+      return _buildButton(
+        text: S.of(context).viewFriends,
+        onPressed: () {
+          //TODO: navigate to friends screen
+        },
+      );
+    } else {
+      if (currentUser.uId == otherUser.uId) {
+        return _buildButton(
+          text: S.of(context).sendFriendRequests,
+          onPressed: () {
+            //TODO: send friend request
+          },
+        );
+      } else {
+        return const SizedBox.shrink();
+      }
+    }
+  }
+
+  Widget _buildButton({
+    required String text,
+    required VoidCallback onPressed,
+  }) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.6,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: ColorSchemes.primary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        child: Text(
+            text.toUpperCase(),
+            style: GoogleFonts.openSans(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: ColorSchemes.white,
+            )),
+      ),
+    );
+  }
+
+  _buildDivider() =>const SizedBox(
+    height: 40,
+    width: 40,
+    child: Divider(
+      color: ColorSchemes.gray,
+      thickness: 1,
+    ),
+  );
 }

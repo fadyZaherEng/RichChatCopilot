@@ -61,6 +61,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "richChat": MessageLookupByLibrary.simpleMessage("محادثة رسمية"),
         "search": MessageLookupByLibrary.simpleMessage("بحث"),
         "send": MessageLookupByLibrary.simpleMessage("إرسال"),
+        "sendFriendRequests":
+            MessageLookupByLibrary.simpleMessage("ارسال طلب الصداقة"),
         "sentTo": MessageLookupByLibrary.simpleMessage("ارسلت ل"),
         "settings": MessageLookupByLibrary.simpleMessage("الاعدادات"),
         "theme": MessageLookupByLibrary.simpleMessage("المظهر"),
@@ -73,6 +75,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "userInformation":
             MessageLookupByLibrary.simpleMessage("معلومات المستخدم"),
         "verification": MessageLookupByLibrary.simpleMessage("أثبات الهوية"),
+        "viewFriendRequests":
+            MessageLookupByLibrary.simpleMessage("عرض طلبات الصداقة"),
+        "viewFriends": MessageLookupByLibrary.simpleMessage("عرض ألاصدقاء"),
         "welcomeMessage": MessageLookupByLibrary.simpleMessage(
             "مرحبا بك في محادثة رسمية من نوع Copilot"),
         "youShouldHaveCameraPermission":

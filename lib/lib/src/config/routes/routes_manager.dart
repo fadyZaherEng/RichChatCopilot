@@ -10,7 +10,6 @@ import 'package:rich_chat_copilot/lib/src/presentation/screens/user_information/
 
 class Routes {
   static const String splash = "/";
-  static const String landing = "/landing";
   static const String logInScreen = "/logInScreen";
   static const String homeScreen = "/homeScreen";
   static const String settingsScreen = "/settingsScreen";

@@ -44,5 +44,8 @@
   "youShouldHaveCameraPermission": "يجب عليك السماح للكاميرا",
   "youShouldHaveGalleryPermission": "يجب عليك السماح للمعرض",
   "fillAllFields": "يرجى ملء جميع الحقول",
-  "profile": "الملف الشخصي"
+  "profile": "الملف الشخصي",
+  "sendFriendRequests": "ارسال طلب الصداقة",
+  "viewFriends": "عرض ألاصدقاء",
+  "viewFriendRequests": "عرض طلبات الصداقة"
 }

@@ -44,5 +44,8 @@
   "youShouldHaveCameraPermission": "You should have camera permission",
   "youShouldHaveGalleryPermission": "You should have gallery permission",
   "fillAllFields": "Fill all the fields",
-  "profile": "Profile"
+  "profile": "Profile",
+  "sendFriendRequests": "Send Friend Requests",
+  "viewFriends": "View Friends",
+  "viewFriendRequests": "View Friend Requests"
 }

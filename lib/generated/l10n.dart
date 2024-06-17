@@ -501,6 +501,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Send Friend Requests`
+  String get sendFriendRequests {
+    return Intl.message(
+      'Send Friend Requests',
+      name: 'sendFriendRequests',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View Friends`
+  String get viewFriends {
+    return Intl.message(
+      'View Friends',
+      name: 'viewFriends',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View Friend Requests`
+  String get viewFriendRequests {
+    return Intl.message(
+      'View Friend Requests',
+      name: 'viewFriendRequests',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
