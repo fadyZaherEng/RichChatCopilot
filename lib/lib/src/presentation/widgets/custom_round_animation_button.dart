@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:rich_chat_copilot/generated/l10n.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
 
 class CustomRoundedAnimationButton extends StatefulWidget {
+  //rounded_loading_button
   final double height;
   final double width;
   final double borderRadius;
@@ -34,10 +36,12 @@ class CustomRoundedAnimationButton extends StatefulWidget {
   });
 
   @override
-  State<CustomRoundedAnimationButton> createState() => _CustomRoundedAnimationButtonState();
+  State<CustomRoundedAnimationButton> createState() =>
+      _CustomRoundedAnimationButtonState();
 }
 
-class _CustomRoundedAnimationButtonState extends State<CustomRoundedAnimationButton> {
+class _CustomRoundedAnimationButtonState
+    extends State<CustomRoundedAnimationButton> {
   bool isAnimated = false;
   bool isSuccess = false;
   bool isLoading = false;
@@ -76,7 +80,7 @@ class _CustomRoundedAnimationButtonState extends State<CustomRoundedAnimationBut
             await Future.delayed(
                 const Duration(milliseconds: 250)); //return from api time
             setState(() {
-               isSuccess = !isSuccess;
+              isSuccess = !isSuccess;
               isLoading = !isLoading;
             });
             widget.onTap?.call();
@@ -89,25 +93,17 @@ class _CustomRoundedAnimationButtonState extends State<CustomRoundedAnimationBut
                     ))
                   : isSuccess
                       ? Center(
-                          child: Icon(
-                            widget.successIcon,
-                            color: widget.valueColor,
-                          ),
-                        )
+                          child: Icon(widget.successIcon,
+                              color: widget.valueColor))
                       : Center(
-                          child: Icon(
-                            widget.errorIcon,
-                            color: widget.errorColor,
-                          ),
-                        )
+                          child:
+                              Icon(widget.errorIcon, color: widget.errorColor))
               : Center(
-                  child: Text(
-                    'Continue',
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: widget.textColor,
-                        ),
-                  ),
-                ),
+                  child: Text(S.of(context).continues,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(color: widget.textColor))),
         ),
       ),
     );

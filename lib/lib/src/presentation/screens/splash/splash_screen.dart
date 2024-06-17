@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       await Future.delayed(const Duration(seconds: 3));
-      Navigator.pushReplacementNamed(context, Routes.mainScreen);
+      Navigator.pushReplacementNamed(context, Routes.logInScreen);
     });
   }
 

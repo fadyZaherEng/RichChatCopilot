@@ -72,7 +72,7 @@ class _MyAppState extends State<MyApp> {
             themeMode: ThemeMode.light,
             supportedLocales: S.delegate.supportedLocales,
             onGenerateRoute: RoutesManager.getRoute,
-            initialRoute: Routes.logInScreen,
+            initialRoute: Routes.splash,
             localizationsDelegates: const [
               S.delegate,
               GlobalMaterialLocalizations.delegate,
