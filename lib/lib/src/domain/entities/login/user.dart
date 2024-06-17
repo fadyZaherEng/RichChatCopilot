@@ -10,9 +10,9 @@ class UserModel extends Equatable {
   String lastSeen;
   String createdAt;
   bool isOnline;
-  List<String> friendsUIds;
-  List<String> friendsRequestsUIds;
-  List<String> sentFriendsRequestsUIds;
+  List<dynamic> friendsUIds;
+  List<dynamic> friendsRequestsUIds;
+  List<dynamic> sentFriendsRequestsUIds;
 
   UserModel({
     this.uId = '',

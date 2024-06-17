@@ -113,6 +113,7 @@ flutter:
   assets:
     - assets/fonts/
     - assets/images/
+    - assets/images/ic_back_arrow.svg
     - assets/images/ic_camera.svg
     - assets/images/ic_cancel.svg
     - assets/images/ic_success.svg

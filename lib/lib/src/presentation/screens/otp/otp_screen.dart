@@ -13,6 +13,8 @@ import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
 import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
 import 'package:rich_chat_copilot/lib/src/domain/usecase/get_language_use_case.dart';
+import 'package:rich_chat_copilot/lib/src/domain/usecase/get_user_use_case.dart';
+import 'package:rich_chat_copilot/lib/src/domain/usecase/set_user_use_case.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/otp/widgets/otp_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/custom_snack_bar_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -152,15 +154,15 @@ class _OtpScreenState extends BaseState<OtpScreen> {
     await FirebaseAuth.instance
         .signInWithCredential(credential)
         .then((value) async {
-      _uId = value.user!.uid;
-      //check if user exists in firestore
-      if (await _checkUserExists()) {
+       _uId = value.user!.uid;
+       //check if user exists in firestore
+       if (await _checkUserExists()) {
         // get user info
         await _getUserInfo();
         //save user info
         await _saveUserInfoInSharedPreferences(_user);
         //navigate to home
-        Navigator.pushReplacementNamed(context, Routes.homeScreen);
+        Navigator.pushReplacementNamed(context, Routes.mainScreen);
       } else {
         //if user not exists navigate to user info
         Navigator.pushNamed(
@@ -171,11 +173,12 @@ class _OtpScreenState extends BaseState<OtpScreen> {
             "userId": _uId,
           },
         );
-      }
+       }
       setState(() {
         _isLoading = false;
       });
     }).catchError((onError) {
+      print("FFFFFFFFFFFFFFFFFFFFFFFFFF$onError");
       CustomSnackBarWidget.show(
           context: context,
           message: S.of(context).OTPSMSNotValid,
@@ -204,11 +207,13 @@ class _OtpScreenState extends BaseState<OtpScreen> {
   }
 
   Future _saveUserInfoInSharedPreferences(UserModel user) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (!prefs.containsKey(Constants.user)) {
-      prefs.setString(Constants.user, jsonEncode(user.toJson()));
-    } else {
-      _user = UserModel.fromJson(jsonDecode(prefs.getString(Constants.user)!));
-    }
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    // if (!prefs.containsKey(Constants.user)) {
+      SetUserUseCase(injector())(user);
+      // prefs.setString(Constants.user, jsonEncode(user.toJson()));
+    // } else {
+    //   // _user = UserModel.fromJson(jsonDecode(prefs.getString(Constants.user)!));
+    //   _user=GetUserUseCase(injector())();
+    // }
   }
 }

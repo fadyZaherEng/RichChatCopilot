@@ -55,10 +55,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "noUsers": MessageLookupByLibrary.simpleMessage("No Users"),
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
+        "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
         "richChat": MessageLookupByLibrary.simpleMessage("Rich Chat"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "send": MessageLookupByLibrary.simpleMessage("Send"),
+        "sendFriendRequests":
+            MessageLookupByLibrary.simpleMessage("Send Friend Requests"),
         "sentTo": MessageLookupByLibrary.simpleMessage("Sent to"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
@@ -71,6 +74,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "userInformation":
             MessageLookupByLibrary.simpleMessage("User Information"),
         "verification": MessageLookupByLibrary.simpleMessage("Verification"),
+        "viewFriendRequests":
+            MessageLookupByLibrary.simpleMessage("View Friend Requests"),
+        "viewFriends": MessageLookupByLibrary.simpleMessage("View Friends"),
         "welcomeMessage": MessageLookupByLibrary.simpleMessage(
             "Welcome to the Copilot Chatbot. What would you like to chat about?"),
         "youShouldHaveCameraPermission": MessageLookupByLibrary.simpleMessage(

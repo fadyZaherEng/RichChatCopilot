@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:meta/meta.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
+import 'package:rich_chat_copilot/lib/src/data/source/local/single_ton/firebase_single_ton.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
 
 part 'user_info_event.dart';
@@ -20,8 +21,8 @@ class UserInfoBloc extends Bloc<UserInfoEvent, UserInfoState> {
     on<ContinueEvent>(_onContinueEvent);
   }
 
-  FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
-  FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
+  // FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+  // FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
 
   FutureOr<void> _onSelectImageEvent(
       SelectImageEvent event, Emitter<UserInfoState> emit) async {
@@ -43,7 +44,7 @@ class UserInfoBloc extends Bloc<UserInfoEvent, UserInfoState> {
     }
     event.userModel=event.userModel.copyWith(image: imageUrl);
     try {
-      await _firebaseFirestore
+      await FirebaseSingleTon.db
           .collection(Constants.users)
           .doc(event.userModel.uId)
           .set(event.userModel.toJson());
@@ -54,7 +55,7 @@ class UserInfoBloc extends Bloc<UserInfoEvent, UserInfoState> {
   }
 
   Future<String> _saveImageToStorage(File file, reference) async {
-    Reference ref = _firebaseStorage.ref(reference);
+    Reference ref = FirebaseSingleTon.storage.ref(reference);
     UploadTask uploadTask = ref.putFile(file);
     TaskSnapshot taskSnapshot = await uploadTask;
     String downloadUrl = await taskSnapshot.ref.getDownloadURL();
