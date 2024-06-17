@@ -56,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "noUsers": MessageLookupByLibrary.simpleMessage("لا يوجد مستخدمين"),
         "ok": MessageLookupByLibrary.simpleMessage("موافق"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
+        "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
         "resendCode": MessageLookupByLibrary.simpleMessage("اعادة ارسال الرمز"),
         "richChat": MessageLookupByLibrary.simpleMessage("محادثة رسمية"),
         "search": MessageLookupByLibrary.simpleMessage("بحث"),

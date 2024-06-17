@@ -55,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "noUsers": MessageLookupByLibrary.simpleMessage("No Users"),
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
+        "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
         "richChat": MessageLookupByLibrary.simpleMessage("Rich Chat"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),

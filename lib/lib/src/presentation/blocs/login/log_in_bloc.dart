@@ -10,6 +10,7 @@ import 'package:meta/meta.dart';
 import 'package:rich_chat_copilot/lib/src/config/routes/routes_manager.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
 import 'package:rich_chat_copilot/lib/src/core/resources/image_paths.dart';
+import 'package:rich_chat_copilot/lib/src/data/source/local/single_ton/firebase_single_ton.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/custom_snack_bar_widget.dart';
 
 part 'log_in_event.dart';
@@ -17,9 +18,9 @@ part 'log_in_event.dart';
 part 'log_in_state.dart';
 
 class LogInBloc extends Bloc<LogInEvent, LogInState> {
-  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  FirebaseStorage storage = FirebaseStorage.instance;
-  FirebaseFirestore fireStore = FirebaseFirestore.instance;
+  // FirebaseAuth firebaseAuth =
+  // FirebaseStorage storage = FirebaseStorage.instance;
+  // FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
   LogInBloc() : super(LogInInitial()) {
     on<LogInOnChangePhoneNumberEvent>(_onLogInOnChangePhoneNumberEvent);
@@ -37,12 +38,12 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
     emit(LogInLoadingState());
     print(event.phoneNumber);
     PhoneAuthCredential? credential;
-    await firebaseAuth.verifyPhoneNumber(
+    await FirebaseSingleTon.auth.verifyPhoneNumber(
       phoneNumber: event.phoneNumber,
       verificationCompleted: (PhoneAuthCredential credential) async {
         credential = credential;
-        await firebaseAuth.signInWithCredential(credential);
-        emit(LogInSuccessState(uId: firebaseAuth.currentUser!.uid, MSG: "success"));
+        await FirebaseSingleTon.auth.signInWithCredential(credential);
+        emit(LogInSuccessState(uId: FirebaseSingleTon.auth.currentUser!.uid, MSG: "success"));
         },
       verificationFailed: (FirebaseAuthException e) {
         CustomSnackBarWidget.show(

@@ -7,12 +7,12 @@ import 'package:rich_chat_copilot/lib/src/config/routes/routes_manager.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/app_theme.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
 import 'package:rich_chat_copilot/lib/src/di/injector.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/blocs/chats/chats_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/login/log_in_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/main/main_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/main/main_state.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/settings/settings_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/user_info/user_info_bloc.dart';
-import 'package:rich_chat_copilot/lib/src/presentation/screens/user_information/user_information_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/restart_widget.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -52,6 +52,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<SettingsBloc>(create: (context) => injector()),
         BlocProvider<LogInBloc>(create: (context) => injector()),
         BlocProvider<UserInfoBloc>(create: (context) => injector()),
+        BlocProvider<ChatsBloc>(create: (context) => injector()),
       ],
       child: BlocBuilder<MainCubit, MainState>(
         buildWhen: (previousState, currentState) {

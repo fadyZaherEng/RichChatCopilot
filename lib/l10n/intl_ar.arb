@@ -43,5 +43,6 @@
   "cancel": "الغاء",
   "youShouldHaveCameraPermission": "يجب عليك السماح للكاميرا",
   "youShouldHaveGalleryPermission": "يجب عليك السماح للمعرض",
-  "fillAllFields": "يرجى ملء جميع الحقول"
+  "fillAllFields": "يرجى ملء جميع الحقول",
+  "profile": "الملف الشخصي"
 }
