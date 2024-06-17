@@ -8,6 +8,7 @@ class AssetsRes {
 
   static const String PLUGIN_NAME = 'rich_chat_copilot';
   static const String PLUGIN_VERSION = '1.0.0+1';
+  static const String IC_BACK_ARROW = 'assets/images/ic_back_arrow.svg';
   static const String IC_CAMERA = 'assets/images/ic_camera.svg';
   static const String IC_CANCEL = 'assets/images/ic_cancel.svg';
   static const String IC_SUCCESS = 'assets/images/ic_success.svg';
