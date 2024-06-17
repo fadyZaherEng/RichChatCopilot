@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -8,22 +9,27 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rich_chat_copilot/generated/l10n.dart';
+import 'package:rich_chat_copilot/lib/src/config/routes/routes_manager.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
 import 'package:rich_chat_copilot/lib/src/core/base/widget/base_stateful_widget.dart';
 import 'package:rich_chat_copilot/lib/src/core/resources/image_paths.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/permission_service_handler.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/show_action_dialog.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/show_bottom_sheet_upload_media.dart';
+import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/user_info/user_info_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/user_information/widgets/user_info_body_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/user_information/widgets/user_info_image_widget.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/widgets/custom_snack_bar_widget.dart';
 
 class UserInformationScreen extends BaseStatefulWidget {
   final String phoneNumber;
+  final String userId;
 
   const UserInformationScreen({
     super.key,
     required this.phoneNumber,
+    required this.userId,
   });
 
   @override
@@ -36,6 +42,9 @@ class _UserInformationScreenState extends BaseState<UserInformationScreen> {
 
   UserInfoBloc get _bloc => BlocProvider.of<UserInfoBloc>(context);
   File? _image;
+  bool isAnimated = false;
+  bool isSuccess = false;
+  bool isLoading = false;
 
   @override
   Widget baseBuild(BuildContext context) {
@@ -47,12 +56,48 @@ class _UserInformationScreenState extends BaseState<UserInformationScreen> {
       } else if (state is ShowImageState) {
         hideLoading();
         _image = state.image;
+      }else if(state is LoadingState){
+        isLoading = true;
+        isAnimated = true;
+      } else if (state is SuccessState) {
+        isLoading = false;
+        isSuccess = true;
+        Navigator.pushReplacementNamed(context, Routes.mainScreen);
+        // Future.delayed(const Duration(milliseconds: 500), () {
+        //   setState(() {
+        //     isAnimated = false;
+        //   });
+        // });
+      } else if (state is ErrorState) {
+        isLoading = false;
+        isSuccess = false;
+        CustomSnackBarWidget.show(
+          context: context,
+          message: state.error,
+          path: ImagePaths.icCancel,
+          backgroundColor: ColorSchemes.red,
+        );
+        Future.delayed(const Duration(milliseconds: 500), () {
+          setState(() {
+            isAnimated = false;
+          });
+        });
       }
     }, builder: (context, state) {
       return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text(S.of(context).userInformation),
+          title: Text(
+            S.of(context).userInformation,
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                _navigateBackEvent();
+              },
+              icon: const Icon(Icons.close, color: Colors.grey),
+            ),
+          ],
         ),
         body: SingleChildScrollView(
           child: Center(
@@ -68,12 +113,44 @@ class _UserInformationScreenState extends BaseState<UserInformationScreen> {
                   ),
                   UserInfoBodyWidget(
                     nameController: _nameController,
+                    isSuccess: isSuccess,
+                    isLoading: isLoading,
+                    isAnimated: isAnimated,
                     onChanged: (value) {
                       setState(() {
                         _nameController.text = value;
                       });
                     },
-                    continuePressed: () {},
+                    continuePressed: () {
+                      if (_nameController.text.isEmpty ||
+                          _image == null ||_image!.path.isEmpty ||
+                          _nameController.text.length < 3) {
+                        CustomSnackBarWidget.show(
+                          context: context,
+                          message: S.of(context).fillAllFields,
+                          path: ImagePaths.icCancel,
+                          backgroundColor: ColorSchemes.red,
+                        );
+                        return;
+                      } else {
+                        _bloc.add(ContinueEvent(
+                          userModel: UserModel(
+                            name: _nameController.text,
+                            phoneNumber: widget.phoneNumber,
+                            uId: widget.userId,
+                            isOnline: true,
+                            lastSeen: DateTime.now()
+                                .microsecondsSinceEpoch
+                                .toString(),
+                            createdAt: DateTime.now()
+                                .microsecondsSinceEpoch
+                                .toString(),
+                            aboutMe: "About me",
+                          ),
+                          image: _image,
+                        ));
+                      }
+                    },
                   )
                 ],
               ),
@@ -120,7 +197,7 @@ class _UserInformationScreenState extends BaseState<UserInformationScreen> {
         );
         if (await PermissionServiceHandler()
             .handleServicePermission(setting: permission)) {
-            _getImage(ImageSource.gallery);
+          _getImage(ImageSource.gallery);
         } else {
           _showActionDialog(
             icon: ImagePaths.icCancel,

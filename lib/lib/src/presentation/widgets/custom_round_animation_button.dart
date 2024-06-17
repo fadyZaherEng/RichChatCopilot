@@ -4,6 +4,9 @@ import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
 
 class CustomRoundedAnimationButton extends StatefulWidget {
   //rounded_loading_button
+  bool isAnimated = false;
+  bool isSuccess = false;
+  bool isLoading = false;
   final double height;
   final double width;
   final double borderRadius;
@@ -18,7 +21,7 @@ class CustomRoundedAnimationButton extends StatefulWidget {
   final IconData errorIcon;
   final Function()? onTap;
 
-  const CustomRoundedAnimationButton({
+  CustomRoundedAnimationButton({
     super.key,
     this.height = 48,
     this.width = 300,
@@ -33,6 +36,9 @@ class CustomRoundedAnimationButton extends StatefulWidget {
     this.successIcon = Icons.check,
     this.errorIcon = Icons.close,
     required this.onTap,
+    this.isLoading = false,
+    this.isSuccess = false,
+    this.isAnimated = false,
   });
 
   @override
@@ -42,17 +48,13 @@ class CustomRoundedAnimationButton extends StatefulWidget {
 
 class _CustomRoundedAnimationButtonState
     extends State<CustomRoundedAnimationButton> {
-  bool isAnimated = false;
-  bool isSuccess = false;
-  bool isLoading = false;
-
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 250),
       curve: Curves.easeIn,
       height: widget.height,
-      width: isAnimated ? 55 : widget.width,
+      width: widget.isAnimated ? 50 : widget.width,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: widget.backgroundColor,
@@ -73,25 +75,27 @@ class _CustomRoundedAnimationButtonState
             ),
           ),
           onPressed: () async {
-            setState(() {
-              isAnimated = !isAnimated;
-              isLoading = !isLoading;
-            });
-            await Future.delayed(
-                const Duration(milliseconds: 250)); //return from api time
-            setState(() {
-              isSuccess = !isSuccess;
-              isLoading = !isLoading;
-            });
+            // setState(() {
+            //   widget.isAnimated = !widget.isAnimated;
+            //   widget.isLoading = !widget.isLoading;
+            // });
+            // await Future.delayed(
+            //     const Duration(milliseconds: 250)); //return from api time
+            // setState(() {
+            //   widget.isSuccess = !widget.isSuccess;
+            //   widget.isLoading = !widget.isLoading;
+            // });
             widget.onTap?.call();
           },
-          child: isAnimated
-              ? isLoading
+          child: widget.isAnimated
+              ? widget.isLoading
                   ? const Center(
-                      child: CircularProgressIndicator(
-                      color: ColorSchemes.white,
-                    ))
-                  : isSuccess
+                      child: SizedBox(
+                          height: 17,
+                          width: 17,
+                          child: CircularProgressIndicator(
+                              color: ColorSchemes.white)))
+                  : widget.isSuccess
                       ? Center(
                           child: Icon(widget.successIcon,
                               color: widget.valueColor))

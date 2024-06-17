@@ -481,6 +481,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Fill all the fields`
+  String get fillAllFields {
+    return Intl.message(
+      'Fill all the fields',
+      name: 'fillAllFields',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

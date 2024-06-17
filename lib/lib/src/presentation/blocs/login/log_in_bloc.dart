@@ -63,7 +63,7 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
       },
       timeout: const Duration(seconds: 60),
     );
-    await Future.delayed(const Duration(milliseconds: 700));
+    await Future.delayed( const Duration(seconds: 3));
     emit(LogInFinishState());
 
     // if (credential != null) {

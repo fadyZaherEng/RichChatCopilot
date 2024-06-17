@@ -39,6 +39,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterName": MessageLookupByLibrary.simpleMessage("Enter Name"),
         "enterThe6Digit": MessageLookupByLibrary.simpleMessage(
             "Enter the 6 digit code sent to your mobile number"),
+        "fillAllFields":
+            MessageLookupByLibrary.simpleMessage("Fill all the fields"),
         "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
         "globes": MessageLookupByLibrary.simpleMessage("Globes"),
         "groups": MessageLookupByLibrary.simpleMessage("Groups"),

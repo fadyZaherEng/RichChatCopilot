@@ -31,6 +31,7 @@ class RoutesManager {
         routeSettings.arguments as Map<String, dynamic>;
         return _materialRoute( UserInformationScreen(
           phoneNumber: arg["phoneNumber"],
+          userId: arg["userId"], //userId
         ));
       case Routes.logInScreen:
         return _materialRoute(const LogInScreen());

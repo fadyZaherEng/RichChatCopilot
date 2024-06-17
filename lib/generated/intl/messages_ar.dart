@@ -40,6 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterName": MessageLookupByLibrary.simpleMessage("أدخل الاسم"),
         "enterThe6Digit": MessageLookupByLibrary.simpleMessage(
             "أدخل الرمز الذي تم ارساله على رقم هاتفك"),
+        "fillAllFields":
+            MessageLookupByLibrary.simpleMessage("يرجى ملء جميع الحقول"),
         "gallery": MessageLookupByLibrary.simpleMessage("المعرض"),
         "globes": MessageLookupByLibrary.simpleMessage("المناطق"),
         "groups": MessageLookupByLibrary.simpleMessage("المجموعات"),

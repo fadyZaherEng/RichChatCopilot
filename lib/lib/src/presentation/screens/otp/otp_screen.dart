@@ -163,10 +163,13 @@ class _OtpScreenState extends BaseState<OtpScreen> {
         Navigator.pushReplacementNamed(context, Routes.homeScreen);
       } else {
         //if user not exists navigate to user info
-        Navigator.pushReplacementNamed(
+        Navigator.pushNamed(
           context,
           Routes.userInfoScreen,
-          arguments: {"phoneNumber": widget.phoneNumber},
+          arguments: {
+            "phoneNumber": widget.phoneNumber,
+            "userId": _uId,
+          },
         );
       }
       setState(() {

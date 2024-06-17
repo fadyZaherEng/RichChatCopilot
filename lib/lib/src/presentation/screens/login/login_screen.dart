@@ -64,9 +64,9 @@ class _LogInScreenState extends BaseState<LogInScreen> {
             backgroundColor: ColorSchemes.red,
           );
         } else if (state is LogInLoadingState) {
-       //   showLoading();
+          // showLoading();
         } else if (state is LogInFinishState) {
-         // hideLoading();
+          // hideLoading();
         }
       },
       builder: (context, state) {

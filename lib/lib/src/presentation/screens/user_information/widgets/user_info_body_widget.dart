@@ -7,12 +7,18 @@ class UserInfoBodyWidget extends StatelessWidget {
   final TextEditingController nameController;
   final void Function(String value) onChanged;
   final void Function() continuePressed;
+  bool isAnimated = false;
+  bool isSuccess = false;
+  bool isLoading = false;
 
-  const UserInfoBodyWidget({
+   UserInfoBodyWidget({
     super.key,
     required this.nameController,
     required this.onChanged,
     required this.continuePressed,
+    this.isAnimated = false,
+    this.isSuccess = false,
+    this.isLoading = false,
   });
 
   @override
@@ -40,6 +46,9 @@ class UserInfoBodyWidget extends StatelessWidget {
           borderColor: Colors.transparent,
           borderWidth: 1,
           onTap: continuePressed,
+          isAnimated: isAnimated,
+          isLoading: isLoading,
+          isSuccess: isSuccess,
         ),
       ],
     );
