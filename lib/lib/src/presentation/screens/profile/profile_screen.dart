@@ -239,6 +239,7 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
             text: S.of(context).viewFriendRequests,
             onPressed: () {
               //TODO: navigate to friend requests screen
+              Navigator.pushNamed(context, Routes.friendRequestScreen);
             });
       } else {
         return const SizedBox.shrink();
@@ -260,6 +261,7 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
         text: S.of(context).viewFriends,
         onPressed: () {
           //TODO: navigate to friends screen
+          Navigator.pushNamed(context, Routes.friendsScreen);
         },
       );
     } else {

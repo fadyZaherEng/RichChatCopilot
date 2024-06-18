@@ -50,6 +50,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Fill all the fields"),
         "friendRequestAccepted":
             MessageLookupByLibrary.simpleMessage("Friend Request Accepted"),
+        "friends": MessageLookupByLibrary.simpleMessage("Friends"),
+        "friendsRequests":
+            MessageLookupByLibrary.simpleMessage("Friends Requests"),
         "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
         "globes": MessageLookupByLibrary.simpleMessage("People"),
         "groups": MessageLookupByLibrary.simpleMessage("Groups"),
@@ -66,9 +69,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No Found Groups Until Now"),
         "noFoundUsersUntilNow":
             MessageLookupByLibrary.simpleMessage("No Found Users Until Now"),
+        "noFriendRequestsYet":
+            MessageLookupByLibrary.simpleMessage("No Friend Requests Yet"),
+        "noFriendsYet": MessageLookupByLibrary.simpleMessage("No Friends Yet"),
         "noGlobes": MessageLookupByLibrary.simpleMessage("No Globes"),
         "noGroups": MessageLookupByLibrary.simpleMessage("No Groups"),
         "noMessages": MessageLookupByLibrary.simpleMessage("No Messages"),
+        "noMessagesYet":
+            MessageLookupByLibrary.simpleMessage("No Messages Yet"),
         "noUsers": MessageLookupByLibrary.simpleMessage("No Users"),
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),

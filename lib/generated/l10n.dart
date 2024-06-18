@@ -681,6 +681,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Friends`
+  String get friends {
+    return Intl.message(
+      'Friends',
+      name: 'friends',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Friends Requests`
+  String get friendsRequests {
+    return Intl.message(
+      'Friends Requests',
+      name: 'friendsRequests',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Friends Yet`
+  String get noFriendsYet {
+    return Intl.message(
+      'No Friends Yet',
+      name: 'noFriendsYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Friend Requests Yet`
+  String get noFriendRequestsYet {
+    return Intl.message(
+      'No Friend Requests Yet',
+      name: 'noFriendRequestsYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Messages Yet`
+  String get noMessagesYet {
+    return Intl.message(
+      'No Messages Yet',
+      name: 'noMessagesYet',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

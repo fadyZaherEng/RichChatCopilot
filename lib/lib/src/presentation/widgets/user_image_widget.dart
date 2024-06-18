@@ -9,13 +9,12 @@ class UserImageWidget extends StatelessWidget {
   double width;
   double height;
 
-   UserImageWidget({
-    super.key,
-    required this.image,
-    this.isBorder = true,
-    this.width=40.0,
-    this.height=40.0
-  });
+  UserImageWidget(
+      {super.key,
+      required this.image,
+      this.isBorder = true,
+      this.width = 40.0,
+      this.height = 40.0});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +43,19 @@ class UserImageWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(20.0),
         ),
       ),
-      errorWidget: (context, url, error) => const Icon(Icons.error),
+      errorWidget: (context, url, error) => Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: isBorder
+                ? Border.all(
+                    color: ColorSchemes.primary,
+                    width: 2.0,
+                  )
+                : null),
+        child: const Icon(Icons.error),
+      ),
     );
   }
 }

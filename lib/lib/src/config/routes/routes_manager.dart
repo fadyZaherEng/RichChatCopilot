@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/chat_screen.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/firends_requests/frients_requests_screen.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/friends/friends_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/home/home_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/login/login_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/main/main_screen.dart';
@@ -18,7 +21,9 @@ class Routes {
   static const String otpScreen = "/otpScreen";
   static const String userInfoScreen = "/userInfoScreen";
   static const String profileScreen = "/profileScreen";
-
+  static const String friendRequestScreen = "/friendRequestScreen";
+  static const String friendsScreen = "/friendsScreen";
+  static const String chatWithFriendScreen = "/chatWithFriendScreen";
 }
 
 class RoutesManager {
@@ -29,8 +34,8 @@ class RoutesManager {
         return _materialRoute(const SplashScreen());
       case Routes.userInfoScreen:
         Map<String, dynamic> arg =
-        routeSettings.arguments as Map<String, dynamic>;
-        return _materialRoute( UserInformationScreen(
+            routeSettings.arguments as Map<String, dynamic>;
+        return _materialRoute(UserInformationScreen(
           phoneNumber: arg["phoneNumber"],
           userId: arg["userId"], //userId
         ));
@@ -44,15 +49,25 @@ class RoutesManager {
         return _materialRoute(const MainScreen());
       case Routes.otpScreen:
         Map<String, dynamic> arg =
-        routeSettings.arguments as Map<String, dynamic>;
+            routeSettings.arguments as Map<String, dynamic>;
         return _materialRoute(OtpScreen(
           phoneNumber: arg["phoneNumber"],
           verificationCode: arg["verificationCode"],
         ));
       case Routes.profileScreen:
         Map<String, dynamic> arg =
-        routeSettings.arguments as Map<String, dynamic>;
-        return _materialRoute( ProfileScreen(
+            routeSettings.arguments as Map<String, dynamic>;
+        return _materialRoute(ProfileScreen(
+          userId: arg["userId"],
+        ));
+      case Routes.friendRequestScreen:
+        return _materialRoute(const FriendRequestsScreen());
+      case Routes.friendsScreen:
+        return _materialRoute(const FriendsScreen());
+      case Routes.chatWithFriendScreen:
+        Map<String, dynamic> arg =
+            routeSettings.arguments as Map<String, dynamic>;
+        return _materialRoute(ChatScreen(
           userId: arg["userId"],
         ));
       default:

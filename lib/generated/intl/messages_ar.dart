@@ -51,6 +51,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("يرجى ملء جميع الحقول"),
         "friendRequestAccepted":
             MessageLookupByLibrary.simpleMessage("تم قبول طلب الصداقة"),
+        "friends": MessageLookupByLibrary.simpleMessage("الاصدقاء"),
+        "friendsRequests":
+            MessageLookupByLibrary.simpleMessage("طلبات الصداقة"),
         "gallery": MessageLookupByLibrary.simpleMessage("المعرض"),
         "globes": MessageLookupByLibrary.simpleMessage("الاشخاص"),
         "groups": MessageLookupByLibrary.simpleMessage("المجموعات"),
@@ -67,9 +70,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("لا يوجد مجموعات حتى الان"),
         "noFoundUsersUntilNow":
             MessageLookupByLibrary.simpleMessage("لا يوجد مستخدمين حتى الان"),
+        "noFriendRequestsYet": MessageLookupByLibrary.simpleMessage(
+            "لا يوجد طلبات صداقة حتى الان"),
+        "noFriendsYet":
+            MessageLookupByLibrary.simpleMessage("لا يوجد أصدفاء حتى الان"),
         "noGlobes": MessageLookupByLibrary.simpleMessage("لا يوجد مناطق"),
         "noGroups": MessageLookupByLibrary.simpleMessage("لا يوجد مجموعات"),
         "noMessages": MessageLookupByLibrary.simpleMessage("لا يوجد رسائل"),
+        "noMessagesYet":
+            MessageLookupByLibrary.simpleMessage("لا يوجد رسائل حتى الان"),
         "noUsers": MessageLookupByLibrary.simpleMessage("لا يوجد مستخدمين"),
         "ok": MessageLookupByLibrary.simpleMessage("موافق"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),

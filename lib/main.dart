@@ -8,12 +8,16 @@ import 'package:rich_chat_copilot/lib/src/config/theme/app_theme.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
 import 'package:rich_chat_copilot/lib/src/di/injector.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/chats/chats_bloc.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/blocs/friends/friends_bloc.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/blocs/friends/friends_bloc.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/blocs/friends_requests/friends_requests_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/login/log_in_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/main/main_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/main/main_state.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/profile/profile_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/settings/settings_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/user_info/user_info_bloc.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/friends/friends_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/restart_widget.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -55,6 +59,8 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<UserInfoBloc>(create: (context) => injector()),
         BlocProvider<ChatsBloc>(create: (context) => injector()),
         BlocProvider<ProfileBloc>(create: (context) => injector()),
+        BlocProvider<FriendsBloc>(create: (context) => injector()),
+        BlocProvider<FriendsRequestsBloc>(create: (context) => injector()),
       ],
       child: BlocBuilder<MainCubit, MainState>(
         buildWhen: (previousState, currentState) {
@@ -73,7 +79,7 @@ class _MyAppState extends State<MyApp> {
             themeMode: ThemeMode.light,
             supportedLocales: S.delegate.supportedLocales,
             onGenerateRoute: RoutesManager.getRoute,
-            initialRoute: Routes.splash,
+            // initialRoute: Routes.splash,
             localizationsDelegates: const [
               S.delegate,
               GlobalMaterialLocalizations.delegate,
@@ -83,7 +89,7 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             theme: AppTheme(state is GetLocalAndThemeState? state.locale.languageCode : Constants.en).light,
             locale: Locale(state is GetLocalAndThemeState? state.locale.languageCode : Constants.en),
-            // home: UserInformationScreen(phoneNumber: "", userId: ""),
+             home: FriendsScreen(),
           );
         },
       ),

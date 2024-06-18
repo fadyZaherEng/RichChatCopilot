@@ -1,5 +1,7 @@
 import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/chats/chats_bloc.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/blocs/friends/friends_bloc.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/blocs/friends_requests/friends_requests_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/login/log_in_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/main/main_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/profile/profile_bloc.dart';
@@ -21,4 +23,6 @@ Future<void> initializeBlocDependencies() async {
   injector.registerFactory<UserInfoBloc>(() => UserInfoBloc());
   injector.registerFactory<ChatsBloc>(() => ChatsBloc());
   injector.registerFactory<ProfileBloc>(() => ProfileBloc());
+  injector.registerFactory<FriendsBloc>(() => FriendsBloc());
+  injector.registerFactory<FriendsRequestsBloc>(() => FriendsRequestsBloc());
 }

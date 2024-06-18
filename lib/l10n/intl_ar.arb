@@ -62,5 +62,10 @@
   "unFriend": "الغاء الصداقة",
   "friendRequestAccepted": "تم قبول طلب الصداقة",
   "requestCanceled": "تم الغاء طلب الصداقة",
-  "chat": "محادثة"
+  "chat": "محادثة",
+  "friends": "الاصدقاء",
+  "friendsRequests": "طلبات الصداقة",
+  "noFriendsYet": "لا يوجد أصدفاء حتى الان",
+  "noFriendRequestsYet": "لا يوجد طلبات صداقة حتى الان",
+  "noMessagesYet": "لا يوجد رسائل حتى الان"
 }

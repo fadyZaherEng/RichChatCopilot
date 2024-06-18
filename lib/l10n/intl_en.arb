@@ -62,5 +62,10 @@
   "unFriend": "UnFriend",
   "friendRequestAccepted": "Friend Request Accepted",
   "requestCanceled": "Request Canceled",
-  "chat": "Chat"
+  "chat": "Chat",
+  "friends": "Friends",
+  "friendsRequests": "Friends Requests",
+  "noFriendsYet": "No Friends Yet",
+  "noFriendRequestsYet": "No Friend Requests Yet",
+  "noMessagesYet": "No Messages Yet"
 }

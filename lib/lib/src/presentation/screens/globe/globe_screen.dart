@@ -27,7 +27,7 @@ class _GlobeScreenState extends BaseState<GlobeScreen> {
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
-    currentUser =  GetUserUseCase(injector())();
+    currentUser = GetUserUseCase(injector())();
   }
 
   @override
@@ -59,15 +59,15 @@ class _GlobeScreenState extends BaseState<GlobeScreen> {
             child: StreamBuilder(
               stream: FirebaseSingleTon.db
                   .collection(Constants.users)
-                   .where(Constants.uId, isNotEqualTo: currentUser.uId)
+                  .where(Constants.uId, isNotEqualTo: currentUser.uId)
                   .snapshots(),
               builder: (context, snapshot) {
-                if(snapshot.connectionState == ConnectionState.waiting) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }
-                if(snapshot.hasError) {
+                if (snapshot.hasError) {
                   return Center(
                     child: Text(
                       S.of(context).somethingWentWrong,
@@ -79,7 +79,7 @@ class _GlobeScreenState extends BaseState<GlobeScreen> {
                     ),
                   );
                 }
-                if (!snapshot.hasData||snapshot.data!.docs.isEmpty) {
+                if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                   return Center(
                     child: Text(
                       S.of(context).noFoundUsersUntilNow,
@@ -103,30 +103,55 @@ class _GlobeScreenState extends BaseState<GlobeScreen> {
                   itemBuilder: (BuildContext context, int index) {
                     UserModel user =
                         UserModel.fromJson(snapshot.data!.docs[index].data());
-                    return ListTile(
-                      onTap: () {
-                        Navigator.pushNamed(context, Routes.profileScreen,
-                            arguments: {"userId": user.uId});
-                      },
-                      leading: UserImageWidget(
-                        image: user.image,
-                        width: 55,
-                        height: 55,
-                      ),
-                      title: Text(
-                        user.name,
-                        style: GoogleFonts.openSans(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: ColorSchemes.black,
+                    return Padding(
+                      padding: const EdgeInsetsDirectional.only(start: 0),
+                      child: ListTile(
+                        onTap: () {
+                          Navigator.pushNamed(context, Routes.profileScreen,
+                              arguments: {"userId": user.uId});
+                        },
+                        leading: UserImageWidget(
+                          image: user.image,
+                          width: 55,
+                          height: 55,
                         ),
-                      ),
-                      subtitle: Text(
-                        user.aboutMe,
-                        style: GoogleFonts.openSans(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: ColorSchemes.black,
+                        title: Text(
+                          user.name,
+                          style: GoogleFonts.openSans(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: ColorSchemes.black,
+                          ),
+                        ),
+                        subtitle: Text(
+                          user.aboutMe,
+                          style: GoogleFonts.openSans(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: ColorSchemes.black,
+                          ),
+                        ),
+                        trailing: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: ColorSchemes.iconBackGround,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                          onPressed: () {
+                            //ToDO navigate to chat screen
+                            Navigator.pushNamed(
+                                context, Routes.chatWithFriendScreen,
+                                arguments: {"userId": user.uId});
+                          },
+                          child: Text(
+                            S.of(context).chat.toUpperCase(),
+                            style: GoogleFonts.openSans(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: ColorSchemes.primary,
+                            ),
+                          ),
                         ),
                       ),
                     );
