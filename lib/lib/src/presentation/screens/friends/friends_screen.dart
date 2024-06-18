@@ -27,16 +27,16 @@ class _FriendsScreenState extends BaseState<FriendsScreen> {
   void initState() {
     super.initState();
     _bloc.add(GetFriends());
-    _friends.add(UserModel(
-      name: "John Doe",
-      aboutMe: "I am a software engineer.",
-      image: "https://i.pravatar.cc/300",
-    ));
-    _friends.add(UserModel(
-      name: "John Doe",
-      aboutMe: "I am a software engineer.",
-      image: "https://i.pravatar.cc/300",
-    ));
+    // _friends.add(UserModel(
+    //   name: "John Doe",
+    //   aboutMe: "I am a software engineer.",
+    //   image: "https://i.pravatar.cc/300",
+    // ));
+    // _friends.add(UserModel(
+    //   name: "John Doe",
+    //   aboutMe: "I am a software engineer.",
+    //   image: "https://i.pravatar.cc/300",
+    // ));
   }
 
   @override

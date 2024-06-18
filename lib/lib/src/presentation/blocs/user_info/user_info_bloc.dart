@@ -9,13 +9,17 @@ import 'package:meta/meta.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
 import 'package:rich_chat_copilot/lib/src/data/source/local/single_ton/firebase_single_ton.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
+import 'package:rich_chat_copilot/lib/src/domain/usecase/set_user_use_case.dart';
 
 part 'user_info_event.dart';
 
 part 'user_info_state.dart';
 
 class UserInfoBloc extends Bloc<UserInfoEvent, UserInfoState> {
-  UserInfoBloc() : super(UserInfoInitial()) {
+  final SetUserUseCase setUserUseCase;
+  UserInfoBloc(
+    this.setUserUseCase,
+      ) : super(UserInfoInitial()) {
     on<SelectImageEvent>(_onSelectImageEvent);
     on<ShowImageEvent>(_onShowImageEvent);
     on<ContinueEvent>(_onContinueEvent);
@@ -43,6 +47,7 @@ class UserInfoBloc extends Bloc<UserInfoEvent, UserInfoState> {
           event.image!, "UserImages/${FirebaseAuth.instance.currentUser!.uid}.jpg");
     }
     event.userModel=event.userModel.copyWith(image: imageUrl);
+    await setUserUseCase(event.userModel);
     try {
       await FirebaseSingleTon.db
           .collection(Constants.users)

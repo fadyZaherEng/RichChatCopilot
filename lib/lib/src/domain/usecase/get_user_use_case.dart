@@ -9,7 +9,10 @@ class GetUserUseCase {
   GetUserUseCase(this.sharedPreferences);
 
   UserModel call() {
-    return UserModel.fromJson(
-        jsonDecode(sharedPreferences.getString(Constants.user)??UserModel().toJson().toString()));
+    return sharedPreferences.getString(Constants.user) == null
+        ? UserModel()
+        : UserModel.fromJson(
+            jsonDecode(sharedPreferences.getString(Constants.user) ?? ""),
+          );
   }
 }

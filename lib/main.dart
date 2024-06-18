@@ -79,7 +79,7 @@ class _MyAppState extends State<MyApp> {
             themeMode: ThemeMode.light,
             supportedLocales: S.delegate.supportedLocales,
             onGenerateRoute: RoutesManager.getRoute,
-            // initialRoute: Routes.splash,
+            initialRoute: Routes.splash,
             localizationsDelegates: const [
               S.delegate,
               GlobalMaterialLocalizations.delegate,
@@ -89,7 +89,7 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             theme: AppTheme(state is GetLocalAndThemeState? state.locale.languageCode : Constants.en).light,
             locale: Locale(state is GetLocalAndThemeState? state.locale.languageCode : Constants.en),
-             home: FriendsScreen(),
+             // home: FriendsScreen(),
           );
         },
       ),
