@@ -311,7 +311,13 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
                 text: S.of(context).chat.toUpperCase(),
                 onPressed: () {
                   //TODO: navigate to chat screen
-
+                  Navigator.pushNamed(context, Routes.chatWithFriendScreen,
+                  arguments: {
+                    "friendId": _otherUser.uId,
+                    "friendName": _otherUser.name,
+                    "friendImage": _otherUser.image,
+                    "groupId": "",
+                  });
                 },
               ),
             ],

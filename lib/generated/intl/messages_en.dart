@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "OTPSMSNotValid":
             MessageLookupByLibrary.simpleMessage("OTP SMS Not Valid"),
+        "accept": MessageLookupByLibrary.simpleMessage("Accept"),
         "acceptFriendRequest":
             MessageLookupByLibrary.simpleMessage("Accept Friend Request"),
         "addYourPhoneNumberMessage": MessageLookupByLibrary.simpleMessage(

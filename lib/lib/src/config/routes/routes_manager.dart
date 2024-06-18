@@ -68,7 +68,10 @@ class RoutesManager {
         Map<String, dynamic> arg =
             routeSettings.arguments as Map<String, dynamic>;
         return _materialRoute(ChatScreen(
-          userId: arg["userId"],
+          friendId: arg["friendId"],
+          friendName: arg["friendName"],
+          friendImage: arg["friendImage"],
+          groupId: arg["groupId"],
         ));
       default:
         return _materialRoute(const SplashScreen());

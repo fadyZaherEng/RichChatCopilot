@@ -6,9 +6,11 @@ import 'package:rich_chat_copilot/generated/l10n.dart';
 import 'package:rich_chat_copilot/lib/src/config/routes/routes_manager.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
 import 'package:rich_chat_copilot/lib/src/core/base/widget/base_stateful_widget.dart';
+import 'package:rich_chat_copilot/lib/src/core/resources/image_paths.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/friends_requests/friends_requests_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/build_app_bar_widget.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/widgets/custom_snack_bar_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/user_image_widget.dart';
 
 class FriendRequestsScreen extends BaseStatefulWidget {
@@ -37,6 +39,13 @@ class _FriendRequestsScreenState extends BaseState<FriendRequestsScreen> {
       listener: (context, state) {
         if (state is GetFriendsRequestsSuccess) {
           _friendsRequests = state.friendsRequests;
+        } else if (state is AcceptFriendRequestsSuccess) {
+          CustomSnackBarWidget.show(
+            context: context,
+            message: S.of(context).friendRequestAccepted,
+            path: ImagePaths.icSuccess,
+            backgroundColor: ColorSchemes.green,
+          );
         }
       },
       builder: (context, state) {
@@ -127,13 +136,12 @@ class _FriendRequestsScreenState extends BaseState<FriendRequestsScreen> {
                                   ),
                                 ),
                                 onPressed: () {
-                                  //ToDO navigate to chat screen
-                                  Navigator.pushNamed(
-                                      context, Routes.chatWithFriendScreen,
-                                      arguments: {"userId": _friendsRequests[index].uId});
+                                  //TODO: accept request
+                                  _bloc.add(AcceptFriendRequestEvent(
+                                      friendId: _friendsRequests[index].uId));
                                 },
                                 child: Text(
-                                  S.of(context).chat.toUpperCase(),
+                                  S.of(context).accept.toUpperCase(),
                                   style: GoogleFonts.openSans(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,

@@ -112,8 +112,8 @@ class _GlobeScreenState extends BaseState<GlobeScreen> {
                         },
                         leading: UserImageWidget(
                           image: user.image,
-                          width: 55,
-                          height: 55,
+                          width: 50,
+                          height: 50,
                         ),
                         title: Text(
                           user.name,

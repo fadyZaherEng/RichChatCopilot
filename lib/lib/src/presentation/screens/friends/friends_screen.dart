@@ -137,7 +137,12 @@ class _FriendsScreenState extends BaseState<FriendsScreen> {
                                   //ToDO navigate to chat screen
                                   Navigator.pushNamed(
                                       context, Routes.chatWithFriendScreen,
-                                      arguments: {"userId": _friends[index].uId});
+                                      arguments: {
+                                        "friendId": _friends[index].uId,
+                                        "friendName": _friends[index].name,
+                                        "friendImage": _friends[index].image,
+                                        "groupId": ""
+                                      });
                                 },
                                 child: Text(
                                   S.of(context).chat.toUpperCase(),

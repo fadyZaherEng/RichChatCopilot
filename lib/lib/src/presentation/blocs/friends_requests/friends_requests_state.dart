@@ -18,3 +18,13 @@ final class GetFriendsRequestsSuccess extends FriendsRequestsState {
 
   GetFriendsRequestsSuccess({required this.friendsRequests});
 }
+final class AcceptFriendRequestsLoading extends FriendsRequestsState {}
+
+final class AcceptFriendRequestsError extends FriendsRequestsState {
+  final String message;
+
+  AcceptFriendRequestsError({required this.message});
+}
+
+final class AcceptFriendRequestsSuccess extends FriendsRequestsState {}
+

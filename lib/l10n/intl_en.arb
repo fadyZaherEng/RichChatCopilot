@@ -67,5 +67,6 @@
   "friendsRequests": "Friends Requests",
   "noFriendsYet": "No Friends Yet",
   "noFriendRequestsYet": "No Friend Requests Yet",
-  "noMessagesYet": "No Messages Yet"
+  "noMessagesYet": "No Messages Yet",
+  "accept": "Accept"
 }
