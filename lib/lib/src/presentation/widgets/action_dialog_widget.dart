@@ -11,17 +11,19 @@ class ActionDialogWidget extends StatelessWidget {
   final Function() primaryAction;
   final Function() secondaryAction;
   final Color? iconColor;
+  IconData? iconData;
 
-  const ActionDialogWidget(
-      {Key? key,
-      required this.text,
-      required this.icon,
-      required this.primaryText,
-      required this.secondaryText,
-      this.iconColor,
-      required this.primaryAction,
-      required this.secondaryAction})
-      : super(key: key);
+   ActionDialogWidget({
+    Key? key,
+    required this.text,
+    required this.icon,
+    required this.primaryText,
+    required this.secondaryText,
+    this.iconColor,
+    required this.iconData,
+    required this.primaryAction,
+    required this.secondaryAction,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +52,18 @@ class ActionDialogWidget extends StatelessWidget {
               ),
               Visibility(
                   visible: icon.isNotEmpty,
+                  child: const SizedBox(
+                    height: 16.2,
+                  )),
+              Visibility(
+                visible: iconData != null,
+                child: Icon(
+                  iconData,
+                  color: iconColor,
+                ),
+              ),
+              Visibility(
+                  visible: iconData != null,
                   child: const SizedBox(
                     height: 16.2,
                   )),

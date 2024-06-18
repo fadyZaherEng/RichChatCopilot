@@ -27,6 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "addYourPhoneNumberMessage": MessageLookupByLibrary.simpleMessage(
             "Add your phone number, we\'ll send you a verification code"),
         "appTitle": MessageLookupByLibrary.simpleMessage("Rich Chat Copilot"),
+        "areYouSureYouWantToLogOut": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to log out?"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chats": MessageLookupByLibrary.simpleMessage("Chats"),
@@ -46,8 +48,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "groups": MessageLookupByLibrary.simpleMessage("Groups"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
+        "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+        "no": MessageLookupByLibrary.simpleMessage("No"),
         "noChats": MessageLookupByLibrary.simpleMessage("No Chats"),
         "noGlobes": MessageLookupByLibrary.simpleMessage("No Globes"),
         "noGroups": MessageLookupByLibrary.simpleMessage("No Groups"),
@@ -79,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "viewFriends": MessageLookupByLibrary.simpleMessage("View Friends"),
         "welcomeMessage": MessageLookupByLibrary.simpleMessage(
             "Welcome to the Copilot Chatbot. What would you like to chat about?"),
+        "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "youShouldHaveCameraPermission": MessageLookupByLibrary.simpleMessage(
             "You should have camera permission"),
         "youShouldHaveGalleryPermission": MessageLookupByLibrary.simpleMessage(

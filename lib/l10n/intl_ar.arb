@@ -47,5 +47,9 @@
   "profile": "الملف الشخصي",
   "sendFriendRequests": "ارسال طلب الصداقة",
   "viewFriends": "عرض ألاصدقاء",
-  "viewFriendRequests": "عرض طلبات الصداقة"
+  "viewFriendRequests": "عرض طلبات الصداقة",
+  "areYouSureYouWantToLogOut": "هل انت متاكد من تسجيل الخروج؟",
+  "yes": "نعم",
+  "no": "لا",
+  "logOut": "تسجيل الخروج"
 }

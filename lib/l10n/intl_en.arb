@@ -47,5 +47,9 @@
   "profile": "Profile",
   "sendFriendRequests": "Send Friend Requests",
   "viewFriends": "View Friends",
-  "viewFriendRequests": "View Friend Requests"
+  "viewFriendRequests": "View Friend Requests",
+  "areYouSureYouWantToLogOut": "Are you sure you want to log out?",
+  "yes": "Yes",
+  "no": "No",
+  "logOut": "Log Out"
 }

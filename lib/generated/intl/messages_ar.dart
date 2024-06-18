@@ -28,6 +28,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "اضف رقم هاتفك, سوف نرسل لك رمز التحقق."),
         "appTitle":
             MessageLookupByLibrary.simpleMessage("محادثة رسمية من نوع Copilot"),
+        "areYouSureYouWantToLogOut": MessageLookupByLibrary.simpleMessage(
+            "هل انت متاكد من تسجيل الخروج؟"),
         "camera": MessageLookupByLibrary.simpleMessage("كاميرا"),
         "cancel": MessageLookupByLibrary.simpleMessage("الغاء"),
         "chats": MessageLookupByLibrary.simpleMessage("المحادثات"),
@@ -47,8 +49,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "groups": MessageLookupByLibrary.simpleMessage("المجموعات"),
         "home": MessageLookupByLibrary.simpleMessage("الصفحة الرئيسية"),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
+        "logOut": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
+        "no": MessageLookupByLibrary.simpleMessage("لا"),
         "noChats": MessageLookupByLibrary.simpleMessage("لا يوجد محادثات"),
         "noGlobes": MessageLookupByLibrary.simpleMessage("لا يوجد مناطق"),
         "noGroups": MessageLookupByLibrary.simpleMessage("لا يوجد مجموعات"),
@@ -80,6 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "viewFriends": MessageLookupByLibrary.simpleMessage("عرض ألاصدقاء"),
         "welcomeMessage": MessageLookupByLibrary.simpleMessage(
             "مرحبا بك في محادثة رسمية من نوع Copilot"),
+        "yes": MessageLookupByLibrary.simpleMessage("نعم"),
         "youShouldHaveCameraPermission":
             MessageLookupByLibrary.simpleMessage("يجب عليك السماح للكاميرا"),
         "youShouldHaveGalleryPermission":

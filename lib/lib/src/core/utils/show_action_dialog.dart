@@ -4,7 +4,8 @@ import 'package:rich_chat_copilot/lib/src/presentation/widgets/action_dialog_wid
 Future showActionDialogWidget({
   required BuildContext context,
   required String text,
-  required String icon,
+   String icon="",
+  IconData?iconData,
   required String primaryText,
   required String secondaryText,
   required Function() primaryAction,
@@ -24,6 +25,7 @@ Future showActionDialogWidget({
             child: ActionDialogWidget(
               text: text,
               icon: icon,
+              iconData: iconData,
               primaryText: primaryText,
               secondaryText: secondaryText,
               primaryAction: primaryAction,

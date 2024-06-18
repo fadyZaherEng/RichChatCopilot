@@ -37,7 +37,9 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
     return Scaffold(
       appBar: buildAppBarWidget(
         context,
-        title: S.of(context).profile,
+        title: S
+            .of(context)
+            .profile,
         actionWidget: IconButton(
             onPressed: () {
               Navigator.pushNamed(context, Routes.settingsScreen);
@@ -92,9 +94,22 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
                       color: ColorSchemes.black,
                     ),
                   ),
+                  _currentUser.uId == _otherUser.uId ?
+                  const SizedBox.shrink()
+                      : Text(
+                    _otherUser.phoneNumber,
+                    style: GoogleFonts.openSans(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: ColorSchemes.black,
+                    ),
+                  ),
                   const SizedBox(height: 10),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.8,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * 0.8,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -150,7 +165,9 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
     if (currentUser.uId == otherUser.uId) {
       if (otherUser.friendsRequestsUIds.isNotEmpty) {
         return _buildButton(
-            text: S.of(context).viewFriendRequests,
+            text: S
+                .of(context)
+                .viewFriendRequests,
             onPressed: () {
               //TODO: navigate to friend requests screen
             });
@@ -168,7 +185,9 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
   }) {
     if (currentUser.uId == otherUser.uId && otherUser.friendsUIds.isNotEmpty) {
       return _buildButton(
-        text: S.of(context).viewFriends,
+        text: S
+            .of(context)
+            .viewFriends,
         onPressed: () {
           //TODO: navigate to friends screen
         },
@@ -176,7 +195,9 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
     } else {
       if (currentUser.uId == otherUser.uId) {
         return _buildButton(
-          text: S.of(context).sendFriendRequests,
+          text: S
+              .of(context)
+              .sendFriendRequests,
           onPressed: () {
             //TODO: send friend request
           },
@@ -192,7 +213,10 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
     required VoidCallback onPressed,
   }) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.6,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width * 0.6,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
@@ -212,12 +236,13 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
     );
   }
 
-  _buildDivider() =>const SizedBox(
-    height: 40,
-    width: 40,
-    child: Divider(
-      color: ColorSchemes.gray,
-      thickness: 1,
-    ),
-  );
+  _buildDivider() =>
+      const SizedBox(
+        height: 40,
+        width: 40,
+        child: Divider(
+          color: ColorSchemes.gray,
+          thickness: 1,
+        ),
+      );
 }
