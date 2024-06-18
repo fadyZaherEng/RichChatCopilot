@@ -142,7 +142,12 @@ class _GlobeScreenState extends BaseState<GlobeScreen> {
                             //ToDO navigate to chat screen
                             Navigator.pushNamed(
                                 context, Routes.chatWithFriendScreen,
-                                arguments: {"userId": user.uId});
+                                arguments:{
+                                  "friendId": user.uId,
+                                  "friendName": user.name,
+                                  "friendImage": user.image,
+                                  "groupId": ""
+                                });
                           },
                           child: Text(
                             S.of(context).chat.toUpperCase(),
