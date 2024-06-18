@@ -741,6 +741,16 @@ class S {
       args: [],
     );
   }
+
+  /// `About Me`
+  String get aboutMe {
+    return Intl.message(
+      'About Me',
+      name: 'aboutMe',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -182,7 +182,7 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
                             _buildDivider(),
                             const SizedBox(width: 10),
                             Text(
-                              _otherUser.aboutMe,
+                              S.of(context).aboutMe,
                               style: GoogleFonts.openSans(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
