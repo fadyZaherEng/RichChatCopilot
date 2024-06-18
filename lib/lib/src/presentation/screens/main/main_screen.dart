@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:rich_chat_copilot/generated/l10n.dart';
 import 'package:rich_chat_copilot/lib/src/config/routes/routes_manager.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
@@ -7,12 +8,10 @@ import 'package:rich_chat_copilot/lib/src/core/base/widget/base_stateful_widget.
 import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
 import 'package:rich_chat_copilot/lib/src/domain/usecase/get_user_use_case.dart';
-import 'package:rich_chat_copilot/lib/src/presentation/screens/chats/chats_screen.dart';
-import 'package:rich_chat_copilot/lib/src/presentation/screens/globe/globe_screen.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/contacts/chats_screen.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/people/globe_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/groups/groups_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/user_image_widget.dart';
-import 'package:skeletons/skeletons.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class MainScreen extends BaseStatefulWidget {
   const MainScreen({super.key});
@@ -55,10 +54,11 @@ class _MainScreenState extends BaseState<MainScreen> {
                     padding: const EdgeInsets.only(top: 5),
                     child: Text(
                       _user.name,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(color: ColorSchemes.black),
+                      style: GoogleFonts.openSans(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: ColorSchemes.black,
+                      ),
                     )),
                 const SizedBox(
                   width: 10,
