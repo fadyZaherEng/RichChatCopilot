@@ -43,7 +43,7 @@ class UserInfoImageWidget extends StatelessWidget {
             margin: EdgeInsetsDirectional.only(
                 bottom: image == null ? 20 : 0, start: image == null ? 20 : 15),
             decoration: const BoxDecoration(
-              color: Colors.green,
+              color: ColorSchemes.primary,
               shape: BoxShape.circle,
             ),
             child: const Icon(

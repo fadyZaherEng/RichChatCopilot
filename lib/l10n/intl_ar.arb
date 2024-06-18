@@ -8,7 +8,7 @@
   "welcomeMessage":"مرحبا بك في محادثة رسمية من نوع Copilot",
   "chats": "المحادثات",
   "groups": "المجموعات",
-  "globes": "المناطق",
+  "globes": "الاشخاص",
   "richChat": "محادثة رسمية",
   "phoneNumber": "رقم الهاتف",
   "logout": "تسجيل الخروج",
@@ -51,5 +51,9 @@
   "areYouSureYouWantToLogOut": "هل انت متاكد من تسجيل الخروج؟",
   "yes": "نعم",
   "no": "لا",
-  "logOut": "تسجيل الخروج"
+  "logOut": "تسجيل الخروج",
+  "noFoundUsersUntilNow": "لا يوجد مستخدمين حتى الان",
+  "noFoundChatsUntilNow": "لا يوجد محادثات حتى الان",
+  "noFoundGroupsUntilNow": "لا يوجد مجموعات حتى الان",
+  "somethingWentWrong": "حدث خطأ ما"
 }

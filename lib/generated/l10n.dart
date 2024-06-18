@@ -132,10 +132,10 @@ class S {
     );
   }
 
-  /// `Globes`
+  /// `People`
   String get globes {
     return Intl.message(
-      'Globes',
+      'People',
       name: 'globes',
       desc: '',
       args: [],
@@ -567,6 +567,46 @@ class S {
     return Intl.message(
       'Log Out',
       name: 'logOut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Found Users Until Now`
+  String get noFoundUsersUntilNow {
+    return Intl.message(
+      'No Found Users Until Now',
+      name: 'noFoundUsersUntilNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Found Chats Until Now`
+  String get noFoundChatsUntilNow {
+    return Intl.message(
+      'No Found Chats Until Now',
+      name: 'noFoundChatsUntilNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Found Groups Until Now`
+  String get noFoundGroupsUntilNow {
+    return Intl.message(
+      'No Found Groups Until Now',
+      name: 'noFoundGroupsUntilNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Something went wrong`
+  String get somethingWentWrong {
+    return Intl.message(
+      'Something went wrong',
+      name: 'somethingWentWrong',
       desc: '',
       args: [],
     );

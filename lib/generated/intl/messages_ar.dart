@@ -45,7 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "fillAllFields":
             MessageLookupByLibrary.simpleMessage("يرجى ملء جميع الحقول"),
         "gallery": MessageLookupByLibrary.simpleMessage("المعرض"),
-        "globes": MessageLookupByLibrary.simpleMessage("المناطق"),
+        "globes": MessageLookupByLibrary.simpleMessage("الاشخاص"),
         "groups": MessageLookupByLibrary.simpleMessage("المجموعات"),
         "home": MessageLookupByLibrary.simpleMessage("الصفحة الرئيسية"),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
@@ -54,6 +54,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
         "no": MessageLookupByLibrary.simpleMessage("لا"),
         "noChats": MessageLookupByLibrary.simpleMessage("لا يوجد محادثات"),
+        "noFoundChatsUntilNow":
+            MessageLookupByLibrary.simpleMessage("لا يوجد محادثات حتى الان"),
+        "noFoundGroupsUntilNow":
+            MessageLookupByLibrary.simpleMessage("لا يوجد مجموعات حتى الان"),
+        "noFoundUsersUntilNow":
+            MessageLookupByLibrary.simpleMessage("لا يوجد مستخدمين حتى الان"),
         "noGlobes": MessageLookupByLibrary.simpleMessage("لا يوجد مناطق"),
         "noGroups": MessageLookupByLibrary.simpleMessage("لا يوجد مجموعات"),
         "noMessages": MessageLookupByLibrary.simpleMessage("لا يوجد رسائل"),
@@ -69,6 +75,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ارسال طلب الصداقة"),
         "sentTo": MessageLookupByLibrary.simpleMessage("ارسلت ل"),
         "settings": MessageLookupByLibrary.simpleMessage("الاعدادات"),
+        "somethingWentWrong":
+            MessageLookupByLibrary.simpleMessage("حدث خطأ ما"),
         "theme": MessageLookupByLibrary.simpleMessage("المظهر"),
         "uploadCamera":
             MessageLookupByLibrary.simpleMessage("تحميل من الكاميرا"),

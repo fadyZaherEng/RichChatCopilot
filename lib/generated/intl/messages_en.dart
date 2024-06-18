@@ -44,7 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "fillAllFields":
             MessageLookupByLibrary.simpleMessage("Fill all the fields"),
         "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
-        "globes": MessageLookupByLibrary.simpleMessage("Globes"),
+        "globes": MessageLookupByLibrary.simpleMessage("People"),
         "groups": MessageLookupByLibrary.simpleMessage("Groups"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
@@ -53,6 +53,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "noChats": MessageLookupByLibrary.simpleMessage("No Chats"),
+        "noFoundChatsUntilNow":
+            MessageLookupByLibrary.simpleMessage("No Found Chats Until Now"),
+        "noFoundGroupsUntilNow":
+            MessageLookupByLibrary.simpleMessage("No Found Groups Until Now"),
+        "noFoundUsersUntilNow":
+            MessageLookupByLibrary.simpleMessage("No Found Users Until Now"),
         "noGlobes": MessageLookupByLibrary.simpleMessage("No Globes"),
         "noGroups": MessageLookupByLibrary.simpleMessage("No Groups"),
         "noMessages": MessageLookupByLibrary.simpleMessage("No Messages"),
@@ -68,6 +74,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Send Friend Requests"),
         "sentTo": MessageLookupByLibrary.simpleMessage("Sent to"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "somethingWentWrong":
+            MessageLookupByLibrary.simpleMessage("Something went wrong"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
         "uploadCamera":
             MessageLookupByLibrary.simpleMessage("Upload from Camera"),

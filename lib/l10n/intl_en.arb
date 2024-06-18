@@ -8,7 +8,7 @@
   "welcomeMessage": "Welcome to the Copilot Chatbot. What would you like to chat about?",
   "chats": "Chats",
   "groups": "Groups",
-  "globes": "Globes",
+  "globes": "People",
   "richChat": "Rich Chat",
   "phoneNumber": "Phone Number",
   "logout": "Logout",
@@ -51,5 +51,9 @@
   "areYouSureYouWantToLogOut": "Are you sure you want to log out?",
   "yes": "Yes",
   "no": "No",
-  "logOut": "Log Out"
+  "logOut": "Log Out",
+  "noFoundUsersUntilNow": "No Found Users Until Now",
+  "noFoundChatsUntilNow": "No Found Chats Until Now",
+  "noFoundGroupsUntilNow": "No Found Groups Until Now",
+  "somethingWentWrong": "Something went wrong"
 }

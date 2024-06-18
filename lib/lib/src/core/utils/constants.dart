@@ -20,4 +20,5 @@ class Constants {
   static const String users = "users";
   static const String user = "user";
   static const String phoneNumber = "phoneNumber";
+  static const String uId = "uId";
 }
