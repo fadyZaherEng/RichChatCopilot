@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "OTPSMSNotValid":
             MessageLookupByLibrary.simpleMessage("رمز التحقق غير صحيح"),
+        "acceptFriendRequest":
+            MessageLookupByLibrary.simpleMessage("قبول طلب الصداقة"),
         "addYourPhoneNumberMessage": MessageLookupByLibrary.simpleMessage(
             "اضف رقم هاتفك, سوف نرسل لك رمز التحقق."),
         "appTitle":
@@ -32,6 +34,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "هل انت متاكد من تسجيل الخروج؟"),
         "camera": MessageLookupByLibrary.simpleMessage("كاميرا"),
         "cancel": MessageLookupByLibrary.simpleMessage("الغاء"),
+        "cancelFriendRequest":
+            MessageLookupByLibrary.simpleMessage("الغاء طلب الصداقة"),
+        "chat": MessageLookupByLibrary.simpleMessage("محادثة"),
         "chats": MessageLookupByLibrary.simpleMessage("المحادثات"),
         "chooseFile": MessageLookupByLibrary.simpleMessage("اختر ملف"),
         "chooseImage": MessageLookupByLibrary.simpleMessage("اختر صورة"),
@@ -44,6 +49,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "أدخل الرمز الذي تم ارساله على رقم هاتفك"),
         "fillAllFields":
             MessageLookupByLibrary.simpleMessage("يرجى ملء جميع الحقول"),
+        "friendRequestAccepted":
+            MessageLookupByLibrary.simpleMessage("تم قبول طلب الصداقة"),
         "gallery": MessageLookupByLibrary.simpleMessage("المعرض"),
         "globes": MessageLookupByLibrary.simpleMessage("الاشخاص"),
         "groups": MessageLookupByLibrary.simpleMessage("المجموعات"),
@@ -67,6 +74,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "ok": MessageLookupByLibrary.simpleMessage("موافق"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
+        "requestCanceled":
+            MessageLookupByLibrary.simpleMessage("تم الغاء طلب الصداقة"),
+        "requestSent":
+            MessageLookupByLibrary.simpleMessage(" تم ارسال الطلب بنجاح"),
         "resendCode": MessageLookupByLibrary.simpleMessage("اعادة ارسال الرمز"),
         "richChat": MessageLookupByLibrary.simpleMessage("محادثة رسمية"),
         "search": MessageLookupByLibrary.simpleMessage("بحث"),
@@ -78,6 +89,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "somethingWentWrong":
             MessageLookupByLibrary.simpleMessage("حدث خطأ ما"),
         "theme": MessageLookupByLibrary.simpleMessage("المظهر"),
+        "unFriend": MessageLookupByLibrary.simpleMessage("الغاء الصداقة"),
         "uploadCamera":
             MessageLookupByLibrary.simpleMessage("تحميل من الكاميرا"),
         "uploadFile": MessageLookupByLibrary.simpleMessage("تحميل ملف"),

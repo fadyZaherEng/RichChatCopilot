@@ -55,5 +55,12 @@
   "noFoundUsersUntilNow": "لا يوجد مستخدمين حتى الان",
   "noFoundChatsUntilNow": "لا يوجد محادثات حتى الان",
   "noFoundGroupsUntilNow": "لا يوجد مجموعات حتى الان",
-  "somethingWentWrong": "حدث خطأ ما"
+  "somethingWentWrong": "حدث خطأ ما",
+  "requestSent": " تم ارسال الطلب بنجاح",
+  "cancelFriendRequest": "الغاء طلب الصداقة",
+  "acceptFriendRequest": "قبول طلب الصداقة",
+  "unFriend": "الغاء الصداقة",
+  "friendRequestAccepted": "تم قبول طلب الصداقة",
+  "requestCanceled": "تم الغاء طلب الصداقة",
+  "chat": "محادثة"
 }

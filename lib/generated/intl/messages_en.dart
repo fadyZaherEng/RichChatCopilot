@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "OTPSMSNotValid":
             MessageLookupByLibrary.simpleMessage("OTP SMS Not Valid"),
+        "acceptFriendRequest":
+            MessageLookupByLibrary.simpleMessage("Accept Friend Request"),
         "addYourPhoneNumberMessage": MessageLookupByLibrary.simpleMessage(
             "Add your phone number, we\'ll send you a verification code"),
         "appTitle": MessageLookupByLibrary.simpleMessage("Rich Chat Copilot"),
@@ -31,6 +33,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Are you sure you want to log out?"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "cancelFriendRequest":
+            MessageLookupByLibrary.simpleMessage("Cancel Friend Request"),
+        "chat": MessageLookupByLibrary.simpleMessage("Chat"),
         "chats": MessageLookupByLibrary.simpleMessage("Chats"),
         "chooseFile": MessageLookupByLibrary.simpleMessage("Choose File"),
         "chooseImage": MessageLookupByLibrary.simpleMessage("Choose Image"),
@@ -43,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Enter the 6 digit code sent to your mobile number"),
         "fillAllFields":
             MessageLookupByLibrary.simpleMessage("Fill all the fields"),
+        "friendRequestAccepted":
+            MessageLookupByLibrary.simpleMessage("Friend Request Accepted"),
         "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
         "globes": MessageLookupByLibrary.simpleMessage("People"),
         "groups": MessageLookupByLibrary.simpleMessage("Groups"),
@@ -66,6 +73,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "requestCanceled":
+            MessageLookupByLibrary.simpleMessage("Request Canceled"),
+        "requestSent":
+            MessageLookupByLibrary.simpleMessage("Request sent successfully"),
         "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
         "richChat": MessageLookupByLibrary.simpleMessage("Rich Chat"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
@@ -77,6 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "somethingWentWrong":
             MessageLookupByLibrary.simpleMessage("Something went wrong"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
+        "unFriend": MessageLookupByLibrary.simpleMessage("UnFriend"),
         "uploadCamera":
             MessageLookupByLibrary.simpleMessage("Upload from Camera"),
         "uploadFile": MessageLookupByLibrary.simpleMessage("Upload File"),

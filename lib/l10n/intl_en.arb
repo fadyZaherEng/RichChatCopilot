@@ -55,5 +55,12 @@
   "noFoundUsersUntilNow": "No Found Users Until Now",
   "noFoundChatsUntilNow": "No Found Chats Until Now",
   "noFoundGroupsUntilNow": "No Found Groups Until Now",
-  "somethingWentWrong": "Something went wrong"
+  "somethingWentWrong": "Something went wrong",
+  "requestSent": "Request sent successfully",
+  "cancelFriendRequest": "Cancel Friend Request",
+  "acceptFriendRequest": "Accept Friend Request",
+  "unFriend": "UnFriend",
+  "friendRequestAccepted": "Friend Request Accepted",
+  "requestCanceled": "Request Canceled",
+  "chat": "Chat"
 }
