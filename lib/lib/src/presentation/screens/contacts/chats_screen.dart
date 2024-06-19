@@ -86,14 +86,17 @@ class _ChatsScreenState extends BaseState<ChatsScreen> {
                         ),
                       );
                     }
-                    if (!snapshot.hasData) {
+                    if (!snapshot.hasData ||
+                        snapshot.data!.isEmpty ||
+                        snapshot.data == null) {
                       return Center(
                         child: Text(
                           S.of(context).noFoundChatsUntilNow,
                           style: GoogleFonts.openSans(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            color: ColorSchemes.gray,
+                            letterSpacing: 1.2,
+                            color: ColorSchemes.black,
                           ),
                         ),
                       );
@@ -130,7 +133,7 @@ class _ChatsScreenState extends BaseState<ChatsScreen> {
                                 ),
                               ),
                             ),
-                            leading:UserImageWidget(
+                            leading: UserImageWidget(
                               image: snapshot.data![index].receiverImage,
                               width: 50,
                               height: 50,

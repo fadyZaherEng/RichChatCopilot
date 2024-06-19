@@ -8,11 +8,13 @@ AppBar buildAppBarWidget(
   required String title,
   required bool isHaveBackButton,
   Function()? onBackButtonPressed,
-  Color backgroundColor = ColorSchemes.white,
-  Color textColor = ColorSchemes.black,
+  Color? backgroundColor ,
+  Color? textColor ,
   Widget actionWidget = const SizedBox.shrink(),
   String imagePath = "",
 }) {
+  backgroundColor ??= ColorSchemes.white;
+  textColor ??= ColorSchemes.black;
   return AppBar(
     backgroundColor: backgroundColor,
     title: imagePath.isEmpty

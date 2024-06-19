@@ -120,7 +120,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
                   if (snapshot.hasData) {
                     final massages = snapshot.data!;
                     return GroupedListView<dynamic, DateTime>(
-                      reverse: true,
+                      // reverse: true,
                       elements: massages,
                       groupBy: (massage) => DateTime(massage.timeSent.year,
                           massage.timeSent.month, massage.timeSent.day),

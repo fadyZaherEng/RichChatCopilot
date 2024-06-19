@@ -86,7 +86,7 @@ class BottomChatWidget extends StatelessWidget {
                   color: ColorSchemes.primary,
                   borderRadius: BorderRadius.circular(30),
                 ),
-                child: const Center(
+                child:  Center(
                   child: Icon(
                     Icons.arrow_upward,
                     color: ColorSchemes.white,

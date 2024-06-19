@@ -111,7 +111,7 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
                 onPressed: () {
                   Navigator.pushNamed(context, Routes.settingsScreen);
                 },
-                icon: const Icon(
+                icon:  Icon(
                   Icons.settings,
                   color: ColorSchemes.black,
                 )),

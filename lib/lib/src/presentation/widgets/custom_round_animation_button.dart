@@ -14,7 +14,7 @@ class CustomRoundedAnimationButton extends StatefulWidget {
   final Color valueColor;
   final Color successColor;
   final Color errorColor;
-  final Color textColor;
+   Color? textColor = ColorSchemes.white;
   final Color borderColor;
   final double borderWidth;
   final IconData successIcon;
@@ -30,7 +30,7 @@ class CustomRoundedAnimationButton extends StatefulWidget {
     required this.valueColor,
     required this.successColor,
     required this.errorColor,
-    this.textColor = ColorSchemes.white,
+    this.textColor ,
     required this.borderColor,
     required this.borderWidth,
     this.successIcon = Icons.check,
@@ -89,7 +89,7 @@ class _CustomRoundedAnimationButtonState
           },
           child: widget.isAnimated
               ? widget.isLoading
-                  ? const Center(
+                  ?  Center(
                       child: SizedBox(
                           height: 17,
                           width: 17,

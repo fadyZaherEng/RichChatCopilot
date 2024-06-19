@@ -34,7 +34,7 @@ class ReceiverMassageWidget extends StatelessWidget {
                     start: 10, end: 30, top: 5, bottom: 20),
                 child: Text(
                   massage.massage,
-                  style: const TextStyle(color: ColorSchemes.black),
+                  style:  TextStyle(color: ColorSchemes.black),
                 ),
               ),
               PositionedDirectional(
@@ -44,7 +44,7 @@ class ReceiverMassageWidget extends StatelessWidget {
                   children: [
                     Text(
                       DateFormat("hh:mm a").format(massage.timeSent),
-                      style: const TextStyle(color: ColorSchemes.black, fontSize: 10),
+                      style:  TextStyle(color: ColorSchemes.black, fontSize: 10),
                     ),
                     const SizedBox(width: 4),
                     Icon(

@@ -46,7 +46,7 @@ class UserInfoImageWidget extends StatelessWidget {
               color: ColorSchemes.primary,
               shape: BoxShape.circle,
             ),
-            child: const Icon(
+            child:  Icon(
               CupertinoIcons.camera,
               size: 15,
               color: ColorSchemes.white,
