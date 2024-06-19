@@ -16,6 +16,7 @@ import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/bott
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/chat_app_bar_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/current_massage_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/receiver_massage_widget.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/widgets/cricle_loading_widget.dart';
 
 class ChatScreen extends BaseStatefulWidget {
   final String friendId;
@@ -48,7 +49,6 @@ class _ChatScreenState extends BaseState<ChatScreen> {
   void initState() {
     super.initState();
     currentUser = GetUserUseCase(injector())();
-
     _isGroupChat = widget.groupId.isNotEmpty;
     //add list view scroll to bottom
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -62,9 +62,9 @@ class _ChatScreenState extends BaseState<ChatScreen> {
     return BlocConsumer<ChatsBloc, ChatsState>(listener: (context, state) {
       if (state is SendTextMessageSuccess) {
         _massageController.clear();
-        _massageFocusNode.requestFocus();
-        _massagesScrollController
-            .jumpTo(_massagesScrollController.position.maxScrollExtent);
+        // _massageFocusNode.requestFocus();
+        // _massagesScrollController
+        //     .jumpTo(_massagesScrollController.position.maxScrollExtent);
       }
       if (state is SendTextMessageError) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -73,15 +73,12 @@ class _ChatScreenState extends BaseState<ChatScreen> {
       }
     }, builder: (context, state) {
       return Scaffold(
-        appBar: AppBar(
-          flexibleSpace: Padding(
-            padding: const EdgeInsetsDirectional.only(
-                start: 5, end: 10, top: 18, bottom: 0),
-            child: ChatAppBarWidget(friendId: widget.friendId),
-          ),
-        ),
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 50),
+            ChatAppBarWidget(friendId: widget.friendId),
             Expanded(
               child: StreamBuilder<List<Massage>>(
                 stream: _bloc.getMessagesStream(
@@ -90,11 +87,9 @@ class _ChatScreenState extends BaseState<ChatScreen> {
                   isGroup: widget.groupId,
                 ),
                 builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
+                  // if (snapshot.connectionState == ConnectionState.waiting) {
+                  //   return const CircleLoadingWidget();
+                  // }
                   if (snapshot.hasError) {
                     return Center(
                       child: Text(
@@ -107,21 +102,24 @@ class _ChatScreenState extends BaseState<ChatScreen> {
                       ),
                     );
                   }
-                  if (!snapshot.hasData) {
+                  if (!snapshot.hasData ||
+                      snapshot.data!.isEmpty ||
+                      snapshot.data == null) {
                     return Center(
                       child: Text(
                         S.of(context).startConversation,
                         style: GoogleFonts.openSans(
-                          fontSize: 18,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1.2,
+                          color: ColorSchemes.black,
                         ),
                       ),
                     );
                   }
                   if (snapshot.hasData) {
                     final massages = snapshot.data!;
-                    GroupedListView<dynamic, DateTime>(
+                    return GroupedListView<dynamic, DateTime>(
                       reverse: true,
                       elements: massages,
                       groupBy: (massage) => DateTime(massage.timeSent.year,
@@ -155,9 +153,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
                 },
               ),
             ),
-            const SizedBox(
-              height: 15,
-            ),
+            const SizedBox(height: 15),
             BottomChatWidget(
               friendId: widget.friendId,
               friendName: widget.friendName,
@@ -201,8 +197,10 @@ class _ChatScreenState extends BaseState<ChatScreen> {
     super.dispose();
   }
 
-  _buildDateWidget(
-      {required BuildContext context, required DateTime dateTime}) {
+  _buildDateWidget({
+    required BuildContext context,
+    required DateTime dateTime,
+  }) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Text(
@@ -211,6 +209,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
           fontSize: 18,
           fontWeight: FontWeight.bold,
           letterSpacing: 1.2,
+          color: ColorSchemes.black,
         ),
       ),
     );

@@ -20,11 +20,12 @@ class CurrentMassageWidget extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.primary,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(10.0),
-              topRight: Radius.circular(10.0),
-              bottomLeft: Radius.circular(10.0),
-            ),
+            borderRadius: const BorderRadiusDirectional.only(
+              // topStart: Radius.circular(15),
+              topEnd: Radius.circular(15),
+              // bottomEnd: Radius.circular(15),
+              // bottomStart: Radius.circular(10),
+            )
           ),
           child: Stack(
             children: [

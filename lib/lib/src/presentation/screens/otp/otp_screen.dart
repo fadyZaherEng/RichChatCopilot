@@ -107,7 +107,7 @@ class _OtpScreenState extends BaseState<OtpScreen> {
                     width: 30,
                     margin: const EdgeInsets.all(10),
                     alignment: Alignment.center,
-                    child: const CircularProgressIndicator(
+                    child:  CircularProgressIndicator(
                       color: ColorSchemes.primary,
                     ),
                   ),

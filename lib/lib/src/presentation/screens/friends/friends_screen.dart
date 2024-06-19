@@ -92,9 +92,7 @@ class _FriendsScreenState extends BaseState<FriendsScreen> {
                         shrinkWrap: true,
                         itemCount: _friends.length,
                         separatorBuilder: (BuildContext context, int index) {
-                          return const SizedBox(
-                            height: 15,
-                          );
+                          return const SizedBox(height: 15);
                         },
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(

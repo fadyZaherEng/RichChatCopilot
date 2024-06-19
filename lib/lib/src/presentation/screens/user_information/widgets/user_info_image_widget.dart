@@ -42,7 +42,7 @@ class UserInfoImageWidget extends StatelessWidget {
             padding: const EdgeInsets.all(6),
             margin: EdgeInsetsDirectional.only(
                 bottom: image == null ? 20 : 0, start: image == null ? 20 : 15),
-            decoration: const BoxDecoration(
+            decoration:  BoxDecoration(
               color: ColorSchemes.primary,
               shape: BoxShape.circle,
             ),

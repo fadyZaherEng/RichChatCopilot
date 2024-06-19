@@ -10,7 +10,7 @@ class CustomRoundedAnimationButton extends StatefulWidget {
   final double height;
   final double width;
   final double borderRadius;
-  final Color backgroundColor;
+   Color? backgroundColor=ColorSchemes.primary;
   final Color valueColor;
   final Color successColor;
   final Color errorColor;
@@ -26,7 +26,7 @@ class CustomRoundedAnimationButton extends StatefulWidget {
     this.height = 48,
     this.width = 300,
     this.borderRadius = 25,
-    this.backgroundColor = ColorSchemes.primary,
+    this.backgroundColor,
     required this.valueColor,
     required this.successColor,
     required this.errorColor,

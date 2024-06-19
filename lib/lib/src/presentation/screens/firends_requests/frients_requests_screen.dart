@@ -93,9 +93,7 @@ class _FriendRequestsScreenState extends BaseState<FriendRequestsScreen> {
                         shrinkWrap: true,
                         itemCount: _friendsRequests.length,
                         separatorBuilder: (BuildContext context, int index) {
-                          return const SizedBox(
-                            height: 15,
-                          );
+                          return const SizedBox(height: 15);
                         },
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(

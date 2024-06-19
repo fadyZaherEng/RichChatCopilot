@@ -12,6 +12,8 @@ import 'package:rich_chat_copilot/lib/src/domain/entities/chat/last_massage.dart
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
 import 'package:rich_chat_copilot/lib/src/domain/usecase/get_user_use_case.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/chats/chats_bloc.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/widgets/cricle_loading_widget.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/widgets/user_image_widget.dart';
 
 class ChatsScreen extends BaseStatefulWidget {
   const ChatsScreen({super.key});
@@ -50,7 +52,7 @@ class _ChatsScreenState extends BaseState<ChatsScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: CupertinoSearchTextField(
                   placeholder: S.of(context).search,
                   prefixIcon: const Icon(CupertinoIcons.search),
@@ -63,18 +65,14 @@ class _ChatsScreenState extends BaseState<ChatsScreen> {
                   controller: _searchController,
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: StreamBuilder<List<LastMassage>>(
                   stream: _bloc.getChatsLastMassagesStream(
                       userId: GetUserUseCase(injector())().uId),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
+                      return const CircleLoadingWidget();
                     }
                     if (snapshot.hasError) {
                       return Center(
@@ -100,7 +98,9 @@ class _ChatsScreenState extends BaseState<ChatsScreen> {
                         ),
                       );
                     }
-                    if (snapshot.hasData) {
+                    if (snapshot.hasData &&
+                        snapshot.data != null &&
+                        snapshot.data!.isNotEmpty) {
                       return ListView.separated(
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
@@ -130,10 +130,11 @@ class _ChatsScreenState extends BaseState<ChatsScreen> {
                                 ),
                               ),
                             ),
-                            leading: CircleAvatar(
-                              radius: 30,
-                              backgroundImage: NetworkImage(
-                                  snapshot.data![index].receiverImage),
+                            leading:UserImageWidget(
+                              image: snapshot.data![index].receiverImage,
+                              width: 50,
+                              height: 50,
+                              isBorder: false,
                             ),
                             trailing: Text(
                               DateFormat("hh:mm a").format(
@@ -147,7 +148,8 @@ class _ChatsScreenState extends BaseState<ChatsScreen> {
                             ),
                             onTap: () {
                               //TODO: navigate to chat screen
-                              Navigator.pushNamed(context, Routes.chatScreen,
+                              Navigator.pushNamed(
+                                  context, Routes.chatWithFriendScreen,
                                   arguments: {
                                     "friendId":
                                         snapshot.data![index].receiverId,
@@ -165,9 +167,7 @@ class _ChatsScreenState extends BaseState<ChatsScreen> {
                         },
                       );
                     } else {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
+                      return const CircleLoadingWidget();
                     }
                   },
                 ),

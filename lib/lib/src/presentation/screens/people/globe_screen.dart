@@ -11,6 +11,7 @@ import 'package:rich_chat_copilot/lib/src/data/source/local/single_ton/firebase_
 import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
 import 'package:rich_chat_copilot/lib/src/domain/usecase/get_user_use_case.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/widgets/cricle_loading_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/user_image_widget.dart';
 
 class GlobeScreen extends BaseStatefulWidget {
@@ -63,9 +64,7 @@ class _GlobeScreenState extends BaseState<GlobeScreen> {
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return const CircleLoadingWidget();
                 }
                 if (snapshot.hasError) {
                   return Center(
@@ -96,9 +95,7 @@ class _GlobeScreenState extends BaseState<GlobeScreen> {
                   shrinkWrap: true,
                   itemCount: snapshot.data!.docs.length,
                   separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(
-                      height: 15,
-                    );
+                    return const SizedBox(height: 15);
                   },
                   itemBuilder: (BuildContext context, int index) {
                     UserModel user =
@@ -142,7 +139,7 @@ class _GlobeScreenState extends BaseState<GlobeScreen> {
                             //ToDO navigate to chat screen
                             Navigator.pushNamed(
                                 context, Routes.chatWithFriendScreen,
-                                arguments:{
+                                arguments: {
                                   "friendId": user.uId,
                                   "friendName": user.name,
                                   "friendImage": user.image,

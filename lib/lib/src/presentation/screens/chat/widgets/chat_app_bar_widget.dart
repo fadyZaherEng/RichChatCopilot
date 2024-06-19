@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rich_chat_copilot/lib/src/config/routes/routes_manager.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
-import 'package:rich_chat_copilot/lib/src/core/base/widget/base_stateful_widget.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
 import 'package:rich_chat_copilot/lib/src/data/source/local/single_ton/firebase_single_ton.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/widgets/cricle_loading_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/user_image_widget.dart';
 
-class ChatAppBarWidget extends BaseStatefulWidget {
+class ChatAppBarWidget extends StatelessWidget {
   final String friendId;
 
   const ChatAppBarWidget({
@@ -17,25 +17,19 @@ class ChatAppBarWidget extends BaseStatefulWidget {
   });
 
   @override
-  BaseState<ChatAppBarWidget> baseCreateState() => _ChatAppBarWidgetState();
-}
-
-class _ChatAppBarWidgetState extends BaseState<ChatAppBarWidget> {
-  @override
-  Widget baseBuild(BuildContext context) {
-    //stream to user id
+  Widget build(BuildContext context) {
     return StreamBuilder(
       stream: FirebaseSingleTon.db
           .collection(Constants.users)
-          .doc(widget.friendId)
+          .doc(friendId)
           .snapshots(),
       builder: (context, AsyncSnapshot snapshot) {
         if (snapshot.hasError) {
           return Center(child: Text(snapshot.error.toString()));
         }
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        }
+        // if (snapshot.connectionState == ConnectionState.waiting) {
+        //   return const CircleLoadingWidget();
+        // }
         if (snapshot.hasData) {
           UserModel user = UserModel.fromJson(snapshot.data.data()!);
           return Padding(
@@ -50,13 +44,9 @@ class _ChatAppBarWidgetState extends BaseState<ChatAppBarWidget> {
                     Navigator.pushNamed(context, Routes.profileScreen,
                         arguments: {"userId": user.uId});
                   },
-                  child: UserImageWidget(
-                    image: user.image,
-                  ),
+                  child: UserImageWidget(image: user.image),
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
+                const SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -83,7 +73,7 @@ class _ChatAppBarWidgetState extends BaseState<ChatAppBarWidget> {
             ),
           );
         } else {
-          return const Center(child: CircularProgressIndicator());
+          return const SizedBox.shrink();
         }
       },
     );
