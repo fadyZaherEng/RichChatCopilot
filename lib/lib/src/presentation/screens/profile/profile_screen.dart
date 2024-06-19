@@ -108,13 +108,14 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
             context,
             title: S.of(context).profile,
             actionWidget: IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, Routes.settingsScreen);
-                },
-                icon:  Icon(
-                  Icons.settings,
-                  color: ColorSchemes.black,
-                )),
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.settingsScreen);
+              },
+              icon: const Icon(
+                Icons.settings,
+                color: ColorSchemes.black,
+              ),
+            ),
             isHaveBackButton: true,
             onBackButtonPressed: () {
               Navigator.pop(context);
@@ -210,8 +211,6 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
                       _buildFriendsStatusButton(
                           currentUser: _currentUser, otherUser: _otherUser),
                       const SizedBox(height: 10),
-
-
                     ],
                   ),
                 );
@@ -256,7 +255,7 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
     if (currentUser.uId == otherUser.uId && otherUser.friendsUIds.isNotEmpty) {
       return _buildButton(
         width: MediaQuery.of(context).size.width * 0.6,
-          backgroundColor: ColorSchemes.primary,
+        backgroundColor: ColorSchemes.primary,
         textColor: ColorSchemes.white,
         text: S.of(context).viewFriends,
         onPressed: () {
@@ -312,12 +311,12 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
                 onPressed: () {
                   //TODO: navigate to chat screen
                   Navigator.pushNamed(context, Routes.chatWithFriendScreen,
-                  arguments: {
-                    "friendId": _otherUser.uId,
-                    "friendName": _otherUser.name,
-                    "friendImage": _otherUser.image,
-                    "groupId": "",
-                  });
+                      arguments: {
+                        "friendId": _otherUser.uId,
+                        "friendName": _otherUser.name,
+                        "friendImage": _otherUser.image,
+                        "groupId": "",
+                      });
                 },
               ),
             ],
