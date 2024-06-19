@@ -210,4 +210,39 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
           .toList();
     });
   }
+  //get massages stream
+  Stream<List<Massage>> getMessagesStream({
+    required String userId,
+    required String receiverId,
+    required String isGroup,
+  }) {
+    if(isGroup.isNotEmpty) {
+      return FirebaseSingleTon.db
+          .collection(Constants.groups)
+          .doc(receiverId)
+          .collection(Constants.messages)
+          .orderBy("timeSent", descending: true)
+          .snapshots()
+          .map((snapshot) {
+        return snapshot.docs
+            .map((doc) => Massage.fromJson(doc.data()))
+            .toList();
+      });
+    } else {
+      //handle contact massage
+      return FirebaseSingleTon.db
+          .collection(Constants.users)
+          .doc(userId)
+          .collection(Constants.chats)
+          .doc(receiverId)
+          .collection(Constants.messages)
+          .orderBy("timeSent", descending: true)
+          .snapshots()
+          .map((snapshot) {
+        return snapshot.docs
+            .map((doc) => Massage.fromJson(doc.data()))
+            .toList();
+      });
+    }
+  }
 }

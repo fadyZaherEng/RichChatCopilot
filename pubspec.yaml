@@ -84,6 +84,7 @@ dependencies:
   flutter_image_compress:
   crop_image: ^1.0.0
   date_format:
+  grouped_list:
 
 
 

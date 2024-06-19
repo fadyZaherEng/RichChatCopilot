@@ -23,4 +23,5 @@ class Constants {
   static const String uId = "uId";
   static const String messages = "messages";
   static const String chats = "chats";
+  static const String groups = "groups";
 }

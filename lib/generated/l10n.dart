@@ -751,6 +751,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Start Conversation`
+  String get startConversation {
+    return Intl.message(
+      'Start Conversation',
+      name: 'startConversation',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

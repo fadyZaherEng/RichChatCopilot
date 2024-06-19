@@ -97,6 +97,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "somethingWentWrong":
             MessageLookupByLibrary.simpleMessage("Something went wrong"),
+        "startConversation":
+            MessageLookupByLibrary.simpleMessage("Start Conversation"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
         "unFriend": MessageLookupByLibrary.simpleMessage("UnFriend"),
         "uploadCamera":

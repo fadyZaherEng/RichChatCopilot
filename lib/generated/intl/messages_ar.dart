@@ -99,6 +99,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("الاعدادات"),
         "somethingWentWrong":
             MessageLookupByLibrary.simpleMessage("حدث خطأ ما"),
+        "startConversation":
+            MessageLookupByLibrary.simpleMessage("ابدأ المحادثة"),
         "theme": MessageLookupByLibrary.simpleMessage("المظهر"),
         "unFriend": MessageLookupByLibrary.simpleMessage("الغاء الصداقة"),
         "uploadCamera":

@@ -1,13 +1,21 @@
+import 'package:date_format/date_format.dart' as df;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:grouped_list/grouped_list.dart';
+import 'package:rich_chat_copilot/generated/l10n.dart';
+import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
 import 'package:rich_chat_copilot/lib/src/core/base/widget/base_stateful_widget.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/massage_type.dart';
 import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
+import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
 import 'package:rich_chat_copilot/lib/src/domain/usecase/get_user_use_case.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/chats/chats_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/bottom_chat_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/chat_app_bar_widget.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/current_massage_widget.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/receiver_massage_widget.dart';
 
 class ChatScreen extends BaseStatefulWidget {
   final String friendId;
@@ -75,18 +83,75 @@ class _ChatScreenState extends BaseState<ChatScreen> {
         body: Column(
           children: [
             Expanded(
-              child: ListView.separated(
-                controller: _massagesScrollController,
-                shrinkWrap: true,
-                itemCount: 50,
-                separatorBuilder: (context, index) {
-                  return const Divider();
-                },
-                itemBuilder: (context, index) {
-                  return const ListTile(
-                    title: Text('title'),
-                    subtitle: Text('subtitle'),
-                  );
+              child: StreamBuilder<List<Massage>>(
+                stream: _bloc.getMessagesStream(
+                  receiverId: widget.friendId,
+                  userId: currentUser.uId,
+                  isGroup: widget.groupId,
+                ),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text(
+                        S.of(context).somethingWentWrong,
+                        style: GoogleFonts.openSans(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: ColorSchemes.gray,
+                        ),
+                      ),
+                    );
+                  }
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: Text(
+                        S.of(context).startConversation,
+                        style: GoogleFonts.openSans(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.2,
+                        ),
+                      ),
+                    );
+                  }
+                  if (snapshot.hasData) {
+                    final massages = snapshot.data!;
+                    GroupedListView<dynamic, DateTime>(
+                      reverse: true,
+                      elements: massages,
+                      groupBy: (massage) => DateTime(massage.timeSent.year,
+                          massage.timeSent.month, massage.timeSent.day),
+                      groupHeaderBuilder: (massage) => _buildDateWidget(
+                        context: context,
+                        dateTime: massage.timeSent,
+                      ),
+                      useStickyGroupSeparators: true,
+                      floatingHeader: true,
+                      order: GroupedListOrder.ASC,
+                      itemBuilder: (context, massage) {
+                        bool isMe = massage.senderId == currentUser.uId;
+                        return isMe
+                            ? Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: CurrentMassageWidget(massage: massage),
+                              )
+                            : Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: ReceiverMassageWidget(massage: massage),
+                              );
+                      },
+                      itemComparator: (massage1, massage2) =>
+                          massage1.timeSent.compareTo(massage2.timeSent),
+                    );
+                  }
+                  return const SizedBox.shrink();
                 },
               ),
             ),
@@ -134,5 +199,20 @@ class _ChatScreenState extends BaseState<ChatScreen> {
     _massagesScrollController.dispose();
     _massageFocusNode.dispose();
     super.dispose();
+  }
+
+  _buildDateWidget(
+      {required BuildContext context, required DateTime dateTime}) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+        df.formatDate(dateTime, [df.M, ' ', df.d]),
+        style: GoogleFonts.openSans(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          letterSpacing: 1.2,
+        ),
+      ),
+    );
   }
 }
