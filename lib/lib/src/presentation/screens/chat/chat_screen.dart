@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
 import 'package:rich_chat_copilot/lib/src/core/base/widget/base_stateful_widget.dart';
@@ -46,7 +47,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
           Expanded(
             child: ListView.separated(
               shrinkWrap: true,
-              itemCount: 10,
+              itemCount: 50,
               separatorBuilder: (context, index) {
                 return const Divider();
               },
@@ -58,6 +59,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
               },
             ),
           ),
+          const SizedBox(height: 15,),
           BottomChatWidget(
             friendId: widget.friendId,
             friendName: widget.friendName,

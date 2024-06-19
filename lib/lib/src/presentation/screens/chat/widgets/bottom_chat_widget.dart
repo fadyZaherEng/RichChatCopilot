@@ -17,58 +17,69 @@ class BottomChatWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: ColorSchemes.iconBackGround,
-        border: Border.all(color: ColorSchemes.primary),
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
+    return IntrinsicHeight(
+      child: Container(
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.41,
         ),
-      ),
-      child: Row(
-        children: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.attachment,
-              size: 20,
-            ),
+        padding: const EdgeInsets.symmetric( horizontal: 8),
+        decoration: BoxDecoration(
+          color: ColorSchemes.iconBackGround,
+          border: Border.all(color: ColorSchemes.primary),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
           ),
-          const Expanded(
-            child: TextField(
-              //how to expand with text increase problem
-              keyboardType: TextInputType.multiline,
-              decoration: InputDecoration(
-                hintText: 'Type a message...',
-                //no border on textfield
-                border: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                contentPadding: EdgeInsets.symmetric(horizontal: 15),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.attachment,
+                size: 20,
               ),
             ),
-          ),
-          Container(
-            margin: const EdgeInsets.all(5),
-            width: 35,
-            height: 35,
-            decoration: BoxDecoration(
-              color: ColorSchemes.primary,
-              borderRadius: BorderRadius.circular(30),
-            ),
-            child: Center(
-              child: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.arrow_upward,
-                  color: ColorSchemes.white,
-                  size: 17,
+            const Expanded(
+              child: SingleChildScrollView(
+                child: TextField(
+                  //how to expand with text increase problem
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                  minLines: 1,
+                  decoration: InputDecoration(
+                    hintText: 'Type a message...',
+                    border: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              width: 35,
+              height: 35,
+              decoration: BoxDecoration(
+                color: ColorSchemes.primary,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Center(
+                child: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.arrow_upward,
+                    color: ColorSchemes.white,
+                    size: 17,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
