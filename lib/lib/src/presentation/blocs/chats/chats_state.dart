@@ -22,3 +22,10 @@ final class GetCurrentUserChatsError extends ChatsState {
   final String message;
   GetCurrentUserChatsError({required this.message});
 }
+//send text message
+final class SendTextMessageLoading extends ChatsState {}
+final class SendTextMessageSuccess extends ChatsState {}
+final class SendTextMessageError extends ChatsState {
+  final String message;
+  SendTextMessageError({required this.message});
+}
