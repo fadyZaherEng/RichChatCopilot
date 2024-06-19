@@ -6,6 +6,12 @@ class BottomChatWidget extends StatelessWidget {
   final String friendImage;
   final String friendId;
   final String groupId;
+  final TextEditingController textEditingController;
+  final Function() onSendPressed;
+  final Function() onAttachPressed;
+  final Function() onCameraPressed;
+  final Function(String) onTextChange;
+  final FocusNode focusNode;
 
   const BottomChatWidget({
     super.key,
@@ -13,6 +19,12 @@ class BottomChatWidget extends StatelessWidget {
     required this.friendImage,
     required this.friendId,
     required this.groupId,
+    required this.textEditingController,
+    required this.onSendPressed,
+    required this.onAttachPressed,
+    required this.onCameraPressed,
+    required this.focusNode,
+    required this.onTextChange,
   });
 
   @override
@@ -20,9 +32,8 @@ class BottomChatWidget extends StatelessWidget {
     return IntrinsicHeight(
       child: Container(
         constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height * 0.41,
-        ),
-        padding: const EdgeInsets.symmetric( horizontal: 8),
+            maxHeight: MediaQuery.of(context).size.height * 0.41),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
         decoration: BoxDecoration(
           color: ColorSchemes.iconBackGround,
           border: Border.all(color: ColorSchemes.primary),
@@ -36,44 +47,50 @@ class BottomChatWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: onAttachPressed,
               icon: const Icon(
                 Icons.attachment,
                 size: 20,
               ),
             ),
-            const Expanded(
+            Expanded(
               child: SingleChildScrollView(
                 child: TextField(
+                  controller: textEditingController,
+                  focusNode: focusNode,
                   //how to expand with text increase problem
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
                   minLines: 1,
-                  decoration: InputDecoration(
+                  onChanged: (value) {
+                    onTextChange(value);
+                  },
+                  decoration: const InputDecoration(
                     hintText: 'Type a message...',
                     border: InputBorder.none,
                     enabledBorder: InputBorder.none,
                     focusedBorder: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                   ),
                 ),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 8),
-              width: 35,
-              height: 35,
-              decoration: BoxDecoration(
-                color: ColorSchemes.primary,
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: Center(
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
+            GestureDetector(
+              onTap: onSendPressed,
+              child: Container(
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                width: 35,
+                height: 35,
+                decoration: BoxDecoration(
+                  color: ColorSchemes.primary,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: const Center(
+                  child: Icon(
                     Icons.arrow_upward,
                     color: ColorSchemes.white,
-                    size: 17,
+                    size: 20,
                   ),
                 ),
               ),

@@ -28,3 +28,4 @@ class SendTextMessageEvent extends ChatsEvent {
      this.repliedMessage,
   });
 }
+

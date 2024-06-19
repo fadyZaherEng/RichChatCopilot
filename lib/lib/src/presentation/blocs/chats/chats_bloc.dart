@@ -122,6 +122,10 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     required void Function() success,
     required void Function() failure,
   }) async {
+    print("${massage.senderId} : ${massage.receiverId}");
+    final receiverMassage = massage.copyWith(receiverId: massage.senderId);
+    print("${receiverMassage.senderId} : ${receiverMassage.receiverId}");
+
     //1-initialize last massage for sender
     final senderLastMassage = LastMassage(
       massage: massage.massage,
@@ -153,7 +157,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
             .doc(massage.senderId)
             .collection(Constants.messages)
             .doc(massage.messageId),
-        massage.toJson(),
+        receiverMassage.toJson(),
       );
       //2-send massage to sender
       transaction.set(
@@ -190,5 +194,20 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
       failure();
     });
     //call success
+  }
+
+  //get chats last massages stream
+  Stream<List<LastMassage>> getChatsLastMassagesStream({required String userId}) {
+    return FirebaseSingleTon.db
+        .collection(Constants.users)
+        .doc(userId)
+        .collection(Constants.chats)
+        .orderBy("timeSent", descending: true)
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs
+          .map((doc) => LastMassage.fromJson(doc.data()))
+          .toList();
+    });
   }
 }

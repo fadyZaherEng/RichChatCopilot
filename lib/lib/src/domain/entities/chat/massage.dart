@@ -37,7 +37,7 @@ class Massage {
       receiverId: json['receiverId'],
       massage: json['massage'],
       massageType: json['massageType'].toString().massageTypeFromString,
-      timeSent: DateTime.fromMicrosecondsSinceEpoch(json['timeSent']),
+      timeSent: DateTime.fromMillisecondsSinceEpoch(json['timeSent']),
       messageId: json['messageId'],
       isSeen: json['isSeen'],
       repliedMessage: json['repliedMessage'],
@@ -55,7 +55,7 @@ class Massage {
       'receiverId': receiverId,
       'massage': massage,
       'massageType': massageType.toString(),
-      'timeSent': timeSent.microsecondsSinceEpoch,
+      'timeSent': timeSent.millisecondsSinceEpoch,
       'messageId': messageId,
       'isSeen': isSeen,
       'repliedMessage': repliedMessage,
@@ -92,6 +92,26 @@ class Massage {
       repliedMessage: repliedMessage ?? this.repliedMessage,
       repliedMessageType: repliedMessageType ?? this.repliedMessageType,
       repliedTo: repliedTo ?? this.repliedTo,
+    );
+  }
+
+  //deep copy with
+  Massage deepCopyWith({
+    required String receiverId,
+  }) {
+    return Massage(
+      senderId: senderId,
+      senderName: senderName,
+      senderImage: senderImage,
+      receiverId: receiverId,
+      massage: massage,
+      massageType: massageType,
+      timeSent: timeSent,
+      messageId: messageId,
+      isSeen: isSeen,
+      repliedMessage: repliedMessage,
+      repliedMessageType: repliedMessageType,
+      repliedTo: repliedTo,
     );
   }
 }
