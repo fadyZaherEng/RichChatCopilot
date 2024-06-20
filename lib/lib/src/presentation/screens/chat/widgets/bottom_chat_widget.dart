@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
+import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage_reply.dart';
+import 'package:rich_chat_copilot/lib/src/domain/usecase/get_theme_use_case.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/massage_reply_widget.dart';
 
 class BottomChatWidget extends StatelessWidget {
@@ -36,83 +38,91 @@ class BottomChatWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IntrinsicHeight(
-      child: Column(
-        children: [
-          massageReply != null
-              ? MassageReplyWidget(
-                  massageReply: massageReply,
-                  setReplyMessageWithNull: setReplyMessageWithNull,
-                )
-              : const SizedBox.shrink(),
-          Container(
-            constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height * 0.41),
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            decoration: BoxDecoration(
-              color: ColorSchemes.iconBackGround,
-              border:massageReply != null ? null: Border.all(color: ColorSchemes.primary),
-              borderRadius:massageReply != null ? null: const BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            massageReply != null
+                ? MassageReplyWidget(
+                    massageReply: massageReply,
+                    setReplyMessageWithNull: setReplyMessageWithNull,
+                  )
+                : const SizedBox.shrink(),
+            Container(
+              constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height * 0.41),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              decoration: BoxDecoration(
+                // color: ColorSchemes.white,
+                border: Border(
+                   top:massageReply != null ? BorderSide.none : BorderSide(color: ColorSchemes.primary),
+                  left: BorderSide(color: ColorSchemes.primary),
+                  right: BorderSide(color: ColorSchemes.primary),
+                  bottom: BorderSide(color: ColorSchemes.primary),
+                ),
+                borderRadius:massageReply != null ? null: const BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  IconButton(
+                    onPressed: onAttachPressed,
+                    icon: const Icon(
+                      Icons.attachment,
+                      size: 20,
+                    ),
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: TextField(
+                        controller: textEditingController,
+                        focusNode: focusNode,
+                        //how to expand with text increase problem
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        minLines: 1,
+                        onChanged: (value) {
+                          onTextChange(value);
+                        },
+                        decoration: const InputDecoration(
+                          hintText: 'Type a message...',
+                          border: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          contentPadding:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: onSendPressed,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(vertical: 8),
+                      width: 35,
+                      height: 35,
+                      decoration: BoxDecoration(
+                        color: ColorSchemes.primary,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child:  Center(
+                        child: Icon(
+                          Icons.arrow_upward,
+                          color:GetThemeUseCase(injector())()? ColorSchemes.black : ColorSchemes.white,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                IconButton(
-                  onPressed: onAttachPressed,
-                  icon: const Icon(
-                    Icons.attachment,
-                    size: 20,
-                  ),
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: TextField(
-                      controller: textEditingController,
-                      focusNode: focusNode,
-                      //how to expand with text increase problem
-                      keyboardType: TextInputType.multiline,
-                      maxLines: null,
-                      minLines: 1,
-                      onChanged: (value) {
-                        onTextChange(value);
-                      },
-                      decoration: const InputDecoration(
-                        hintText: 'Type a message...',
-                        border: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                      ),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: onSendPressed,
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    width: 35,
-                    height: 35,
-                    decoration: BoxDecoration(
-                      color: ColorSchemes.primary,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.arrow_upward,
-                        color: ColorSchemes.white,
-                        size: 20,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

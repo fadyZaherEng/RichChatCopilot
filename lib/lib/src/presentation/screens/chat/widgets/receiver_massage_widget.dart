@@ -16,13 +16,14 @@ class ReceiverMassageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isReplying = massage.repliedTo.isNotEmpty;
+    final senderName = massage.repliedTo == "You" ? "You" : massage.senderName;
     return SwipeTo(
       onRightSwipe: (details) {
-        print('Right Swipe');
         onRightSwipe();
       },
       child: Align(
-        alignment: AlignmentDirectional.centerEnd,
+        alignment: AlignmentDirectional.centerStart,
         child: ConstrainedBox(
           constraints: BoxConstraints(
             maxWidth: MediaQuery.of(context).size.width * 0.7,
@@ -42,10 +43,42 @@ class ReceiverMassageWidget extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsetsDirectional.only(
-                      start: 10, end: 30, top: 5, bottom: 20),
-                  child: Text(
-                    massage.massage,
-                    style: const TextStyle(color: ColorSchemes.black),
+                       start: 10, end: 30,
+                      top: 5,
+                      bottom: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (isReplying) ...[
+                        Container(
+                          padding: const EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[400],
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                senderName,
+                                style: const TextStyle(
+                                    color: Colors.black, fontSize: 10),
+                              ),
+                              Text(
+                                massage.repliedMessage,
+                                style: const TextStyle(
+                                    color: Colors.black, fontSize: 10),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                      Text(
+                        massage.massage,
+                        textAlign: TextAlign.start,
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                    ],
                   ),
                 ),
                 PositionedDirectional(
