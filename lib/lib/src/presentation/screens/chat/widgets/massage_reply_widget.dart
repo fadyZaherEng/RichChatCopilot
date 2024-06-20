@@ -15,13 +15,12 @@ class MassageReplyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: ColorSchemes.iconBackGround,
+        color: Theme.of(context).cardColor,
         border: Border(
-          top: BorderSide(color: ColorSchemes.primary),
-          left: BorderSide(color: ColorSchemes.primary),
-          right: BorderSide(color: ColorSchemes.primary),
+          top: BorderSide(color: Theme.of(context).colorScheme.primary),
+          left: BorderSide(color: Theme.of(context).colorScheme.primary),
+          right: BorderSide(color: Theme.of(context).colorScheme.primary),
         ),
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(30),

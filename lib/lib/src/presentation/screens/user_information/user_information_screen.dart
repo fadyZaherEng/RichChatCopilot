@@ -318,7 +318,7 @@ class _UserInformationScreenState extends BaseState<UserInformationScreen> {
         uiSettings: [
           AndroidUiSettings(
             toolbarTitle: 'Cropper',
-            toolbarColor: ColorSchemes.primary,
+            toolbarColor: Theme.of(context).colorScheme.primary,
             toolbarWidgetColor: ColorSchemes.white,
             initAspectRatio: CropAspectRatioPreset.original,
             lockAspectRatio: false,

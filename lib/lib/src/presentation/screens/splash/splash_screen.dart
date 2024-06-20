@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value:  SystemUiOverlayStyle(
+      value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarBrightness: Brightness.light,
         statusBarIconBrightness: Brightness.dark,
@@ -58,8 +58,8 @@ class _SplashScreenState extends State<SplashScreen>
                 children: [
                   Lottie.asset(ImagePaths.log1, height: 200, width: 200),
                   const SizedBox(height: 10),
-                   LinearProgressIndicator(
-                    color: ColorSchemes.primary,
+                  LinearProgressIndicator(
+                    color: Theme.of(context).colorScheme.primary,
                     minHeight: 5,
                   ),
                   const SizedBox(height: 20),
@@ -68,7 +68,7 @@ class _SplashScreenState extends State<SplashScreen>
                     style: Theme.of(context)
                         .textTheme
                         .bodyLarge
-                        ?.copyWith(color: ColorSchemes.black),
+                        ?.copyWith(color: Theme.of(context).cardColor),
                   )
                 ],
               ),

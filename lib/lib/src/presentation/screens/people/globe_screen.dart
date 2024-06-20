@@ -41,7 +41,7 @@ class _GlobeScreenState extends BaseState<GlobeScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: CupertinoSearchTextField(
               placeholder: S.of(context).search,
               prefixIcon: const Icon(CupertinoIcons.search),
@@ -119,7 +119,7 @@ class _GlobeScreenState extends BaseState<GlobeScreen> {
                             style: Theme.of(context).textTheme.bodySmall),
                         trailing: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: ColorSchemes.iconBackGround,
+                            backgroundColor:  Theme.of(context).colorScheme.primary,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
@@ -140,9 +140,7 @@ class _GlobeScreenState extends BaseState<GlobeScreen> {
                             style: GoogleFonts.openSans(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
-                              color: GetThemeUseCase(injector())()
-                                  ? ColorSchemes.black
-                                  : ColorSchemes.primary,
+                              color:Theme.of(context).cardColor,
                             ),
                           ),
                         ),

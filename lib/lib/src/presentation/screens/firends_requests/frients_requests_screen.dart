@@ -128,7 +128,7 @@ class _FriendRequestsScreenState extends BaseState<FriendRequestsScreen> {
                               ),
                               trailing: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: ColorSchemes.iconBackGround,
+                                  backgroundColor:  Theme.of(context).cardColor,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
@@ -143,7 +143,7 @@ class _FriendRequestsScreenState extends BaseState<FriendRequestsScreen> {
                                   style: GoogleFonts.openSans(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
-                                    color: ColorSchemes.primary,
+                                    color: Theme.of(context).colorScheme.primary,
                                   ),
                                 ),
                               ),

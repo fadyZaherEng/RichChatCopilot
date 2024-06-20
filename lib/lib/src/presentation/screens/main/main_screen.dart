@@ -35,15 +35,18 @@ class _MainScreenState extends BaseState<MainScreen> {
   void initState() {
     super.initState();
     _user = GetUserUseCase(injector())();
-    print("user name ${_user.name}");
   }
 
   @override
   Widget baseBuild(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).appTitle,
-        style: Theme.of(context).textTheme.bodyLarge,),
+        backgroundColor: Theme.of(context).cardColor,
+        elevation: 0,
+        title: Text(
+          S.of(context).appTitle,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
         centerTitle: false,
         actions: [
           Padding(
@@ -57,11 +60,7 @@ class _MainScreenState extends BaseState<MainScreen> {
                     padding: const EdgeInsets.only(top: 5),
                     child: Text(
                       _user.name,
-                      style: GoogleFonts.openSans(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: ColorSchemes.black,
-                      ),
+                      style: Theme.of(context).textTheme.bodyLarge,
                     )),
                 const SizedBox(
                   width: 10,
@@ -107,7 +106,7 @@ class _MainScreenState extends BaseState<MainScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-         // backgroundColor: ColorSchemes.white,
+        // backgroundColor: ColorSchemes.white,
         onTap: (int index) {
           setState(() {
             _selectedIndex = index;

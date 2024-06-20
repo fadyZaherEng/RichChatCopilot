@@ -12,8 +12,6 @@ Future<void> initializeBlocDependencies() async {
   injector.registerFactory<MainCubit>(() => MainCubit(
         injector(),
         injector(),
-        injector(),
-        injector(),
       ));
   injector.registerFactory<SettingsBloc>(() => SettingsBloc(
         injector(),

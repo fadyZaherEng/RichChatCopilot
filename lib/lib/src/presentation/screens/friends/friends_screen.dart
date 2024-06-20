@@ -126,7 +126,7 @@ class _FriendsScreenState extends BaseState<FriendsScreen> {
                               ),
                               trailing: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: ColorSchemes.iconBackGround,
+                                  backgroundColor:  Theme.of(context).cardColor,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
@@ -147,7 +147,7 @@ class _FriendsScreenState extends BaseState<FriendsScreen> {
                                   style: GoogleFonts.openSans(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
-                                    color: ColorSchemes.primary,
+                                    color:Theme.of(context).colorScheme.primary,
                                   ),
                                 ),
                               ),

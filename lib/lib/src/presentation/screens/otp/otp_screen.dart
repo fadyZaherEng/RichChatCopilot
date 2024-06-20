@@ -53,7 +53,7 @@ class _OtpScreenState extends BaseState<OtpScreen> {
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(
-          statusBarColor: ColorSchemes.primary.withOpacity(0.03),
+          statusBarColor: Theme.of(context).colorScheme.primary.withOpacity(0.03),
         ),
         child: SingleChildScrollView(
           child: Padding(
@@ -108,7 +108,7 @@ class _OtpScreenState extends BaseState<OtpScreen> {
                     margin: const EdgeInsets.all(10),
                     alignment: Alignment.center,
                     child:  CircularProgressIndicator(
-                      color: ColorSchemes.primary,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ),
@@ -133,7 +133,7 @@ class _OtpScreenState extends BaseState<OtpScreen> {
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge
-                                ?.copyWith(color: ColorSchemes.primary),
+                                ?.copyWith(color: Theme.of(context).colorScheme.primary),
                           ),
                         )
                       ],

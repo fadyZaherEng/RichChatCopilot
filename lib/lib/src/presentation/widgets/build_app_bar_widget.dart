@@ -34,7 +34,7 @@ AppBar buildAppBarWidget(
             width: 60,
             height: 60,
             fit: BoxFit.contain,
-      color: GetThemeUseCase(injector())() ? ColorSchemes.white : ColorSchemes.black,
+      color:Theme.of(context).colorScheme.primary,
 
     ),
     centerTitle: true,
@@ -55,7 +55,7 @@ AppBar buildAppBarWidget(
               width: 24,
               height: 24,
               fit: BoxFit.scaleDown,
-              color: GetThemeUseCase(injector())() ? ColorSchemes.white : ColorSchemes.black,
+              color: Theme.of(context).colorScheme.primary,
             ),
           )
         : const SizedBox.shrink(),

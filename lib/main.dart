@@ -17,18 +17,19 @@ import 'package:rich_chat_copilot/lib/src/presentation/blocs/main/main_state.dar
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/profile/profile_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/settings/settings_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/user_info/user_info_bloc.dart';
-import 'package:rich_chat_copilot/lib/src/presentation/screens/friends/friends_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/restart_widget.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:adaptive_theme/adaptive_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
+  final savedTheme = await AdaptiveTheme.getThemeMode();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const RestartWidget(MyApp()));
+  runApp(RestartWidget(MyApp(theme: savedTheme)));
   // runApp(
   //   DevicePreview(
   //     enabled: !kReleaseMode,
@@ -36,11 +37,16 @@ void main() async {
   //   ),
   // );
 }
+
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
 class MyApp extends StatefulWidget {
+  AdaptiveThemeMode? theme;
 
-  const MyApp({super.key});
+  MyApp({
+    super.key,
+    required this.theme,
+  });
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -62,34 +68,54 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<FriendsBloc>(create: (context) => injector()),
         BlocProvider<FriendsRequestsBloc>(create: (context) => injector()),
       ],
-      child: BlocBuilder<MainCubit, MainState>(
+      child: BlocBuilder<MainCubit, Locale>(
         buildWhen: (previousState, currentState) {
           return previousState != currentState;
         },
         builder: (context, state) {
-          return  MaterialApp(
-            // useInheritedMediaQuery: true,
-            // builder: DevicePreview.appBuilder,
-            theme: state is GetLocalAndThemeState&& state.theme == Constants.light? AppTheme(state.locale.languageCode).light :
-            state is GetLocalAndThemeState&& state.theme == Constants.dark? AppTheme(state.locale.languageCode).dark : null,
-            navigatorKey: navigatorKey,
-            navigatorObservers: [
-              ChuckerFlutter.navigatorObserver,
-              routeObserver,
-            ],
-            themeMode: ThemeMode.light,
-            supportedLocales: S.delegate.supportedLocales,
-            onGenerateRoute: RoutesManager.getRoute,
-            initialRoute: Routes.splash,
-            localizationsDelegates: const [
-              S.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            debugShowCheckedModeBanner: false,
-            locale: Locale(state is GetLocalAndThemeState? state.locale.languageCode : Constants.en),
-             // home: FriendsScreen(),
+          return AdaptiveTheme(
+            light: ThemeData(
+              useMaterial3: false,
+              brightness: Brightness.light,
+              colorSchemeSeed: Colors.deepPurple,
+            ),
+            dark: ThemeData(
+              useMaterial3: false,
+              brightness: Brightness.dark,
+              colorSchemeSeed: Colors.deepPurple,
+            ),
+            initial: widget.theme ?? AdaptiveThemeMode.light,
+            builder: (lightTheme, darkTheme) => MaterialApp(
+              // useInheritedMediaQuery: true,
+              // builder: DevicePreview.appBuilder,
+              // theme: state is GetLocalAndThemeState &&
+              //         state.theme == Constants.light
+              //     ? AppTheme(state.locale.languageCode).light
+              //     : state is GetLocalAndThemeState &&
+              //             state.theme == Constants.dark
+              //         ? AppTheme(state.locale.languageCode).dark
+              //         : null,
+              theme: lightTheme,
+              darkTheme: darkTheme,
+              navigatorKey: navigatorKey,
+              navigatorObservers: [
+                ChuckerFlutter.navigatorObserver,
+                routeObserver,
+              ],
+              themeMode: ThemeMode.light,
+              supportedLocales: S.delegate.supportedLocales,
+              onGenerateRoute: RoutesManager.getRoute,
+              initialRoute: Routes.splash,
+              localizationsDelegates: const [
+                S.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              debugShowCheckedModeBanner: false,
+              locale: state,
+              // home: FriendsScreen(),
+            ),
           );
         },
       ),

@@ -35,15 +35,15 @@ class _UploadMediaWidgetState extends State<UploadMediaWidget> {
                     boxShadows: [
                       BoxShadow(
                           offset: const Offset(0, 4),
-                          color: ColorSchemes.iconBackGround,
+                          color:  Theme.of(context).cardColor,
                           blurRadius: 24,
                           blurStyle: BlurStyle.normal,
                           spreadRadius: 5),
                     ],
                     imagePath: ImagePaths.icGallery,
-                    backgroundColor: ColorSchemes.iconBackGround,
+                    backgroundColor: Theme.of(context).cardColor,
                     iconSize: 28,
-                    iconColor: ColorSchemes.primary,
+                    iconColor:Theme.of(context).colorScheme.primary,
                   ),
                   const SizedBox(height: 16),
                   Text(
@@ -74,15 +74,15 @@ class _UploadMediaWidgetState extends State<UploadMediaWidget> {
                     boxShadows: [
                       BoxShadow(
                           offset: const Offset(0, 4),
-                          color: ColorSchemes.iconBackGround,
+                          color: Theme.of(context).cardColor,
                           blurRadius: 24,
                           blurStyle: BlurStyle.normal,
                           spreadRadius: 5),
                     ],
                     imagePath: ImagePaths.icCamera,
-                    backgroundColor: ColorSchemes.iconBackGround,
+                    backgroundColor:  Theme.of(context).cardColor,
                     iconSize: 28,
-                    iconColor: ColorSchemes.primary,
+                    iconColor:Theme.of(context).colorScheme.primary,
                   ),
                   const SizedBox(height: 16),
                   Text(

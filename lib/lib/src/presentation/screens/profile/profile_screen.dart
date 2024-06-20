@@ -218,7 +218,7 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
       if (otherUser.friendsRequestsUIds.isNotEmpty) {
         return _buildButton(
             width: MediaQuery.of(context).size.width * 0.6,
-             backgroundColor: ColorSchemes.primary,
+             backgroundColor: Theme.of(context).colorScheme.primary,
             textColor: GetThemeUseCase(injector())() ? ColorSchemes.white : ColorSchemes.black,
             text: S.of(context).viewFriendRequests,
             onPressed: () {
@@ -240,7 +240,7 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
     if (currentUser.uId == otherUser.uId && otherUser.friendsUIds.isNotEmpty) {
       return _buildButton(
         width: MediaQuery.of(context).size.width * 0.6,
-        backgroundColor: ColorSchemes.primary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         textColor: ColorSchemes.white,
         text: S.of(context).viewFriends,
         onPressed: () {
@@ -253,8 +253,8 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
         if (otherUser.friendsRequestsUIds.contains(_currentUser.uId)) {
           return _buildButton(
             width: MediaQuery.of(context).size.width * 0.6,
-            textColor: ColorSchemes.primary,
-            backgroundColor: ColorSchemes.iconBackGround,
+            textColor: Theme.of(context).colorScheme.primary,
+            backgroundColor:  Theme.of(context).cardColor,
             text: S.of(context).cancelFriendRequest,
             onPressed: () {
               //TODO: cancel friend request
@@ -265,8 +265,8 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
             .contains(_currentUser.uId)) {
           return _buildButton(
             width: MediaQuery.of(context).size.width * 0.6,
-            textColor: ColorSchemes.primary,
-            backgroundColor: ColorSchemes.iconBackGround,
+            textColor: Theme.of(context).colorScheme.primary,
+            backgroundColor:  Theme.of(context).cardColor,
             text: S.of(context).acceptFriendRequest,
             onPressed: () {
               //TODO: accept friend request
@@ -280,7 +280,7 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
               _buildButton(
                 width: MediaQuery.of(context).size.width * 0.4,
                 textColor: ColorSchemes.white,
-                backgroundColor: ColorSchemes.primary,
+                backgroundColor: Theme.of(context).colorScheme.primary,
                 text: S.of(context).unFriend.toUpperCase(),
                 onPressed: () {
                   //TODO: unfriend
@@ -290,8 +290,8 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
               ),
               _buildButton(
                 width: MediaQuery.of(context).size.width * 0.4,
-                textColor: ColorSchemes.primary,
-                backgroundColor: ColorSchemes.iconBackGround,
+                textColor: Theme.of(context).colorScheme.primary,
+                backgroundColor:  Theme.of(context).cardColor,
                 text: S.of(context).chat.toUpperCase(),
                 onPressed: () {
                   //TODO: navigate to chat screen
@@ -310,7 +310,7 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
           return _buildButton(
             width: MediaQuery.of(context).size.width * 0.6,
             textColor: Theme.of(context).primaryColor,
-            backgroundColor: ColorSchemes.iconBackGround,
+            backgroundColor:  Theme.of(context).cardColor,
             text: S.of(context).sendFriendRequests,
             onPressed: () {
               //TODO: send friend request

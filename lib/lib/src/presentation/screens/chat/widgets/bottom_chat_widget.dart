@@ -55,15 +55,25 @@ class BottomChatWidget extends StatelessWidget {
               decoration: BoxDecoration(
                 // color: ColorSchemes.white,
                 border: Border(
-                   top:massageReply != null ? BorderSide.none : BorderSide(color: ColorSchemes.primary),
-                  left: BorderSide(color: ColorSchemes.primary),
-                  right: BorderSide(color: ColorSchemes.primary),
-                  bottom: BorderSide(color: ColorSchemes.primary),
+                  top: massageReply != null
+                      ? BorderSide.none
+                      : BorderSide(
+                          color: Theme.of(context).colorScheme.primary),
+                  left:
+                      BorderSide(color: Theme.of(context).colorScheme.primary),
+                  right:
+                      BorderSide(color: Theme.of(context).colorScheme.primary),
+                  bottom:
+                      BorderSide(color: Theme.of(context).colorScheme.primary),
                 ),
-                borderRadius:massageReply != null ? null: const BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
-                ),
+                borderRadius: massageReply != null
+                    ? null
+                    : const BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30),
+                        // bottomLeft: Radius.circular(30),
+                        // bottomRight: Radius.circular(30),
+                      ),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -106,13 +116,13 @@ class BottomChatWidget extends StatelessWidget {
                       width: 35,
                       height: 35,
                       decoration: BoxDecoration(
-                        color: ColorSchemes.primary,
+                        color: Theme.of(context).colorScheme.primary,
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      child:  Center(
+                      child: Center(
                         child: Icon(
                           Icons.arrow_upward,
-                          color:GetThemeUseCase(injector())()? ColorSchemes.black : ColorSchemes.white,
+                          color: Theme.of(context).cardColor,
                           size: 20,
                         ),
                       ),

@@ -3,9 +3,8 @@ import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
 import 'package:rich_chat_copilot/lib/src/domain/usecase/get_theme_use_case.dart';
 
 class ColorSchemes {
-  static Color primary = GetThemeUseCase(injector())()
-      ? ColorSchemes.white
-      : black;
+  // static Color primary =Theme.of(context).colorScheme.primary;
+
   static const Color secondary = Color.fromRGBO(243, 154, 74, 1);
   static const Color iconBackGround = Color.fromRGBO(244, 236, 255, 1);
   static const Color black = Color.fromRGBO(34, 34, 34, 1);

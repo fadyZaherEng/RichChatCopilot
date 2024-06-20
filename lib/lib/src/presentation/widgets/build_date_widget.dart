@@ -12,7 +12,7 @@ Widget buildDateWidget({
       borderRadius: BorderRadius.circular(25),
       child: Card(
         elevation: 2,
-        color: ColorSchemes.iconBackGround,
+        color:  Theme.of(context).cardColor,
         clipBehavior: Clip.antiAlias,
         child: Padding(
           padding: const EdgeInsets.all(8),
@@ -22,7 +22,7 @@ Widget buildDateWidget({
               fontSize: 14,
               fontWeight: FontWeight.bold,
               letterSpacing: 1.2,
-              color: ColorSchemes.primary,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
         ),

@@ -12,12 +12,7 @@ class _GroupsScreenState extends BaseState<GroupsScreen> {
   @override
   Widget baseBuild(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Groups'),
-      ),
-      body: const Center(
-        child: Text('Groups'),
-      ),
+
     );
   }
 }

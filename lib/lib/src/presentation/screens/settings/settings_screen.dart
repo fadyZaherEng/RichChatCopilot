@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rich_chat_copilot/generated/l10n.dart';
@@ -9,13 +10,11 @@ import 'package:rich_chat_copilot/lib/src/core/utils/show_action_dialog.dart';
 import 'package:rich_chat_copilot/lib/src/data/source/local/single_ton/firebase_single_ton.dart';
 import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
 import 'package:rich_chat_copilot/lib/src/domain/usecase/get_language_use_case.dart';
-import 'package:rich_chat_copilot/lib/src/domain/usecase/get_theme_use_case.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/settings/settings_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/build_app_bar_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/custom_switch_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/restart_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
 
 class SettingsScreen extends BaseStatefulWidget {
   const SettingsScreen({super.key});
@@ -30,10 +29,23 @@ class _SettingsScreenState extends BaseState<SettingsScreen> {
 
   SettingsBloc get _bloc => BlocProvider.of<SettingsBloc>(context);
 
+  void _getThemeMode() async {
+    final savedTheme = await AdaptiveTheme.getThemeMode();
+    if (savedTheme != null && savedTheme == AdaptiveThemeMode.dark) {
+      setState(() {
+        isDarkMode = true;
+      });
+    } else {
+      setState(() {
+        isDarkMode = false;
+      });
+    }
+  }
+
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
-    isDarkMode = GetThemeUseCase(injector())();
+    _getThemeMode();
     isArabic = GetLanguageUseCase(injector())() == Constants.ar;
   }
 
@@ -59,11 +71,12 @@ class _SettingsScreenState extends BaseState<SettingsScreen> {
                   //show log out dialog
                   _showLogOutDialog(context);
                 },
-                child:   Padding(
-                  padding:const EdgeInsets.all(8.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Icon(
+                    //log out
                     Icons.logout,
-                    color: GetThemeUseCase(injector())() ? ColorSchemes.white : ColorSchemes.black,
+                    color: ColorSchemes.black,
                   ),
                 ),
               )),
@@ -77,10 +90,19 @@ class _SettingsScreenState extends BaseState<SettingsScreen> {
                   CustomSwitchWidget(
                     value: isDarkMode,
                     onChanged: (bool value) {
-                      _bloc.add(ChangeThemeEvent(isDarkTheme: value));
+                      // _bloc.add(ChangeThemeEvent(isDarkTheme: value));
+                      // setState(() {
+                      //   isDarkMode = value;
+                      // });
                       setState(() {
                         isDarkMode = value;
                       });
+                      if (value) {
+                        AdaptiveTheme.of(context).setDark();
+                      } else {
+                        AdaptiveTheme.of(context).setLight();
+                      }
+                      // RestartWidget.restartApp(context);
                     },
                     title: S.of(context).theme,
                   ),

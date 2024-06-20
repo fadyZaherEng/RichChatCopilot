@@ -56,7 +56,7 @@ class CurrentMassageWidget extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.all(8.0),
                           decoration: BoxDecoration(
-                            color: ColorSchemes.primary.withOpacity(0.1),
+                            color: Theme.of(context).cardColor.withOpacity(0.1),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Column(

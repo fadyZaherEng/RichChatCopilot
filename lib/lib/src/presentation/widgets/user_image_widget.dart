@@ -32,7 +32,7 @@ class UserImageWidget extends StatelessWidget {
             ),
             border: isBorder
                 ? Border.all(
-                    color: ColorSchemes.primary,
+              color:Theme.of(context).colorScheme.primary,
                     width: 2.0,
                   )
                 : null),
@@ -51,7 +51,7 @@ class UserImageWidget extends StatelessWidget {
             shape: BoxShape.circle,
             border: isBorder
                 ? Border.all(
-                    color: ColorSchemes.primary,
+                    color:Theme.of(context).colorScheme.primary,
                     width: 2.0,
                   )
                 : null),
