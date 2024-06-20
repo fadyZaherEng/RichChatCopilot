@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
-import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
-import 'package:rich_chat_copilot/lib/src/domain/usecase/get_theme_use_case.dart';
 
 class AppTheme {
   String language;
@@ -95,7 +94,7 @@ class AppTheme {
           fontFamily: getFontFamily(),
           fontWeight: Constants.fontWeightRegular,
           textDecoration: TextDecoration.none,
-          color:ColorSchemes.primary,
+          color: ColorSchemes.primary,
         ),
         labelLarge: getTextStyle(
           fontSize: 12,
@@ -106,11 +105,22 @@ class AppTheme {
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: ColorSchemes.white,
-        elevation: 10,
-        selectedIconTheme: IconThemeData(
-          color: ColorSchemes.primary,
-          size: 24,
+        selectedItemColor: ColorSchemes.primary,
+        selectedIconTheme: IconThemeData(color: ColorSchemes.primary, size: 24),
+        unselectedItemColor: ColorSchemes.gray,
+        unselectedLabelStyle: getTextStyle(
+          fontSize: 12,
+          fontFamily: getFontFamily(),
+          fontWeight: Constants.fontWeightRegular,
+          color: ColorSchemes.iconBackGround,
         ),
+        selectedLabelStyle: getTextStyle(
+          fontSize: 12,
+          fontFamily: getFontFamily(),
+          fontWeight: Constants.fontWeightRegular,
+          color: ColorSchemes.primary,
+        ),
+        elevation: 10,
         unselectedIconTheme: const IconThemeData(
           color: ColorSchemes.gray,
           size: 24,
@@ -121,6 +131,102 @@ class AppTheme {
       splashColor: Colors.transparent,
     );
   }
+
+  ThemeData get dark => ThemeData(
+      useMaterial3: false,
+      fontFamily: getFontFamily(),
+      toggleableActiveColor: ColorSchemes.white,
+      primarySwatch: Colors.pink,
+      scaffoldBackgroundColor: HexColor('000028'),
+      appBarTheme: AppBarTheme(
+        backgroundColor: HexColor('00028'),
+        elevation: 0,
+        titleTextStyle: const TextStyle(
+          fontSize: 17.0,
+          fontWeight: FontWeight.bold,
+          color: Colors.pink,
+        ),
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: HexColor('000028'),
+          statusBarIconBrightness: Brightness.light,
+        ),
+        iconTheme: const IconThemeData(
+          color: Colors.pink,
+        ),
+        actionsIconTheme: const IconThemeData(
+          color: Colors.pink,
+        ),
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        elevation: 0.0,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: HexColor('000028'),
+        selectedItemColor: ColorSchemes.primary,
+        selectedIconTheme: IconThemeData(color: ColorSchemes.primary, size: 24),
+        unselectedIconTheme: const IconThemeData(
+          color: ColorSchemes.gray,
+          size: 24,
+        ),
+        unselectedItemColor: ColorSchemes.gray,
+        unselectedLabelStyle: getTextStyle(
+          fontSize: 12,
+          fontFamily: getFontFamily(),
+          fontWeight: Constants.fontWeightRegular,
+          color: ColorSchemes.iconBackGround,
+        ),
+        selectedLabelStyle: getTextStyle(
+          fontSize: 12,
+          fontFamily: getFontFamily(),
+          fontWeight: Constants.fontWeightRegular,
+          color: ColorSchemes.primary,
+        ),
+      ),
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(),
+      textTheme: TextTheme(
+        titleLarge: getTextStyle(
+          fontSize: 18,
+          fontFamily: getFontFamily(),
+          fontWeight: Constants.fontWeightSemiBold,
+          color: ColorSchemes.white,
+        ),
+        bodyLarge: getTextStyle(
+          fontSize: 16,
+          fontFamily: getFontFamily(),
+          fontWeight: Constants.fontWeightSemiBold,
+          color: ColorSchemes.white,
+        ),
+        bodyMedium: getTextStyle(
+          fontSize: 13,
+          fontFamily: getFontFamily(),
+          fontWeight: Constants.fontWeightMedium,
+          color: ColorSchemes.white,
+        ),
+        bodySmall: getTextStyle(
+          fontSize: 13,
+          fontFamily: getFontFamily(),
+          fontWeight: Constants.fontWeightRegular,
+          textDecoration: TextDecoration.none,
+          color: ColorSchemes.white,
+        ),
+        labelLarge: getTextStyle(
+          fontSize: 12,
+          fontFamily: getFontFamily(),
+          fontWeight: Constants.fontWeightRegular,
+          color: ColorSchemes.white,
+        ),
+      ),
+      cardTheme: CardTheme(
+        color: HexColor('180040'),
+      ),
+      hintColor: Colors.white,
+      brightness: Brightness.dark,
+      primaryColor: Colors.white,
+      drawerTheme: DrawerThemeData(
+        elevation: 0,
+        backgroundColor: HexColor('000028'),
+      ),
+      bottomSheetTheme:
+          BottomSheetThemeData(backgroundColor: HexColor('000028')));
 
   String getFontFamily() => language == "en"
       ? Constants.englishFontFamily

@@ -70,7 +70,8 @@ class _MyAppState extends State<MyApp> {
           return  MaterialApp(
             // useInheritedMediaQuery: true,
             // builder: DevicePreview.appBuilder,
-            darkTheme:AppTheme(state is GetLocalAndThemeState? state.locale.languageCode : Constants.en).light,
+            theme: state is GetLocalAndThemeState&& state.theme == Constants.light? AppTheme(state.locale.languageCode).light :
+            state is GetLocalAndThemeState&& state.theme == Constants.dark? AppTheme(state.locale.languageCode).dark : null,
             navigatorKey: navigatorKey,
             navigatorObservers: [
               ChuckerFlutter.navigatorObserver,
@@ -87,7 +88,6 @@ class _MyAppState extends State<MyApp> {
               GlobalCupertinoLocalizations.delegate,
             ],
             debugShowCheckedModeBanner: false,
-            theme: AppTheme(state is GetLocalAndThemeState? state.locale.languageCode : Constants.en).light,
             locale: Locale(state is GetLocalAndThemeState? state.locale.languageCode : Constants.en),
              // home: FriendsScreen(),
           );

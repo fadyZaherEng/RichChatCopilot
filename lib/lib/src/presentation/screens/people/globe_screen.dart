@@ -10,6 +10,7 @@ import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
 import 'package:rich_chat_copilot/lib/src/data/source/local/single_ton/firebase_single_ton.dart';
 import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
+import 'package:rich_chat_copilot/lib/src/domain/usecase/get_theme_use_case.dart';
 import 'package:rich_chat_copilot/lib/src/domain/usecase/get_user_use_case.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/cricle_loading_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/user_image_widget.dart';
@@ -112,22 +113,10 @@ class _GlobeScreenState extends BaseState<GlobeScreen> {
                           width: 50,
                           height: 50,
                         ),
-                        title: Text(
-                          user.name,
-                          style: GoogleFonts.openSans(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: ColorSchemes.black,
-                          ),
-                        ),
-                        subtitle: Text(
-                          user.aboutMe,
-                          style: GoogleFonts.openSans(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: ColorSchemes.black,
-                          ),
-                        ),
+                        title: Text(user.name,
+                            style: Theme.of(context).textTheme.bodyLarge),
+                        subtitle: Text(user.aboutMe,
+                            style: Theme.of(context).textTheme.bodySmall),
                         trailing: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: ColorSchemes.iconBackGround,
@@ -151,7 +140,9 @@ class _GlobeScreenState extends BaseState<GlobeScreen> {
                             style: GoogleFonts.openSans(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
-                              color: ColorSchemes.primary,
+                              color: GetThemeUseCase(injector())()
+                                  ? ColorSchemes.black
+                                  : ColorSchemes.primary,
                             ),
                           ),
                         ),

@@ -29,3 +29,7 @@ final class SendTextMessageError extends ChatsState {
   final String message;
   SendTextMessageError({required this.message});
 }
+final class SetMassageReplyState extends ChatsState {
+  final MassageReply? massageReply;
+  SetMassageReplyState({required this.massageReply});
+}

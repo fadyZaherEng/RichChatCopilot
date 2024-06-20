@@ -9,6 +9,7 @@ import 'package:rich_chat_copilot/lib/src/core/base/widget/base_stateful_widget.
 import 'package:rich_chat_copilot/lib/src/core/utils/massage_type.dart';
 import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage.dart';
+import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage_reply.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
 import 'package:rich_chat_copilot/lib/src/domain/usecase/get_user_use_case.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/chats/chats_bloc.dart';
@@ -62,6 +63,8 @@ class _ChatScreenState extends BaseState<ChatScreen> {
     return BlocConsumer<ChatsBloc, ChatsState>(listener: (context, state) {
       if (state is SendTextMessageSuccess) {
         _massageController.clear();
+        _bloc.setMassageReply(null);
+
         // _massageFocusNode.requestFocus();
         // _massagesScrollController
         //     .jumpTo(_massagesScrollController.position.maxScrollExtent);
@@ -137,12 +140,38 @@ class _ChatScreenState extends BaseState<ChatScreen> {
                             ? Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 8.0),
-                                child: CurrentMassageWidget(massage: massage),
+                                child: CurrentMassageWidget(
+                                  massage: massage,
+                                  onRightSwipe: () {
+                                    final massageReply = MassageReply(
+                                      massage: massage.massage,
+                                      senderName: massage.senderName,
+                                      senderId: massage.senderId,
+                                      senderImage: massage.senderImage,
+                                      massageType: massage.massageType,
+                                      isMe: isMe,
+                                    );
+                                    _bloc.setMassageReply(massageReply);
+                                  },
+                                ),
                               )
                             : Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 8.0),
-                                child: ReceiverMassageWidget(massage: massage),
+                                child: ReceiverMassageWidget(
+                                  massage: massage,
+                                  onRightSwipe: () {
+                                    final massageReply = MassageReply(
+                                      massage: massage.massage,
+                                      senderName: massage.senderName,
+                                      senderId: massage.senderId,
+                                      senderImage: massage.senderImage,
+                                      massageType: massage.massageType,
+                                      isMe: isMe,
+                                    );
+                                    _bloc.setMassageReply(massageReply);
+                                  },
+                                ),
                               );
                       },
                       itemComparator: (massage1, massage2) =>
@@ -169,6 +198,10 @@ class _ChatScreenState extends BaseState<ChatScreen> {
               onSendPressed: () {
                 //TODO: send message
                 _sendTextMassageToFirestore();
+              },
+              massageReply: _bloc.massageReply,
+              setReplyMessageWithNull: () {
+                _bloc.setMassageReply(null);
               },
             ),
           ],

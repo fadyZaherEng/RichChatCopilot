@@ -15,6 +15,7 @@ import 'package:rich_chat_copilot/lib/src/presentation/widgets/build_app_bar_wid
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/custom_switch_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/restart_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
 
 class SettingsScreen extends BaseStatefulWidget {
   const SettingsScreen({super.key});
@@ -58,11 +59,11 @@ class _SettingsScreenState extends BaseState<SettingsScreen> {
                   //show log out dialog
                   _showLogOutDialog(context);
                 },
-                child:  const Padding(
-                  padding: EdgeInsets.all(8.0),
+                child:   Padding(
+                  padding:const EdgeInsets.all(8.0),
                   child: Icon(
                     Icons.logout,
-                    color: ColorSchemes.black,
+                    color: GetThemeUseCase(injector())() ? ColorSchemes.white : ColorSchemes.black,
                   ),
                 ),
               )),

@@ -23,7 +23,16 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     on<SendTextMessageEvent>(_onSendTextMessageEvent);
   }
 
-  // FirebaseFirestore _firestore = FirebaseSingleTon.db;
+  //replay message
+  MassageReply? _massageReply;
+
+  MassageReply? get massageReply => _massageReply;
+
+  void setMassageReply(MassageReply? massageReply) {
+    _massageReply = massageReply;
+    //notifyListeners();
+    emit(SetMassageReplyState(massageReply: massageReply));
+  }
 
   FutureOr<void> _onGetAllUsersEvent(
       GetAllUsersEvent event, Emitter<ChatsState> emit) async {
@@ -66,14 +75,14 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     //generate id to massage
     var massageId = Uuid().v4();
     //check if massage is reply then add replied message to massage
-    String repliedMessage = event.repliedMessage?.massage ?? "";
-    String repliedTo = event.repliedMessage == null
+    String repliedMessage = _massageReply?.massage ?? "";
+    String repliedTo = _massageReply == null
         ? ""
-        : event.repliedMessage!.isMe
+        : _massageReply!.isMe
             ? "You"
-            : event.repliedMessage!.senderName;
+            : _massageReply!.senderName;
     MassageType repliedMessageType =
-        event.repliedMessage?.massageType ?? MassageType.text;
+        _massageReply?.massageType ?? MassageType.text;
     //update massage model with replied message
     final massage = Massage(
       senderId: event.sender.uId,
@@ -122,10 +131,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     required void Function() success,
     required void Function() failure,
   }) async {
-    print("${massage.senderId} : ${massage.receiverId}");
     final receiverMassage = massage.copyWith(receiverId: massage.senderId);
-    print("${receiverMassage.senderId} : ${receiverMassage.receiverId}");
-
     //1-initialize last massage for sender
     final senderLastMassage = LastMassage(
       massage: massage.massage,
@@ -197,7 +203,8 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
   }
 
   //get chats last massages stream
-  Stream<List<LastMassage>> getChatsLastMassagesStream({required String userId}) {
+  Stream<List<LastMassage>> getChatsLastMassagesStream(
+      {required String userId}) {
     return FirebaseSingleTon.db
         .collection(Constants.users)
         .doc(userId)
@@ -210,13 +217,14 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
           .toList();
     });
   }
+
   //get massages stream
   Stream<List<Massage>> getMessagesStream({
     required String userId,
     required String receiverId,
     required String isGroup,
   }) {
-    if(isGroup.isNotEmpty) {
+    if (isGroup.isNotEmpty) {
       return FirebaseSingleTon.db
           .collection(Constants.groups)
           .doc(receiverId)

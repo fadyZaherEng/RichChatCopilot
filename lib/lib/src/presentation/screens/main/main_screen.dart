@@ -8,7 +8,7 @@ import 'package:rich_chat_copilot/lib/src/core/base/widget/base_stateful_widget.
 import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
 import 'package:rich_chat_copilot/lib/src/domain/usecase/get_user_use_case.dart';
-import 'package:rich_chat_copilot/lib/src/presentation/screens/contacts/chats_screen.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/contacts/my_chats_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/people/globe_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/groups/groups_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/user_image_widget.dart';
@@ -35,13 +35,16 @@ class _MainScreenState extends BaseState<MainScreen> {
   void initState() {
     super.initState();
     _user = GetUserUseCase(injector())();
+    print("user name ${_user.name}");
   }
 
   @override
   Widget baseBuild(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).appTitle),
+        title: Text(S.of(context).appTitle,
+        style: Theme.of(context).textTheme.bodyLarge,),
+        centerTitle: false,
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -104,10 +107,7 @@ class _MainScreenState extends BaseState<MainScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: ColorSchemes.primary,
-        selectedIconTheme:  IconThemeData(color: ColorSchemes.primary),
-        unselectedItemColor: ColorSchemes.gray,
-        backgroundColor: ColorSchemes.white,
+         // backgroundColor: ColorSchemes.white,
         onTap: (int index) {
           setState(() {
             _selectedIndex = index;
@@ -121,14 +121,6 @@ class _MainScreenState extends BaseState<MainScreen> {
         showSelectedLabels: true,
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
-        unselectedLabelStyle: Theme.of(context)
-            .textTheme
-            .labelLarge!
-            .copyWith(color: ColorSchemes.iconBackGround),
-        selectedLabelStyle: Theme.of(context)
-            .textTheme
-            .labelLarge!
-            .copyWith(color: ColorSchemes.primary),
       ),
     );
   }

@@ -13,6 +13,7 @@ import 'package:rich_chat_copilot/lib/src/core/utils/show_action_dialog.dart';
 import 'package:rich_chat_copilot/lib/src/data/source/local/single_ton/firebase_single_ton.dart';
 import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
+import 'package:rich_chat_copilot/lib/src/domain/usecase/get_theme_use_case.dart';
 import 'package:rich_chat_copilot/lib/src/domain/usecase/get_user_use_case.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/profile/profile_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/build_app_bar_widget.dart';
@@ -111,9 +112,9 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
               onPressed: () {
                 Navigator.pushNamed(context, Routes.settingsScreen);
               },
-              icon: const Icon(
+              icon:  Icon(
                 Icons.settings,
-                color: ColorSchemes.black,
+                color: GetThemeUseCase(injector())() ? ColorSchemes.white : ColorSchemes.black,
               ),
             ),
             isHaveBackButton: true,
@@ -156,21 +157,13 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
                       const SizedBox(height: 10),
                       Text(
                         _otherUser.name,
-                        style: GoogleFonts.openSans(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                          color: ColorSchemes.black,
-                        ),
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       _currentUser.uId == _otherUser.uId
                           ? const SizedBox.shrink()
                           : Text(
                               _otherUser.phoneNumber,
-                              style: GoogleFonts.openSans(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
-                                color: ColorSchemes.black,
-                              ),
+                              style: Theme.of(context).textTheme.bodyMedium,
                             ),
                       const SizedBox(height: 10),
                       SizedBox(
@@ -184,11 +177,7 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
                             const SizedBox(width: 10),
                             Text(
                               S.of(context).aboutMe,
-                              style: GoogleFonts.openSans(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: ColorSchemes.black,
-                              ),
+                              style: Theme.of(context).textTheme.bodyMedium,
                             ),
                             const SizedBox(width: 10),
                             _buildDivider(),
@@ -198,11 +187,7 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
                       const SizedBox(height: 10),
                       Text(
                         _otherUser.aboutMe,
-                        style: GoogleFonts.openSans(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                          color: ColorSchemes.black,
-                        ),
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
                       const SizedBox(height: 10),
                       _buildFriendRequestButton(
@@ -233,8 +218,8 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
       if (otherUser.friendsRequestsUIds.isNotEmpty) {
         return _buildButton(
             width: MediaQuery.of(context).size.width * 0.6,
-            backgroundColor: ColorSchemes.primary,
-            textColor: ColorSchemes.white,
+             backgroundColor: ColorSchemes.primary,
+            textColor: GetThemeUseCase(injector())() ? ColorSchemes.white : ColorSchemes.black,
             text: S.of(context).viewFriendRequests,
             onPressed: () {
               //TODO: navigate to friend requests screen
