@@ -177,7 +177,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
             .doc(receiverId)
             .collection(Constants.chats)
             .doc(massage.senderId),
-        senderLastMassage.toJson(),
+        receiverLastMassage.toJson(),
       );
       //4-send last massage to sender
       transaction.set(
@@ -186,7 +186,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
             .doc(massage.senderId)
             .collection(Constants.chats)
             .doc(receiverId),
-        receiverLastMassage.toJson(),
+        senderLastMassage.toJson(),
       );
     }).then((value) {
       success();
