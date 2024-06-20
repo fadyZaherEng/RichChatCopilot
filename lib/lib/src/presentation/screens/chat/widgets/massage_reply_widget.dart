@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
+import 'package:rich_chat_copilot/lib/src/core/utils/massage_type.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage_reply.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/widgets/display_massage_reply_type_widget.dart';
 
 class MassageReplyWidget extends StatelessWidget {
-  final MassageReply? massageReply;
+  final MassageReply massageReply;
   final void Function() setReplyMessageWithNull;
 
   const MassageReplyWidget({
@@ -29,14 +31,13 @@ class MassageReplyWidget extends StatelessWidget {
       ),
       child: ListTile(
         title: Text(
-          massageReply!.isMe ? "You" : massageReply!.senderName,
+          massageReply.isMe ? "You" : massageReply.senderName,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
-        subtitle: Text(
-          massageReply!.massage,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
+        subtitle: MassageReplyTypeWidget(
+          massage: massageReply.massage,
+          massageType: massageReply.massageType,
         ),
         trailing: IconButton(
           onPressed: () {

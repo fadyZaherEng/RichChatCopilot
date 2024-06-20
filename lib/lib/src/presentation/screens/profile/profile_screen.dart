@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -106,15 +107,16 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
       builder: (context, state) {
         return Scaffold(
           appBar: buildAppBarWidget(
+            backgroundColor: Theme.of(context).cardColor,
             context,
             title: S.of(context).profile,
             actionWidget: IconButton(
               onPressed: () {
                 Navigator.pushNamed(context, Routes.settingsScreen);
               },
-              icon:  Icon(
+              icon: Icon(
                 Icons.settings,
-                color: GetThemeUseCase(injector())() ? ColorSchemes.white : ColorSchemes.black,
+                color: Theme.of(context).primaryColor,
               ),
             ),
             isHaveBackButton: true,
@@ -218,8 +220,10 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
       if (otherUser.friendsRequestsUIds.isNotEmpty) {
         return _buildButton(
             width: MediaQuery.of(context).size.width * 0.6,
-             backgroundColor: Theme.of(context).colorScheme.primary,
-            textColor: GetThemeUseCase(injector())() ? ColorSchemes.white : ColorSchemes.black,
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            textColor: GetThemeUseCase(injector())()
+                ? ColorSchemes.white
+                : ColorSchemes.black,
             text: S.of(context).viewFriendRequests,
             onPressed: () {
               //TODO: navigate to friend requests screen
@@ -254,7 +258,7 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
           return _buildButton(
             width: MediaQuery.of(context).size.width * 0.6,
             textColor: Theme.of(context).colorScheme.primary,
-            backgroundColor:  Theme.of(context).cardColor,
+            backgroundColor: Theme.of(context).cardColor,
             text: S.of(context).cancelFriendRequest,
             onPressed: () {
               //TODO: cancel friend request
@@ -266,7 +270,7 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
           return _buildButton(
             width: MediaQuery.of(context).size.width * 0.6,
             textColor: Theme.of(context).colorScheme.primary,
-            backgroundColor:  Theme.of(context).cardColor,
+            backgroundColor: Theme.of(context).cardColor,
             text: S.of(context).acceptFriendRequest,
             onPressed: () {
               //TODO: accept friend request
@@ -291,7 +295,7 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
               _buildButton(
                 width: MediaQuery.of(context).size.width * 0.4,
                 textColor: Theme.of(context).colorScheme.primary,
-                backgroundColor:  Theme.of(context).cardColor,
+                backgroundColor: Theme.of(context).cardColor,
                 text: S.of(context).chat.toUpperCase(),
                 onPressed: () {
                   //TODO: navigate to chat screen
@@ -310,7 +314,7 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
           return _buildButton(
             width: MediaQuery.of(context).size.width * 0.6,
             textColor: Theme.of(context).primaryColor,
-            backgroundColor:  Theme.of(context).cardColor,
+            backgroundColor: Theme.of(context).cardColor,
             text: S.of(context).sendFriendRequests,
             onPressed: () {
               //TODO: send friend request
@@ -374,4 +378,5 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
           Navigator.pop(context);
         });
   }
+
 }

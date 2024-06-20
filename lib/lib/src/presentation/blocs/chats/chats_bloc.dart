@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:meta/meta.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/massage_type.dart';
@@ -21,6 +23,8 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     on<GetAllUsersEvent>(_onGetAllUsersEvent);
     on<GetCurrentUserEvent>(_onGetCurrentUserEvent);
     on<SendTextMessageEvent>(_onSendTextMessageEvent);
+    on<SendFileMessageEvent>(_onSendFileMessageEvent);
+    on<SelectImageEvent>(_onSelectImageEvent);
   }
 
   //replay message
@@ -73,7 +77,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
       SendTextMessageEvent event, Emitter<ChatsState> emit) async {
     emit(SendTextMessageLoading());
     //generate id to massage
-    var massageId = Uuid().v4();
+    var massageId = const Uuid().v4();
     //check if massage is reply then add replied message to massage
     String repliedMessage = _massageReply?.massage ?? "";
     String repliedTo = _massageReply == null
@@ -111,16 +115,16 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
         success: () {
           emit(SendTextMessageSuccess());
         },
-        failure: () {
-          emit(SendTextMessageError(message: "Failed to send message"));
+        failure: (String message) {
+          emit(SendTextMessageError(message: message));
         },
       );
     }
     //emit success
-    emit(SendTextMessageSuccess());
-    try {} catch (e) {
-      emit(SendTextMessageError(message: e.toString()));
-    }
+    // emit(SendTextMessageSuccess());
+    // try {} catch (e) {
+    //   emit(SendTextMessageError(message: e.toString()));
+    // }
   }
 
   Future<void> _handleContactMassage({
@@ -129,77 +133,117 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     required String receiverName,
     required String receiverImage,
     required void Function() success,
-    required void Function() failure,
+    required void Function(String message) failure,
   }) async {
-    final receiverMassage = massage.copyWith(receiverId: massage.senderId);
-    //1-initialize last massage for sender
-    final senderLastMassage = LastMassage(
-      massage: massage.massage,
-      senderId: massage.senderId,
-      receiverId: receiverId,
-      receiverName: receiverName,
-      receiverImage: receiverImage,
-      massageType: massage.massageType,
-      timeSent: massage.timeSent,
-      isSeen: false,
-    );
-    //2-initialize last massage for receiver
-    final receiverLastMassage = senderLastMassage.copyWith(
-      receiverId: massage.senderId,
-      receiverName: massage.senderName,
-      receiverImage: massage.senderImage,
-    );
-    //3-send massage to receiver
-    //4-send massage to sender
-    //5-send last massage to receiver
-    //6-send last massage to sender
-    await FirebaseSingleTon.db.runTransaction((transaction) async {
+    try {
+      final receiverMassage = massage.copyWith(receiverId: massage.senderId);
+      //1-initialize last massage for sender
+      final senderLastMassage = LastMassage(
+        massage: massage.massage,
+        senderId: massage.senderId,
+        receiverId: receiverId,
+        receiverName: receiverName,
+        receiverImage: receiverImage,
+        massageType: massage.massageType,
+        timeSent: massage.timeSent,
+        isSeen: false,
+      );
+      //2-initialize last massage for receiver
+      final receiverLastMassage = senderLastMassage.copyWith(
+        receiverId: massage.senderId,
+        receiverName: massage.senderName,
+        receiverImage: massage.senderImage,
+      );
+      //3-send massage to receiver
+      //4-send massage to sender
+      //5-send last massage to receiver
+      //6-send last massage to sender
+
       //1-send massage to receiver
-      transaction.set(
-        FirebaseSingleTon.db
-            .collection(Constants.users)
-            .doc(receiverId)
-            .collection(Constants.chats)
-            .doc(massage.senderId)
-            .collection(Constants.messages)
-            .doc(massage.messageId),
-        receiverMassage.toJson(),
-      );
+      await FirebaseSingleTon.db
+          .collection(Constants.users)
+          .doc(receiverId)
+          .collection(Constants.chats)
+          .doc(massage.senderId)
+          .collection(Constants.messages)
+          .doc(massage.messageId)
+          .set(receiverMassage.toJson());
       //2-send massage to sender
-      transaction.set(
-        FirebaseSingleTon.db
-            .collection(Constants.users)
-            .doc(massage.senderId)
-            .collection(Constants.chats)
-            .doc(receiverId)
-            .collection(Constants.messages)
-            .doc(massage.messageId),
-        massage.toJson(),
-      );
-      //3-send last massage to receiver
-      transaction.set(
-        FirebaseSingleTon.db
-            .collection(Constants.users)
-            .doc(receiverId)
-            .collection(Constants.chats)
-            .doc(massage.senderId),
-        receiverLastMassage.toJson(),
-      );
-      //4-send last massage to sender
-      transaction.set(
-        FirebaseSingleTon.db
-            .collection(Constants.users)
-            .doc(massage.senderId)
-            .collection(Constants.chats)
-            .doc(receiverId),
-        senderLastMassage.toJson(),
-      );
-    }).then((value) {
+      await FirebaseSingleTon.db
+          .collection(Constants.users)
+          .doc(massage.senderId)
+          .collection(Constants.chats)
+          .doc(receiverId)
+          .collection(Constants.messages)
+          .doc(massage.messageId)
+          .set(massage.toJson());
       success();
-    }).catchError((error) {
-      failure();
-    });
-    //call success
+      //3-send last massage to receiver
+      await FirebaseSingleTon.db
+          .collection(Constants.users)
+          .doc(receiverId)
+          .collection(Constants.chats)
+          .doc(massage.senderId)
+          .set(receiverLastMassage.toJson());
+      //4-send last massage to sender
+      await FirebaseSingleTon.db
+          .collection(Constants.users)
+          .doc(massage.senderId)
+          .collection(Constants.chats)
+          .doc(receiverId)
+          .set(senderLastMassage.toJson());
+
+      // await FirebaseSingleTon.db.runTransaction((transaction) async {
+      //   //1-send massage to receiver
+      //   transaction.set(
+      //     FirebaseSingleTon.db
+      //         .collection(Constants.users)
+      //         .doc(receiverId)
+      //         .collection(Constants.chats)
+      //         .doc(massage.senderId)
+      //         .collection(Constants.messages)
+      //         .doc(massage.messageId),
+      //     receiverMassage.toJson(),
+      //   );
+      //   //2-send massage to sender
+      //   transaction.set(
+      //     FirebaseSingleTon.db
+      //         .collection(Constants.users)
+      //         .doc(massage.senderId)
+      //         .collection(Constants.chats)
+      //         .doc(receiverId)
+      //         .collection(Constants.messages)
+      //         .doc(massage.messageId),
+      //     massage.toJson(),
+      //   );
+      //   //3-send last massage to receiver
+      //   transaction.set(
+      //     FirebaseSingleTon.db
+      //         .collection(Constants.users)
+      //         .doc(receiverId)
+      //         .collection(Constants.chats)
+      //         .doc(massage.senderId),
+      //     receiverLastMassage.toJson(),
+      //   );
+      //   //4-send last massage to sender
+      //   transaction.set(
+      //     FirebaseSingleTon.db
+      //         .collection(Constants.users)
+      //         .doc(massage.senderId)
+      //         .collection(Constants.chats)
+      //         .doc(receiverId),
+      //     senderLastMassage.toJson(),
+      //   );
+      // }).then((value) {
+      //   success();
+      // }).catchError((error) {
+      //   failure();
+      // });
+      //call success
+      // success();
+    } catch (e) {
+      failure(e.toString());
+    }
   }
 
   //get chats last massages stream
@@ -252,5 +296,165 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
             .toList();
       });
     }
+  }
+
+  //set massage as seen
+  Future<void> setMassageAsSeen({
+    required String senderId,
+    required String receiverId,
+    required String massageId,
+    required String groupId,
+  }) async {
+    try {
+      //check if group
+      if (groupId.isNotEmpty) {
+        //handle group massage as seen
+        await FirebaseSingleTon.db
+            .collection(Constants.groups)
+            .doc(groupId)
+            .collection(Constants.messages)
+            .doc(massageId)
+            .update({"isSeen": true});
+      } else {
+        //check if contact
+        //set massage as seen for sender
+        await FirebaseSingleTon.db
+            .collection(Constants.users)
+            .doc(senderId)
+            .collection(Constants.chats)
+            .doc(receiverId)
+            .collection(Constants.messages)
+            .doc(massageId)
+            .update({"isSeen": true});
+
+        //set massage as seen for receiver
+        await FirebaseSingleTon.db
+            .collection(Constants.users)
+            .doc(receiverId)
+            .collection(Constants.chats)
+            .doc(senderId)
+            .collection(Constants.messages)
+            .doc(massageId)
+            .update({"isSeen": true});
+        //set last massage as seen for sender
+
+        await FirebaseSingleTon.db
+            .collection(Constants.users)
+            .doc(senderId)
+            .collection(Constants.chats)
+            .doc(receiverId)
+            .update({"isSeen": true});
+        //set last massage as seen for receiver
+        await FirebaseSingleTon.db
+            .collection(Constants.users)
+            .doc(receiverId)
+            .collection(Constants.chats)
+            .doc(senderId)
+            .update({"isSeen": true});
+        emit(SetMassageAsSeenSuccess());
+      }
+    } catch (e) {
+      print(e.toString());
+      emit(SetMassageAsSeenError(message: e.toString()));
+    }
+  }
+
+  //sent file massage
+  Future<void> sentFileMessage({
+    required UserModel sender,
+    required String receiverId,
+    required String receiverName,
+    required String receiverImage,
+    required String groupId,
+    required File file,
+    required MassageType massageType,
+    required void Function() success,
+    required void Function(String message) failure,
+  }) async {
+    //1-generate id to massage
+    var massageId = const Uuid().v4();
+    //2-check if massage is reply then add replied message to massage
+    String repliedMessage = _massageReply?.massage ?? "";
+    String repliedTo = _massageReply == null
+        ? ""
+        : _massageReply!.isMe
+            ? "You"
+            : _massageReply!.senderName;
+    MassageType repliedMessageType =
+        _massageReply?.massageType ?? MassageType.text;
+    //3-upload file to storage
+    String fileUrl = await _saveImageToStorage(file,
+        "chatFiles/${massageType.name}/${sender.uId}/$receiverId/$massageId.jpg");
+    print("fileUrl: $fileUrl");
+    //4-update massage model with replied message
+    final massage = Massage(
+      senderId: sender.uId,
+      senderName: sender.name,
+      senderImage: sender.image,
+      receiverId: receiverId,
+      massage: fileUrl,
+      massageType: massageType,
+      timeSent: DateTime.now(),
+      messageId: massageId,
+      isSeen: false,
+      repliedMessage: repliedMessage,
+      repliedTo: repliedTo,
+      repliedMessageType: repliedMessageType,
+    );
+    //check if group massage and send to group else send to contact
+    if (groupId.isNotEmpty) {
+      //handle group massage
+    } else {
+      //handle contact massage
+      await _handleContactMassage(
+        massage: massage,
+        receiverId: receiverId,
+        receiverName: receiverName,
+        receiverImage: receiverImage,
+        success: () {
+          success();
+        },
+        failure: (String error) {
+          failure(error);
+        },
+      );
+    }
+  }
+
+  Future<String> _saveImageToStorage(File file, reference) async {
+    Reference ref = FirebaseSingleTon.storage.ref(reference);
+    UploadTask uploadTask = ref.putFile(file);
+    TaskSnapshot taskSnapshot = await uploadTask;
+    String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
+  FutureOr<void> _onSendFileMessageEvent(
+      SendFileMessageEvent event, Emitter<ChatsState> emit) async {
+    emit(SendFileMessageLoading());
+    try {
+      await sentFileMessage(
+        sender: event.sender,
+        receiverId: event.receiverId,
+        receiverName: event.receiverName,
+        receiverImage: event.receiverImage,
+        groupId: event.groupId,
+        file: event.file,
+        massageType: event.massageType,
+        success: () {
+          emit(SendFileMessageSuccess());
+        },
+        failure: (String error) {
+          emit(SendFileMessageError(message: error));
+        },
+      );
+    } catch (e) {
+      emit(SendFileMessageError(message: e.toString()));
+    }
+  }
+
+  FutureOr<void> _onSelectImageEvent(
+      SelectImageEvent event, Emitter<ChatsState> emit) {
+    emit(SelectImageState(file: event.file));
   }
 }

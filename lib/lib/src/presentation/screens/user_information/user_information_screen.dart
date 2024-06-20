@@ -216,6 +216,7 @@ class _UserInformationScreenState extends BaseState<UserInformationScreen> {
           );
         }
       },
+      onTapVideo: (){}
     );
   }
 
@@ -224,8 +225,8 @@ class _UserInformationScreenState extends BaseState<UserInformationScreen> {
   }
 
   Future<void> _getImage(
-    ImageSource img,
-  ) async {
+      ImageSource img,
+      ) async {
     showLoading();
     if (img == ImageSource.gallery) {
       final picker = ImagePicker();
@@ -274,30 +275,6 @@ class _UserInformationScreenState extends BaseState<UserInformationScreen> {
       return compressedImage;
     }
   }
-
-  void _showActionDialog({
-    required String icon,
-    required void Function() onPrimaryAction,
-    required void Function() onSecondaryAction,
-    required String primaryText,
-    required String secondaryText,
-    required String text,
-  }) async {
-    await showActionDialogWidget(
-      context: context,
-      text: text,
-      primaryText: primaryText,
-      primaryAction: () {
-        onPrimaryAction();
-      },
-      secondaryText: secondaryText,
-      secondaryAction: () {
-        onSecondaryAction();
-      },
-      icon: icon,
-    );
-  }
-
   Future _cropperImage(File imagePicker) async {
     if (imagePicker != null) {
       CroppedFile? croppedFile = await ImageCropper().cropImage(
@@ -329,7 +306,7 @@ class _UserInformationScreenState extends BaseState<UserInformationScreen> {
             presentStyle: CropperPresentStyle.dialog,
             boundary: const CroppieBoundary(width: 520, height: 520),
             viewPort:
-                const CroppieViewPort(width: 480, height: 480, type: 'circle'),
+            const CroppieViewPort(width: 480, height: 480, type: 'circle'),
             enableExif: true,
             enableZoom: true,
             showZoomer: true,
@@ -341,4 +318,28 @@ class _UserInformationScreenState extends BaseState<UserInformationScreen> {
       }
     }
   }
+
+  void _showActionDialog({
+    required String icon,
+    required void Function() onPrimaryAction,
+    required void Function() onSecondaryAction,
+    required String primaryText,
+    required String secondaryText,
+    required String text,
+  }) async {
+    await showActionDialogWidget(
+      context: context,
+      text: text,
+      primaryText: primaryText,
+      primaryAction: () {
+        onPrimaryAction();
+      },
+      secondaryText: secondaryText,
+      secondaryAction: () {
+        onSecondaryAction();
+      },
+      icon: icon,
+    );
+  }
+
 }

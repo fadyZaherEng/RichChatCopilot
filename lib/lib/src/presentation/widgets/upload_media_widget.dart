@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rich_chat_copilot/generated/l10n.dart';
@@ -9,10 +8,16 @@ import 'package:rich_chat_copilot/lib/src/presentation/widgets/bottom_sheet_widg
 class UploadMediaWidget extends StatefulWidget {
   final Function() onTapCamera;
   final Function() onTapGallery;
+  final Function() onTapVideo;
+  bool isShowVideo = false;
 
-  const UploadMediaWidget(
-      {Key? key, required this.onTapCamera, required this.onTapGallery})
-      : super(key: key);
+  UploadMediaWidget({
+    Key? key,
+    required this.onTapCamera,
+    required this.onTapGallery,
+    this.isShowVideo = false,
+    required this.onTapVideo,
+  }) : super(key: key);
 
   @override
   State<UploadMediaWidget> createState() => _UploadMediaWidgetState();
@@ -35,7 +40,7 @@ class _UploadMediaWidgetState extends State<UploadMediaWidget> {
                     boxShadows: [
                       BoxShadow(
                           offset: const Offset(0, 4),
-                          color:  Theme.of(context).cardColor,
+                          color: Theme.of(context).cardColor,
                           blurRadius: 24,
                           blurStyle: BlurStyle.normal,
                           spreadRadius: 5),
@@ -43,18 +48,12 @@ class _UploadMediaWidgetState extends State<UploadMediaWidget> {
                     imagePath: ImagePaths.icGallery,
                     backgroundColor: Theme.of(context).cardColor,
                     iconSize: 28,
-                    iconColor:Theme.of(context).colorScheme.primary,
+                    iconColor: Theme.of(context).colorScheme.primary,
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    S
-                        .of(context)
-                        .gallery,
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .labelLarge!
-                        .copyWith(
+                    S.of(context).gallery,
+                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
                         fontSize: 13,
                         letterSpacing: -0.24,
                         color: ColorSchemes.black),
@@ -80,20 +79,14 @@ class _UploadMediaWidgetState extends State<UploadMediaWidget> {
                           spreadRadius: 5),
                     ],
                     imagePath: ImagePaths.icCamera,
-                    backgroundColor:  Theme.of(context).cardColor,
+                    backgroundColor: Theme.of(context).cardColor,
                     iconSize: 28,
-                    iconColor:Theme.of(context).colorScheme.primary,
+                    iconColor: Theme.of(context).colorScheme.primary,
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    S
-                        .of(context)
-                        .camera,
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .labelLarge!
-                        .copyWith(
+                    S.of(context).camera,
+                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
                         fontSize: 13,
                         letterSpacing: -0.24,
                         color: ColorSchemes.black),
@@ -101,11 +94,55 @@ class _UploadMediaWidgetState extends State<UploadMediaWidget> {
                 ],
               ),
             ),
+
+            const SizedBox(
+              width: 71,
+            ),
+            if (widget.isShowVideo) ...[
+              GestureDetector(
+                onTap: widget.onTapVideo,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                        width: 48,
+                        height: 48,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).cardColor,
+                          boxShadow: [
+                            BoxShadow(
+                                offset: const Offset(0, 4),
+                                color: Theme.of(context).cardColor,
+                                blurRadius: 24,
+                                blurStyle: BlurStyle.normal,
+                                spreadRadius: 5),
+                          ],
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.transparent,
+                            width: 0,
+                          ),
+                        ),
+                        child: Icon(
+                          Icons.video_library,
+                          color: Theme.of(context).colorScheme.primary,
+                          size: 28,
+                        )),
+                    const SizedBox(height: 16),
+                    Text(
+                      S.of(context).video,
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                          fontSize: 13,
+                          letterSpacing: -0.24,
+                          color: ColorSchemes.black),
+                    ),
+                  ],
+                ),
+              ),
+            ]
           ],
         ),
-        titleLabel: S
-            .of(context)
-            .uploadMedia);
+        titleLabel: S.of(context).uploadMedia);
   }
 
   Widget _cyrcleIcon({

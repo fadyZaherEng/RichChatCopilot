@@ -13,6 +13,7 @@ import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
 import 'package:rich_chat_copilot/lib/src/domain/usecase/get_user_use_case.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/chats/chats_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/cricle_loading_widget.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/widgets/display_massage_reply_type_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/user_image_widget.dart';
 
 class ChatsScreen extends BaseStatefulWidget {
@@ -119,18 +120,12 @@ class _ChatsScreenState extends BaseState<ChatsScreen> {
                             ),
                             subtitle: Padding(
                               padding: const EdgeInsets.only(top: 3),
-                              child: Text(
-                                _currentUser.uId ==
+                              child: MassageReplyTypeWidget(
+                                massageType: snapshot.data![index].massageType,
+                                massage: _currentUser.uId ==
                                         snapshot.data![index].senderId
                                     ? "You: ${snapshot.data![index].massage}"
                                     : snapshot.data![index].massage,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: GoogleFonts.openSans(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.normal,
-                                  color: ColorSchemes.gray,
-                                ),
                               ),
                             ),
                             leading: UserImageWidget(

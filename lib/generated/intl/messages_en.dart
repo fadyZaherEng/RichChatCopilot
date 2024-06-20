@@ -110,6 +110,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "userInformation":
             MessageLookupByLibrary.simpleMessage("User Information"),
         "verification": MessageLookupByLibrary.simpleMessage("Verification"),
+        "video": MessageLookupByLibrary.simpleMessage("Video"),
         "viewFriendRequests":
             MessageLookupByLibrary.simpleMessage("View Friend Requests"),
         "viewFriends": MessageLookupByLibrary.simpleMessage("View Friends"),

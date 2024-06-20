@@ -33,3 +33,22 @@ final class SetMassageReplyState extends ChatsState {
   final MassageReply? massageReply;
   SetMassageReplyState({required this.massageReply});
 }
+//set massage as seen
+final class SetMassageAsSeenLoading extends ChatsState {}
+final class SetMassageAsSeenSuccess extends ChatsState {}
+final class SetMassageAsSeenError extends ChatsState {
+  final String message;
+  SetMassageAsSeenError({required this.message});
+}
+//send file massage
+final class SendFileMessageLoading extends ChatsState {}
+final class SendFileMessageSuccess extends ChatsState {}
+final class SendFileMessageError extends ChatsState {
+  final String message;
+  SendFileMessageError({required this.message});
+}
+//select image state
+final class SelectImageState extends ChatsState {
+  final File file;
+  SelectImageState({required this.file});
+}

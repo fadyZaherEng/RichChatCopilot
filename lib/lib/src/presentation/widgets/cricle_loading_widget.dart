@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class CircleLoadingWidget extends StatelessWidget {
-  const CircleLoadingWidget({super.key});
+  final double? size;
+
+  const CircleLoadingWidget({super.key, this.size = 50});
 
   @override
   Widget build(BuildContext context) {
-    return  Center(
+    return Center(
         child: LoadingAnimationWidget.threeArchedCircle(
-          color: Theme.of(context).colorScheme.primary,
-          size: 50,
-        ));
+      color: Theme.of(context).colorScheme.primary,
+      size: size!,
+    ));
   }
 }

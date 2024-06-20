@@ -7,6 +7,7 @@ import 'package:rich_chat_copilot/lib/src/data/source/local/single_ton/firebase_
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/cricle_loading_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/user_image_widget.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class ChatAppBarWidget extends StatelessWidget {
   final String friendId;
@@ -54,17 +55,21 @@ class ChatAppBarWidget extends StatelessWidget {
                     Text(
                       user.name,
                       style: GoogleFonts.openSans(
-                        fontSize: 18,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: ColorSchemes.black,
                       ),
                     ),
                     Text(
-                      user.isOnline ? "Online" : "Offline",
+                      user.isOnline
+                          ? "Online"
+                          : timeago.format(DateTime.fromMillisecondsSinceEpoch(
+                              int.parse(user.lastSeen))),
                       style: GoogleFonts.openSans(
-                        fontSize: 11,
+                        fontSize: 12,
                         fontWeight: FontWeight.normal,
-                        color: ColorSchemes.black,
+                        color: user.isOnline
+                            ? ColorSchemes.green
+                            : Colors.grey.shade600,
                       ),
                     ),
                   ],

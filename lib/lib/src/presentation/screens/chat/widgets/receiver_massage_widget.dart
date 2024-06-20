@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
+import 'package:rich_chat_copilot/lib/src/core/utils/massage_type.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/widgets/display_massage_type_widget.dart';
 import 'package:swipe_to/swipe_to.dart';
 
 class ReceiverMassageWidget extends StatelessWidget {
@@ -42,10 +44,9 @@ class ReceiverMassageWidget extends StatelessWidget {
             child: Stack(
               children: [
                 Padding(
-                  padding: const EdgeInsetsDirectional.only(
-                       start: 10, end: 30,
-                      top: 5,
-                      bottom: 20),
+                  padding: massage.massageType == MassageType.text
+                      ? const EdgeInsets.fromLTRB(10, 5, 20, 20)
+                      : const EdgeInsets.fromLTRB(5, 5, 55, 25),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -64,19 +65,31 @@ class ReceiverMassageWidget extends StatelessWidget {
                                 style: const TextStyle(
                                     color: Colors.black, fontSize: 10),
                               ),
-                              Text(
-                                massage.repliedMessage,
-                                style: const TextStyle(
-                                    color: Colors.black, fontSize: 10),
+                              // Text(
+                              //   massage.repliedMessage,
+                              //   style: const TextStyle(
+                              //       color: Colors.black, fontSize: 10),
+                              // ),
+                              DisplayMassageTypeWidget(
+                                massageType: massage.massageType,
+                                massage: massage.repliedMessage,
+                                color: Colors.black,
+                                maxLines: 1,
+                                textOverflow: TextOverflow.ellipsis,
                               ),
                             ],
                           ),
                         )
                       ],
-                      Text(
-                        massage.massage,
-                        textAlign: TextAlign.start,
-                        style: const TextStyle(color: Colors.black),
+                      // Text(
+                      //   massage.massage,
+                      //   textAlign: TextAlign.start,
+                      //   style: const TextStyle(color: Colors.black),
+                      // ),
+                      DisplayMassageTypeWidget(
+                        massageType: massage.massageType,
+                        massage: massage.massage,
+                        color: Colors.black,
                       ),
                     ],
                   ),

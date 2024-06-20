@@ -62,13 +62,13 @@ class _SplashScreenState extends State<SplashScreen>
                     color: Theme.of(context).colorScheme.primary,
                     minHeight: 5,
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 30),
                   Text(
                     S.of(context).appTitle,
                     style: Theme.of(context)
                         .textTheme
-                        .bodyLarge
-                        ?.copyWith(color: Theme.of(context).cardColor),
+                        .titleLarge
+                        // ?.copyWith(color: Theme.of(context).primaryColor),
                   )
                 ],
               ),

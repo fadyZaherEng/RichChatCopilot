@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
-import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage_reply.dart';
-import 'package:rich_chat_copilot/lib/src/domain/usecase/get_theme_use_case.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/massage_reply_widget.dart';
 
 class BottomChatWidget extends StatelessWidget {
@@ -18,6 +16,8 @@ class BottomChatWidget extends StatelessWidget {
   final FocusNode focusNode;
   final MassageReply? massageReply;
   final Function() setReplyMessageWithNull;
+  final bool isAttachedLoading;
+  final bool isSendingLoading;
 
   const BottomChatWidget({
     super.key,
@@ -33,6 +33,8 @@ class BottomChatWidget extends StatelessWidget {
     required this.onTextChange,
     required this.massageReply,
     required this.setReplyMessageWithNull,
+    required this.isAttachedLoading,
+    required this.isSendingLoading,
   });
 
   @override
@@ -44,7 +46,7 @@ class BottomChatWidget extends StatelessWidget {
           children: [
             massageReply != null
                 ? MassageReplyWidget(
-                    massageReply: massageReply,
+                    massageReply: massageReply!,
                     setReplyMessageWithNull: setReplyMessageWithNull,
                   )
                 : const SizedBox.shrink(),
@@ -79,13 +81,21 @@ class BottomChatWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  IconButton(
-                    onPressed: onAttachPressed,
-                    icon: const Icon(
-                      Icons.attachment,
-                      size: 20,
-                    ),
-                  ),
+                  isAttachedLoading
+                      ? Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: LoadingAnimationWidget.threeArchedCircle(
+                            color: Theme.of(context).colorScheme.primary,
+                            size: 35,
+                          ),
+                      )
+                      : IconButton(
+                          onPressed: onAttachPressed,
+                          icon: const Icon(
+                            Icons.attachment,
+                            size: 20,
+                          ),
+                        ),
                   Expanded(
                     child: SingleChildScrollView(
                       child: TextField(
@@ -109,25 +119,33 @@ class BottomChatWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: onSendPressed,
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      width: 35,
-                      height: 35,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primary,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Center(
-                        child: Icon(
-                          Icons.arrow_upward,
-                          color: Theme.of(context).cardColor,
-                          size: 20,
+                  isSendingLoading
+                      ? Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: LoadingAnimationWidget.threeArchedCircle(
+                            color: Theme.of(context).colorScheme.primary,
+                            size: 25,
+                          ),
+                      )
+                      : GestureDetector(
+                          onTap: onSendPressed,
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(vertical: 8),
+                            width: 35,
+                            height: 35,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.primary,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: Center(
+                              child: Icon(
+                                Icons.arrow_upward,
+                                color: Theme.of(context).cardColor,
+                                size: 20,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),

@@ -10,21 +10,23 @@ AppBar buildAppBarWidget(
   required String title,
   required bool isHaveBackButton,
   Function()? onBackButtonPressed,
-  Color? backgroundColor ,
-  Color? textColor ,
+  Color? backgroundColor,
+  Color? textColor,
   Widget actionWidget = const SizedBox.shrink(),
   String imagePath = "",
 }) {
   backgroundColor ??= ColorSchemes.white;
   textColor ??= ColorSchemes.black;
   return AppBar(
+    backgroundColor: Theme.of(context).cardColor,
+    elevation: 0,
     // backgroundColor: backgroundColor,
     title: imagePath.isEmpty
         ? Text(
             title,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                letterSpacing: -0.24,
-                fontWeight: FontWeight.w600,
+                  letterSpacing: -0.24,
+                  fontWeight: FontWeight.w600,
                 ),
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
@@ -34,9 +36,7 @@ AppBar buildAppBarWidget(
             width: 60,
             height: 60,
             fit: BoxFit.contain,
-      color:Theme.of(context).colorScheme.primary,
-
-    ),
+          ),
     centerTitle: true,
     actions: [
       Column(
@@ -55,7 +55,6 @@ AppBar buildAppBarWidget(
               width: 24,
               height: 24,
               fit: BoxFit.scaleDown,
-              color: Theme.of(context).colorScheme.primary,
             ),
           )
         : const SizedBox.shrink(),

@@ -71,12 +71,15 @@ class _SettingsScreenState extends BaseState<SettingsScreen> {
                   //show log out dialog
                   _showLogOutDialog(context);
                 },
-                child: const Padding(
+                child:  Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Icon(
                     //log out
                     Icons.logout,
-                    color: ColorSchemes.black,
+                    color: Theme
+                        .of(context)
+                        .colorScheme
+                        .primary,
                   ),
                 ),
               )),
