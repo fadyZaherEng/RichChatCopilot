@@ -34,7 +34,6 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
 
   void setMassageReply(MassageReply? massageReply) {
     _massageReply = massageReply;
-    //notifyListeners();
     emit(SetMassageReplyState(massageReply: massageReply));
   }
 
@@ -44,7 +43,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     try {
       List<UserModel> users = [];
       await FirebaseSingleTon.db
-          .collection("users")
+          .collection(Constants.users)
           .get()
           .then((QuerySnapshot querySnapshot) {
         for (var doc in querySnapshot.docs) {

@@ -119,6 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "welcomeMessage": MessageLookupByLibrary.simpleMessage(
             "مرحبا بك في محادثة رسمية من نوع Copilot"),
         "yes": MessageLookupByLibrary.simpleMessage("نعم"),
+        "you": MessageLookupByLibrary.simpleMessage("أنت"),
         "youShouldHaveCameraPermission":
             MessageLookupByLibrary.simpleMessage("يجب عليك السماح للكاميرا"),
         "youShouldHaveGalleryPermission":

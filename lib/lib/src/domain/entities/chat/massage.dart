@@ -30,6 +30,7 @@ class Massage {
   });
 
   factory Massage.fromJson(Map<String, dynamic> json) {
+    print("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj${json['massageType'].toString().massageTypeFromString}");
     return Massage(
       senderId: json['senderId'],
       senderName: json['senderName'],
@@ -54,13 +55,13 @@ class Massage {
       'senderImage': senderImage,
       'receiverId': receiverId,
       'massage': massage,
-      'massageType': massageType.toString(),
+      'massageType': massageType.name,
       'timeSent': timeSent.millisecondsSinceEpoch,
       'messageId': messageId,
       'isSeen': isSeen,
       'repliedMessage': repliedMessage,
       'repliedTo': repliedTo,
-      'repliedMessageType': repliedMessageType.toString(),
+      'repliedMessageType': repliedMessageType.name,
     };
   }
 

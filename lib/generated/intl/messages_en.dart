@@ -117,6 +117,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "welcomeMessage": MessageLookupByLibrary.simpleMessage(
             "Welcome to the Copilot Chatbot. What would you like to chat about?"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
+        "you": MessageLookupByLibrary.simpleMessage("You"),
         "youShouldHaveCameraPermission": MessageLookupByLibrary.simpleMessage(
             "You should have camera permission"),
         "youShouldHaveGalleryPermission": MessageLookupByLibrary.simpleMessage(

@@ -20,40 +20,39 @@ class DisplayMassageTypeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("massageType : $massageType");
-    Widget getMassageTypeWidget() {
-      switch (massageType) {
-        case MassageType.text:
-          return Text(
-            massage,
-            style: TextStyle(
-              fontSize: 16,
-              color: color,
-              overflow: textOverflow,
-            ),
-            maxLines: maxLines,
-          );
-        case MassageType.image:
-          return CachedNetworkImage(imageUrl: massage);
-        case MassageType.video:
-          return CachedNetworkImage(imageUrl: massage);
-        case MassageType.audio:
-          return CachedNetworkImage(imageUrl: massage);
-        case MassageType.file:
-          return CachedNetworkImage(imageUrl: massage);
-        default:
-          return Text(
-            massage,
-            style: TextStyle(
-              fontSize: 16,
-              color: color,
-              overflow: textOverflow,
-            ),
-            maxLines: maxLines,
-          );
-      }
-    }
-
     return getMassageTypeWidget();
   }
+  Widget getMassageTypeWidget() {
+    switch (massageType) {
+      case MassageType.text:
+        return Text(
+          massage,
+          style: TextStyle(
+            fontSize: 16,
+            color: color,
+            overflow: textOverflow,
+          ),
+          maxLines: maxLines,
+        );
+      case MassageType.image:
+        return CachedNetworkImage(imageUrl: massage,fit: BoxFit.cover);
+      case MassageType.video:
+        return CachedNetworkImage(imageUrl: massage);
+      case MassageType.audio:
+        return CachedNetworkImage(imageUrl: massage);
+      case MassageType.file:
+        return CachedNetworkImage(imageUrl: massage);
+      default:
+        return Text(
+          massage,
+          style: TextStyle(
+            fontSize: 16,
+            color: color,
+            overflow: textOverflow,
+          ),
+          maxLines: maxLines,
+        );
+    }
+  }
+
 }

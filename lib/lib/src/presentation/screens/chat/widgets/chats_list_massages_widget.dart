@@ -49,10 +49,10 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
             //   return const CircleLoadingWidget();
             // }
             if (snapshot.hasError) {
+              print("""Error: ${snapshot.error}""");
               return Center(
                 child: Text(
-                  S.of(context)
-                      .somethingWentWrong,
+                  S.of(context).somethingWentWrong,
                   style: GoogleFonts.openSans(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -61,13 +61,10 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                 ),
               );
             }
-            if (!snapshot.hasData ||
-                snapshot.data!.isEmpty ||
-                snapshot.data == null) {
+            if (!snapshot.hasData || snapshot.data == null || snapshot.data!.isEmpty) {
               return Center(
                 child: Text(
-                  S.of(context)
-                      .startConversation,
+                  S.of(context).startConversation,
                   style: GoogleFonts.openSans(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -88,17 +85,15 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
               });
               final massages = snapshot.data!;
               return GroupedListView<dynamic, DateTime>(
-                 reverse: true,
+                reverse: true,
                 elements: massages,
                 controller: widget.massagesScrollController,
-                groupBy: (massage) =>
-                    DateTime(massage.timeSent.year,
-                        massage.timeSent.month, massage.timeSent.day),
-                groupHeaderBuilder: (massage) =>
-                    buildDateWidget(
-                      context: context,
-                      dateTime: massage.timeSent,
-                    ),
+                groupBy: (massage) => DateTime(massage.timeSent.year,
+                    massage.timeSent.month, massage.timeSent.day),
+                groupHeaderBuilder: (massage) => buildDateWidget(
+                  context: context,
+                  dateTime: massage.timeSent,
+                ),
                 useStickyGroupSeparators: true,
                 floatingHeader: true,
                 order: GroupedListOrder.DESC,
@@ -107,49 +102,50 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                   if (massage.isSeen == false &&
                       massage.senderId != widget.currentUser.uId) {
                     BlocProvider.of<ChatsBloc>(context).setMassageAsSeen(
-                        senderId: widget.currentUser.uId,
-                        receiverId: widget.friendId,
-                        massageId: massage.messageId,
-                        groupId: "");
+                      senderId: widget.currentUser.uId,
+                      receiverId: widget.friendId,
+                      massageId: massage.messageId,
+                      groupId: "",
+                    );
                   }
                   bool isMe = massage.senderId == widget.currentUser.uId;
                   return isMe
                       ? Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: CurrentMassageWidget(
-                      massage: massage,
-                      onRightSwipe: () {
-                        final massageReply = MassageReply(
-                          massage: massage.massage,
-                          senderName: massage.senderName,
-                          senderId: massage.senderId,
-                          senderImage: massage.senderImage,
-                          massageType: massage.massageType,
-                          isMe: isMe,
-                        );
-                        // _bloc.setMassageReply(massageReply);
-                        widget.onRightSwipe(massageReply);
-                      },
-                    ),
-                  )
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: CurrentMassageWidget(
+                            massage: massage,
+                            onRightSwipe: () {
+                              final massageReply = MassageReply(
+                                massage: massage.massage,
+                                senderName: massage.senderName,
+                                senderId: massage.senderId,
+                                senderImage: massage.senderImage,
+                                massageType: massage.massageType,
+                                isMe: isMe,
+                              );
+                              // _bloc.setMassageReply(massageReply);
+                              widget.onRightSwipe(massageReply);
+                            },
+                          ),
+                        )
                       : Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: ReceiverMassageWidget(
-                      massage: massage,
-                      onRightSwipe: () {
-                        final massageReply = MassageReply(
-                          massage: massage.massage,
-                          senderName: massage.senderName,
-                          senderId: massage.senderId,
-                          senderImage: massage.senderImage,
-                          massageType: massage.massageType,
-                          isMe: isMe,
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: ReceiverMassageWidget(
+                            massage: massage,
+                            onRightSwipe: () {
+                              final massageReply = MassageReply(
+                                massage: massage.massage,
+                                senderName: massage.senderName,
+                                senderId: massage.senderId,
+                                senderImage: massage.senderImage,
+                                massageType: massage.massageType,
+                                isMe: isMe,
+                              );
+                              // _bloc.setMassageReply(massageReply);
+                              widget.onRightSwipe(massageReply);
+                            },
+                          ),
                         );
-                        // _bloc.setMassageReply(massageReply);
-                        widget.onRightSwipe(massageReply);
-                      },
-                    ),
-                  );
                 },
                 itemComparator: (massage1, massage2) =>
                     massage1.timeSent.compareTo(massage2.timeSent),

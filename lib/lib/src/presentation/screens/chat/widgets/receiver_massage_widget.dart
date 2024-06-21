@@ -46,7 +46,7 @@ class ReceiverMassageWidget extends StatelessWidget {
                 Padding(
                   padding: massage.massageType == MassageType.text
                       ? const EdgeInsets.fromLTRB(10, 5, 20, 20)
-                      : const EdgeInsets.fromLTRB(5, 5, 55, 25),
+                      : const EdgeInsets.fromLTRB(5, 5, 5, 25),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

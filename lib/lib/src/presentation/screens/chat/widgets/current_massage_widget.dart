@@ -46,9 +46,9 @@ class CurrentMassageWidget extends StatelessWidget {
             child: Stack(
               children: [
                 Padding(
-                  padding:massage.massageType == MassageType.text ?
-                  const EdgeInsets.fromLTRB(10, 5, 20, 20) :
-                  const EdgeInsets.fromLTRB(5, 5, 55, 25),
+                  padding: massage.massageType == MassageType.text
+                      ? const EdgeInsets.fromLTRB(10, 5, 20, 20)
+                      : const EdgeInsets.fromLTRB(5, 5, 5, 25),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -65,36 +65,38 @@ class CurrentMassageWidget extends StatelessWidget {
                               Text(
                                 massage.repliedTo,
                                 style: const TextStyle(
-                                    color: Colors.white, fontSize: 10),
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                ),
                               ),
-                              (massage.massageType == MassageType.text)?
-                              Text(
-                                massage.repliedMessage,
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 10)
-                              ):CachedNetworkImage(imageUrl: massage.repliedMessage),
-                              // DisplayMassageTypeWidget(
-                              //   massageType: massage.massageType,
-                              //   massage: massage.repliedMessage,
-                              //   color: Colors.white,
-                              //   maxLines: 1,
-                              //   textOverflow: TextOverflow.ellipsis,
-                              // ),
+                              // (massage.massageType == MassageType.text)?
+                              // Text(
+                              //   massage.repliedMessage,
+                              //   style: const TextStyle(
+                              //       color: Colors.white, fontSize: 10)
+                              // ):CachedNetworkImage(imageUrl: massage.repliedMessage),
+                              DisplayMassageTypeWidget(
+                                massageType: massage.massageType,
+                                massage: massage.repliedMessage,
+                                color: Colors.white,
+                                maxLines: 1,
+                                textOverflow: TextOverflow.ellipsis,
+                              ),
                             ],
                           ),
                         )
                       ],
-                      (massage.massageType == MassageType.text)?
-                      Text(
-                        massage.massage,
-                        textAlign: TextAlign.end,
-                        style: const TextStyle(color: Colors.white),
-                      ): CachedNetworkImage(imageUrl: massage.massage),
-                      // DisplayMassageTypeWidget(
-                      //   massageType: massage.massageType,
-                      //   massage: massage.repliedMessage,
-                      //   color: Colors.white,
-                      // ),
+                      // (massage.massageType == MassageType.text)?
+                      // Text(
+                      //   massage.massage,
+                      //   textAlign: TextAlign.end,
+                      //   style: const TextStyle(color: Colors.white),
+                      // ): CachedNetworkImage(imageUrl: massage.massage),
+                      DisplayMassageTypeWidget(
+                        massageType: massage.massageType,
+                        massage: massage.massage,
+                        color: Colors.white,
+                      ),
                     ],
                   ),
                 ),
