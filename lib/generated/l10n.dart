@@ -781,6 +781,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Audio`
+  String get audio {
+    return Intl.message(
+      'Audio',
+      name: 'audio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You should have audio permission`
+  String get youShouldHaveAudioPermission {
+    return Intl.message(
+      'You should have audio permission',
+      name: 'youShouldHaveAudioPermission',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

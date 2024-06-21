@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/massage_type.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/show_audio_widget.dart';
 
 class DisplayMassageTypeWidget extends StatelessWidget {
   final String massage;
@@ -22,6 +23,7 @@ class DisplayMassageTypeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return getMassageTypeWidget();
   }
+
   Widget getMassageTypeWidget() {
     switch (massageType) {
       case MassageType.text:
@@ -35,11 +37,11 @@ class DisplayMassageTypeWidget extends StatelessWidget {
           maxLines: maxLines,
         );
       case MassageType.image:
-        return CachedNetworkImage(imageUrl: massage,fit: BoxFit.cover);
+        return CachedNetworkImage(imageUrl: massage, fit: BoxFit.fill);
       case MassageType.video:
         return CachedNetworkImage(imageUrl: massage);
       case MassageType.audio:
-        return CachedNetworkImage(imageUrl: massage);
+        return ShowAudioWidget(audioPath: massage);
       case MassageType.file:
         return CachedNetworkImage(imageUrl: massage);
       default:
@@ -54,5 +56,4 @@ class DisplayMassageTypeWidget extends StatelessWidget {
         );
     }
   }
-
 }

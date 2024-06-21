@@ -85,6 +85,7 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
               });
               final massages = snapshot.data!;
               return GroupedListView<dynamic, DateTime>(
+                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                 reverse: true,
                 elements: massages,
                 controller: widget.massagesScrollController,

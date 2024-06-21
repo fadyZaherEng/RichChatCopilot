@@ -89,6 +89,10 @@ dependencies:
   hexcolor:
   adaptive_theme:
   timeago:
+  flutter_sound:
+  audioplayers:
+  video_player:
+  audio_session:
 
 
 
@@ -122,9 +126,12 @@ flutter:
     - assets/images/ic_back_arrow.svg
     - assets/images/ic_camera.svg
     - assets/images/ic_cancel.svg
+    - assets/images/ic_stop.svg
     - assets/images/ic_success.svg
+    - assets/images/ic_volumeoff.svg
     - assets/images/log2.json
     - assets/images/user.jpg
+    - assets/images/video.svg
   fonts:
     - family: Almarai-Bold
       fonts:

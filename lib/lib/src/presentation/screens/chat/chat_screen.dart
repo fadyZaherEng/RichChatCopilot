@@ -52,12 +52,15 @@ class ChatScreen extends BaseStatefulWidget {
 
 class _ChatScreenState extends BaseState<ChatScreen> {
   bool _isGroupChat = false;
-  TextEditingController _massageController = TextEditingController();
-  ScrollController _massagesScrollController = ScrollController();
-  FocusNode _massageFocusNode = FocusNode();
+  final TextEditingController _massageController = TextEditingController();
+  final ScrollController _massagesScrollController = ScrollController();
+  final FocusNode _massageFocusNode = FocusNode();
 
   ChatsBloc get _bloc => BlocProvider.of<ChatsBloc>(context);
   UserModel currentUser = UserModel();
+
+  //sounds
+  bool _isShowSendButton = false;
 
   @override
   void initState() {
@@ -80,16 +83,14 @@ class _ChatScreenState extends BaseState<ChatScreen> {
         ));
       } else if (state is SelectImageState) {
         _cropperImage(state.file);
-      }else if(state is SendFileMessageSuccess){
+      } else if (state is SendFileMessageSuccess) {
         _massageController.clear();
         _bloc.setMassageReply(null);
         _massageFocusNode.requestFocus();
-        // hideLoading();
-      }else if(state is SendFileMessageError){
+      } else if (state is SendFileMessageError) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(state.message),
         ));
-        // hideLoading();
       }
     }, builder: (context, state) {
       return Scaffold(
@@ -124,16 +125,16 @@ class _ChatScreenState extends BaseState<ChatScreen> {
               focusNode: _massageFocusNode,
               isAttachedLoading: state is SendFileMessageLoading,
               isSendingLoading: state is SendTextMessageLoading,
+              isShowSendButton: _isShowSendButton,
               onTextChange: (String value) {
                 _massageController.text = value;
               },
               onAttachPressed: () {
                 _openMediaBottomSheet(context);
               },
-              onCameraPressed: () {},
-              onSendPressed: () {
+              onSendTextPressed: () {
                 //TODO: send message
-                if(_massageController.text.isNotEmpty){
+                if (_massageController.text.isNotEmpty) {
                   _bloc.add(SendTextMessageEvent(
                     sender: currentUser,
                     receiverId: widget.friendId,
@@ -149,6 +150,15 @@ class _ChatScreenState extends BaseState<ChatScreen> {
               setReplyMessageWithNull: () {
                 _bloc.setMassageReply(null);
               },
+              onSendAudioPressed: ({
+                required File audioFile,
+                required bool isSendingButtonShow,
+              }) {
+                _isShowSendButton = isSendingButtonShow;
+                _sendFileMassage(
+                  massageType: MassageType.audio, filePath: audioFile.path,
+                );
+              },
             ),
           ],
         ),
@@ -156,6 +166,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
     });
   }
 
+  //send image and video
   void _openMediaBottomSheet(BuildContext context) async {
     await showBottomSheetUploadMedia(
       context: context,
@@ -177,9 +188,15 @@ class _ChatScreenState extends BaseState<ChatScreen> {
             onSecondaryAction: () {
               _navigateBackEvent();
             },
-            primaryText: S.of(context).ok,
-            secondaryText: S.of(context).cancel,
-            text: S.of(context).youShouldHaveCameraPermission,
+            primaryText: S
+                .of(context)
+                .ok,
+            secondaryText: S
+                .of(context)
+                .cancel,
+            text: S
+                .of(context)
+                .youShouldHaveCameraPermission,
           );
         }
       },
@@ -188,7 +205,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
         Permission permission = PermissionServiceHandler.getGalleryPermission(
           true,
           androidDeviceInfo:
-              Platform.isAndroid ? await DeviceInfoPlugin().androidInfo : null,
+          Platform.isAndroid ? await DeviceInfoPlugin().androidInfo : null,
         );
         if (await PermissionServiceHandler()
             .handleServicePermission(setting: permission)) {
@@ -206,9 +223,15 @@ class _ChatScreenState extends BaseState<ChatScreen> {
             onSecondaryAction: () {
               _navigateBackEvent();
             },
-            primaryText: S.of(context).ok,
-            secondaryText: S.of(context).cancel,
-            text: S.of(context).youShouldHaveGalleryPermission,
+            primaryText: S
+                .of(context)
+                .ok,
+            secondaryText: S
+                .of(context)
+                .cancel,
+            text: S
+                .of(context)
+                .youShouldHaveGalleryPermission,
           );
         }
       },
@@ -263,11 +286,8 @@ class _ChatScreenState extends BaseState<ChatScreen> {
     );
   }
 
-  Future<void> _getImage(
-    ImageSource img,
-    MassageType massageType,
-  ) async {
-    // showLoading();
+  Future<void> _getImage(ImageSource img,
+      MassageType massageType,) async {
     if (img == ImageSource.gallery) {
       final picker = ImagePicker();
       final pickedFile = await picker.pickImage(source: img);
@@ -336,7 +356,10 @@ class _ChatScreenState extends BaseState<ChatScreen> {
         uiSettings: [
           AndroidUiSettings(
             toolbarTitle: 'Cropper',
-            toolbarColor: Theme.of(context).colorScheme.primary,
+            toolbarColor: Theme
+                .of(context)
+                .colorScheme
+                .primary,
             toolbarWidgetColor: ColorSchemes.white,
             initAspectRatio: CropAspectRatioPreset.original,
             lockAspectRatio: false,
@@ -347,7 +370,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
             presentStyle: CropperPresentStyle.dialog,
             boundary: const CroppieBoundary(width: 520, height: 520),
             viewPort:
-                const CroppieViewPort(width: 480, height: 480, type: 'circle'),
+            const CroppieViewPort(width: 480, height: 480, type: 'circle'),
             enableExif: true,
             enableZoom: true,
             showZoomer: true,
@@ -378,6 +401,8 @@ class _ChatScreenState extends BaseState<ChatScreen> {
       ),
     );
   }
+
+  //send Audio massage
 
   @override
   void dispose() {

@@ -1,42 +1,57 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:rich_chat_copilot/lib/src/core/resources/image_paths.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage_reply.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/massage_reply_widget.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/record_audio_widget.dart';
 
-class BottomChatWidget extends StatelessWidget {
+class BottomChatWidget extends StatefulWidget {
   final String friendName;
   final String friendImage;
   final String friendId;
   final String groupId;
   final TextEditingController textEditingController;
-  final Function() onSendPressed;
+  final Function() onSendTextPressed;
+  final void Function({
+    required File audioFile,
+    required bool isSendingButtonShow,
+  }) onSendAudioPressed;
   final Function() onAttachPressed;
-  final Function() onCameraPressed;
   final Function(String) onTextChange;
   final FocusNode focusNode;
   final MassageReply? massageReply;
   final Function() setReplyMessageWithNull;
   final bool isAttachedLoading;
   final bool isSendingLoading;
+  bool isShowSendButton;
 
-  const BottomChatWidget({
+  BottomChatWidget({
     super.key,
     required this.friendName,
     required this.friendImage,
     required this.friendId,
     required this.groupId,
     required this.textEditingController,
-    required this.onSendPressed,
+    required this.onSendTextPressed,
+    required this.onSendAudioPressed,
     required this.onAttachPressed,
-    required this.onCameraPressed,
     required this.focusNode,
     required this.onTextChange,
     required this.massageReply,
     required this.setReplyMessageWithNull,
     required this.isAttachedLoading,
     required this.isSendingLoading,
+    required this.isShowSendButton,
   });
 
+  @override
+  State<BottomChatWidget> createState() => _BottomChatWidgetState();
+}
+
+class _BottomChatWidgetState extends State<BottomChatWidget> {
   @override
   Widget build(BuildContext context) {
     return IntrinsicHeight(
@@ -44,10 +59,10 @@ class BottomChatWidget extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            massageReply != null
+            widget.massageReply != null
                 ? MassageReplyWidget(
-                    massageReply: massageReply!,
-                    setReplyMessageWithNull: setReplyMessageWithNull,
+                    massageReply: widget.massageReply!,
+                    setReplyMessageWithNull: widget.setReplyMessageWithNull,
                   )
                 : const SizedBox.shrink(),
             Container(
@@ -57,7 +72,7 @@ class BottomChatWidget extends StatelessWidget {
               decoration: BoxDecoration(
                 // color: ColorSchemes.white,
                 border: Border(
-                  top: massageReply != null
+                  top: widget.massageReply != null
                       ? BorderSide.none
                       : BorderSide(
                           color: Theme.of(context).colorScheme.primary),
@@ -68,7 +83,7 @@ class BottomChatWidget extends StatelessWidget {
                   bottom:
                       BorderSide(color: Theme.of(context).colorScheme.primary),
                 ),
-                borderRadius: massageReply != null
+                borderRadius: widget.massageReply != null
                     ? null
                     : const BorderRadius.only(
                         topLeft: Radius.circular(30),
@@ -81,16 +96,16 @@ class BottomChatWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  isAttachedLoading
+                  widget.isAttachedLoading
                       ? Padding(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: LoadingAnimationWidget.threeArchedCircle(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: LoadingAnimationWidget.threeArchedCircle(
                             color: Theme.of(context).colorScheme.primary,
                             size: 35,
                           ),
-                      )
+                        )
                       : IconButton(
-                          onPressed: onAttachPressed,
+                          onPressed: widget.onAttachPressed,
                           icon: const Icon(
                             Icons.attachment,
                             size: 20,
@@ -99,14 +114,17 @@ class BottomChatWidget extends StatelessWidget {
                   Expanded(
                     child: SingleChildScrollView(
                       child: TextField(
-                        controller: textEditingController,
-                        focusNode: focusNode,
+                        controller: widget.textEditingController,
+                        focusNode: widget.focusNode,
                         //how to expand with text increase problem
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
                         minLines: 1,
                         onChanged: (value) {
-                          onTextChange(value);
+                          widget.onTextChange(value);
+                          setState(() {
+                            widget.isShowSendButton = value.isNotEmpty;
+                          });
                         },
                         decoration: const InputDecoration(
                           hintText: 'Type a message...',
@@ -119,33 +137,48 @@ class BottomChatWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  isSendingLoading
+                  widget.isSendingLoading
                       ? Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: LoadingAnimationWidget.threeArchedCircle(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: LoadingAnimationWidget.threeArchedCircle(
                             color: Theme.of(context).colorScheme.primary,
                             size: 25,
                           ),
-                      )
-                      : GestureDetector(
-                          onTap: onSendPressed,
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(vertical: 8),
-                            width: 35,
-                            height: 35,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.primary,
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Center(
-                              child: Icon(
-                                Icons.arrow_upward,
-                                color: Theme.of(context).cardColor,
-                                size: 20,
+                        )
+                      : widget.isShowSendButton
+                          ? GestureDetector(
+                              onTap: widget.onSendTextPressed,
+                              child: Container(
+                                margin: const EdgeInsets.symmetric(vertical: 8),
+                                width: 35,
+                                height: 35,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                child: Center(
+                                  child: Icon(
+                                    Icons.arrow_upward,
+                                    color: Theme.of(context).cardColor,
+                                    size: 20,
+                                  ),
+                                ),
                               ),
+                            )
+                          : RecordVoiceWidget(
+                              onSendAudio: ({
+                                required audioFile,
+                                required isSendingButtonShow,
+                              }) {
+                                setState(() {
+                                  widget.isShowSendButton = isSendingButtonShow;
+                                });
+                                widget.onSendAudioPressed(
+                                  audioFile: audioFile,
+                                  isSendingButtonShow: isSendingButtonShow,
+                                );
+                              },
                             ),
-                          ),
-                        ),
                 ],
               ),
             ),

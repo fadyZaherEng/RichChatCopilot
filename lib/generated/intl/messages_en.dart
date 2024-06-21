@@ -33,6 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "appTitle": MessageLookupByLibrary.simpleMessage("Rich Chat Copilot"),
         "areYouSureYouWantToLogOut": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to log out?"),
+        "audio": MessageLookupByLibrary.simpleMessage("Audio"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cancelFriendRequest":
@@ -118,6 +119,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Welcome to the Copilot Chatbot. What would you like to chat about?"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "you": MessageLookupByLibrary.simpleMessage("You"),
+        "youShouldHaveAudioPermission": MessageLookupByLibrary.simpleMessage(
+            "You should have audio permission"),
         "youShouldHaveCameraPermission": MessageLookupByLibrary.simpleMessage(
             "You should have camera permission"),
         "youShouldHaveGalleryPermission": MessageLookupByLibrary.simpleMessage(

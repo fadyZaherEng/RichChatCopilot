@@ -72,5 +72,7 @@
   "aboutMe": "عني",
   "startConversation": "ابدأ المحادثة",
   "video": "فيديو",
-  "you": "أنت"
+  "you": "أنت",
+  "audio": "صوت",
+  "youShouldHaveAudioPermission": "يجب عليك السماح للصوت"
 }
