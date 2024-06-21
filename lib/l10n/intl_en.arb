@@ -72,5 +72,7 @@
   "aboutMe": "About Me",
   "startConversation": "Start Conversation",
   "video": "Video",
-  "you": "You"
+  "you": "You",
+  "audio": "Audio",
+  "youShouldHaveAudioPermission": "You should have audio permission"
 }

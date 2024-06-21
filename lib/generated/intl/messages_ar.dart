@@ -34,6 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("محادثة رسمية من نوع Copilot"),
         "areYouSureYouWantToLogOut": MessageLookupByLibrary.simpleMessage(
             "هل انت متاكد من تسجيل الخروج؟"),
+        "audio": MessageLookupByLibrary.simpleMessage("صوت"),
         "camera": MessageLookupByLibrary.simpleMessage("كاميرا"),
         "cancel": MessageLookupByLibrary.simpleMessage("الغاء"),
         "cancelFriendRequest":
@@ -120,6 +121,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "مرحبا بك في محادثة رسمية من نوع Copilot"),
         "yes": MessageLookupByLibrary.simpleMessage("نعم"),
         "you": MessageLookupByLibrary.simpleMessage("أنت"),
+        "youShouldHaveAudioPermission":
+            MessageLookupByLibrary.simpleMessage("يجب عليك السماح للصوت"),
         "youShouldHaveCameraPermission":
             MessageLookupByLibrary.simpleMessage("يجب عليك السماح للكاميرا"),
         "youShouldHaveGalleryPermission":

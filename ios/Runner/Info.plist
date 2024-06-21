@@ -58,5 +58,7 @@
       <string>ar</string>
       <string>en</string>
     </array>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>We need to access to the microphone to record audio file</string>
 </dict>
 </plist>
