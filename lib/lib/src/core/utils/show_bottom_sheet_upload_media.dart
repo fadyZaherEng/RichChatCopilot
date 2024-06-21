@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/upload_media_widget.dart';
 
-Future showBottomSheetUploadMedia(
-    {required BuildContext context,
-    required Function() onTapCamera,
-    required Function() onTapGallery}) async {
+Future showBottomSheetUploadMedia({
+  required BuildContext context,
+  required Function() onTapCamera,
+  required Function() onTapVideo,
+  required Function() onTapGallery,
+  bool isVideo = false,
+}) async {
   return await showModalBottomSheet(
       backgroundColor: Colors.transparent,
       context: context,
@@ -16,6 +19,8 @@ Future showBottomSheetUploadMedia(
             child: UploadMediaWidget(
               onTapCamera: onTapCamera,
               onTapGallery: onTapGallery,
+              onTapVideo: onTapVideo,
+              isShowVideo: isVideo,
             ),
           ));
 }

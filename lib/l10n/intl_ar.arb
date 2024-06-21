@@ -68,5 +68,9 @@
   "noFriendsYet": "لا يوجد أصدفاء حتى الان",
   "noFriendRequestsYet": "لا يوجد طلبات صداقة حتى الان",
   "noMessagesYet": "لا يوجد رسائل حتى الان",
-  "accept": "قبول"
+  "accept": "قبول",
+  "aboutMe": "عني",
+  "startConversation": "ابدأ المحادثة",
+  "video": "فيديو",
+  "you": "أنت"
 }

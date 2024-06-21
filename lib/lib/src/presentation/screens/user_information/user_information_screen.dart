@@ -216,6 +216,7 @@ class _UserInformationScreenState extends BaseState<UserInformationScreen> {
           );
         }
       },
+      onTapVideo: (){}
     );
   }
 
@@ -224,8 +225,8 @@ class _UserInformationScreenState extends BaseState<UserInformationScreen> {
   }
 
   Future<void> _getImage(
-    ImageSource img,
-  ) async {
+      ImageSource img,
+      ) async {
     showLoading();
     if (img == ImageSource.gallery) {
       final picker = ImagePicker();
@@ -274,6 +275,49 @@ class _UserInformationScreenState extends BaseState<UserInformationScreen> {
       return compressedImage;
     }
   }
+  Future _cropperImage(File imagePicker) async {
+    if (imagePicker != null) {
+      CroppedFile? croppedFile = await ImageCropper().cropImage(
+        sourcePath: imagePicker.path,
+        aspectRatioPresets: [
+          CropAspectRatioPreset.square,
+          CropAspectRatioPreset.ratio3x2,
+          CropAspectRatioPreset.original,
+          CropAspectRatioPreset.ratio4x3,
+          CropAspectRatioPreset.ratio16x9,
+        ],
+        compressQuality: 100,
+        cropStyle: CropStyle.rectangle,
+        maxWidth: 1080,
+        maxHeight: 1080,
+        aspectRatio: const CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
+        compressFormat: ImageCompressFormat.jpg,
+        uiSettings: [
+          AndroidUiSettings(
+            toolbarTitle: 'Cropper',
+            toolbarColor: Theme.of(context).colorScheme.primary,
+            toolbarWidgetColor: ColorSchemes.white,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: false,
+          ),
+          IOSUiSettings(title: 'Cropper'),
+          WebUiSettings(
+            context: context,
+            presentStyle: CropperPresentStyle.dialog,
+            boundary: const CroppieBoundary(width: 520, height: 520),
+            viewPort:
+            const CroppieViewPort(width: 480, height: 480, type: 'circle'),
+            enableExif: true,
+            enableZoom: true,
+            showZoomer: true,
+          ),
+        ],
+      );
+      if (croppedFile != null) {
+        _bloc.add(ShowImageEvent(File(croppedFile.path)));
+      }
+    }
+  }
 
   void _showActionDialog({
     required String icon,
@@ -298,47 +342,4 @@ class _UserInformationScreenState extends BaseState<UserInformationScreen> {
     );
   }
 
-  Future _cropperImage(File imagePicker) async {
-    if (imagePicker != null) {
-      CroppedFile? croppedFile = await ImageCropper().cropImage(
-        sourcePath: imagePicker.path,
-        aspectRatioPresets: [
-          CropAspectRatioPreset.square,
-          CropAspectRatioPreset.ratio3x2,
-          CropAspectRatioPreset.original,
-          CropAspectRatioPreset.ratio4x3,
-          CropAspectRatioPreset.ratio16x9,
-        ],
-        compressQuality: 100,
-        cropStyle: CropStyle.rectangle,
-        maxWidth: 1080,
-        maxHeight: 1080,
-        aspectRatio: const CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
-        compressFormat: ImageCompressFormat.jpg,
-        uiSettings: [
-          AndroidUiSettings(
-            toolbarTitle: 'Cropper',
-            toolbarColor: ColorSchemes.primary,
-            toolbarWidgetColor: ColorSchemes.white,
-            initAspectRatio: CropAspectRatioPreset.original,
-            lockAspectRatio: false,
-          ),
-          IOSUiSettings(title: 'Cropper'),
-          WebUiSettings(
-            context: context,
-            presentStyle: CropperPresentStyle.dialog,
-            boundary: const CroppieBoundary(width: 520, height: 520),
-            viewPort:
-                const CroppieViewPort(width: 480, height: 480, type: 'circle'),
-            enableExif: true,
-            enableZoom: true,
-            showZoomer: true,
-          ),
-        ],
-      );
-      if (croppedFile != null) {
-        _bloc.add(ShowImageEvent(File(croppedFile.path)));
-      }
-    }
-  }
 }

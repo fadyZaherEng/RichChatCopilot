@@ -42,15 +42,12 @@ class UserInfoImageWidget extends StatelessWidget {
             padding: const EdgeInsets.all(6),
             margin: EdgeInsetsDirectional.only(
                 bottom: image == null ? 20 : 0, start: image == null ? 20 : 15),
-            decoration: const BoxDecoration(
-              color: ColorSchemes.primary,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary,
               shape: BoxShape.circle,
             ),
-            child: const Icon(
-              CupertinoIcons.camera,
-              size: 15,
-              color: ColorSchemes.white,
-            ),
+            child: const Icon(CupertinoIcons.camera,
+                size: 15, color: ColorSchemes.white),
           )
         ],
       ),

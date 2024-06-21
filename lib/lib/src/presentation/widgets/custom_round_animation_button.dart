@@ -10,11 +10,10 @@ class CustomRoundedAnimationButton extends StatefulWidget {
   final double height;
   final double width;
   final double borderRadius;
-  final Color backgroundColor;
   final Color valueColor;
   final Color successColor;
   final Color errorColor;
-  final Color textColor;
+  Color? textColor = ColorSchemes.white;
   final Color borderColor;
   final double borderWidth;
   final IconData successIcon;
@@ -26,11 +25,10 @@ class CustomRoundedAnimationButton extends StatefulWidget {
     this.height = 48,
     this.width = 300,
     this.borderRadius = 25,
-    this.backgroundColor = ColorSchemes.primary,
     required this.valueColor,
     required this.successColor,
     required this.errorColor,
-    this.textColor = ColorSchemes.white,
+    this.textColor,
     required this.borderColor,
     required this.borderWidth,
     this.successIcon = Icons.check,
@@ -48,6 +46,14 @@ class CustomRoundedAnimationButton extends StatefulWidget {
 
 class _CustomRoundedAnimationButtonState
     extends State<CustomRoundedAnimationButton> {
+  Color? backgroundColor;
+
+  @override
+  void initState() {
+    super.initState();
+    backgroundColor = Theme.of(context).colorScheme.primary;
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
@@ -57,7 +63,7 @@ class _CustomRoundedAnimationButtonState
       width: widget.isAnimated ? 50 : widget.width,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: widget.backgroundColor,
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(widget.borderRadius),
         border: Border.all(
           color: widget.borderColor,

@@ -35,7 +35,7 @@ class OtpWidget extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                 color: ColorSchemes.black.withOpacity(0.2),
-                blurRadius: 24,
+                blurRadius: 15,
                 offset: const Offset(0, 4),
                 spreadRadius: 0,
               ),

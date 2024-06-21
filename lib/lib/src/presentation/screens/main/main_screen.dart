@@ -1,18 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:rich_chat_copilot/generated/l10n.dart';
 import 'package:rich_chat_copilot/lib/src/config/routes/routes_manager.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
 import 'package:rich_chat_copilot/lib/src/core/base/widget/base_stateful_widget.dart';
+import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
+import 'package:rich_chat_copilot/lib/src/data/source/local/single_ton/firebase_single_ton.dart';
 import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
 import 'package:rich_chat_copilot/lib/src/domain/usecase/get_user_use_case.dart';
-import 'package:rich_chat_copilot/lib/src/presentation/screens/chats/chats_screen.dart';
-import 'package:rich_chat_copilot/lib/src/presentation/screens/globe/globe_screen.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/contacts/my_chats_screen.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/people/globe_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/groups/groups_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/user_image_widget.dart';
-import 'package:skeletons/skeletons.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class MainScreen extends BaseStatefulWidget {
   const MainScreen({super.key});
@@ -21,7 +22,7 @@ class MainScreen extends BaseStatefulWidget {
   BaseState<MainScreen> baseCreateState() => _MainScreenState();
 }
 
-class _MainScreenState extends BaseState<MainScreen> {
+class _MainScreenState extends BaseState<MainScreen> with WidgetsBindingObserver,TickerProviderStateMixin {
   final List<Widget> _screens = [
     const ChatsScreen(),
     const GroupsScreen(),
@@ -35,14 +36,29 @@ class _MainScreenState extends BaseState<MainScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _user = GetUserUseCase(injector())();
   }
+
 
   @override
   Widget baseBuild(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).appTitle),
+        backgroundColor: Theme
+            .of(context)
+            .cardColor,
+        elevation: 0,
+        title: Text(
+          S
+              .of(context)
+              .appTitle,
+          style: Theme
+              .of(context)
+              .textTheme
+              .titleLarge,
+        ),
+        centerTitle: false,
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -55,10 +71,10 @@ class _MainScreenState extends BaseState<MainScreen> {
                     padding: const EdgeInsets.only(top: 5),
                     child: Text(
                       _user.name,
-                      style: Theme.of(context)
+                      style: Theme
+                          .of(context)
                           .textTheme
-                          .bodyMedium
-                          ?.copyWith(color: ColorSchemes.black),
+                          .bodyLarge,
                     )),
                 const SizedBox(
                   width: 10,
@@ -92,22 +108,24 @@ class _MainScreenState extends BaseState<MainScreen> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: const Icon(CupertinoIcons.chat_bubble_2_fill),
-            label: S.of(context).chats,
+            label: S
+                .of(context)
+                .chats,
           ),
           BottomNavigationBarItem(
             icon: const Icon(CupertinoIcons.group),
-            label: S.of(context).groups,
+            label: S
+                .of(context)
+                .groups,
           ),
           BottomNavigationBarItem(
             icon: const Icon(CupertinoIcons.globe),
-            label: S.of(context).globes,
+            label: S
+                .of(context)
+                .globes,
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: ColorSchemes.primary,
-        selectedIconTheme: const IconThemeData(color: ColorSchemes.primary),
-        unselectedItemColor: ColorSchemes.gray,
-        backgroundColor: ColorSchemes.white,
         onTap: (int index) {
           setState(() {
             _selectedIndex = index;
@@ -121,21 +139,40 @@ class _MainScreenState extends BaseState<MainScreen> {
         showSelectedLabels: true,
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
-        unselectedLabelStyle: Theme.of(context)
-            .textTheme
-            .labelLarge!
-            .copyWith(color: ColorSchemes.iconBackGround),
-        selectedLabelStyle: Theme.of(context)
-            .textTheme
-            .labelLarge!
-            .copyWith(color: ColorSchemes.primary),
       ),
     );
+  }
+  //TODO: implement updateUserOnlineStatus
+  Future<void> updateUserOnlineStatus({
+    required bool isOnline,
+  }) async {
+    await FirebaseSingleTon.db
+        .collection(Constants.users)
+        .doc(FirebaseSingleTon.auth.currentUser!.uid)
+        .update({"isOnline": isOnline});
+  }
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    switch (state) {
+      case AppLifecycleState.resumed:
+        updateUserOnlineStatus(isOnline: true);
+        break;
+      case AppLifecycleState.inactive:
+      case AppLifecycleState.paused:
+      case AppLifecycleState.detached:
+      case AppLifecycleState.hidden:
+        updateUserOnlineStatus(isOnline: false);
+        break;
+      default:
+        break;
+    }
   }
 
   @override
   void dispose() {
-    _pageController.dispose();
     super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+    _pageController.dispose();
   }
 }

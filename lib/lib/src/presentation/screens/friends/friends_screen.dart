@@ -27,16 +27,16 @@ class _FriendsScreenState extends BaseState<FriendsScreen> {
   void initState() {
     super.initState();
     _bloc.add(GetFriends());
-    _friends.add(UserModel(
-      name: "John Doe",
-      aboutMe: "I am a software engineer.",
-      image: "https://i.pravatar.cc/300",
-    ));
-    _friends.add(UserModel(
-      name: "John Doe",
-      aboutMe: "I am a software engineer.",
-      image: "https://i.pravatar.cc/300",
-    ));
+    // _friends.add(UserModel(
+    //   name: "John Doe",
+    //   aboutMe: "I am a software engineer.",
+    //   image: "https://i.pravatar.cc/300",
+    // ));
+    // _friends.add(UserModel(
+    //   name: "John Doe",
+    //   aboutMe: "I am a software engineer.",
+    //   image: "https://i.pravatar.cc/300",
+    // ));
   }
 
   @override
@@ -92,9 +92,7 @@ class _FriendsScreenState extends BaseState<FriendsScreen> {
                         shrinkWrap: true,
                         itemCount: _friends.length,
                         separatorBuilder: (BuildContext context, int index) {
-                          return const SizedBox(
-                            height: 15,
-                          );
+                          return const SizedBox(height: 15);
                         },
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
@@ -128,7 +126,7 @@ class _FriendsScreenState extends BaseState<FriendsScreen> {
                               ),
                               trailing: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: ColorSchemes.iconBackGround,
+                                  backgroundColor:  Theme.of(context).cardColor,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
@@ -149,7 +147,7 @@ class _FriendsScreenState extends BaseState<FriendsScreen> {
                                   style: GoogleFonts.openSans(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
-                                    color: ColorSchemes.primary,
+                                    color:Theme.of(context).colorScheme.primary,
                                   ),
                                 ),
                               ),

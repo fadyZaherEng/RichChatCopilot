@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:rich_chat_copilot/lib/src/core/resources/shared_preferences_keys.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -10,7 +10,9 @@ import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
 import 'package:rich_chat_copilot/lib/src/data/source/local/single_ton/firebase_single_ton.dart';
 import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
+import 'package:rich_chat_copilot/lib/src/domain/usecase/get_theme_use_case.dart';
 import 'package:rich_chat_copilot/lib/src/domain/usecase/get_user_use_case.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/widgets/cricle_loading_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/user_image_widget.dart';
 
 class GlobeScreen extends BaseStatefulWidget {
@@ -39,7 +41,7 @@ class _GlobeScreenState extends BaseState<GlobeScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: CupertinoSearchTextField(
               placeholder: S.of(context).search,
               prefixIcon: const Icon(CupertinoIcons.search),
@@ -63,9 +65,7 @@ class _GlobeScreenState extends BaseState<GlobeScreen> {
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return const CircleLoadingWidget();
                 }
                 if (snapshot.hasError) {
                   return Center(
@@ -96,9 +96,7 @@ class _GlobeScreenState extends BaseState<GlobeScreen> {
                   shrinkWrap: true,
                   itemCount: snapshot.data!.docs.length,
                   separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(
-                      height: 15,
-                    );
+                    return const SizedBox(height: 15);
                   },
                   itemBuilder: (BuildContext context, int index) {
                     UserModel user =
@@ -115,25 +113,13 @@ class _GlobeScreenState extends BaseState<GlobeScreen> {
                           width: 50,
                           height: 50,
                         ),
-                        title: Text(
-                          user.name,
-                          style: GoogleFonts.openSans(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: ColorSchemes.black,
-                          ),
-                        ),
-                        subtitle: Text(
-                          user.aboutMe,
-                          style: GoogleFonts.openSans(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: ColorSchemes.black,
-                          ),
-                        ),
+                        title: Text(user.name,
+                            style: Theme.of(context).textTheme.bodyLarge),
+                        subtitle: Text(user.aboutMe,
+                            style: Theme.of(context).textTheme.bodySmall),
                         trailing: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: ColorSchemes.iconBackGround,
+                            backgroundColor:  Theme.of(context).colorScheme.primary,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
@@ -142,14 +128,19 @@ class _GlobeScreenState extends BaseState<GlobeScreen> {
                             //ToDO navigate to chat screen
                             Navigator.pushNamed(
                                 context, Routes.chatWithFriendScreen,
-                                arguments: {"userId": user.uId});
+                                arguments: {
+                                  "friendId": user.uId,
+                                  "friendName": user.name,
+                                  "friendImage": user.image,
+                                  "groupId": ""
+                                });
                           },
                           child: Text(
                             S.of(context).chat.toUpperCase(),
                             style: GoogleFonts.openSans(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
-                              color: ColorSchemes.primary,
+                              color:Theme.of(context).cardColor,
                             ),
                           ),
                         ),

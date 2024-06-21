@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rich_chat_copilot/generated/l10n.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/widgets/cricle_loading_widget.dart';
 
 class PhoneNumberWidget extends StatefulWidget {
   final TextEditingController textEditingController;
@@ -113,13 +114,12 @@ class _PhoneNumberWidgetState extends State<PhoneNumberWidget> {
         ? const Padding(
             padding: EdgeInsets.all(10.0),
             child: SizedBox(
-                width: 20,
-                height: 20,
-                child: CircularProgressIndicator(color: ColorSchemes.primary)),
-          )
+              width: 20,
+              height: 20,
+              child: CircleLoadingWidget(),
+            ))
         : InkWell(
             onTap: () {
-              //To Do Go TO Otp Screen
               widget.sendOtpVerificationCode();
             },
             child: Container(
@@ -130,7 +130,7 @@ class _PhoneNumberWidgetState extends State<PhoneNumberWidget> {
                 color: ColorSchemes.green,
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
+              child:  Icon(
                 Icons.done,
                 color: ColorSchemes.white,
                 size: 25,

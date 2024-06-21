@@ -34,11 +34,12 @@ class _CustomSwitchWidgetState extends State<CustomSwitchWidget> {
         height: 30,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: widget.value ? ColorSchemes.white : ColorSchemes.primary,
-        ),
+          color: widget.value ? ColorSchemes.white :Theme.of(context).colorScheme.primary,
+
+      ),
         child: Icon(
           widget.value ? Icons.nightlight_rounded : Icons.wb_sunny_rounded,
-          color: widget.value ? ColorSchemes.primary : ColorSchemes.white,
+          color: widget.value ? Theme.of(context).colorScheme.primary : ColorSchemes.white,
         ),
       )
     );

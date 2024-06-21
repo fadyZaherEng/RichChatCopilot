@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "OTPSMSNotValid":
             MessageLookupByLibrary.simpleMessage("OTP SMS Not Valid"),
+        "aboutMe": MessageLookupByLibrary.simpleMessage("About Me"),
         "accept": MessageLookupByLibrary.simpleMessage("Accept"),
         "acceptFriendRequest":
             MessageLookupByLibrary.simpleMessage("Accept Friend Request"),
@@ -96,6 +97,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "somethingWentWrong":
             MessageLookupByLibrary.simpleMessage("Something went wrong"),
+        "startConversation":
+            MessageLookupByLibrary.simpleMessage("Start Conversation"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
         "unFriend": MessageLookupByLibrary.simpleMessage("UnFriend"),
         "uploadCamera":
@@ -107,12 +110,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "userInformation":
             MessageLookupByLibrary.simpleMessage("User Information"),
         "verification": MessageLookupByLibrary.simpleMessage("Verification"),
+        "video": MessageLookupByLibrary.simpleMessage("Video"),
         "viewFriendRequests":
             MessageLookupByLibrary.simpleMessage("View Friend Requests"),
         "viewFriends": MessageLookupByLibrary.simpleMessage("View Friends"),
         "welcomeMessage": MessageLookupByLibrary.simpleMessage(
             "Welcome to the Copilot Chatbot. What would you like to chat about?"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
+        "you": MessageLookupByLibrary.simpleMessage("You"),
         "youShouldHaveCameraPermission": MessageLookupByLibrary.simpleMessage(
             "You should have camera permission"),
         "youShouldHaveGalleryPermission": MessageLookupByLibrary.simpleMessage(

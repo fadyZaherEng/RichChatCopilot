@@ -24,9 +24,9 @@ class BottomSheetWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height,
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
         color: ColorSchemes.white,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topRight: Radius.circular(32),
           topLeft: Radius.circular(32),
         ),
@@ -49,7 +49,7 @@ class BottomSheetWidget extends StatelessWidget {
                     onTap: () {
                       Navigator.pop(context);
                     },
-                    child: const Icon(
+                    child:  Icon(
                       Icons.close,
                       color: ColorSchemes.black,
                       size: 24,

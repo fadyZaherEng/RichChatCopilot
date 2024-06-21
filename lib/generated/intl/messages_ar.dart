@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "OTPSMSNotValid":
             MessageLookupByLibrary.simpleMessage("رمز التحقق غير صحيح"),
+        "aboutMe": MessageLookupByLibrary.simpleMessage("عني"),
         "accept": MessageLookupByLibrary.simpleMessage("قبول"),
         "acceptFriendRequest":
             MessageLookupByLibrary.simpleMessage("قبول طلب الصداقة"),
@@ -98,6 +99,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("الاعدادات"),
         "somethingWentWrong":
             MessageLookupByLibrary.simpleMessage("حدث خطأ ما"),
+        "startConversation":
+            MessageLookupByLibrary.simpleMessage("ابدأ المحادثة"),
         "theme": MessageLookupByLibrary.simpleMessage("المظهر"),
         "unFriend": MessageLookupByLibrary.simpleMessage("الغاء الصداقة"),
         "uploadCamera":
@@ -109,12 +112,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "userInformation":
             MessageLookupByLibrary.simpleMessage("معلومات المستخدم"),
         "verification": MessageLookupByLibrary.simpleMessage("أثبات الهوية"),
+        "video": MessageLookupByLibrary.simpleMessage("فيديو"),
         "viewFriendRequests":
             MessageLookupByLibrary.simpleMessage("عرض طلبات الصداقة"),
         "viewFriends": MessageLookupByLibrary.simpleMessage("عرض ألاصدقاء"),
         "welcomeMessage": MessageLookupByLibrary.simpleMessage(
             "مرحبا بك في محادثة رسمية من نوع Copilot"),
         "yes": MessageLookupByLibrary.simpleMessage("نعم"),
+        "you": MessageLookupByLibrary.simpleMessage("أنت"),
         "youShouldHaveCameraPermission":
             MessageLookupByLibrary.simpleMessage("يجب عليك السماح للكاميرا"),
         "youShouldHaveGalleryPermission":

@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import 'package:rich_chat_copilot/lib/src/core/utils/show_action_dialog.dart';
 import 'package:rich_chat_copilot/lib/src/data/source/local/single_ton/firebase_single_ton.dart';
 import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
+import 'package:rich_chat_copilot/lib/src/domain/usecase/get_theme_use_case.dart';
 import 'package:rich_chat_copilot/lib/src/domain/usecase/get_user_use_case.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/profile/profile_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/build_app_bar_widget.dart';
@@ -105,16 +107,18 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
       builder: (context, state) {
         return Scaffold(
           appBar: buildAppBarWidget(
+            backgroundColor: Theme.of(context).cardColor,
             context,
             title: S.of(context).profile,
             actionWidget: IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, Routes.settingsScreen);
-                },
-                icon: const Icon(
-                  Icons.settings,
-                  color: ColorSchemes.black,
-                )),
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.settingsScreen);
+              },
+              icon: Icon(
+                Icons.settings,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
             isHaveBackButton: true,
             onBackButtonPressed: () {
               Navigator.pop(context);
@@ -155,21 +159,13 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
                       const SizedBox(height: 10),
                       Text(
                         _otherUser.name,
-                        style: GoogleFonts.openSans(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                          color: ColorSchemes.black,
-                        ),
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       _currentUser.uId == _otherUser.uId
                           ? const SizedBox.shrink()
                           : Text(
                               _otherUser.phoneNumber,
-                              style: GoogleFonts.openSans(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
-                                color: ColorSchemes.black,
-                              ),
+                              style: Theme.of(context).textTheme.bodyMedium,
                             ),
                       const SizedBox(height: 10),
                       SizedBox(
@@ -182,12 +178,8 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
                             _buildDivider(),
                             const SizedBox(width: 10),
                             Text(
-                              _otherUser.aboutMe,
-                              style: GoogleFonts.openSans(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: ColorSchemes.black,
-                              ),
+                              S.of(context).aboutMe,
+                              style: Theme.of(context).textTheme.bodyMedium,
                             ),
                             const SizedBox(width: 10),
                             _buildDivider(),
@@ -197,11 +189,7 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
                       const SizedBox(height: 10),
                       Text(
                         _otherUser.aboutMe,
-                        style: GoogleFonts.openSans(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                          color: ColorSchemes.black,
-                        ),
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
                       const SizedBox(height: 10),
                       _buildFriendRequestButton(
@@ -210,8 +198,6 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
                       _buildFriendsStatusButton(
                           currentUser: _currentUser, otherUser: _otherUser),
                       const SizedBox(height: 10),
-
-
                     ],
                   ),
                 );
@@ -234,8 +220,10 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
       if (otherUser.friendsRequestsUIds.isNotEmpty) {
         return _buildButton(
             width: MediaQuery.of(context).size.width * 0.6,
-            backgroundColor: ColorSchemes.primary,
-            textColor: ColorSchemes.white,
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            textColor: GetThemeUseCase(injector())()
+                ? ColorSchemes.white
+                : ColorSchemes.black,
             text: S.of(context).viewFriendRequests,
             onPressed: () {
               //TODO: navigate to friend requests screen
@@ -256,7 +244,7 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
     if (currentUser.uId == otherUser.uId && otherUser.friendsUIds.isNotEmpty) {
       return _buildButton(
         width: MediaQuery.of(context).size.width * 0.6,
-          backgroundColor: ColorSchemes.primary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         textColor: ColorSchemes.white,
         text: S.of(context).viewFriends,
         onPressed: () {
@@ -269,8 +257,8 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
         if (otherUser.friendsRequestsUIds.contains(_currentUser.uId)) {
           return _buildButton(
             width: MediaQuery.of(context).size.width * 0.6,
-            textColor: ColorSchemes.primary,
-            backgroundColor: ColorSchemes.iconBackGround,
+            textColor: Theme.of(context).colorScheme.primary,
+            backgroundColor: Theme.of(context).cardColor,
             text: S.of(context).cancelFriendRequest,
             onPressed: () {
               //TODO: cancel friend request
@@ -281,8 +269,8 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
             .contains(_currentUser.uId)) {
           return _buildButton(
             width: MediaQuery.of(context).size.width * 0.6,
-            textColor: ColorSchemes.primary,
-            backgroundColor: ColorSchemes.iconBackGround,
+            textColor: Theme.of(context).colorScheme.primary,
+            backgroundColor: Theme.of(context).cardColor,
             text: S.of(context).acceptFriendRequest,
             onPressed: () {
               //TODO: accept friend request
@@ -296,7 +284,7 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
               _buildButton(
                 width: MediaQuery.of(context).size.width * 0.4,
                 textColor: ColorSchemes.white,
-                backgroundColor: ColorSchemes.primary,
+                backgroundColor: Theme.of(context).colorScheme.primary,
                 text: S.of(context).unFriend.toUpperCase(),
                 onPressed: () {
                   //TODO: unfriend
@@ -306,18 +294,18 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
               ),
               _buildButton(
                 width: MediaQuery.of(context).size.width * 0.4,
-                textColor: ColorSchemes.primary,
-                backgroundColor: ColorSchemes.iconBackGround,
+                textColor: Theme.of(context).colorScheme.primary,
+                backgroundColor: Theme.of(context).cardColor,
                 text: S.of(context).chat.toUpperCase(),
                 onPressed: () {
                   //TODO: navigate to chat screen
                   Navigator.pushNamed(context, Routes.chatWithFriendScreen,
-                  arguments: {
-                    "friendId": _otherUser.uId,
-                    "friendName": _otherUser.name,
-                    "friendImage": _otherUser.image,
-                    "groupId": "",
-                  });
+                      arguments: {
+                        "friendId": _otherUser.uId,
+                        "friendName": _otherUser.name,
+                        "friendImage": _otherUser.image,
+                        "groupId": "",
+                      });
                 },
               ),
             ],
@@ -326,7 +314,7 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
           return _buildButton(
             width: MediaQuery.of(context).size.width * 0.6,
             textColor: Theme.of(context).primaryColor,
-            backgroundColor: ColorSchemes.iconBackGround,
+            backgroundColor: Theme.of(context).cardColor,
             text: S.of(context).sendFriendRequests,
             onPressed: () {
               //TODO: send friend request
@@ -390,4 +378,5 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
           Navigator.pop(context);
         });
   }
+
 }

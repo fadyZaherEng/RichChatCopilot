@@ -9,12 +9,13 @@ class UserImageWidget extends StatelessWidget {
   double width;
   double height;
 
-  UserImageWidget(
-      {super.key,
-      required this.image,
-      this.isBorder = true,
-      this.width = 40.0,
-      this.height = 40.0});
+  UserImageWidget({
+    super.key,
+    required this.image,
+    this.isBorder = true,
+    this.width = 40.0,
+    this.height = 40.0,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class UserImageWidget extends StatelessWidget {
             ),
             border: isBorder
                 ? Border.all(
-                    color: ColorSchemes.primary,
+              color:Theme.of(context).colorScheme.primary,
                     width: 2.0,
                   )
                 : null),
@@ -40,7 +41,7 @@ class UserImageWidget extends StatelessWidget {
         style: SkeletonAvatarStyle(
           width: width,
           height: height,
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius: BorderRadius.circular(20),
         ),
       ),
       errorWidget: (context, url, error) => Container(
@@ -50,11 +51,14 @@ class UserImageWidget extends StatelessWidget {
             shape: BoxShape.circle,
             border: isBorder
                 ? Border.all(
-                    color: ColorSchemes.primary,
+                    color:Theme.of(context).colorScheme.primary,
                     width: 2.0,
                   )
                 : null),
-        child: const Icon(Icons.error),
+        child: const Icon(
+          Icons.error,
+          color: ColorSchemes.red,
+        ),
       ),
     );
   }

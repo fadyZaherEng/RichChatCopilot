@@ -12,15 +12,15 @@ Future<void> initializeBlocDependencies() async {
   injector.registerFactory<MainCubit>(() => MainCubit(
         injector(),
         injector(),
-        injector(),
-        injector(),
       ));
   injector.registerFactory<SettingsBloc>(() => SettingsBloc(
         injector(),
         injector(),
       ));
   injector.registerFactory<LogInBloc>(() => LogInBloc());
-  injector.registerFactory<UserInfoBloc>(() => UserInfoBloc());
+  injector.registerFactory<UserInfoBloc>(() => UserInfoBloc(
+        injector(),
+      ));
   injector.registerFactory<ChatsBloc>(() => ChatsBloc());
   injector.registerFactory<ProfileBloc>(() => ProfileBloc());
   injector.registerFactory<FriendsBloc>(() => FriendsBloc());

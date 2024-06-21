@@ -58,17 +58,17 @@ class _SplashScreenState extends State<SplashScreen>
                 children: [
                   Lottie.asset(ImagePaths.log1, height: 200, width: 200),
                   const SizedBox(height: 10),
-                  const LinearProgressIndicator(
-                    color: ColorSchemes.primary,
+                  LinearProgressIndicator(
+                    color: Theme.of(context).colorScheme.primary,
                     minHeight: 5,
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 30),
                   Text(
                     S.of(context).appTitle,
                     style: Theme.of(context)
                         .textTheme
-                        .bodyLarge
-                        ?.copyWith(color: ColorSchemes.black),
+                        .titleLarge
+                        // ?.copyWith(color: Theme.of(context).primaryColor),
                   )
                 ],
               ),
