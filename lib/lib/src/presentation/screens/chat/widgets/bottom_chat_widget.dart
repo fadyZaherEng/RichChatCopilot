@@ -84,12 +84,15 @@ class _BottomChatWidgetState extends State<BottomChatWidget> {
                       BorderSide(color: Theme.of(context).colorScheme.primary),
                 ),
                 borderRadius: widget.massageReply != null
-                    ? null
+                    ? const BorderRadius.only(
+                        bottomLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(30),
+                      )
                     : const BorderRadius.only(
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30),
-                        // bottomLeft: Radius.circular(30),
-                        // bottomRight: Radius.circular(30),
+                        bottomLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(30),
                       ),
               ),
               child: Row(

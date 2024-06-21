@@ -20,9 +20,7 @@ class CurrentMassageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final time = formatDate(massage.timeSent, [hh, ':', nn, ' ']).toString();
     final isReplying = massage.repliedTo.isNotEmpty;
-    final senderName = massage.repliedTo == "You" ? "You" : massage.senderName;
     return SwipeTo(
       onRightSwipe: (details) {
         onRightSwipe();
@@ -38,10 +36,10 @@ class CurrentMassageWidget extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primary,
                 borderRadius: const BorderRadiusDirectional.only(
-                  topStart: Radius.circular(15),
+                   topStart: Radius.circular(20),
                   // topEnd: Radius.circular(15),
                   // bottomEnd: Radius.circular(15),
-                  // bottomStart: Radius.circular(10),
+                  // bottomStart: Radius.circular(15),
                 )),
             child: Stack(
               children: [

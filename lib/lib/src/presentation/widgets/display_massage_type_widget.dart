@@ -41,7 +41,7 @@ class DisplayMassageTypeWidget extends StatelessWidget {
       case MassageType.video:
         return CachedNetworkImage(imageUrl: massage);
       case MassageType.audio:
-        return ShowAudioWidget(audioPath: massage);
+        return ShowAudioWidget(audioPath: massage,textDurationColor: color);
       case MassageType.file:
         return CachedNetworkImage(imageUrl: massage);
       default:

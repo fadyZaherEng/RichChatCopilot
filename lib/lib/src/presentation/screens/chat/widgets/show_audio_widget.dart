@@ -8,10 +8,12 @@ import 'package:rich_chat_copilot/lib/src/core/resources/image_paths.dart';
 
 class ShowAudioWidget extends StatefulWidget {
   final String audioPath;
+  final Color textDurationColor;
 
   const ShowAudioWidget({
     Key? key,
     required this.audioPath,
+    required this.textDurationColor,
   }) : super(key: key);
 
   @override
@@ -88,7 +90,7 @@ class _ShowAudioWidgetState extends State<ShowAudioWidget> {
           backgroundColor: Colors.orangeAccent,
           child: CircleAvatar(
             radius: 18,
-            backgroundColor: Theme.of(context).colorScheme.secondary,
+            backgroundColor: Colors.white,
             child: InkWell(
               onTap: () async {
                 if (isPlaying) {
@@ -107,7 +109,7 @@ class _ShowAudioWidgetState extends State<ShowAudioWidget> {
                 isPlaying ? ImagePaths.icPause : ImagePaths.icPlay,
                 matchTextDirection: true,
                 fit: BoxFit.scaleDown,
-                color: ColorSchemes.white,
+                color: ColorSchemes.black,
               ),
             ),
           ),
@@ -142,7 +144,7 @@ class _ShowAudioWidgetState extends State<ShowAudioWidget> {
           style: Theme.of(context)
               .textTheme
               .bodyMedium
-              ?.copyWith(color: ColorSchemes.white),
+              ?.copyWith(color: widget.textDurationColor),
         ),
         const SizedBox(width: 16),
         InkWell(
