@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -16,6 +17,7 @@ import 'package:rich_chat_copilot/lib/src/core/utils/permission_service_handler.
 import 'package:rich_chat_copilot/lib/src/core/utils/show_action_dialog.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/show_bottom_sheet_upload_media.dart';
 import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
+import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage_reply.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
 import 'package:rich_chat_copilot/lib/src/domain/usecase/get_user_use_case.dart';
@@ -23,6 +25,7 @@ import 'package:rich_chat_copilot/lib/src/presentation/blocs/chats/chats_bloc.da
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/bottom_chat_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/chat_app_bar_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/chats_list_massages_widget.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/widgets/custom_snack_bar_widget.dart';
 
 class ChatScreen extends BaseStatefulWidget {
   final String friendId;
@@ -53,7 +56,6 @@ class _ChatScreenState extends BaseState<ChatScreen> {
 
   //sounds and send button
   bool _isShowSendButton = false;
-
 
   @override
   void initState() {
@@ -110,18 +112,19 @@ class _ChatScreenState extends BaseState<ChatScreen> {
                 },
                 friendId: widget.friendId,
                 onEmojiSelected: (String emoji) {
-                  _massageController
-                    ..text = _massageController.text + emoji
-                    ..selection = TextSelection.fromPosition(
-                      TextPosition(offset: _massageController.text.length),
-                    );
-                },
-                onContextMenuSelected: (String value) {
-                  if (value.isNotEmpty) {
-                    _isShowSendButton = true;
+                  _navigateBackEvent();
+                  if (emoji == '➕') {
                   } else {
-                    _isShowSendButton = false;
+                    _massageController
+                      ..text = _massageController.text + emoji
+                      ..selection = TextSelection.fromPosition(
+                        TextPosition(offset: _massageController.text.length),
+                      );
                   }
+                },
+                onContextMenuSelected: (String contextMenu, Massage massage) {
+                  _navigateBackEvent();
+                  _onContextMenuSelected(contextMenu, massage);
                 },
               ),
             ),
@@ -402,5 +405,35 @@ class _ChatScreenState extends BaseState<ChatScreen> {
 
   void _navigateBackEvent() {
     Navigator.of(context).pop();
+  }
+
+  void _onContextMenuSelected(String contextMenu, Massage massage) {
+    switch (contextMenu) {
+      case 'Delete':
+        // _bloc.add(DeleteMassageEvent(massage: massage));
+        break;
+      case 'Reply':
+        final massageReply = MassageReply(
+          massage: massage.massage,
+          senderName: massage.senderName,
+          senderId: massage.senderId,
+          senderImage: massage.senderImage,
+          massageType: massage.massageType,
+          isMe: true,
+        );
+        _bloc.setMassageReply(massageReply);
+        break;
+      case 'Copy':
+        Clipboard.setData(ClipboardData(text: massage.massage));
+        CustomSnackBarWidget.show(
+          context: context,
+          message: S.of(context).copied,
+          path: ImagePaths.icSuccess,
+          backgroundColor: ColorSchemes.green,
+        );
+        break;
+      default:
+        break;
+    }
   }
 }

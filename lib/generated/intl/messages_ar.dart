@@ -44,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseFile": MessageLookupByLibrary.simpleMessage("اختر ملف"),
         "chooseImage": MessageLookupByLibrary.simpleMessage("اختر صورة"),
         "continues": MessageLookupByLibrary.simpleMessage("التالي"),
+        "copied": MessageLookupByLibrary.simpleMessage("تم النسخ"),
         "didReceiveTheCode":
             MessageLookupByLibrary.simpleMessage("لم تستلم الرمز"),
         "enterMessage": MessageLookupByLibrary.simpleMessage("أدخل الرسالة"),

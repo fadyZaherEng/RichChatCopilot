@@ -76,5 +76,6 @@
   "audio": "Audio",
   "youShouldHaveAudioPermission": "You should have audio permission",
   "image": "Image",
-  "file": "File"
+  "file": "File",
+  "copied": "Copied"
 }

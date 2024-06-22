@@ -76,5 +76,6 @@
   "audio": "مقطع صوتي",
   "youShouldHaveAudioPermission": "يجب عليك السماح للصوت",
   "image": "صورة",
-  "file": "ملف"
+  "file": "ملف",
+  "copied": "تم النسخ"
 }

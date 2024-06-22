@@ -20,7 +20,7 @@ class ChatsListMassagesWidget extends StatefulWidget {
   final String friendId;
   final void Function(MassageReply massageReply) onRightSwipe;
   final void Function(String) onEmojiSelected;
-  final void Function(String) onContextMenuSelected;
+  final void Function(String, Massage) onContextMenuSelected;
 
   const ChatsListMassagesWidget({
     super.key,
@@ -122,15 +122,16 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                       ? GestureDetector(
                           onLongPress: () {
                             showReactionsDialog(
-                                context: context,
-                                massage: massage,
-                                uId: widget.currentUser.uId,
-                                onContextMenuSelected: (emoji) {
-                                  widget.onContextMenuSelected(emoji);
-                                },
-                                onEmojiSelected: (emoji) {
-                                  widget.onEmojiSelected(emoji);
-                                },);
+                              context: context,
+                              massage: massage,
+                              uId: widget.currentUser.uId,
+                              onContextMenuSelected: (emoji, massage) {
+                                widget.onContextMenuSelected(emoji, massage);
+                              },
+                              onEmojiSelected: (emoji) {
+                                widget.onEmojiSelected(emoji);
+                              },
+                            );
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -151,22 +152,37 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                             ),
                           ),
                         )
-                      : Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: ReceiverMassageWidget(
-                            massage: massage,
-                            onRightSwipe: () {
-                              final massageReply = MassageReply(
-                                massage: massage.massage,
-                                senderName: massage.senderName,
-                                senderId: massage.senderId,
-                                senderImage: massage.senderImage,
-                                massageType: massage.massageType,
-                                isMe: isMe,
-                              );
-                              // _bloc.setMassageReply(massageReply);
-                              widget.onRightSwipe(massageReply);
-                            },
+                      : GestureDetector(
+                          onLongPress: () {
+                            showReactionsDialog(
+                              context: context,
+                              massage: massage,
+                              uId: widget.currentUser.uId,
+                              onContextMenuSelected: (emoji, massage) {
+                                widget.onContextMenuSelected(emoji, massage);
+                              },
+                              onEmojiSelected: (emoji) {
+                                widget.onEmojiSelected(emoji);
+                              },
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: ReceiverMassageWidget(
+                              massage: massage,
+                              onRightSwipe: () {
+                                final massageReply = MassageReply(
+                                  massage: massage.massage,
+                                  senderName: massage.senderName,
+                                  senderId: massage.senderId,
+                                  senderImage: massage.senderImage,
+                                  massageType: massage.massageType,
+                                  isMe: isMe,
+                                );
+                                // _bloc.setMassageReply(massageReply);
+                                widget.onRightSwipe(massageReply);
+                              },
+                            ),
                           ),
                         );
                 },

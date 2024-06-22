@@ -43,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseFile": MessageLookupByLibrary.simpleMessage("Choose File"),
         "chooseImage": MessageLookupByLibrary.simpleMessage("Choose Image"),
         "continues": MessageLookupByLibrary.simpleMessage("Continue"),
+        "copied": MessageLookupByLibrary.simpleMessage("Copied"),
         "didReceiveTheCode":
             MessageLookupByLibrary.simpleMessage("Didn\'t recieve the code"),
         "enterMessage": MessageLookupByLibrary.simpleMessage("Enter Message"),

@@ -5,7 +5,7 @@ class ReactionsDialogWidget extends StatefulWidget {
   final String uId;
   final Massage message;
   final void Function(String) onEmojiSelected;
-  final void Function(String) onContextMenuSelected;
+  final void Function(String, Massage) onContextMenuSelected;
 
   const ReactionsDialogWidget({
     super.key,
@@ -30,7 +30,7 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
     "😡",
     "➕",
   ];
-  final List<String> _contextMenu = ["Replay", "Copy", "Delete"];
+  final List<String> _contextMenu = ["Reply", "Copy", "Delete"];
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
         child: Wrap(
           children: [
             Column(
-               mainAxisSize: MainAxisSize.min,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Align(
                   alignment: Alignment.centerRight,
@@ -139,19 +139,21 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                           for (var contextMenu in _contextMenu)
                             InkWell(
                               onTap: () {
-                                widget.onEmojiSelected(contextMenu);
+                                widget.onContextMenuSelected(
+                                    contextMenu, widget.message);
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       contextMenu,
                                       style: const TextStyle(fontSize: 20),
                                     ),
                                     Icon(
-                                      contextMenu == "Replay"
+                                      contextMenu == "Reply"
                                           ? Icons.reply
                                           : contextMenu == "Copy"
                                               ? Icons.copy
