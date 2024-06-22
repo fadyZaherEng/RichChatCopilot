@@ -93,6 +93,8 @@ dependencies:
   audioplayers:
   video_player:
   audio_session:
+  emoji_picker_flutter:
+  animate_do:
 
 
 

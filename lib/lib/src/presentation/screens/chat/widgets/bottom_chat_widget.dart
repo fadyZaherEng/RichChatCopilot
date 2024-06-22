@@ -1,9 +1,7 @@
 import 'dart:io';
-
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:rich_chat_copilot/lib/src/core/resources/image_paths.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage_reply.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/massage_reply_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/record_audio_widget.dart';
@@ -28,6 +26,13 @@ class BottomChatWidget extends StatefulWidget {
   final bool isSendingLoading;
   bool isShowSendButton;
 
+  //emoji tap
+  final void Function() toggleEmojiKeyWordContainer;
+  final bool isShowEmojiPicker;
+  final void Function(Category?, Emoji?) emojiSelected;
+  final void Function() onBackspacePressed;
+  final void Function() hideEmojiContainer;
+
   BottomChatWidget({
     super.key,
     required this.friendName,
@@ -45,6 +50,11 @@ class BottomChatWidget extends StatefulWidget {
     required this.isAttachedLoading,
     required this.isSendingLoading,
     required this.isShowSendButton,
+    required this.toggleEmojiKeyWordContainer,
+    required this.isShowEmojiPicker,
+    required this.emojiSelected,
+    required this.onBackspacePressed,
+    required this.hideEmojiContainer,
   });
 
   @override
@@ -86,8 +96,7 @@ class _BottomChatWidgetState extends State<BottomChatWidget> {
                 borderRadius: widget.massageReply != null
                     ? const BorderRadius.only(
                         bottomLeft: Radius.circular(30),
-                        bottomRight: Radius.circular(30),
-                      )
+                        bottomRight: Radius.circular(30))
                     : const BorderRadius.only(
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30),
@@ -99,24 +108,31 @@ class _BottomChatWidgetState extends State<BottomChatWidget> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  //emoji widget
+                  IconButton(
+                    onPressed: widget.toggleEmojiKeyWordContainer,
+                    icon: Icon(
+                      widget.isShowEmojiPicker?
+                      Icons.keyboard:
+                      Icons.emoji_emotions_outlined,
+                      size: 20,
+                    ),
+                  ),
                   widget.isAttachedLoading
                       ? Padding(
                           padding: const EdgeInsets.only(top: 5),
                           child: LoadingAnimationWidget.threeArchedCircle(
-                            color: Theme.of(context).colorScheme.primary,
-                            size: 35,
-                          ),
-                        )
+                              color: Theme.of(context).colorScheme.primary,
+                              size: 35))
                       : IconButton(
                           onPressed: widget.onAttachPressed,
-                          icon: const Icon(
-                            Icons.attachment,
-                            size: 20,
-                          ),
-                        ),
+                          icon: const Icon(Icons.attachment, size: 20)),
                   Expanded(
                     child: SingleChildScrollView(
                       child: TextField(
+                        onTap: () {
+                          widget.hideEmojiContainer();
+                        },
                         controller: widget.textEditingController,
                         focusNode: widget.focusNode,
                         //how to expand with text increase problem
@@ -185,6 +201,18 @@ class _BottomChatWidgetState extends State<BottomChatWidget> {
                 ],
               ),
             ),
+            //show emoji container
+            widget.isShowEmojiPicker
+                ? SizedBox(
+                    height: 200,
+                    child: EmojiPicker(
+                      onEmojiSelected: (category, emoji) {
+                        widget.emojiSelected(category, emoji);
+                      },
+                      onBackspacePressed: widget.onBackspacePressed,
+                    ),
+                  )
+                : const SizedBox.shrink()
           ],
         ),
       ),

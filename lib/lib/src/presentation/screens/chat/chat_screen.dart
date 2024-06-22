@@ -57,6 +57,39 @@ class _ChatScreenState extends BaseState<ChatScreen> {
   //sounds and send button
   bool _isShowSendButton = false;
 
+  //emoji picker
+  bool _isShowEmojiPicker = false;
+
+  void _hideEmojiContainer() {
+    setState(() {
+      _isShowEmojiPicker = false;
+    });
+  }
+
+  void _showEmojiContainer() {
+    setState(() {
+      _isShowEmojiPicker = true;
+    });
+  }
+
+  void _showKeyWord() {
+    _massageFocusNode.requestFocus();
+  }
+
+  void _hideKeyWord() {
+    _massageFocusNode.unfocus();
+  }
+
+  void _toggleEmojiKeyWordContainer() {
+    if (_isShowEmojiPicker) {
+      _showKeyWord();
+      _hideEmojiContainer();
+    } else {
+      _hideKeyWord();
+      _showEmojiContainer();
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -139,6 +172,26 @@ class _ChatScreenState extends BaseState<ChatScreen> {
               isAttachedLoading: state is SendFileMessageLoading,
               isSendingLoading: state is SendTextMessageLoading,
               isShowSendButton: _isShowSendButton,
+              hideEmojiContainer:(){
+                _hideEmojiContainer();
+              },
+              emojiSelected: (category, emoji) {
+                _massageController.text =
+                    _massageController.text + emoji!.emoji;
+                if (!_isShowSendButton) {
+                  setState(() {
+                    _isShowSendButton = true;
+                  });
+                }
+              },
+              isShowEmojiPicker: _isShowEmojiPicker,
+              onBackspacePressed: () {
+                _massageController.text =
+                    _massageController.text.characters.skipLast(1).toString();
+              },
+              toggleEmojiKeyWordContainer: () {
+                _toggleEmojiKeyWordContainer();
+              },
               onTextChange: (String value) {
                 _massageController.text = value;
               },
@@ -202,9 +255,9 @@ class _ChatScreenState extends BaseState<ChatScreen> {
             onSecondaryAction: () {
               _navigateBackEvent();
             },
-            primaryText: S.of(context).ok,
-            secondaryText: S.of(context).cancel,
-            text: S.of(context).youShouldHaveCameraPermission,
+            primaryText: S.current.ok,
+            secondaryText: S.current.cancel,
+            text: S.current.youShouldHaveCameraPermission,
           );
         }
       },
@@ -231,9 +284,9 @@ class _ChatScreenState extends BaseState<ChatScreen> {
             onSecondaryAction: () {
               _navigateBackEvent();
             },
-            primaryText: S.of(context).ok,
-            secondaryText: S.of(context).cancel,
-            text: S.of(context).youShouldHaveGalleryPermission,
+            primaryText: S.current.ok,
+            secondaryText: S.current.cancel,
+            text: S.current.youShouldHaveGalleryPermission,
           );
         }
       },
@@ -331,47 +384,45 @@ class _ChatScreenState extends BaseState<ChatScreen> {
   }
 
   Future _cropperImage(File imagePicker) async {
-    if (imagePicker != null) {
-      CroppedFile? croppedFile = await ImageCropper().cropImage(
-        sourcePath: imagePicker.path,
-        aspectRatioPresets: [
-          CropAspectRatioPreset.square,
-          CropAspectRatioPreset.ratio3x2,
-          CropAspectRatioPreset.original,
-          CropAspectRatioPreset.ratio4x3,
-          CropAspectRatioPreset.ratio16x9,
-        ],
-        compressQuality: 100,
-        cropStyle: CropStyle.rectangle,
-        maxWidth: 1080,
-        maxHeight: 1080,
-        aspectRatio: const CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
-        compressFormat: ImageCompressFormat.jpg,
-        uiSettings: [
-          AndroidUiSettings(
-            toolbarTitle: 'Cropper',
-            toolbarColor: Theme.of(context).colorScheme.primary,
-            toolbarWidgetColor: ColorSchemes.white,
-            initAspectRatio: CropAspectRatioPreset.original,
-            lockAspectRatio: false,
-          ),
-          IOSUiSettings(title: 'Cropper'),
-          WebUiSettings(
-            context: context,
-            presentStyle: CropperPresentStyle.dialog,
-            boundary: const CroppieBoundary(width: 520, height: 520),
-            viewPort:
-                const CroppieViewPort(width: 480, height: 480, type: 'circle'),
-            enableExif: true,
-            enableZoom: true,
-            showZoomer: true,
-          ),
-        ],
-      );
-      if (croppedFile != null) {
-        _sendFileMassage(
-            massageType: MassageType.image, filePath: croppedFile.path);
-      }
+    CroppedFile? croppedFile = await ImageCropper().cropImage(
+      sourcePath: imagePicker.path,
+      aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.ratio3x2,
+        CropAspectRatioPreset.original,
+        CropAspectRatioPreset.ratio4x3,
+        CropAspectRatioPreset.ratio16x9,
+      ],
+      compressQuality: 100,
+      cropStyle: CropStyle.rectangle,
+      maxWidth: 1080,
+      maxHeight: 1080,
+      aspectRatio: const CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
+      compressFormat: ImageCompressFormat.jpg,
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarTitle: 'Cropper',
+          toolbarColor: Theme.of(context).colorScheme.primary,
+          toolbarWidgetColor: ColorSchemes.white,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false,
+        ),
+        IOSUiSettings(title: 'Cropper'),
+        WebUiSettings(
+          context: context,
+          presentStyle: CropperPresentStyle.dialog,
+          boundary: const CroppieBoundary(width: 520, height: 520),
+          viewPort:
+              const CroppieViewPort(width: 480, height: 480, type: 'circle'),
+          enableExif: true,
+          enableZoom: true,
+          showZoomer: true,
+        ),
+      ],
+    );
+    if (croppedFile != null) {
+      _sendFileMassage(
+          massageType: MassageType.image, filePath: croppedFile.path);
     }
   }
 
