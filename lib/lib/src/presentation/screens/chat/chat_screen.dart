@@ -59,23 +59,19 @@ class _ChatScreenState extends BaseState<ChatScreen> {
 
   //emoji picker
   bool _isShowEmojiPicker = false;
-
   void _hideEmojiContainer() {
     setState(() {
       _isShowEmojiPicker = false;
     });
   }
-
   void _showEmojiContainer() {
     setState(() {
       _isShowEmojiPicker = true;
     });
   }
-
   void _showKeyWord() {
     _massageFocusNode.requestFocus();
   }
-
   void _hideKeyWord() {
     _massageFocusNode.unfocus();
   }
