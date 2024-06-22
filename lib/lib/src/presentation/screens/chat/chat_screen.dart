@@ -1,12 +1,9 @@
 import 'dart:io';
 
-import 'package:date_format/date_format.dart' as df;
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:grouped_list/grouped_list.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -19,7 +16,6 @@ import 'package:rich_chat_copilot/lib/src/core/utils/permission_service_handler.
 import 'package:rich_chat_copilot/lib/src/core/utils/show_action_dialog.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/show_bottom_sheet_upload_media.dart';
 import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
-import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage_reply.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
 import 'package:rich_chat_copilot/lib/src/domain/usecase/get_user_use_case.dart';
@@ -27,10 +23,6 @@ import 'package:rich_chat_copilot/lib/src/presentation/blocs/chats/chats_bloc.da
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/bottom_chat_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/chat_app_bar_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/chats_list_massages_widget.dart';
-import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/current_massage_widget.dart';
-import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/receiver_massage_widget.dart';
-import 'package:rich_chat_copilot/lib/src/presentation/widgets/build_date_widget.dart';
-import 'package:rich_chat_copilot/lib/src/presentation/widgets/cricle_loading_widget.dart';
 
 class ChatScreen extends BaseStatefulWidget {
   final String friendId;
@@ -59,7 +51,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
   ChatsBloc get _bloc => BlocProvider.of<ChatsBloc>(context);
   UserModel currentUser = UserModel();
 
-  //sounds
+  //sounds and send button
   bool _isShowSendButton = false;
 
   @override
@@ -91,6 +83,9 @@ class _ChatScreenState extends BaseState<ChatScreen> {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(state.message),
         ));
+      } else if (state is SelectVideoFromGalleryState) {
+        _sendFileMassage(
+            massageType: MassageType.video, filePath: state.file.path);
       }
     }, builder: (context, state) {
       return Scaffold(
@@ -156,7 +151,8 @@ class _ChatScreenState extends BaseState<ChatScreen> {
               }) {
                 _isShowSendButton = isSendingButtonShow;
                 _sendFileMassage(
-                  massageType: MassageType.audio, filePath: audioFile.path,
+                  massageType: MassageType.audio,
+                  filePath: audioFile.path,
                 );
               },
             ),
@@ -174,7 +170,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
         _navigateBackEvent();
         if (await PermissionServiceHandler().handleServicePermission(
             setting: PermissionServiceHandler.getCameraPermission())) {
-          _getImage(ImageSource.camera, MassageType.image);
+          _getMedia(ImageSource.camera, MassageType.image);
         } else {
           _showActionDialog(
             icon: ImagePaths.icCancel,
@@ -188,15 +184,9 @@ class _ChatScreenState extends BaseState<ChatScreen> {
             onSecondaryAction: () {
               _navigateBackEvent();
             },
-            primaryText: S
-                .of(context)
-                .ok,
-            secondaryText: S
-                .of(context)
-                .cancel,
-            text: S
-                .of(context)
-                .youShouldHaveCameraPermission,
+            primaryText: S.of(context).ok,
+            secondaryText: S.of(context).cancel,
+            text: S.of(context).youShouldHaveCameraPermission,
           );
         }
       },
@@ -205,11 +195,11 @@ class _ChatScreenState extends BaseState<ChatScreen> {
         Permission permission = PermissionServiceHandler.getGalleryPermission(
           true,
           androidDeviceInfo:
-          Platform.isAndroid ? await DeviceInfoPlugin().androidInfo : null,
+              Platform.isAndroid ? await DeviceInfoPlugin().androidInfo : null,
         );
         if (await PermissionServiceHandler()
             .handleServicePermission(setting: permission)) {
-          _getImage(ImageSource.gallery, MassageType.image);
+          _getMedia(ImageSource.gallery, MassageType.image);
         } else {
           _showActionDialog(
             icon: ImagePaths.icCancel,
@@ -223,41 +213,16 @@ class _ChatScreenState extends BaseState<ChatScreen> {
             onSecondaryAction: () {
               _navigateBackEvent();
             },
-            primaryText: S
-                .of(context)
-                .ok,
-            secondaryText: S
-                .of(context)
-                .cancel,
-            text: S
-                .of(context)
-                .youShouldHaveGalleryPermission,
+            primaryText: S.of(context).ok,
+            secondaryText: S.of(context).cancel,
+            text: S.of(context).youShouldHaveGalleryPermission,
           );
         }
       },
       onTapVideo: () async {
-        // _navigateBackEvent();
-        // if (await PermissionServiceHandler().handleServicePermission(
-        //     setting: PermissionServiceHandler.getCameraPermission())) {
-        //   _getImage(ImageSource.camera, MassageType.video);
-        // } else {
-        //   _showActionDialog(
-        //     icon: ImagePaths.icCancel,
-        //     onPrimaryAction: () {
-        //       _navigateBackEvent();
-        //       openAppSettings().then((value) async {
-        //         if (await PermissionServiceHandler().handleServicePermission(
-        //             setting: PermissionServiceHandler.getCameraPermission())) {}
-        //       });
-        //     },
-        //     onSecondaryAction: () {
-        //       _navigateBackEvent();
-        //     },
-        //     primaryText: S.of(context).ok,
-        //     secondaryText: S.of(context).cancel,
-        //     text: S.of(context).youShouldHaveCameraPermission,
-        //   );
-        // }
+        //TODO: send video from gallery
+        _navigateBackEvent();
+        _getMedia(ImageSource.gallery, MassageType.video);
       },
       isVideo: true,
     );
@@ -286,15 +251,26 @@ class _ChatScreenState extends BaseState<ChatScreen> {
     );
   }
 
-  Future<void> _getImage(ImageSource img,
-      MassageType massageType,) async {
+  Future<void> _getMedia(
+    ImageSource img,
+    MassageType massageType,
+  ) async {
     if (img == ImageSource.gallery) {
-      final picker = ImagePicker();
-      final pickedFile = await picker.pickImage(source: img);
-      if (pickedFile == null) {
-        return;
+      if (massageType == MassageType.image) {
+        final picker = ImagePicker();
+        final pickedFile = await picker.pickImage(source: img);
+        if (pickedFile == null) {
+          return;
+        }
+        _bloc.add(SelectImageEvent(File(pickedFile.path)));
+      } else if (massageType == MassageType.video) {
+        final picker = ImagePicker();
+        final pickedFile = await picker.pickVideo(source: img);
+        if (pickedFile == null) {
+          return;
+        }
+        _bloc.add(SelectVideoFromGalleryEvent(File(pickedFile.path)));
       }
-      _bloc.add(SelectImageEvent(File(pickedFile.path)));
     } else {
       final ImagePicker picker = ImagePicker();
       final pickedFile = await picker.pickImage(source: img);
@@ -356,10 +332,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
         uiSettings: [
           AndroidUiSettings(
             toolbarTitle: 'Cropper',
-            toolbarColor: Theme
-                .of(context)
-                .colorScheme
-                .primary,
+            toolbarColor: Theme.of(context).colorScheme.primary,
             toolbarWidgetColor: ColorSchemes.white,
             initAspectRatio: CropAspectRatioPreset.original,
             lockAspectRatio: false,
@@ -370,7 +343,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
             presentStyle: CropperPresentStyle.dialog,
             boundary: const CroppieBoundary(width: 520, height: 520),
             viewPort:
-            const CroppieViewPort(width: 480, height: 480, type: 'circle'),
+                const CroppieViewPort(width: 480, height: 480, type: 'circle'),
             enableExif: true,
             enableZoom: true,
             showZoomer: true,

@@ -49,6 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterName": MessageLookupByLibrary.simpleMessage("Enter Name"),
         "enterThe6Digit": MessageLookupByLibrary.simpleMessage(
             "Enter the 6 digit code sent to your mobile number"),
+        "file": MessageLookupByLibrary.simpleMessage("File"),
         "fillAllFields":
             MessageLookupByLibrary.simpleMessage("Fill all the fields"),
         "friendRequestAccepted":
@@ -60,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "globes": MessageLookupByLibrary.simpleMessage("People"),
         "groups": MessageLookupByLibrary.simpleMessage("Groups"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
+        "image": MessageLookupByLibrary.simpleMessage("Image"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),

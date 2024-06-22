@@ -52,3 +52,8 @@ final class SelectImageState extends ChatsState {
   final File file;
   SelectImageState({required this.file});
 }
+//select video from galley
+final class SelectVideoFromGalleryState extends ChatsState {
+  final File file;
+  SelectVideoFromGalleryState({required this.file});
+}

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
 import 'dart:io';
 
@@ -25,6 +27,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     on<SendTextMessageEvent>(_onSendTextMessageEvent);
     on<SendFileMessageEvent>(_onSendFileMessageEvent);
     on<SelectImageEvent>(_onSelectImageEvent);
+    on<SelectVideoFromGalleryEvent>(_onSelectVideoFromGalleryEvent);
   }
 
   //replay message
@@ -362,6 +365,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
   Future<void> sentFileMessage({
     required UserModel sender,
     required String receiverId,
+
     required String receiverName,
     required String receiverImage,
     required String groupId,
@@ -455,5 +459,10 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
   FutureOr<void> _onSelectImageEvent(
       SelectImageEvent event, Emitter<ChatsState> emit) {
     emit(SelectImageState(file: event.file));
+  }
+
+  FutureOr<void> _onSelectVideoFromGalleryEvent(
+      SelectVideoFromGalleryEvent event, Emitter<ChatsState> emit) {
+    emit(SelectVideoFromGalleryState(file: event.file));
   }
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:rich_chat_copilot/generated/l10n.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/massage_type.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage.dart';
-import 'package:rich_chat_copilot/lib/src/presentation/widgets/display_massage_type_widget.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/display_massage_type_widget.dart';
 import 'package:swipe_to/swipe_to.dart';
 
 class ReceiverMassageWidget extends StatelessWidget {
@@ -19,7 +20,7 @@ class ReceiverMassageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isReplying = massage.repliedTo.isNotEmpty;
-    final senderName = massage.repliedTo == "You" ? "You" : massage.senderName;
+    final senderName = massage.repliedTo == S.of(context).you ? S.of(context).you : massage.senderName;
     return SwipeTo(
       onRightSwipe: (details) {
         onRightSwipe();
@@ -35,10 +36,11 @@ class ReceiverMassageWidget extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
               color: Colors.grey[200],
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10.0),
-                topRight: Radius.circular(10.0),
-                bottomLeft: Radius.circular(10.0),
+              borderRadius: const BorderRadiusDirectional.only(
+                topStart: Radius.circular(20),
+                // topEnd: Radius.circular(15),
+                // bottomEnd: Radius.circular(15),
+                // bottomStart: Radius.circular(15),
               ),
             ),
             child: Stack(
@@ -46,6 +48,8 @@ class ReceiverMassageWidget extends StatelessWidget {
                 Padding(
                   padding: massage.massageType == MassageType.text
                       ? const EdgeInsets.fromLTRB(10, 5, 20, 20)
+                      : massage.massageType == MassageType.video
+                      ? const EdgeInsets.fromLTRB(5, 0, 5, 25)
                       : const EdgeInsets.fromLTRB(5, 5, 5, 25),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,31 +69,25 @@ class ReceiverMassageWidget extends StatelessWidget {
                                 style: const TextStyle(
                                     color: Colors.black, fontSize: 10),
                               ),
-                              // Text(
-                              //   massage.repliedMessage,
-                              //   style: const TextStyle(
-                              //       color: Colors.black, fontSize: 10),
-                              // ),
                               DisplayMassageTypeWidget(
-                                massageType: massage.massageType,
+                                massageType: massage.repliedMessageType,
                                 massage: massage.repliedMessage,
                                 color: Colors.black,
                                 maxLines: 1,
                                 textOverflow: TextOverflow.ellipsis,
+                                context: context,
+                                isReplying: true,
                               ),
                             ],
                           ),
                         )
                       ],
-                      // Text(
-                      //   massage.massage,
-                      //   textAlign: TextAlign.start,
-                      //   style: const TextStyle(color: Colors.black),
-                      // ),
                       DisplayMassageTypeWidget(
                         massageType: massage.massageType,
                         massage: massage.massage,
                         color: Colors.black,
+                        context: context,
+                        isReplying: false,
                       ),
                     ],
                   ),

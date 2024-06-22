@@ -76,3 +76,9 @@ class ShowImageEvent extends ChatsEvent {
 
   ShowImageEvent(this.file);
 }
+//select video from galley
+class SelectVideoFromGalleryEvent extends ChatsEvent {
+  final File file;
+
+  SelectVideoFromGalleryEvent(this.file);
+}

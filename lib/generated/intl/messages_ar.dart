@@ -34,7 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("محادثة رسمية من نوع Copilot"),
         "areYouSureYouWantToLogOut": MessageLookupByLibrary.simpleMessage(
             "هل انت متاكد من تسجيل الخروج؟"),
-        "audio": MessageLookupByLibrary.simpleMessage("صوت"),
+        "audio": MessageLookupByLibrary.simpleMessage("مقطع صوتي"),
         "camera": MessageLookupByLibrary.simpleMessage("كاميرا"),
         "cancel": MessageLookupByLibrary.simpleMessage("الغاء"),
         "cancelFriendRequest":
@@ -50,6 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterName": MessageLookupByLibrary.simpleMessage("أدخل الاسم"),
         "enterThe6Digit": MessageLookupByLibrary.simpleMessage(
             "أدخل الرمز الذي تم ارساله على رقم هاتفك"),
+        "file": MessageLookupByLibrary.simpleMessage("ملف"),
         "fillAllFields":
             MessageLookupByLibrary.simpleMessage("يرجى ملء جميع الحقول"),
         "friendRequestAccepted":
@@ -61,6 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "globes": MessageLookupByLibrary.simpleMessage("الاشخاص"),
         "groups": MessageLookupByLibrary.simpleMessage("المجموعات"),
         "home": MessageLookupByLibrary.simpleMessage("الصفحة الرئيسية"),
+        "image": MessageLookupByLibrary.simpleMessage("صورة"),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
         "logOut": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:rich_chat_copilot/generated/l10n.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/massage_type.dart';
 
 class MassageReplyTypeWidget extends StatelessWidget {
   final MassageType massageType;
   final String massage;
+  final BuildContext context;
 
   const MassageReplyTypeWidget({
     required this.massageType,
     required this.massage,
+    required this.context,
     super.key,
   });
 
@@ -24,56 +27,56 @@ class MassageReplyTypeWidget extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
         );
       case MassageType.image:
-        return const Row(
+        return  Row(
           children: [
-            Icon(Icons.image_outlined),
-            SizedBox(
+            const Icon(Icons.image_outlined),
+            const SizedBox(
               width: 10,
             ),
             Text(
-              "Image",
+              S.of(context).image,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
           ],
         );
       case MassageType.video:
-        return const Row(
+        return  Row(
           children: [
-            Icon(Icons.video_library_outlined),
-            SizedBox(
+            const Icon(Icons.video_library_outlined),
+            const SizedBox(
               width: 10,
             ),
             Text(
-              "Video",
+              S.of(context).video,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
           ],
         );
       case MassageType.audio:
-        return const Row(
+        return  Row(
           children: [
-            Icon(Icons.audiotrack_outlined),
-            SizedBox(
+            const Icon(Icons.audiotrack_outlined),
+            const SizedBox(
               width: 10,
             ),
             Text(
-              "Audio",
+              S.of(context).audio,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
           ],
         );
       case MassageType.file:
-        return const Row(
+        return  Row(
           children: [
-            Icon(Icons.file_copy_outlined),
-            SizedBox(
+            const Icon(Icons.file_copy_outlined),
+            const SizedBox(
               width: 10,
             ),
             Text(
-              "File",
+              S.of(context).file,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),

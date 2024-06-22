@@ -73,6 +73,8 @@
   "startConversation": "ابدأ المحادثة",
   "video": "فيديو",
   "you": "أنت",
-  "audio": "صوت",
-  "youShouldHaveAudioPermission": "يجب عليك السماح للصوت"
+  "audio": "مقطع صوتي",
+  "youShouldHaveAudioPermission": "يجب عليك السماح للصوت",
+  "image": "صورة",
+  "file": "ملف"
 }
