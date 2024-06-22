@@ -50,17 +50,17 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Rich Chat Copilot`
+  /// `Rich Chat`
   String get appTitle {
     return Intl.message(
-      'Rich Chat Copilot',
+      'Rich Chat',
       name: 'appTitle',
       desc: '',
       args: [],
     );
   }
 
-  // skipped getter for the 'Rich Chat Copilot - Powered by OpenAI' key
+  // skipped getter for the 'Powered by - Rich Chat' key
 
   /// `Home`
   String get home {

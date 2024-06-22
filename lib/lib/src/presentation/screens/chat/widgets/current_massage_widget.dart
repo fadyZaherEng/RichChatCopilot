@@ -23,17 +23,18 @@ class CurrentMassageWidget extends StatelessWidget {
         onRightSwipe();
       },
       child: Align(
-        alignment: AlignmentDirectional.centerEnd,
+        alignment: Alignment.centerRight,
         child: ConstrainedBox(
           constraints: BoxConstraints(
-              maxWidth: MediaQuery.of(context).size.width * 0.7,
-              minWidth: MediaQuery.of(context).size.width * 0.3),
+            maxWidth: MediaQuery.of(context).size.width * 0.7,
+            minWidth: MediaQuery.of(context).size.width * 0.2,
+          ),
           child: Container(
-            padding: const EdgeInsets.all(8.0),
+             padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primary,
-                borderRadius: const BorderRadiusDirectional.only(
-                   topStart: Radius.circular(20),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(20),
                   // topEnd: Radius.circular(15),
                   // bottomEnd: Radius.circular(15),
                   // bottomStart: Radius.circular(15),
@@ -44,10 +45,10 @@ class CurrentMassageWidget extends StatelessWidget {
                   padding: massage.massageType == MassageType.text
                       ? const EdgeInsets.fromLTRB(10, 5, 20, 20)
                       : massage.massageType == MassageType.video
-                      ? const EdgeInsets.fromLTRB(5, 0, 5, 25):
-                      const EdgeInsets.fromLTRB(5, 5, 5, 25),
+                          ? const EdgeInsets.fromLTRB(5, 0, 5, 25)
+                          : const EdgeInsets.fromLTRB(5, 5, 5, 25),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       if (isReplying) ...[
                         Container(
@@ -57,7 +58,7 @@ class CurrentMassageWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 massage.repliedTo,
@@ -91,13 +92,12 @@ class CurrentMassageWidget extends StatelessWidget {
                 ),
                 PositionedDirectional(
                   bottom: 4,
-                  end: 10,
+                  start: 10,
                   child: Row(
                     children: [
                       Text(
                         DateFormat("hh:mm a").format(massage.timeSent),
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 10),
+                        style: const TextStyle(color: Colors.white, fontSize: 10),
                       ),
                       const SizedBox(width: 4),
                       Icon(

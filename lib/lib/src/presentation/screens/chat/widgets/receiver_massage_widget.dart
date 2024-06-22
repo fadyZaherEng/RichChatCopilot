@@ -20,24 +20,26 @@ class ReceiverMassageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isReplying = massage.repliedTo.isNotEmpty;
-    final senderName = massage.repliedTo == S.of(context).you ? S.of(context).you : massage.senderName;
+    final senderName = massage.repliedTo == S.of(context).you
+        ? S.of(context).you
+        : massage.senderName;
     return SwipeTo(
       onRightSwipe: (details) {
         onRightSwipe();
       },
       child: Align(
-        alignment: AlignmentDirectional.centerStart,
+        alignment: Alignment.centerLeft,
         child: ConstrainedBox(
           constraints: BoxConstraints(
             maxWidth: MediaQuery.of(context).size.width * 0.7,
-            minWidth: MediaQuery.of(context).size.width * 0.3,
+            minWidth: MediaQuery.of(context).size.width * 0.2,
           ),
           child: Container(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
               color: Colors.grey[200],
-              borderRadius: const BorderRadiusDirectional.only(
-                topStart: Radius.circular(20),
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(20),
                 // topEnd: Radius.circular(15),
                 // bottomEnd: Radius.circular(15),
                 // bottomStart: Radius.circular(15),
@@ -49,10 +51,10 @@ class ReceiverMassageWidget extends StatelessWidget {
                   padding: massage.massageType == MassageType.text
                       ? const EdgeInsets.fromLTRB(10, 5, 20, 20)
                       : massage.massageType == MassageType.video
-                      ? const EdgeInsets.fromLTRB(5, 0, 5, 25)
-                      : const EdgeInsets.fromLTRB(5, 5, 5, 25),
+                          ? const EdgeInsets.fromLTRB(5, 0, 5, 25)
+                          : const EdgeInsets.fromLTRB(5, 5, 5, 25),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       if (isReplying) ...[
                         Container(
@@ -62,7 +64,7 @@ class ReceiverMassageWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
                                 senderName,
@@ -94,7 +96,7 @@ class ReceiverMassageWidget extends StatelessWidget {
                 ),
                 PositionedDirectional(
                   bottom: 4,
-                  start: 10,
+                  end: 10,
                   child: Row(
                     children: [
                       Text(
@@ -103,13 +105,11 @@ class ReceiverMassageWidget extends StatelessWidget {
                             color: ColorSchemes.black, fontSize: 10),
                       ),
                       const SizedBox(width: 4),
-                      Icon(
-                        massage.isSeen ? Icons.done_all : Icons.done,
-                        color: massage.isSeen
-                            ? Theme.of(context).colorScheme.primary
-                            : Colors.white38,
-                        size: 15,
-                      )
+                      Icon(massage.isSeen ? Icons.done_all : Icons.done,
+                          color: massage.isSeen
+                              ? Theme.of(context).colorScheme.primary
+                              : Colors.white38,
+                          size: 15)
                     ],
                   ),
                 )

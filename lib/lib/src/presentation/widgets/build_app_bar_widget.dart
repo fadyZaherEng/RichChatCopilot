@@ -55,6 +55,7 @@ AppBar buildAppBarWidget(
               width: 24,
               height: 24,
               fit: BoxFit.scaleDown,
+              color: Theme.of(context).colorScheme.secondary,
             ),
           )
         : const SizedBox.shrink(),

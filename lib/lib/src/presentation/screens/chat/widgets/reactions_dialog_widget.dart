@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/display_massage_reply_type_widget.dart';
 
 class ReactionsDialogWidget extends StatefulWidget {
   final String uId;
@@ -105,10 +106,11 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                         ],
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          widget.message.massage,
-                          style: const TextStyle(color: Colors.white),
+                        padding: const EdgeInsets.all(4),
+                        child: MassageReplyTypeWidget(
+                          massageType: widget.message.massageType,
+                          massage: widget.message.massage,
+                          context: context,
                         ),
                       ),
                     ),
@@ -119,7 +121,7 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                   child: Material(
                     color: Colors.transparent,
                     child: Container(
-                      width: MediaQuery.of(context).size.width * 0.5,
+                      width: MediaQuery.of(context).size.width * 0.6,
                       margin: const EdgeInsets.symmetric(vertical: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
@@ -143,14 +145,17 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                                     contextMenu, widget.message);
                               },
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 8),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       contextMenu,
-                                      style: const TextStyle(fontSize: 20),
+                                      style:  TextStyle(
+                                        fontSize: 20,
+                                        color: Theme.of(context).colorScheme.secondary,
+                                      ),
                                     ),
                                     Icon(
                                       contextMenu == "Reply"
@@ -158,6 +163,7 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                                           : contextMenu == "Copy"
                                               ? Icons.copy
                                               : Icons.delete,
+                                      color: Theme.of(context).colorScheme.secondary,
                                     )
                                   ],
                                 ),

@@ -30,7 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Accept Friend Request"),
         "addYourPhoneNumberMessage": MessageLookupByLibrary.simpleMessage(
             "Add your phone number, we\'ll send you a verification code"),
-        "appTitle": MessageLookupByLibrary.simpleMessage("Rich Chat Copilot"),
+        "appTitle": MessageLookupByLibrary.simpleMessage("Rich Chat"),
         "areYouSureYouWantToLogOut": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to log out?"),
         "audio": MessageLookupByLibrary.simpleMessage("Audio"),

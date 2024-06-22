@@ -30,8 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("قبول طلب الصداقة"),
         "addYourPhoneNumberMessage": MessageLookupByLibrary.simpleMessage(
             "اضف رقم هاتفك, سوف نرسل لك رمز التحقق."),
-        "appTitle":
-            MessageLookupByLibrary.simpleMessage("محادثة رسمية من نوع Copilot"),
+        "appTitle": MessageLookupByLibrary.simpleMessage("محادثة ذكية"),
         "areYouSureYouWantToLogOut": MessageLookupByLibrary.simpleMessage(
             "هل انت متاكد من تسجيل الخروج؟"),
         "audio": MessageLookupByLibrary.simpleMessage("مقطع صوتي"),
@@ -120,8 +119,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "viewFriendRequests":
             MessageLookupByLibrary.simpleMessage("عرض طلبات الصداقة"),
         "viewFriends": MessageLookupByLibrary.simpleMessage("عرض ألاصدقاء"),
-        "welcomeMessage": MessageLookupByLibrary.simpleMessage(
-            "مرحبا بك في محادثة رسمية من نوع Copilot"),
+        "welcomeMessage":
+            MessageLookupByLibrary.simpleMessage("مرحبا بك في محادثة ذكية"),
         "yes": MessageLookupByLibrary.simpleMessage("نعم"),
         "you": MessageLookupByLibrary.simpleMessage("أنت"),
         "youShouldHaveAudioPermission":

@@ -85,6 +85,59 @@ class _ShowAudioWidgetState extends State<ShowAudioWidget> {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        InkWell(
+          onTap: () {
+            if (_isMuted) {
+              audioPlayer.setVolume(1);
+              setState(() {
+                _isMuted = false;
+              });
+            } else {
+              audioPlayer.setVolume(0);
+              setState(() {
+                _isMuted = true;
+              });
+            }
+          },
+          child: SvgPicture.asset(
+            _isMuted ? ImagePaths.icVolumeMute : ImagePaths.icVolume,
+            fit: BoxFit.scaleDown,
+            color: Theme.of(context).cardColor,
+          ),
+        ),
+        const SizedBox(width: 16),
+        Text(
+          formatTime(duration - position),
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: widget.textDurationColor),
+        ),
+        Expanded(
+          child: SliderTheme(
+            data: SliderThemeData(
+              trackHeight: 1.7,
+              thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8),
+              activeTickMarkColor: Theme.of(context).cardColor,
+              inactiveTickMarkColor: Theme.of(context).primaryColor,
+              activeTrackColor: Theme.of(context).cardColor,
+              inactiveTrackColor: Theme.of(context).primaryColor,
+              disabledThumbColor: Theme.of(context).primaryColor,
+            ),
+            child: Slider.adaptive(
+              min: 0,
+              max: duration.inSeconds.toDouble(),
+              value: position.inSeconds.toDouble(),
+              activeColor: Theme.of(context).cardColor,
+              inactiveColor: Theme.of(context).primaryColor,
+              // thumbColor: Theme.of(context).cardColor,
+              onChanged: (value) async {
+                await audioPlayer.seek(Duration(seconds: value.toInt()));
+                await audioPlayer.resume();
+              },
+            ),
+          ),
+        ),
         CircleAvatar(
           radius: 20,
           backgroundColor: Colors.orangeAccent,
@@ -112,59 +165,6 @@ class _ShowAudioWidgetState extends State<ShowAudioWidget> {
                 color: ColorSchemes.black,
               ),
             ),
-          ),
-        ),
-        Expanded(
-          child: SliderTheme(
-            data: SliderThemeData(
-              trackHeight: 1.7,
-              thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8),
-              activeTickMarkColor: Theme.of(context).cardColor,
-              inactiveTickMarkColor: Theme.of(context).primaryColor,
-              activeTrackColor: Theme.of(context).cardColor,
-              inactiveTrackColor: Theme.of(context).primaryColor,
-              disabledThumbColor: Theme.of(context).primaryColor,
-            ),
-            child: Slider.adaptive(
-              min: 0,
-              max: duration.inSeconds.toDouble(),
-              value: position.inSeconds.toDouble(),
-              activeColor: Theme.of(context).cardColor,
-              inactiveColor: Theme.of(context).primaryColor,
-              // thumbColor: Theme.of(context).cardColor,
-              onChanged: (value) async {
-                await audioPlayer.seek(Duration(seconds: value.toInt()));
-                await audioPlayer.resume();
-              },
-            ),
-          ),
-        ),
-        Text(
-          formatTime(duration - position),
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium
-              ?.copyWith(color: widget.textDurationColor),
-        ),
-        const SizedBox(width: 16),
-        InkWell(
-          onTap: () {
-            if (_isMuted) {
-              audioPlayer.setVolume(1);
-              setState(() {
-                _isMuted = false;
-              });
-            } else {
-              audioPlayer.setVolume(0);
-              setState(() {
-                _isMuted = true;
-              });
-            }
-          },
-          child: SvgPicture.asset(
-            _isMuted ? ImagePaths.icVolumeMute : ImagePaths.icVolume,
-            fit: BoxFit.scaleDown,
-            color: Theme.of(context).cardColor,
           ),
         ),
       ],

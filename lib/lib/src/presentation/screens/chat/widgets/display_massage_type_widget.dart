@@ -4,6 +4,7 @@ import 'package:rich_chat_copilot/lib/src/config/routes/routes_manager.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/massage_type.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/show_audio_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/show_video_widget.dart';
+import 'package:skeletons/skeletons.dart';
 
 class DisplayMassageTypeWidget extends StatelessWidget {
   final String massage;
@@ -41,7 +42,24 @@ class DisplayMassageTypeWidget extends StatelessWidget {
       case MassageType.image:
         return isReplying
             ? const Icon(Icons.image)
-            : CachedNetworkImage(imageUrl: massage, fit: BoxFit.cover);
+            : SizedBox(
+              height: 200,
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: CachedNetworkImage(
+                    imageUrl: massage,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) => const Center(
+                      child: SkeletonLine(
+                        style: SkeletonLineStyle(
+                          height: 200,
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                      )
+                    )
+                  ),
+                ),
+            );
       case MassageType.video:
         return isReplying
             ? const Icon(Icons.video_collection)
@@ -55,7 +73,7 @@ class DisplayMassageTypeWidget extends StatelessWidget {
               );
       case MassageType.audio:
         return isReplying
-            ? const Icon(Icons.audiotrack)
+            ?  Icon(Icons.audiotrack,color: Theme.of(context).colorScheme.secondary,)
             : ShowAudioWidget(audioPath: massage, textDurationColor: color);
       case MassageType.file:
         return CachedNetworkImage(imageUrl: massage);

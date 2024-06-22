@@ -57,7 +57,7 @@ class MassageReplyTypeWidget extends StatelessWidget {
       case MassageType.audio:
         return  Row(
           children: [
-            const Icon(Icons.audiotrack_outlined),
+             Icon(Icons.audiotrack_outlined,color: Theme.of(context).cardColor,),
             const SizedBox(
               width: 10,
             ),
@@ -65,6 +65,7 @@ class MassageReplyTypeWidget extends StatelessWidget {
               S.of(context).audio,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
+              style: TextStyle(color: Theme.of(context).cardColor),
             ),
           ],
         );

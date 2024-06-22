@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -65,10 +66,8 @@ class _SplashScreenState extends State<SplashScreen>
                   const SizedBox(height: 30),
                   Text(
                     S.of(context).appTitle,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge
-                        // ?.copyWith(color: Theme.of(context).primaryColor),
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.secondary,),
                   )
                 ],
               ),

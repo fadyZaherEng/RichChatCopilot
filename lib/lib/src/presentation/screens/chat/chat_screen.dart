@@ -59,25 +59,27 @@ class _ChatScreenState extends BaseState<ChatScreen> {
 
   //emoji picker
   bool _isShowEmojiPicker = false;
-  void _hideEmojiContainer() {
-      _isShowEmojiPicker = false;
-      _isShowSendButton = false;
-      if(_massageController.text.isNotEmpty) {
-        _isShowSendButton = true;
-      }
-      setState(() {
 
-      });
+  void _hideEmojiContainer() {
+    _isShowEmojiPicker = false;
+    _isShowSendButton = false;
+    if (_massageController.text.isNotEmpty) {
+      _isShowSendButton = true;
+    }
+    setState(() {});
   }
+
   void _showEmojiContainer() {
     setState(() {
       _isShowEmojiPicker = true;
       _isShowSendButton = true;
     });
   }
+
   void _showKeyWord() {
     _massageFocusNode.requestFocus();
   }
+
   void _hideKeyWord() {
     _massageFocusNode.unfocus();
   }
@@ -109,9 +111,9 @@ class _ChatScreenState extends BaseState<ChatScreen> {
         _isShowSendButton = false;
       }
       if (state is SendTextMessageError) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(state.message),
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(state.message)),
+        );
         _isShowSendButton = false;
       } else if (state is SelectImageState) {
         _cropperImage(state.file);
@@ -120,12 +122,14 @@ class _ChatScreenState extends BaseState<ChatScreen> {
         _bloc.setMassageReply(null);
         _massageFocusNode.requestFocus();
       } else if (state is SendFileMessageError) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(state.message),
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(state.message)),
+        );
       } else if (state is SelectVideoFromGalleryState) {
         _sendFileMassage(
-            massageType: MassageType.video, filePath: state.file.path);
+          massageType: MassageType.video,
+          filePath: state.file.path,
+        );
       }
     }, builder: (context, state) {
       return Scaffold(
@@ -176,7 +180,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
               isAttachedLoading: state is SendFileMessageLoading,
               isSendingLoading: state is SendTextMessageLoading,
               isShowSendButton: _isShowSendButton,
-              hideEmojiContainer:(){
+              hideEmojiContainer: () {
                 _hideEmojiContainer();
               },
               emojiSelected: (category, emoji) {

@@ -116,7 +116,7 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
               },
               icon: Icon(
                 Icons.settings,
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
             isHaveBackButton: true,
@@ -219,11 +219,9 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
     if (currentUser.uId == otherUser.uId) {
       if (otherUser.friendsRequestsUIds.isNotEmpty) {
         return _buildButton(
-            width: MediaQuery.of(context).size.width * 0.6,
+            width: MediaQuery.of(context).size.width * 0.7,
             backgroundColor: Theme.of(context).colorScheme.primary,
-            textColor: GetThemeUseCase(injector())()
-                ? ColorSchemes.white
-                : ColorSchemes.black,
+            textColor: ColorSchemes.white,
             text: S.of(context).viewFriendRequests,
             onPressed: () {
               //TODO: navigate to friend requests screen
@@ -299,13 +297,16 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
                 text: S.of(context).chat.toUpperCase(),
                 onPressed: () {
                   //TODO: navigate to chat screen
-                  Navigator.pushNamed(context, Routes.chatWithFriendScreen,
-                      arguments: {
-                        "friendId": _otherUser.uId,
-                        "friendName": _otherUser.name,
-                        "friendImage": _otherUser.image,
-                        "groupId": "",
-                      });
+                  Navigator.pushNamed(
+                    context,
+                    Routes.chatWithFriendScreen,
+                    arguments: {
+                      "friendId": _otherUser.uId,
+                      "friendName": _otherUser.name,
+                      "friendImage": _otherUser.image,
+                      "groupId": ""
+                    },
+                  );
                 },
               ),
             ],
@@ -378,5 +379,4 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
           Navigator.pop(context);
         });
   }
-
 }

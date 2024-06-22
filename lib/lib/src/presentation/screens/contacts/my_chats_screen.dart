@@ -112,11 +112,7 @@ class _ChatsScreenState extends BaseState<ChatsScreen> {
                             titleAlignment: ListTileTitleAlignment.bottom,
                             title: Text(
                               snapshot.data![index].receiverName,
-                              style: GoogleFonts.openSans(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: ColorSchemes.black,
-                              ),
+                              style: Theme.of(context).textTheme.bodyLarge,
                             ),
                             subtitle: Padding(
                               padding: const EdgeInsets.only(top: 3),
@@ -148,16 +144,17 @@ class _ChatsScreenState extends BaseState<ChatsScreen> {
                             onTap: () {
                               //TODO: navigate to chat screen
                               Navigator.pushNamed(
-                                  context, Routes.chatWithFriendScreen,
-                                  arguments: {
-                                    "friendId":
-                                        snapshot.data![index].receiverId,
-                                    "friendName":
-                                        snapshot.data![index].receiverName,
-                                    "friendImage":
-                                        snapshot.data![index].receiverImage,
-                                    "groupId": ""
-                                  });
+                                context,
+                                Routes.chatWithFriendScreen,
+                                arguments: {
+                                  "friendId": snapshot.data![index].receiverId,
+                                  "friendName":
+                                      snapshot.data![index].receiverName,
+                                  "friendImage":
+                                      snapshot.data![index].receiverImage,
+                                  "groupId": ""
+                                },
+                              );
                             },
                           );
                         },

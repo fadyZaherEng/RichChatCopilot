@@ -61,28 +61,26 @@ class _SettingsScreenState extends BaseState<SettingsScreen> {
       },
       builder: (context, state) {
         return Scaffold(
-          appBar: buildAppBarWidget(context,
-              title: S.of(context).settings,
-              isHaveBackButton: true, onBackButtonPressed: () {
-            Navigator.pop(context);
-          },
-              actionWidget: InkWell(
-                onTap: () {
-                  //show log out dialog
-                  _showLogOutDialog(context);
-                },
-                child:  Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Icon(
+          appBar: buildAppBarWidget(
+            context,
+            title: S.of(context).settings,
+            isHaveBackButton: true,
+            onBackButtonPressed: () {
+              Navigator.pop(context);
+            },
+            actionWidget: InkWell(
+              onTap: () {
+                _showLogOutDialog(context);
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Icon(
                     //log out
                     Icons.logout,
-                    color: Theme
-                        .of(context)
-                        .colorScheme
-                        .primary,
-                  ),
-                ),
-              )),
+                    color: Theme.of(context).colorScheme.secondary),
+              ),
+            ),
+          ),
           body: Padding(
             padding: const EdgeInsets.all(12.0),
             child: SingleChildScrollView(
