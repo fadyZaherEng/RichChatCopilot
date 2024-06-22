@@ -8,6 +8,7 @@ import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage_reply.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/chats/chats_bloc.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/utils/show_reactions_dialog.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/current_massage_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/receiver_massage_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/build_date_widget.dart';
@@ -18,6 +19,8 @@ class ChatsListMassagesWidget extends StatefulWidget {
   final UserModel currentUser;
   final String friendId;
   final void Function(MassageReply massageReply) onRightSwipe;
+  final void Function(String) onEmojiSelected;
+  final void Function(String) onContextMenuSelected;
 
   const ChatsListMassagesWidget({
     super.key,
@@ -26,6 +29,8 @@ class ChatsListMassagesWidget extends StatefulWidget {
     required this.currentUser,
     required this.onRightSwipe,
     required this.friendId,
+    required this.onEmojiSelected,
+    required this.onContextMenuSelected,
   });
 
   @override
@@ -61,7 +66,9 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                 ),
               );
             }
-            if (!snapshot.hasData || snapshot.data == null || snapshot.data!.isEmpty) {
+            if (!snapshot.hasData ||
+                snapshot.data == null ||
+                snapshot.data!.isEmpty) {
               return Center(
                 child: Text(
                   S.of(context).startConversation,
@@ -85,7 +92,8 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
               });
               final massages = snapshot.data!;
               return GroupedListView<dynamic, DateTime>(
-                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
                 reverse: true,
                 elements: massages,
                 controller: widget.massagesScrollController,
@@ -111,22 +119,36 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                   }
                   bool isMe = massage.senderId == widget.currentUser.uId;
                   return isMe
-                      ? Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: CurrentMassageWidget(
-                            massage: massage,
-                            onRightSwipe: () {
-                              final massageReply = MassageReply(
-                                massage: massage.massage,
-                                senderName: massage.senderName,
-                                senderId: massage.senderId,
-                                senderImage: massage.senderImage,
-                                massageType: massage.massageType,
-                                isMe: isMe,
-                              );
-                              // _bloc.setMassageReply(massageReply);
-                              widget.onRightSwipe(massageReply);
-                            },
+                      ? GestureDetector(
+                          onLongPress: () {
+                            showReactionsDialog(
+                                context: context,
+                                massage: massage,
+                                uId: widget.currentUser.uId,
+                                onContextMenuSelected: (emoji) {
+                                  widget.onContextMenuSelected(emoji);
+                                },
+                                onEmojiSelected: (emoji) {
+                                  widget.onEmojiSelected(emoji);
+                                },);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: CurrentMassageWidget(
+                              massage: massage,
+                              onRightSwipe: () {
+                                final massageReply = MassageReply(
+                                  massage: massage.massage,
+                                  senderName: massage.senderName,
+                                  senderId: massage.senderId,
+                                  senderImage: massage.senderImage,
+                                  massageType: massage.massageType,
+                                  isMe: isMe,
+                                );
+                                // _bloc.setMassageReply(massageReply);
+                                widget.onRightSwipe(massageReply);
+                              },
+                            ),
                           ),
                         )
                       : Padding(

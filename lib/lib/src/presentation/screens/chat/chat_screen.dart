@@ -54,6 +54,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
   //sounds and send button
   bool _isShowSendButton = false;
 
+
   @override
   void initState() {
     super.initState();
@@ -108,6 +109,20 @@ class _ChatScreenState extends BaseState<ChatScreen> {
                   _bloc.setMassageReply(massageReply);
                 },
                 friendId: widget.friendId,
+                onEmojiSelected: (String emoji) {
+                  _massageController
+                    ..text = _massageController.text + emoji
+                    ..selection = TextSelection.fromPosition(
+                      TextPosition(offset: _massageController.text.length),
+                    );
+                },
+                onContextMenuSelected: (String value) {
+                  if (value.isNotEmpty) {
+                    _isShowSendButton = true;
+                  } else {
+                    _isShowSendButton = false;
+                  }
+                },
               ),
             ),
             const SizedBox(height: 15),

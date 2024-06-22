@@ -13,7 +13,6 @@ Future showActionDialogWidget({
   Color? iconColor,
 }) async {
   return showDialog(
-      barrierDismissible: false,
       context: context,
       builder: (BuildContext context) => Dialog(
           elevation: 0,
