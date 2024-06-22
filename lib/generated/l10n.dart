@@ -801,6 +801,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Image`
+  String get image {
+    return Intl.message(
+      'Image',
+      name: 'image',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `File`
+  String get file {
+    return Intl.message(
+      'File',
+      name: 'file',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

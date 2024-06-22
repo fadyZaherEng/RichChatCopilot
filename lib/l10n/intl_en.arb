@@ -74,5 +74,7 @@
   "video": "Video",
   "you": "You",
   "audio": "Audio",
-  "youShouldHaveAudioPermission": "You should have audio permission"
+  "youShouldHaveAudioPermission": "You should have audio permission",
+  "image": "Image",
+  "file": "File"
 }

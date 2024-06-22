@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/chat_screen.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/play_video_full_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/firends_requests/frients_requests_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/friends/friends_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/home/home_screen.dart';
@@ -24,6 +25,7 @@ class Routes {
   static const String friendRequestScreen = "/friendRequestScreen";
   static const String friendsScreen = "/friendsScreen";
   static const String chatWithFriendScreen = "/chatWithFriendScreen";
+  static const String fullVideoScreen = "/full_video_screen";
 }
 
 class RoutesManager {
@@ -72,6 +74,12 @@ class RoutesManager {
           friendName: arg["friendName"],
           friendImage: arg["friendImage"],
           groupId: arg["groupId"],
+        ));
+       case Routes.fullVideoScreen:
+        Map<String, dynamic> arg =
+            routeSettings.arguments as Map<String, dynamic>;
+        return _materialRoute(PlayVideoFullScreen(
+          videoPath: arg["videoPath"],
         ));
       default:
         return _materialRoute(const SplashScreen());

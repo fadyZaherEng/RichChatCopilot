@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
 import 'dart:io';
 
@@ -363,6 +365,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
   Future<void> sentFileMessage({
     required UserModel sender,
     required String receiverId,
+
     required String receiverName,
     required String receiverImage,
     required String groupId,
