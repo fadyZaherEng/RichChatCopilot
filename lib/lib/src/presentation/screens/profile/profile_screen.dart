@@ -1,5 +1,3 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +12,6 @@ import 'package:rich_chat_copilot/lib/src/core/utils/show_action_dialog.dart';
 import 'package:rich_chat_copilot/lib/src/data/source/local/single_ton/firebase_single_ton.dart';
 import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
-import 'package:rich_chat_copilot/lib/src/domain/usecase/get_theme_use_case.dart';
 import 'package:rich_chat_copilot/lib/src/domain/usecase/get_user_use_case.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/profile/profile_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/build_app_bar_widget.dart';
