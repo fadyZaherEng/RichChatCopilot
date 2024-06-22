@@ -112,9 +112,9 @@ class _BottomChatWidgetState extends State<BottomChatWidget> {
                   IconButton(
                     onPressed: widget.toggleEmojiKeyWordContainer,
                     icon: Icon(
-                      widget.isShowEmojiPicker?
-                      Icons.keyboard:
-                      Icons.emoji_emotions_outlined,
+                      widget.isShowEmojiPicker
+                          ? Icons.keyboard
+                          : Icons.emoji_emotions_outlined,
                       size: 20,
                     ),
                   ),
