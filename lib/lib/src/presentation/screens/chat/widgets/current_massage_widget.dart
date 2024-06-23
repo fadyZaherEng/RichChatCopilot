@@ -30,15 +30,16 @@ class CurrentMassageWidget extends StatelessWidget {
             minWidth: MediaQuery.of(context).size.width * 0.2,
           ),
           child: Container(
-             padding: const EdgeInsets.all(5),
+            padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  // topEnd: Radius.circular(15),
-                  // bottomEnd: Radius.circular(15),
-                  // bottomStart: Radius.circular(15),
-                )),
+              color: Theme.of(context).colorScheme.primary,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20),
+                // topEnd: Radius.circular(15),
+                // bottomEnd: Radius.circular(15),
+                // bottomStart: Radius.circular(15),
+              ),
+            ),
             child: Stack(
               children: [
                 Padding(
@@ -97,7 +98,8 @@ class CurrentMassageWidget extends StatelessWidget {
                     children: [
                       Text(
                         DateFormat("hh:mm a").format(massage.timeSent),
-                        style: const TextStyle(color: Colors.white, fontSize: 10),
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 10),
                       ),
                       const SizedBox(width: 4),
                       Icon(

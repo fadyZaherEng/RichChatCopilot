@@ -20,6 +20,7 @@ class ShowAudioWidget extends StatefulWidget {
   State<ShowAudioWidget> createState() => _ShowAudioWidgetState();
 }
 
+//issue in counter maintaim value of previous sole it in video in course review this section again
 class _ShowAudioWidgetState extends State<ShowAudioWidget> {
   AudioPlayer audioPlayer = AudioPlayer();
   bool isPlaying = false;
@@ -28,16 +29,14 @@ class _ShowAudioWidgetState extends State<ShowAudioWidget> {
   bool _isMuted = false;
 
   @override
-  void setState(fn) {
-    if (mounted) {
-      super.setState(fn);
-    }
-  }
-
-  @override
   void initState() {
     super.initState();
     // init audio player
+    audioPlayer = AudioPlayer();
+    isPlaying = false;
+    duration = Duration.zero;
+    position = Duration.zero;
+    _isMuted = false;
     audioPlayer.onPlayerStateChanged.listen((state) {
       if (state == PlayerState.completed) {
         setState(() {

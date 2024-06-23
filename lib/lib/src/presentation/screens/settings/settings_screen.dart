@@ -91,10 +91,6 @@ class _SettingsScreenState extends BaseState<SettingsScreen> {
                   CustomSwitchWidget(
                     value: isDarkMode,
                     onChanged: (bool value) {
-                      // _bloc.add(ChangeThemeEvent(isDarkTheme: value));
-                      // setState(() {
-                      //   isDarkMode = value;
-                      // });
                       setState(() {
                         isDarkMode = value;
                       });
@@ -103,7 +99,7 @@ class _SettingsScreenState extends BaseState<SettingsScreen> {
                       } else {
                         AdaptiveTheme.of(context).setLight();
                       }
-                      // RestartWidget.restartApp(context);
+                       RestartWidget.restartApp(context);
                     },
                     title: S.of(context).theme,
                   ),

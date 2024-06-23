@@ -6,6 +6,7 @@ import 'package:audio_session/audio_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lottie/lottie.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rich_chat_copilot/generated/l10n.dart';
@@ -66,13 +67,20 @@ class _RecordVoiceWidgetState extends State<RecordVoiceWidget> {
               borderRadius: BorderRadius.circular(30),
             ),
             child: Center(
-              child: SvgPicture.asset(
-                isRecording ? ImagePaths.icStop : ImagePaths.icMicrophone,
-                fit: BoxFit.scaleDown,
-                width: 20,
-                height: 20,
-                color: Theme.of(context).cardColor,
-              ),
+              child: isRecording
+                  ? Lottie.asset(
+                      ImagePaths.mic,
+                      fit: BoxFit.cover,
+                      width: 35,
+                      height: 35,
+                    )
+                  : SvgPicture.asset(
+                      ImagePaths.icMicrophone,
+                      fit: BoxFit.scaleDown,
+                      width: 20,
+                      height: 20,
+                      color: Theme.of(context).cardColor,
+                    ),
             ),
           ),
         ),

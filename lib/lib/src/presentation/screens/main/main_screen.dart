@@ -22,7 +22,8 @@ class MainScreen extends BaseStatefulWidget {
   BaseState<MainScreen> baseCreateState() => _MainScreenState();
 }
 
-class _MainScreenState extends BaseState<MainScreen> with WidgetsBindingObserver,TickerProviderStateMixin {
+class _MainScreenState extends BaseState<MainScreen> with WidgetsBindingObserver,TickerProviderStateMixin,
+RouteAware{
   final List<Widget> _screens = [
     const ChatsScreen(),
     const GroupsScreen(),
@@ -40,6 +41,13 @@ class _MainScreenState extends BaseState<MainScreen> with WidgetsBindingObserver
     _user = GetUserUseCase(injector())();
   }
 
+  @override
+  void didPopNext() {
+    super.didPopNext();
+    setState(() {
+
+    });
+  }
 
   @override
   Widget baseBuild(BuildContext context) {

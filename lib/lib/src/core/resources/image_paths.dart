@@ -4,6 +4,7 @@ class ImagePaths {
   static const String log1 = 'assets/images/log1.json';
   static const String log2 = 'assets/images/log2.json';
   static const String log3 = 'assets/images/log3.json';
+  static const String mic = 'assets/images/mic.json';
   static const String icCancel = 'assets/images/ic_cancel.svg';
   static const String icSuccess = 'assets/images/ic_success.svg';
   static const String icCamera = 'assets/images/ic_camera.svg';
