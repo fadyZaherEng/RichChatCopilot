@@ -333,8 +333,20 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
     required double width,
     required VoidCallback onPressed,
   }) {
-    return SizedBox(
+    return Container(
       width: width,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color:backgroundColor, width: 0),
+        boxShadow: [
+          BoxShadow(
+            color:ColorSchemes.lightGray.withOpacity(0.3),
+            spreadRadius: 1,
+            blurRadius: 7,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
@@ -343,12 +355,14 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-        child: Text(text.toUpperCase(),
-            style: GoogleFonts.openSans(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: textColor,
-            )),
+        child: Text(
+          text.toUpperCase(),
+          style: GoogleFonts.openSans(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: textColor,
+          ),
+        ),
       ),
     );
   }
