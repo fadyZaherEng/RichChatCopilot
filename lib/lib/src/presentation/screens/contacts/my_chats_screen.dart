@@ -135,11 +135,7 @@ class _ChatsScreenState extends BaseState<ChatsScreen> {
                               DateFormat("hh:mm a").format(
                                 snapshot.data![index].timeSent,
                               ),
-                              style: GoogleFonts.openSans(
-                                fontSize: 12,
-                                fontWeight: FontWeight.normal,
-                                color: ColorSchemes.gray,
-                              ),
+                              style: Theme.of(context).textTheme.bodySmall,
                             ),
                             onTap: () {
                               //TODO: navigate to chat screen

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rich_chat_copilot/lib/src/config/routes/routes_manager.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
+import 'package:rich_chat_copilot/lib/src/core/resources/image_paths.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
 import 'package:rich_chat_copilot/lib/src/data/source/local/single_ton/firebase_single_ton.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
@@ -36,43 +38,65 @@ class ChatAppBarWidget extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                InkWell(
-                  onTap: () {
-                    //TODO: navigate to profile screen
-                    Navigator.pushNamed(context, Routes.profileScreen,
-                        arguments: {"userId": user.uId});
-                  },
-                  child: UserImageWidget(image: user.image),
-                ),
-                const SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
                   mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      user.name,
-                      style: GoogleFonts.openSans(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    InkWell(
+                      onTap: () {
+                        //TODO: navigate to profile screen
+                        Navigator.pushNamed(
+                          context,
+                          Routes.profileScreen,
+                          arguments: {"userId": user.uId},
+                        );
+                      },
+                      child: UserImageWidget(image: user.image),
                     ),
-                    Text(
-                      user.isOnline
-                          ? "Online"
-                          : timeago.format(DateTime.fromMillisecondsSinceEpoch(
-                              int.parse(user.lastSeen))),
-                      style: GoogleFonts.openSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.normal,
-                        color: user.isOnline
-                            ? ColorSchemes.green
-                            : Colors.grey.shade600,
-                      ),
+                    const SizedBox(width: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          user.name,
+                          style: GoogleFonts.openSans(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          user.isOnline
+                              ? "Online"
+                              : timeago.format(DateTime.fromMillisecondsSinceEpoch(
+                                  int.parse(user.lastSeen))),
+                          style: GoogleFonts.openSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.normal,
+                            color: user.isOnline
+                                ? ColorSchemes.green
+                                : Colors.grey.shade600,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
+                ),
+                //TODO: add back arrow
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: SvgPicture.asset(
+                    ImagePaths.icBackArrow,
+                    matchTextDirection: true,
+                    width: 24,
+                    height: 24,
+                    fit: BoxFit.scaleDown,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
                 ),
               ],
             ),

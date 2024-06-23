@@ -18,6 +18,7 @@ class MassageReplyTypeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return massageReplayShow();
   }
+
   Widget massageReplayShow() {
     switch (massageType) {
       case MassageType.text:
@@ -25,9 +26,10 @@ class MassageReplyTypeWidget extends StatelessWidget {
           massage,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
+          style: Theme.of(context).textTheme.bodyMedium,
         );
       case MassageType.image:
-        return  Row(
+        return Row(
           children: [
             const Icon(Icons.image_outlined),
             const SizedBox(
@@ -37,49 +39,49 @@ class MassageReplyTypeWidget extends StatelessWidget {
               S.of(context).image,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodySmall,
             ),
           ],
         );
       case MassageType.video:
-        return  Row(
+        return Row(
           children: [
-            const Icon(Icons.video_library_outlined),
-            const SizedBox(
-              width: 10,
-            ),
+            Icon(Icons.video_library_outlined,
+                color: Theme.of(context).colorScheme.secondary),
+            const SizedBox(width: 10),
             Text(
               S.of(context).video,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodySmall,
             ),
           ],
         );
       case MassageType.audio:
-        return  Row(
+        return Row(
           children: [
-             Icon(Icons.audiotrack_outlined,color: Theme.of(context).cardColor,),
-            const SizedBox(
-              width: 10,
-            ),
+            Icon(Icons.audiotrack_outlined,
+                color: Theme.of(context).colorScheme.secondary),
+            const SizedBox(width: 10),
             Text(
               S.of(context).audio,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(color: Theme.of(context).cardColor),
+              style: Theme.of(context).textTheme.bodySmall,
             ),
           ],
         );
       case MassageType.file:
-        return  Row(
+        return Row(
           children: [
-            const Icon(Icons.file_copy_outlined),
-            const SizedBox(
-              width: 10,
-            ),
+            Icon(Icons.file_copy_outlined,
+                color: Theme.of(context).colorScheme.secondary),
+            const SizedBox(width: 10),
             Text(
               S.of(context).file,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodySmall,
             ),
           ],
         );
@@ -88,8 +90,8 @@ class MassageReplyTypeWidget extends StatelessWidget {
           massage,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
+          style: Theme.of(context).textTheme.bodyMedium,
         );
     }
   }
-
 }

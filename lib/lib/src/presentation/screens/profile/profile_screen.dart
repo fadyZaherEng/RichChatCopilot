@@ -124,7 +124,7 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
           body: StreamBuilder(
             stream: FirebaseSingleTon.db
                 .collection(Constants.users)
-                .doc(_currentUser.uId)
+                .doc(widget.userId)
                 .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {

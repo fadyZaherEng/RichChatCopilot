@@ -105,8 +105,11 @@ class _GlobeScreenState extends BaseState<GlobeScreen> {
                       padding: const EdgeInsetsDirectional.only(start: 0),
                       child: ListTile(
                         onTap: () {
-                          Navigator.pushNamed(context, Routes.profileScreen,
-                              arguments: {"userId": user.uId});
+                          Navigator.pushNamed(
+                            context,
+                            Routes.profileScreen,
+                            arguments: {"userId": user.uId},
+                          );
                         },
                         leading: UserImageWidget(
                           image: user.image,
@@ -119,7 +122,8 @@ class _GlobeScreenState extends BaseState<GlobeScreen> {
                             style: Theme.of(context).textTheme.bodySmall),
                         trailing: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor:  Theme.of(context).colorScheme.primary,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primary,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
@@ -140,7 +144,7 @@ class _GlobeScreenState extends BaseState<GlobeScreen> {
                             style: GoogleFonts.openSans(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
-                              color:Theme.of(context).cardColor,
+                              color: Theme.of(context).cardColor,
                             ),
                           ),
                         ),
