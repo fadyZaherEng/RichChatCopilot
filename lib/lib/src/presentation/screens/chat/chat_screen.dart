@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
@@ -98,18 +100,19 @@ class _ChatScreenState extends BaseState<ChatScreen> {
   //show emoji container
   void _showEmojiPickerDialog() {
     showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return SizedBox(
-              height: 300,
-              child: EmojiPicker(
-                onEmojiSelected: (category, emoji) {
-                  _navigateBackEvent();
-                  // _massageController.text = _massageController.text + emoji.emoji;
-                  print(emoji.emoji);
-                },
-              ));
-        });
+      context: context,
+      builder: (context) {
+        return SizedBox(
+          height: 300,
+          child: EmojiPicker(
+            onEmojiSelected: (category, emoji) {
+              _navigateBackEvent();
+              print(emoji.emoji);
+            },
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -151,120 +154,121 @@ class _ChatScreenState extends BaseState<ChatScreen> {
       }
     }, builder: (context, state) {
       return Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 50),
-            ChatAppBarWidget(friendId: widget.friendId),
-            Expanded(
-              child: ChatsListMassagesWidget(
-                massagesStream: _bloc.getMessagesStream(
-                  receiverId: widget.friendId,
-                  userId: currentUser.uId,
-                  isGroup: widget.groupId,
+        body: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ChatAppBarWidget(friendId: widget.friendId),
+              Expanded(
+                child: ChatsListMassagesWidget(
+                  massagesStream: _bloc.getMessagesStream(
+                    receiverId: widget.friendId,
+                    userId: currentUser.uId,
+                    isGroup: widget.groupId,
+                  ),
+                  massagesScrollController: _massagesScrollController,
+                  currentUser: currentUser,
+                  onRightSwipe: (MassageReply massageReply) {
+                    _bloc.setMassageReply(massageReply);
+                  },
+                  friendId: widget.friendId,
+                  onEmojiSelected: (String emoji) {
+                    Future.delayed(
+                      const Duration(milliseconds: 500),
+                      () {
+                        _navigateBackEvent();
+                        if (emoji == '➕') {
+                        } else {
+                          _massageController
+                            ..text = _massageController.text + emoji
+                            ..selection = TextSelection.fromPosition(
+                              TextPosition(
+                                  offset: _massageController.text.length),
+                            );
+                        }
+                      },
+                    );
+                  },
+                  onContextMenuSelected: (String contextMenu, Massage massage) {
+                    Future.delayed(
+                      const Duration(milliseconds: 500),
+                      () {
+                        _navigateBackEvent();
+                        _onContextMenuSelected(contextMenu, massage);
+                      },
+                    );
+                  },
                 ),
-                massagesScrollController: _massagesScrollController,
-                currentUser: currentUser,
-                onRightSwipe: (MassageReply massageReply) {
-                  _bloc.setMassageReply(massageReply);
-                },
+              ),
+              const SizedBox(height: 15),
+              BottomChatWidget(
                 friendId: widget.friendId,
-                onEmojiSelected: (String emoji) {
-                  Future.delayed(
-                    const Duration(milliseconds: 500),
-                    () {
-                      _navigateBackEvent();
-                      if (emoji == '➕') {
-                      } else {
-                        _massageController
-                          ..text = _massageController.text + emoji
-                          ..selection = TextSelection.fromPosition(
-                            TextPosition(
-                                offset: _massageController.text.length),
-                          );
-                      }
-                    },
-                  );
+                friendName: widget.friendName,
+                friendImage: widget.friendImage,
+                groupId: widget.groupId,
+                textEditingController: _massageController,
+                focusNode: _massageFocusNode,
+                isAttachedLoading: state is SendFileMessageLoading,
+                isSendingLoading: state is SendTextMessageLoading,
+                isShowSendButton: _isShowSendButton,
+                hideEmojiContainer: () {
+                  _hideEmojiContainer();
                 },
-                onContextMenuSelected: (String contextMenu, Massage massage) {
-                  Future.delayed(
-                    const Duration(milliseconds: 500),
-                    () {
-                      _navigateBackEvent();
-                      _onContextMenuSelected(contextMenu, massage);
-                    },
+                emojiSelected: (category, emoji) {
+                  _massageController.text =
+                      _massageController.text + emoji!.emoji;
+                  if (!_isShowSendButton) {
+                    setState(() {
+                      _isShowSendButton = true;
+                    });
+                  }
+                },
+                isShowEmojiPicker: _isShowEmojiPicker,
+                onBackspacePressed: () {
+                  _massageController.text =
+                      _massageController.text.characters.skipLast(1).toString();
+                },
+                toggleEmojiKeyWordContainer: () {
+                  _toggleEmojiKeyWordContainer();
+                },
+                onTextChange: (String value) {
+                  _massageController.text = value;
+                },
+                onAttachPressed: () {
+                  _openMediaBottomSheet(context);
+                },
+                onSendTextPressed: () {
+                  //TODO: send message
+                  if (_massageController.text.isNotEmpty) {
+                    _bloc.add(SendTextMessageEvent(
+                      sender: currentUser,
+                      receiverId: widget.friendId,
+                      receiverName: widget.friendName,
+                      receiverImage: widget.friendImage,
+                      message: _massageController.text,
+                      massageType: MassageType.text,
+                      groupId: widget.groupId,
+                    ));
+                  }
+                },
+                massageReply: _bloc.massageReply,
+                setReplyMessageWithNull: () {
+                  _bloc.setMassageReply(null);
+                },
+                onSendAudioPressed: ({
+                  required File audioFile,
+                  required bool isSendingButtonShow,
+                }) {
+                  _isShowSendButton = isSendingButtonShow;
+                  _sendFileMassage(
+                    massageType: MassageType.audio,
+                    filePath: audioFile.path,
                   );
                 },
               ),
-            ),
-            const SizedBox(height: 15),
-            BottomChatWidget(
-              friendId: widget.friendId,
-              friendName: widget.friendName,
-              friendImage: widget.friendImage,
-              groupId: widget.groupId,
-              textEditingController: _massageController,
-              focusNode: _massageFocusNode,
-              isAttachedLoading: state is SendFileMessageLoading,
-              isSendingLoading: state is SendTextMessageLoading,
-              isShowSendButton: _isShowSendButton,
-              hideEmojiContainer: () {
-                _hideEmojiContainer();
-              },
-              emojiSelected: (category, emoji) {
-                _massageController.text =
-                    _massageController.text + emoji!.emoji;
-                if (!_isShowSendButton) {
-                  setState(() {
-                    _isShowSendButton = true;
-                  });
-                }
-              },
-              isShowEmojiPicker: _isShowEmojiPicker,
-              onBackspacePressed: () {
-                _massageController.text =
-                    _massageController.text.characters.skipLast(1).toString();
-              },
-              toggleEmojiKeyWordContainer: () {
-                _toggleEmojiKeyWordContainer();
-              },
-              onTextChange: (String value) {
-                _massageController.text = value;
-              },
-              onAttachPressed: () {
-                _openMediaBottomSheet(context);
-              },
-              onSendTextPressed: () {
-                //TODO: send message
-                if (_massageController.text.isNotEmpty) {
-                  _bloc.add(SendTextMessageEvent(
-                    sender: currentUser,
-                    receiverId: widget.friendId,
-                    receiverName: widget.friendName,
-                    receiverImage: widget.friendImage,
-                    message: _massageController.text,
-                    massageType: MassageType.text,
-                    groupId: widget.groupId,
-                  ));
-                }
-              },
-              massageReply: _bloc.massageReply,
-              setReplyMessageWithNull: () {
-                _bloc.setMassageReply(null);
-              },
-              onSendAudioPressed: ({
-                required File audioFile,
-                required bool isSendingButtonShow,
-              }) {
-                _isShowSendButton = isSendingButtonShow;
-                _sendFileMassage(
-                  massageType: MassageType.audio,
-                  filePath: audioFile.path,
-                );
-              },
-            ),
-          ],
+            ],
+          ),
         ),
       );
     });

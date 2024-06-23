@@ -89,14 +89,11 @@ class ChatAppBarWidget extends StatelessWidget {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: SvgPicture.asset(
-                    ImagePaths.icBackArrow,
-                    matchTextDirection: true,
-                    width: 24,
-                    height: 24,
-                    fit: BoxFit.scaleDown,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Theme.of(context).iconTheme.color,
+                    textDirection: TextDirection.rtl,
+                  )
                 ),
               ],
             ),
