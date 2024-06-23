@@ -1,16 +1,14 @@
 # rich_chat_copilot
 
-Rich Chat Copilot
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# -- User handle authentication with phone and OTP widget using package (pinput with custom theme)
+# -- User handle model with perfect data that handle user profile within (view requests ,send request .cancel and accept new friends)
+# -- Adaptive theme
+# -- Handle massage, reply massage ,last massage model
+# -- How to Get My Chats with last massage
+# -- Handel User Status Online/Offline
+# -- Send Text , Audio , Video Massage in Chats
+# -- Show Text , Audio , Video in Massage Chats
+# -- Handle Reply Functionality (with Swipe To)
+# -- Handle Chat List with (grouped List)
+# -- Handel Massage Seen
+# -- Reactions
