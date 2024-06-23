@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -94,6 +95,23 @@ class _ChatScreenState extends BaseState<ChatScreen> {
     }
   }
 
+  //show emoji container
+  void _showEmojiPickerDialog() {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return SizedBox(
+              height: 300,
+              child: EmojiPicker(
+                onEmojiSelected: (category, emoji) {
+                  _navigateBackEvent();
+                  // _massageController.text = _massageController.text + emoji.emoji;
+                  print(emoji.emoji);
+                },
+              ));
+        });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -153,19 +171,30 @@ class _ChatScreenState extends BaseState<ChatScreen> {
                 },
                 friendId: widget.friendId,
                 onEmojiSelected: (String emoji) {
-                  _navigateBackEvent();
-                  if (emoji == '➕') {
-                  } else {
-                    _massageController
-                      ..text = _massageController.text + emoji
-                      ..selection = TextSelection.fromPosition(
-                        TextPosition(offset: _massageController.text.length),
-                      );
-                  }
+                  Future.delayed(
+                    const Duration(milliseconds: 500),
+                    () {
+                      _navigateBackEvent();
+                      if (emoji == '➕') {
+                      } else {
+                        _massageController
+                          ..text = _massageController.text + emoji
+                          ..selection = TextSelection.fromPosition(
+                            TextPosition(
+                                offset: _massageController.text.length),
+                          );
+                      }
+                    },
+                  );
                 },
                 onContextMenuSelected: (String contextMenu, Massage massage) {
-                  _navigateBackEvent();
-                  _onContextMenuSelected(contextMenu, massage);
+                  Future.delayed(
+                    const Duration(milliseconds: 500),
+                    () {
+                      _navigateBackEvent();
+                      _onContextMenuSelected(contextMenu, massage);
+                    },
+                  );
                 },
               ),
             ),

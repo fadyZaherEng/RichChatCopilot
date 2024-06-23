@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/display_massage_reply_type_widget.dart';
@@ -32,6 +33,10 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
     "➕",
   ];
   final List<String> _contextMenu = ["Reply", "Copy", "Delete"];
+  bool reactionClicked = false;
+  int clickedReactionIndex = -1;
+  bool contextMenuClicked = false;
+  int clickedContextMenuIndex = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +57,7 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                       margin: const EdgeInsets.symmetric(vertical: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: isMyMessage
-                            ? Theme.of(context).colorScheme.primary
-                            : Colors.grey[400],
+                        color: Colors.white,
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.shade400,
@@ -70,15 +73,42 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                           for (var reaction in _reactions)
                             InkWell(
                               onTap: () {
-                                widget.onEmojiSelected(reaction);
+                                 widget.onEmojiSelected(reaction);
+                                setState(() {
+                                  reactionClicked = true;
+                                  clickedReactionIndex =
+                                      _reactions.indexOf(reaction);
+                                });
+                                //set the reaction back
+                                Future.delayed(
+                                    const Duration(milliseconds: 500), () {
+                                  setState(() {
+                                    reactionClicked = false;
+                                  });
+                                });
                               },
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  reaction,
-                                  style: const TextStyle(fontSize: 20),
-                                ),
-                              ),
+                              child: reactionClicked &&
+                                      clickedReactionIndex ==
+                                          _reactions.indexOf(reaction)
+                                  ? Pulse(
+                                      duration:
+                                          const Duration(milliseconds: 500),
+                                      animate: reactionClicked,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          reaction,
+                                          style: const TextStyle(fontSize: 20),
+                                        ),
+                                      ),
+                                    )
+                                  : Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        reaction,
+                                        style: const TextStyle(fontSize: 20),
+                                      ),
+                                    ),
                             ),
                         ],
                       ),
@@ -143,28 +173,67 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                               onTap: () {
                                 widget.onContextMenuSelected(
                                     contextMenu, widget.message);
+                                setState(() {
+                                  contextMenuClicked = true;
+                                  clickedContextMenuIndex =
+                                      _contextMenu.indexOf(contextMenu);
+                                });
+                                //set the reaction back
+                                Future.delayed(
+                                    const Duration(milliseconds: 500), () {
+                                  if (mounted) {
+                                    setState(() {
+                                      contextMenuClicked = false;
+                                    });
+                                  }
+                                });
                               },
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 8),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 8),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       contextMenu,
-                                      style:  TextStyle(
+                                      style: TextStyle(
                                         fontSize: 20,
-                                        color: Theme.of(context).colorScheme.secondary,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
                                       ),
                                     ),
-                                    Icon(
-                                      contextMenu == "Reply"
-                                          ? Icons.reply
-                                          : contextMenu == "Copy"
-                                              ? Icons.copy
-                                              : Icons.delete,
-                                      color: Theme.of(context).colorScheme.secondary,
-                                    )
+                                    contextMenuClicked &&
+                                            clickedContextMenuIndex ==
+                                                _contextMenu
+                                                    .indexOf(contextMenu)
+                                        ? Pulse(
+                                            infinite: false,
+                                            duration: const Duration(
+                                                milliseconds: 500),
+                                            animate: contextMenuClicked,
+                                            child: Icon(
+                                              contextMenu == "Reply"
+                                                  ? Icons.reply
+                                                  : contextMenu == "Copy"
+                                                      ? Icons.copy
+                                                      : Icons.delete,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary,
+                                            ),
+                                          )
+                                        : Icon(
+                                            contextMenu == "Reply"
+                                                ? Icons.reply
+                                                : contextMenu == "Copy"
+                                                    ? Icons.copy
+                                                    : Icons.delete,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .secondary,
+                                          )
                                   ],
                                 ),
                               ),
