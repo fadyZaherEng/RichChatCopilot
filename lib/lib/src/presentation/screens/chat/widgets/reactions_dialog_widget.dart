@@ -73,7 +73,7 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                           for (var reaction in _reactions)
                             InkWell(
                               onTap: () {
-                                 widget.onEmojiSelected(reaction);
+                                widget.onEmojiSelected(reaction);
                                 setState(() {
                                   reactionClicked = true;
                                   clickedReactionIndex =
@@ -87,28 +87,19 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                                   });
                                 });
                               },
-                              child: reactionClicked &&
-                                      clickedReactionIndex ==
-                                          _reactions.indexOf(reaction)
-                                  ? Pulse(
-                                      duration:
-                                          const Duration(milliseconds: 500),
-                                      animate: reactionClicked,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          reaction,
-                                          style: const TextStyle(fontSize: 20),
-                                        ),
-                                      ),
-                                    )
-                                  : Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        reaction,
-                                        style: const TextStyle(fontSize: 20),
-                                      ),
-                                    ),
+                              child: Pulse(
+                                duration: const Duration(milliseconds: 500),
+                                animate: reactionClicked &&
+                                    clickedReactionIndex ==
+                                        _reactions.indexOf(reaction),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    reaction,
+                                    style: const TextStyle(fontSize: 20),
+                                  ),
+                                ),
+                              ),
                             ),
                         ],
                       ),
@@ -180,13 +171,15 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                                 });
                                 //set the reaction back
                                 Future.delayed(
-                                    const Duration(milliseconds: 500), () {
-                                  if (mounted) {
-                                    setState(() {
-                                      contextMenuClicked = false;
-                                    });
-                                  }
-                                });
+                                  const Duration(milliseconds: 500),
+                                  () {
+                                    if (mounted) {
+                                      setState(() {
+                                        contextMenuClicked = false;
+                                      });
+                                    }
+                                  },
+                                );
                               },
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -204,36 +197,23 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                                             .secondary,
                                       ),
                                     ),
-                                    contextMenuClicked &&
-                                            clickedContextMenuIndex ==
-                                                _contextMenu
-                                                    .indexOf(contextMenu)
-                                        ? Pulse(
-                                            infinite: false,
-                                            duration: const Duration(
-                                                milliseconds: 500),
-                                            animate: contextMenuClicked,
-                                            child: Icon(
-                                              contextMenu == "Reply"
-                                                  ? Icons.reply
-                                                  : contextMenu == "Copy"
-                                                      ? Icons.copy
-                                                      : Icons.delete,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .secondary,
-                                            ),
-                                          )
-                                        : Icon(
-                                            contextMenu == "Reply"
-                                                ? Icons.reply
-                                                : contextMenu == "Copy"
-                                                    ? Icons.copy
-                                                    : Icons.delete,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .secondary,
-                                          )
+                                    Pulse(
+                                      infinite: false,
+                                      duration:
+                                          const Duration(milliseconds: 500),
+                                      animate: contextMenuClicked &&
+                                          clickedContextMenuIndex ==
+                                              _contextMenu.indexOf(contextMenu),
+                                      child: Icon(
+                                          contextMenu == "Reply"
+                                              ? Icons.reply
+                                              : contextMenu == "Copy"
+                                                  ? Icons.copy
+                                                  : Icons.delete,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .secondary),
+                                    )
                                   ],
                                 ),
                               ),
