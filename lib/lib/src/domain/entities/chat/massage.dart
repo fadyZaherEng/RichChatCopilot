@@ -13,6 +13,7 @@ class Massage {
   final String repliedMessage;
   final String repliedTo;
   final MassageType repliedMessageType;
+  final List<String> reactions ;
 
   const Massage({
     required this.senderId,
@@ -27,10 +28,10 @@ class Massage {
     required this.repliedMessage,
     required this.repliedTo,
     required this.repliedMessageType,
+    this.reactions = const [],
   });
 
   factory Massage.fromJson(Map<String, dynamic> json) {
-    print("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj${json['massageType'].toString().massageTypeFromString}");
     return Massage(
       senderId: json['senderId'],
       senderName: json['senderName'],
@@ -45,6 +46,7 @@ class Massage {
       repliedTo: json['repliedTo'],
       repliedMessageType:
           json['repliedMessageType'].toString().massageTypeFromString,
+      reactions: json['reactions'] != null ? List<String>.from(json['reactions']) : [],
     );
   }
 
@@ -62,6 +64,7 @@ class Massage {
       'repliedMessage': repliedMessage,
       'repliedTo': repliedTo,
       'repliedMessageType': repliedMessageType.name,
+      'reactions': reactions
     };
   }
 
@@ -79,6 +82,7 @@ class Massage {
     String? repliedMessage,
     String? repliedTo,
     MassageType? repliedMessageType,
+    List<String>? reactions,
   }) {
     return Massage(
       senderId: senderId ?? this.senderId,
@@ -93,6 +97,7 @@ class Massage {
       repliedMessage: repliedMessage ?? this.repliedMessage,
       repliedMessageType: repliedMessageType ?? this.repliedMessageType,
       repliedTo: repliedTo ?? this.repliedTo,
+      reactions: reactions ?? this.reactions,
     );
   }
 
@@ -113,6 +118,7 @@ class Massage {
       repliedMessage: repliedMessage,
       repliedMessageType: repliedMessageType,
       repliedTo: repliedTo,
+      reactions: reactions,
     );
   }
 }

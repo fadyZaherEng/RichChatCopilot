@@ -27,19 +27,18 @@ class CurrentMassageWidget extends StatelessWidget {
         child: ConstrainedBox(
           constraints: BoxConstraints(
             maxWidth: MediaQuery.of(context).size.width * 0.7,
-            minWidth: MediaQuery.of(context).size.width * 0.2,
+            minWidth: MediaQuery.of(context).size.width * 0.3,
           ),
-          child: Container(
-            padding: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(20),
-                // topEnd: Radius.circular(15),
-                // bottomEnd: Radius.circular(15),
-                // bottomStart: Radius.circular(15),
-              ),
+          child: Card(
+            elevation: 5,
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15),
+                  bottomLeft: Radius.circular(15),
+                  topRight: Radius.circular(15),
+                ),
             ),
+            color: Colors.deepPurple,
             child: Stack(
               children: [
                 Padding(
@@ -49,7 +48,7 @@ class CurrentMassageWidget extends StatelessWidget {
                           ? const EdgeInsets.fromLTRB(5, 0, 5, 25)
                           : const EdgeInsets.fromLTRB(5, 5, 5, 25),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       if (isReplying) ...[
                         Container(
@@ -59,7 +58,7 @@ class CurrentMassageWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
                                 massage.repliedTo,
@@ -91,9 +90,9 @@ class CurrentMassageWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                PositionedDirectional(
+                Positioned(
                   bottom: 4,
-                  start: 10,
+                  right: 10,
                   child: Row(
                     children: [
                       Text(
