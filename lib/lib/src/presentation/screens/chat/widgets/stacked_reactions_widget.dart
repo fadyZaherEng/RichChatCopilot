@@ -22,24 +22,6 @@ class StackedReactionsWidget extends StatefulWidget {
 class _StackedReactionsWidgetState extends State<StackedReactionsWidget> {
   @override
   Widget build(BuildContext context) {
-    widget.massage.reactions.clear();
-    widget.massage.reactions.add('❤️');
-    widget.massage.reactions.add('❤️');
-    widget.massage.reactions.add('❤️');
-    widget.massage.reactions.add('❤️');
-    widget.massage.reactions.add('❤️');
-    widget.massage.reactions.add('❤️');
-    widget.massage.reactions.add('❤️');
-    widget.massage.reactions.add('❤️');
-    widget.massage.reactions.add('❤️');
-    widget.massage.reactions.add('❤️');
-    widget.massage.reactions.add('❤️');
-    widget.massage.reactions.add('❤️');
-    widget.massage.reactions.add('❤️');
-    widget.massage.reactions.add('❤️');
-    widget.massage.reactions.add('❤️');
-    widget.massage.reactions.add('❤️');
-    widget.massage.reactions.add('❤️');
     final reactionShow = widget.massage.reactions.length > 5
         ? widget.massage.reactions.sublist(0, 5)
         : widget.massage.reactions;
@@ -86,10 +68,12 @@ class _StackedReactionsWidgetState extends State<StackedReactionsWidget> {
                               color: Colors.white,
                               clipBehavior: Clip.hardEdge,
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 2.0,horizontal: 1),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 2.0, horizontal: 1),
                                 child: ClipOval(
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 2.0,horizontal: 1),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 2.0, horizontal: 1),
                                     child: Text(
                                       '+$remainingReactionsLength',
                                       style: const TextStyle(
