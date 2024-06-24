@@ -91,19 +91,19 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
         _massageReply?.massageType ?? MassageType.text;
     //update massage model with replied message
     final massage = Massage(
-      senderId: event.sender.uId,
-      senderName: event.sender.name,
-      senderImage: event.sender.image,
-      receiverId: event.receiverId,
-      massage: event.message,
-      massageType: event.massageType,
-      timeSent: DateTime.now(),
-      messageId: massageId,
-      isSeen: false,
-      repliedMessage: repliedMessage,
-      repliedTo: repliedTo,
-      repliedMessageType: repliedMessageType,
-    );
+        senderId: event.sender.uId,
+        senderName: event.sender.name,
+        senderImage: event.sender.image,
+        receiverId: event.receiverId,
+        massage: event.message,
+        massageType: event.massageType,
+        timeSent: DateTime.now(),
+        messageId: massageId,
+        isSeen: false,
+        repliedMessage: repliedMessage,
+        repliedTo: repliedTo,
+        repliedMessageType: repliedMessageType,
+        reactions: []);
     //check if group massage and send to group else send to contact
     if (event.groupId.isNotEmpty) {
       //handle group massage
@@ -365,7 +365,6 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
   Future<void> sentFileMessage({
     required UserModel sender,
     required String receiverId,
-
     required String receiverName,
     required String receiverImage,
     required String groupId,
@@ -403,6 +402,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
       repliedMessage: repliedMessage,
       repliedTo: repliedTo,
       repliedMessageType: repliedMessageType,
+      reactions: [],
     );
     //check if group massage and send to group else send to contact
     if (groupId.isNotEmpty) {

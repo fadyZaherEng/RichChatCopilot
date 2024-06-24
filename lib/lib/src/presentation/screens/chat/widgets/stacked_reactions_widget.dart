@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rich_chat_copilot/lib/src/core/base/widget/base_stateful_widget.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage.dart';
 
 class StackedReactionsWidget extends StatefulWidget {
