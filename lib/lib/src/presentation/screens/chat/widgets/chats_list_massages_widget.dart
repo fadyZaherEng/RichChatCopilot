@@ -14,6 +14,8 @@ import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/mass
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/receiver_massage_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/stacked_reactions_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/build_date_widget.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/widgets/hero_dialog_route.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/widgets/minor_screen/reactions_context_menu.dart';
 
 class ChatsListMassagesWidget extends StatefulWidget {
   final Stream<List<Massage>> massagesStream;
@@ -23,6 +25,7 @@ class ChatsListMassagesWidget extends StatefulWidget {
   final void Function(MassageReply massageReply) onRightSwipe;
   final void Function(String, Massage) onEmojiSelected;
   final void Function(String, Massage) onContextMenuSelected;
+  final void Function(Massage) showEmojiKeyword;
 
   const ChatsListMassagesWidget({
     super.key,
@@ -33,6 +36,7 @@ class ChatsListMassagesWidget extends StatefulWidget {
     required this.friendId,
     required this.onEmojiSelected,
     required this.onContextMenuSelected,
+    required this.showEmojiKeyword,
   });
 
   @override
@@ -125,8 +129,29 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                   return Stack(
                     children: [
                       GestureDetector(
-                        onLongPress: () {
-                          _showReactionDialog(isMe, massage, context);
+                        onLongPress: () async {
+                          // _showReactionDialog(isMe, massage, context);
+                          final value = await Navigator.of(context).push(
+                            HeroDialogRoute(
+                              builder: (context) {
+                                return ReactionsContextMenu(
+                                  isMe: isMe,
+                                  massage: massage,
+                                  onContextMenuSelected: (emoji, massage) {
+                                    widget.onContextMenuSelected(
+                                        emoji, massage);
+                                  },
+                                  onEmojiSelected: (emoji, massage) {
+                                    widget.onEmojiSelected(emoji, massage);
+                                  },
+                                );
+                              },
+                            ),
+                          );
+                          if (value) {
+                            //show emoji keyboard
+                            widget.showEmojiKeyword(massage);
+                          }
                         },
                         child: Padding(
                           padding: EdgeInsets.only(
@@ -134,22 +159,25 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                               bottom: isMe
                                   ? myMassagePadding
                                   : otherMassagePadding),
-                          child: MassageWidget(
-                            massage: massage,
-                            isMe: isMe,
-                            isViewOnly: false,
-                            onRightSwipe: () {
-                              final massageReply = MassageReply(
-                                massage: massage.massage,
-                                senderName: massage.senderName,
-                                senderId: massage.senderId,
-                                senderImage: massage.senderImage,
-                                massageType: massage.massageType,
-                                isMe: isMe,
-                              );
-                              // _bloc.setMassageReply(massageReply);
-                              widget.onRightSwipe(massageReply);
-                            },
+                          child: Hero(
+                            tag: massage.messageId,
+                            child: MassageWidget(
+                              massage: massage,
+                              isMe: isMe,
+                              isViewOnly: false,
+                              onRightSwipe: () {
+                                final massageReply = MassageReply(
+                                  massage: massage.massage,
+                                  senderName: massage.senderName,
+                                  senderId: massage.senderId,
+                                  senderImage: massage.senderImage,
+                                  massageType: massage.massageType,
+                                  isMe: isMe,
+                                );
+                                // _bloc.setMassageReply(massageReply);
+                                widget.onRightSwipe(massageReply);
+                              },
+                            ),
                           ),
                         ),
                       ),

@@ -158,6 +158,10 @@ class _ChatScreenState extends BaseState<ChatScreen> {
           massageType: MassageType.video,
           filePath: state.file.path,
         );
+      } else if (state is SendReactionsToMassageSuccess) {
+        _navigateBackEvent();
+      } else if (state is SendReactionsToMassageError) {
+        _navigateBackEvent();
       }
     }, builder: (context, state) {
       return Scaffold(
@@ -179,6 +183,12 @@ class _ChatScreenState extends BaseState<ChatScreen> {
                   onRightSwipe: (MassageReply massageReply) {
                     _bloc.setMassageReply(massageReply);
                   },
+                  showEmojiKeyword: (massage) {
+                    Future.delayed(const Duration(milliseconds: 300), () {
+                      _navigateBackEvent();
+                      _showEmojiPickerDialog(massage);
+                    });
+                  },
                   friendId: widget.friendId,
                   onEmojiSelected: (String emoji, Massage massage) {
                     if (emoji == '➕') {
@@ -188,9 +198,9 @@ class _ChatScreenState extends BaseState<ChatScreen> {
                       //show emoji keyword
                       _showEmojiPickerDialog(massage);
                     } else {
-                      Future.delayed(const Duration(milliseconds: 500), () {
-                        _navigateBackEvent();
-                      });
+                      // Future.delayed(const Duration(milliseconds: 500), () {
+                      //   _navigateBackEvent();
+                      // });
                       _bloc.add(SelectReactionEvent(
                         massageId: massage.messageId,
                         senderId: massage.senderId,
