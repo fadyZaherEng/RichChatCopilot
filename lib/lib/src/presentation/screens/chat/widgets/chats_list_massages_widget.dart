@@ -69,8 +69,7 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
               );
             }
             if (!snapshot.hasData ||
-                snapshot.data == null ||
-                snapshot.data!.isEmpty) {
+                snapshot.data == null && snapshot.data!.isEmpty) {
               return Center(
                 child: Text(
                   S.of(context).startConversation,
@@ -108,10 +107,11 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                 useStickyGroupSeparators: true,
                 floatingHeader: true,
                 order: GroupedListOrder.DESC,
-                itemBuilder: ( context, massage) {
+                itemBuilder: (context, massage) {
                   //set massage as seen in fireStore
-                  double myMassagePadding=massage.reactions.isEmpty?0:20;
-                  double otherMassagePadding=massage.reactions.isEmpty?0:25;
+                  double myMassagePadding = massage.reactions.isEmpty ? 8 : 20;
+                  double otherMassagePadding =
+                      massage.reactions.isEmpty ? 8 : 25;
                   if (massage.isSeen == false &&
                       massage.senderId != widget.currentUser.uId) {
                     BlocProvider.of<ChatsBloc>(context).setMassageAsSeen(
@@ -122,106 +122,40 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                     );
                   }
                   bool isMe = massage.senderId == widget.currentUser.uId;
-                  return isMe
-                      ? Stack(
-                          children: [
-                            GestureDetector(
-                              onLongPress: () {
-                                showReactionsDialog(
-                                  context: context,
-                                  massage: massage,
-                                  isMe: isMe,
-                                  onContextMenuSelected: (emoji, massage) {
-                                    widget.onContextMenuSelected(
-                                        emoji, massage);
-                                  },
-                                  onEmojiSelected: (emoji, massage) {
-                                    widget.onEmojiSelected(emoji, massage);
-                                  },
-                                );
-                              },
-                              child: Padding(
-                                padding:
-                                     EdgeInsets.only(top: 8.0, bottom: myMassagePadding),
-                                child: CurrentMassageWidget(
-                                  massage: massage,
-                                  onRightSwipe: () {
-                                    final massageReply = MassageReply(
-                                      massage: massage.massage,
-                                      senderName: massage.senderName,
-                                      senderId: massage.senderId,
-                                      senderImage: massage.senderImage,
-                                      massageType: massage.massageType,
-                                      isMe: isMe,
-                                    );
-                                    // _bloc.setMassageReply(massageReply);
-                                    widget.onRightSwipe(massageReply);
-                                  },
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              bottom: 4,
-                              right: 90,
-                              child: StackedReactionsWidget(
-                                massage: massage,
-                                size: 20,
-                                onPressed: () {
-                                  //show bottom sheet with list of people reactions with massage
-                                },
-                              ),
-                            ),
-                          ],
-                        )
-                      : Stack(
-                        children: [
-                          GestureDetector(
-                              onLongPress: () {
-                                showReactionsDialog(
-                                  context: context,
-                                  massage: massage,
-                                  isMe: isMe,
-                                  onContextMenuSelected: (contextMenu, massage) {
-                                    widget.onContextMenuSelected(contextMenu, massage);
-                                  },
-                                  onEmojiSelected: ( emoji, massage) {
-                                    widget.onEmojiSelected(emoji, massage);
-                                  },
-                                );
-                              },
-                              child: Padding(
-                                padding:
-                                     EdgeInsets.only(top: 8.0, bottom: otherMassagePadding),
-                                child: ReceiverMassageWidget(
-                                  massage: massage,
-                                  onRightSwipe: () {
-                                    final massageReply = MassageReply(
-                                      massage: massage.massage,
-                                      senderName: massage.senderName,
-                                      senderId: massage.senderId,
-                                      senderImage: massage.senderImage,
-                                      massageType: massage.massageType,
-                                      isMe: isMe,
-                                    );
-                                    // _bloc.setMassageReply(massageReply);
-                                    widget.onRightSwipe(massageReply);
-                                  },
-                                ),
-                              ),
-                            ),
-                          Positioned(
-                            bottom: 4,
-                            right: 250,
-                            child: StackedReactionsWidget(
-                              massage: massage,
-                              size: 20,
-                              onPressed: () {
-                                //show bottom sheet with list of people reactions with massage
-                              },
-                            ),
-                          )
-                        ],
-                      );
+                  return Stack(
+                    children: [
+                      GestureDetector(
+                        onLongPress: () {
+                          _showReactionDialog(isMe, massage, context);
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              top: 8.0,
+                              bottom: isMe
+                                  ? myMassagePadding
+                                  : otherMassagePadding),
+                          child: MassageWidget(
+                            massage: massage,
+                            isMe: isMe,
+                            isViewOnly: false,
+                            onRightSwipe: () {
+                              final massageReply = MassageReply(
+                                massage: massage.massage,
+                                senderName: massage.senderName,
+                                senderId: massage.senderId,
+                                senderImage: massage.senderImage,
+                                massageType: massage.massageType,
+                                isMe: isMe,
+                              );
+                              // _bloc.setMassageReply(massageReply);
+                              widget.onRightSwipe(massageReply);
+                            },
+                          ),
+                        ),
+                      ),
+                      _stackedReactions(massage, isMe),
+                    ],
+                  );
                 },
                 itemComparator: (massage1, massage2) =>
                     massage1.timeSent.compareTo(massage2.timeSent),
@@ -232,5 +166,45 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
         ),
       ),
     );
+  }
+
+  void _showReactionDialog(bool isMe, massage, BuildContext context) {
+    showReactionsDialog(
+      context: context,
+      massage: massage,
+      isMe: isMe,
+      onContextMenuSelected: (emoji, massage) {
+        widget.onContextMenuSelected(emoji, massage);
+      },
+      onEmojiSelected: (emoji, massage) {
+        widget.onEmojiSelected(emoji, massage);
+      },
+    );
+  }
+
+  Widget _stackedReactions(massage, bool isMe) {
+    return isMe
+        ? Positioned(
+            bottom: 4,
+            right: 90,
+            child: StackedReactionsWidget(
+              massage: massage,
+              size: 20,
+              onPressed: () {
+                //show bottom sheet with list of people reactions with massage
+              },
+            ),
+          )
+        : Positioned(
+            bottom: 4,
+            left: 50,
+            child: StackedReactionsWidget(
+              massage: massage,
+              size: 20,
+              onPressed: () {
+                //show bottom sheet with list of people reactions with massage
+              },
+            ),
+          );
   }
 }

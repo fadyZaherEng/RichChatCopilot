@@ -7,7 +7,7 @@ import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/disp
 class ReactionsDialogWidget extends StatefulWidget {
   final bool isMe;
   final Massage message;
-  final void Function(String,Massage) onEmojiSelected;
+  final void Function(String, Massage) onEmojiSelected;
   final void Function(String, Massage) onContextMenuSelected;
 
   const ReactionsDialogWidget({
@@ -71,32 +71,37 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           for (var reaction in _reactions)
-                            InkWell(
-                              onTap: () {
-                                widget.onEmojiSelected(reaction, widget.message);
-                                setState(() {
-                                  reactionClicked = true;
-                                  clickedReactionIndex =
-                                      _reactions.indexOf(reaction);
-                                });
-                                //set the reaction back
-                                Future.delayed(
-                                    const Duration(milliseconds: 500), () {
+                            FadeInRight(
+                              duration: const Duration(milliseconds: 500),
+                              from: 0 + (_reactions.indexOf(reaction) * 20),
+                              child: InkWell(
+                                onTap: () {
+                                  widget.onEmojiSelected(
+                                      reaction, widget.message);
                                   setState(() {
-                                    reactionClicked = false;
+                                    reactionClicked = true;
+                                    clickedReactionIndex =
+                                        _reactions.indexOf(reaction);
                                   });
-                                });
-                              },
-                              child: Pulse(
-                                duration: const Duration(milliseconds: 500),
-                                animate: reactionClicked &&
-                                    clickedReactionIndex ==
-                                        _reactions.indexOf(reaction),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    reaction,
-                                    style: const TextStyle(fontSize: 20),
+                                  //set the reaction back
+                                  Future.delayed(
+                                      const Duration(milliseconds: 500), () {
+                                    setState(() {
+                                      reactionClicked = false;
+                                    });
+                                  });
+                                },
+                                child: Pulse(
+                                  duration: const Duration(milliseconds: 500),
+                                  animate: reactionClicked &&
+                                      clickedReactionIndex ==
+                                          _reactions.indexOf(reaction),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      reaction,
+                                      style: const TextStyle(fontSize: 20),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -110,30 +115,9 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                   alignment: Alignment.centerRight,
                   child: Material(
                     color: Colors.transparent,
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(vertical: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: widget.isMe
-                            ? Theme.of(context).colorScheme.primary
-                            : Colors.grey[400],
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.shade400,
-                            spreadRadius: 1,
-                            blurRadius: 2,
-                            offset: const Offset(0, 1),
-                          ),
-                        ],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(4),
-                        child: MassageReplyTypeWidget(
-                          massageType: widget.message.massageType,
-                          massage: widget.message.massage,
-                          context: context,
-                        ),
-                      ),
+                    child: Pulse(
+                      duration: const Duration(milliseconds: 500),
+                      child: _alignMassageReplyWidget(context),
                     ),
                   ),
                 ),
@@ -142,7 +126,7 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                   child: Material(
                     color: Colors.transparent,
                     child: Container(
-                      width: MediaQuery.of(context).size.width * 0.6,
+                      width: MediaQuery.of(context).size.width * 0.5,
                       margin: const EdgeInsets.symmetric(vertical: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
@@ -226,6 +210,34 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _alignMassageReplyWidget(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: widget.isMe
+            ? Theme.of(context).colorScheme.primary
+            : Colors.grey[400],
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade400,
+            spreadRadius: 1,
+            blurRadius: 2,
+            offset: const Offset(0, 1),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(4),
+        child: MassageReplyTypeWidget(
+          massageType: widget.message.massageType,
+          massage: widget.message.massage,
+          context: context,
         ),
       ),
     );
