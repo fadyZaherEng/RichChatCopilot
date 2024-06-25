@@ -5,7 +5,7 @@ import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/reac
 void showReactionsDialog({
   required BuildContext context,
   required Massage massage,
-  required String uId,
+  required bool isMe,
   required void Function(String,Massage) onContextMenuSelected,
   required void Function(String) onEmojiSelected,
 }) {
@@ -20,7 +20,7 @@ void showReactionsDialog({
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: ReactionsDialogWidget(
           message: massage,
-          uId: uId,
+          isMe: isMe,
           onContextMenuSelected: (contextMenu,massage) {
             onContextMenuSelected(contextMenu,massage);
           },

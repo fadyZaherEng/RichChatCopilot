@@ -4,14 +4,14 @@ import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/display_massage_reply_type_widget.dart';
 
 class ReactionsDialogWidget extends StatefulWidget {
-  final String uId;
+  final bool isMe;
   final Massage message;
   final void Function(String) onEmojiSelected;
   final void Function(String, Massage) onContextMenuSelected;
 
   const ReactionsDialogWidget({
     super.key,
-    required this.uId,
+    required this.isMe,
     required this.message,
     required this.onEmojiSelected,
     required this.onContextMenuSelected,
@@ -40,7 +40,6 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final isMyMessage = widget.uId == widget.message.senderId;
     return Align(
       alignment: Alignment.centerRight,
       child: IntrinsicWidth(
@@ -114,7 +113,7 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                       margin: const EdgeInsets.symmetric(vertical: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: isMyMessage
+                        color: widget.isMe
                             ? Theme.of(context).colorScheme.primary
                             : Colors.grey[400],
                         boxShadow: [

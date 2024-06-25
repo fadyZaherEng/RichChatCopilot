@@ -28,6 +28,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     on<SendFileMessageEvent>(_onSendFileMessageEvent);
     on<SelectImageEvent>(_onSelectImageEvent);
     on<SelectVideoFromGalleryEvent>(_onSelectVideoFromGalleryEvent);
+    on<SelectReactionEvent>(_onSelectReactionEven);
   }
 
   //replay message
@@ -464,5 +465,148 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
   FutureOr<void> _onSelectVideoFromGalleryEvent(
       SelectVideoFromGalleryEvent event, Emitter<ChatsState> emit) {
     emit(SelectVideoFromGalleryState(file: event.file));
+  }
+
+  //send reactions to massage
+  Future<void> _sendReactionsToMassage({
+    required String massageId,
+    required String senderId,
+    required String receiverId,
+    required String reaction,
+    required bool groupId,
+    required void Function() success,
+    required void Function(String message) failure,
+  }) async {
+    try {
+      //save reaction as $reaction-$senderId
+      final String reactionToAdd = "$reaction=$senderId";
+      //check if group massage and send to group else send to contact
+      if (groupId) {
+        //handle group massage
+        //get reactions of massage list from firestore
+        final massageData = await FirebaseSingleTon.db
+            .collection(Constants.groups)
+            .doc(receiverId)
+            .collection(Constants.messages)
+            .doc(massageId)
+            .get();
+        //add the massage data to massage
+        final massage = Massage.fromJson(massageData.data()!);
+        //check if reactions list empty
+        if (massage.reactions.isEmpty) {
+          //add reaction to massage
+          await FirebaseSingleTon.db
+              .collection(Constants.groups)
+              .doc(receiverId)
+              .collection(Constants.messages)
+              .doc(massageId)
+              .update({
+            "reactions": FieldValue.arrayUnion([reactionToAdd])
+          });
+        } else {
+          //get UIDS list from reactions
+          final List<String> UIDS =
+              massage.reactions.map((e) => e.split("=")[0]).toList();
+          //check if reaction already added
+          if (UIDS.contains(senderId)) {
+            //get index of reaction
+            final int index = UIDS.indexOf(senderId);
+            //replace reaction
+            massage.reactions[index] = reactionToAdd;
+          } else {
+            //add reaction
+            massage.reactions.add(reactionToAdd);
+          }
+          //update massage
+          await FirebaseSingleTon.db
+              .collection(Constants.groups)
+              .doc(receiverId)
+              .collection(Constants.messages)
+              .doc(massageId)
+              .update({"reactions": massage.reactions});
+        }
+      } else {
+        //handle contact massage
+        //get reactions from firestore
+        final massageData = await FirebaseSingleTon.db
+            .collection(Constants.users)
+            .doc(senderId)
+            .collection(Constants.chats)
+            .doc(receiverId)
+            .collection(Constants.messages)
+            .doc(massageId)
+            .get();
+        //add the massage data to massage
+        final massage = Massage.fromJson(massageData.data()!);
+        //check if reactions list empty
+        if (massage.reactions.isEmpty) {
+          //add reaction to massage
+          await FirebaseSingleTon.db
+              .collection(Constants.users)
+              .doc(senderId)
+              .collection(Constants.chats)
+              .doc(receiverId)
+              .collection(Constants.messages)
+              .doc(massageId)
+              .update({
+            "reactions": FieldValue.arrayUnion([reactionToAdd])
+          });
+        } else {
+          //get UIDS list from reactions
+          final List<String> UIDS =
+              massage.reactions.map((e) => e.split("=")[0]).toList();
+          //check if reaction already added
+          if (UIDS.contains(senderId)) {
+            //get index of reaction
+            final int index = UIDS.indexOf(senderId);
+            //replace reaction
+            massage.reactions[index] = reactionToAdd;
+          } else {
+            //add reaction
+            massage.reactions.add(reactionToAdd);
+          }
+          //update massage to sender
+          await FirebaseSingleTon.db
+              .collection(Constants.users)
+              .doc(senderId)
+              .collection(Constants.chats)
+              .doc(receiverId)
+              .collection(Constants.messages)
+              .doc(massageId)
+              .update({"reactions": massage.reactions});
+          //update massage to receiver
+          await FirebaseSingleTon.db
+              .collection(Constants.users)
+              .doc(receiverId)
+              .collection(Constants.chats)
+              .doc(senderId)
+              .collection(Constants.messages)
+              .doc(massageId)
+              .update({"reactions": massage.reactions});
+        }
+      }
+      success();
+    } catch (e) {
+      print(e.toString());
+      failure(e.toString());
+    }
+  }
+
+  FutureOr<void> _onSelectReactionEven(
+      SelectReactionEvent event, Emitter<ChatsState> emit) async {
+    emit(SendReactionsToMassageLoading());
+     _sendReactionsToMassage(
+      massageId: event.massageId,
+      senderId: event.senderId,
+      receiverId: event.receiverId,
+      reaction: event.reaction,
+      groupId: event.groupId,
+      success: () {
+        emit(SendReactionsToMassageSuccess());
+      },
+      failure: (String message) {
+        emit(SendReactionsToMassageError(message: message));
+      },
+    );
   }
 }

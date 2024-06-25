@@ -107,8 +107,10 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                 useStickyGroupSeparators: true,
                 floatingHeader: true,
                 order: GroupedListOrder.DESC,
-                itemBuilder: (context, massage) {
+                itemBuilder: ( context, massage) {
                   //set massage as seen in fireStore
+                  double myMassagePadding=massage.reactions.isEmpty?0:20;
+                  double otherMassagePadding=massage.reactions.isEmpty?0:25;
                   if (massage.isSeen == false &&
                       massage.senderId != widget.currentUser.uId) {
                     BlocProvider.of<ChatsBloc>(context).setMassageAsSeen(
@@ -127,7 +129,7 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                                 showReactionsDialog(
                                   context: context,
                                   massage: massage,
-                                  uId: widget.currentUser.uId,
+                                  isMe: isMe,
                                   onContextMenuSelected: (emoji, massage) {
                                     widget.onContextMenuSelected(
                                         emoji, massage);
@@ -139,7 +141,7 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                               },
                               child: Padding(
                                 padding:
-                                    const EdgeInsets.only(top: 8.0, bottom: 25),
+                                     EdgeInsets.only(top: 8.0, bottom: myMassagePadding),
                                 child: CurrentMassageWidget(
                                   massage: massage,
                                   onRightSwipe: () {
@@ -177,7 +179,7 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                                 showReactionsDialog(
                                   context: context,
                                   massage: massage,
-                                  uId: widget.currentUser.uId,
+                                  isMe: isMe,
                                   onContextMenuSelected: (emoji, massage) {
                                     widget.onContextMenuSelected(emoji, massage);
                                   },
@@ -188,7 +190,7 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                               },
                               child: Padding(
                                 padding:
-                                    const EdgeInsets.only(top: 8.0, bottom: 20),
+                                     EdgeInsets.only(top: 8.0, bottom: otherMassagePadding),
                                 child: ReceiverMassageWidget(
                                   massage: massage,
                                   onRightSwipe: () {

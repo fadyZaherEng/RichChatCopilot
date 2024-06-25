@@ -82,3 +82,18 @@ class SelectVideoFromGalleryEvent extends ChatsEvent {
 
   SelectVideoFromGalleryEvent(this.file);
 }
+//reactions
+class SelectReactionEvent extends ChatsEvent {
+  final String massageId;
+  final String senderId;
+  final String receiverId;
+  final String reaction;
+  final bool groupId;
+  SelectReactionEvent({
+    required this.massageId,
+    required this.senderId,
+    required this.receiverId,
+    required this.reaction,
+    required this.groupId,
+});
+}
