@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/display_massage_reply_type_widget.dart';
@@ -6,7 +7,7 @@ import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/disp
 class ReactionsDialogWidget extends StatefulWidget {
   final bool isMe;
   final Massage message;
-  final void Function(String) onEmojiSelected;
+  final void Function(String,Massage) onEmojiSelected;
   final void Function(String, Massage) onContextMenuSelected;
 
   const ReactionsDialogWidget({
@@ -72,7 +73,7 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                           for (var reaction in _reactions)
                             InkWell(
                               onTap: () {
-                                widget.onEmojiSelected(reaction);
+                                widget.onEmojiSelected(reaction, widget.message);
                                 setState(() {
                                   reactionClicked = true;
                                   clickedReactionIndex =

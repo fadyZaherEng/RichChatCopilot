@@ -1,3 +1,4 @@
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,7 +21,7 @@ class ChatsListMassagesWidget extends StatefulWidget {
   final UserModel currentUser;
   final String friendId;
   final void Function(MassageReply massageReply) onRightSwipe;
-  final void Function(String) onEmojiSelected;
+  final void Function(String, Massage) onEmojiSelected;
   final void Function(String, Massage) onContextMenuSelected;
 
   const ChatsListMassagesWidget({
@@ -134,8 +135,8 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                                     widget.onContextMenuSelected(
                                         emoji, massage);
                                   },
-                                  onEmojiSelected: (emoji) {
-                                    widget.onEmojiSelected(emoji);
+                                  onEmojiSelected: (emoji, massage) {
+                                    widget.onEmojiSelected(emoji, massage);
                                   },
                                 );
                               },
@@ -180,11 +181,11 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                                   context: context,
                                   massage: massage,
                                   isMe: isMe,
-                                  onContextMenuSelected: (emoji, massage) {
-                                    widget.onContextMenuSelected(emoji, massage);
+                                  onContextMenuSelected: (contextMenu, massage) {
+                                    widget.onContextMenuSelected(contextMenu, massage);
                                   },
-                                  onEmojiSelected: (emoji) {
-                                    widget.onEmojiSelected(emoji);
+                                  onEmojiSelected: ( emoji, massage) {
+                                    widget.onEmojiSelected(emoji, massage);
                                   },
                                 );
                               },

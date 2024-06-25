@@ -180,9 +180,9 @@ class _ShowAudioWidgetState extends State<ShowAudioWidget> {
 
   @override
   void dispose() {
-    super.dispose();
     audioPlayer.pause();
     audioPlayer.release();
     audioPlayer.dispose();
+    super.dispose();
   }
 }

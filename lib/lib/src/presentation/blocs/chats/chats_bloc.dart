@@ -478,8 +478,8 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     required void Function(String message) failure,
   }) async {
     try {
-      //save reaction as $reaction-$senderId
-      final String reactionToAdd = "$reaction=$senderId";
+      //save reaction as $senderId=$reaction
+      final String reactionToAdd = "$senderId=$reaction";
       //check if group massage and send to group else send to contact
       if (groupId) {
         //handle group massage
@@ -595,7 +595,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
   FutureOr<void> _onSelectReactionEven(
       SelectReactionEvent event, Emitter<ChatsState> emit) async {
     emit(SendReactionsToMassageLoading());
-     _sendReactionsToMassage(
+    await _sendReactionsToMassage(
       massageId: event.massageId,
       senderId: event.senderId,
       receiverId: event.receiverId,

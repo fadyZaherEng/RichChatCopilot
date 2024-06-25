@@ -98,16 +98,23 @@ class _ChatScreenState extends BaseState<ChatScreen> {
   }
 
   //show emoji container
-  void _showEmojiPickerDialog() {
+  void _showEmojiPickerDialog(Massage massage) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
         return SizedBox(
           height: 300,
           child: EmojiPicker(
-            onEmojiSelected: (category, emoji) {
+            onEmojiSelected: (category, Emoji emoji) {
               _navigateBackEvent();
-              print(emoji.emoji);
+              //add emoji to message
+              _bloc.add(SelectReactionEvent(
+                massageId: massage.messageId,
+                senderId: massage.senderId,
+                receiverId: widget.friendId,
+                reaction: emoji.emoji,
+                groupId: widget.groupId.isNotEmpty,
+              ));
             },
           ),
         );
@@ -173,22 +180,25 @@ class _ChatScreenState extends BaseState<ChatScreen> {
                     _bloc.setMassageReply(massageReply);
                   },
                   friendId: widget.friendId,
-                  onEmojiSelected: (String emoji) {
-                    Future.delayed(
-                      const Duration(milliseconds: 500),
-                      () {
+                  onEmojiSelected: (String emoji, Massage massage) {
+                    if (emoji == '➕') {
+                      Future.delayed(const Duration(milliseconds: 500), () {
                         _navigateBackEvent();
-                        if (emoji == '➕') {
-                        } else {
-                          _massageController
-                            ..text = _massageController.text + emoji
-                            ..selection = TextSelection.fromPosition(
-                              TextPosition(
-                                  offset: _massageController.text.length),
-                            );
-                        }
-                      },
-                    );
+                      });
+                      //show emoji keyword
+                      _showEmojiPickerDialog(massage);
+                    } else {
+                      Future.delayed(const Duration(milliseconds: 500), () {
+                        _navigateBackEvent();
+                      });
+                      _bloc.add(SelectReactionEvent(
+                        massageId: massage.messageId,
+                        senderId: massage.senderId,
+                        receiverId: widget.friendId,
+                        reaction: emoji,
+                        groupId: widget.groupId.isNotEmpty,
+                      ));
+                    }
                   },
                   onContextMenuSelected: (String contextMenu, Massage massage) {
                     Future.delayed(

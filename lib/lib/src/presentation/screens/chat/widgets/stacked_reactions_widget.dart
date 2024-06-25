@@ -20,11 +20,14 @@ class StackedReactionsWidget extends StatefulWidget {
 class _StackedReactionsWidgetState extends State<StackedReactionsWidget> {
   @override
   Widget build(BuildContext context) {
-    final reactionShow = widget.massage.reactions.length > 5
-        ? widget.massage.reactions.sublist(0, 5)
-        : widget.massage.reactions;
+    //get reaction from list
+    final massageReaction =
+        widget.massage.reactions.map((e) => e.split("=")[1]).toList();
+    final reactionShow = massageReaction.length > 5
+        ? massageReaction.sublist(0, 5)
+        : massageReaction;
     final remainingReactionsLength =
-        widget.massage.reactions.length - reactionShow.length;
+        massageReaction.length - reactionShow.length;
     return GestureDetector(
       onTap: widget.onPressed,
       child: Stack(
@@ -46,6 +49,16 @@ class _StackedReactionsWidgetState extends State<StackedReactionsWidget> {
                       children: [
                         Container(
                           margin: EdgeInsets.only(left: index * 18),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              boxShadow:  [
+                                BoxShadow(
+                                  color:Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black12,
+                                  spreadRadius: 1,
+                                  blurRadius: 2,
+                                  offset: const Offset(0, 1),
+                                )
+                              ]),
                           child: ClipOval(
                             child: Text(
                               reaction,
@@ -88,6 +101,16 @@ class _StackedReactionsWidgetState extends State<StackedReactionsWidget> {
                     )
                   : Container(
                       margin: EdgeInsets.only(left: index * 18),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          boxShadow:  [
+                            BoxShadow(
+                              color:Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black12,
+                              spreadRadius: 1,
+                              blurRadius: 2,
+                              offset: const Offset(0, 1),
+                            )
+                          ]),
                       child: ClipOval(
                         child: Text(
                           reaction,
