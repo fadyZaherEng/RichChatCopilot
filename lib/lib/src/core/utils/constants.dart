@@ -24,4 +24,10 @@ class Constants {
   static const String messages = "messages";
   static const String chats = "chats";
   static const String groups = "groups";
+  static const String reply = "Reply";
+  static const String copy = "Copy";
+  static const String delete = "Delete";
+  static const String timeSent = "timeSent";
+  static const String isSeen = "isSeen";
+  static const String reactions = "reactions";
 }

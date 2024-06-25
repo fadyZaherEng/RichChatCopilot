@@ -1,7 +1,7 @@
 import 'dart:ui';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/display_massage_reply_type_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/my_massage_widget.dart';
@@ -26,16 +26,12 @@ class ReactionsContextMenu extends StatefulWidget {
 
 class _ReactionsContextMenuState extends State<ReactionsContextMenu> {
   //list of default reactions
-  final List<String> _reactions = [
-    "👍",
-    "❤️",
-    "😂",
-    "😮",
-    "😢",
-    "😡",
-    "➕",
+  final List<String> _reactions = ["👍", "❤️", "😂", "😮", "😢", "😡", "➕"];
+  final List<String> _contextMenu = [
+    Constants.reply,
+    Constants.copy,
+    Constants.delete
   ];
-  final List<String> _contextMenu = ["Reply", "Copy", "Delete"];
   bool reactionClicked = false;
   int clickedReactionIndex = -1;
   bool contextMenuClicked = false;
@@ -156,16 +152,14 @@ class _ReactionsContextMenuState extends State<ReactionsContextMenu> {
                                     _contextMenu.indexOf(contextMenu);
                               });
                               //set the reaction back
-                              Future.delayed(
-                                const Duration(milliseconds: 500),
-                                () {
-                                  if (mounted) {
-                                    setState(() {
-                                      contextMenuClicked = false;
-                                    });
-                                  }
-                                },
-                              );
+                              Future.delayed(const Duration(milliseconds: 500),
+                                  () {
+                                if (mounted) {
+                                  setState(() {
+                                    contextMenuClicked = false;
+                                  });
+                                }
+                              });
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
@@ -174,15 +168,13 @@ class _ReactionsContextMenuState extends State<ReactionsContextMenu> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    contextMenu,
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                    ),
-                                  ),
+                                  Text(contextMenu,
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                      )),
                                   Pulse(
                                     infinite: false,
                                     duration: const Duration(milliseconds: 500),
@@ -190,9 +182,9 @@ class _ReactionsContextMenuState extends State<ReactionsContextMenu> {
                                         clickedContextMenuIndex ==
                                             _contextMenu.indexOf(contextMenu),
                                     child: Icon(
-                                        contextMenu == "Reply"
+                                        contextMenu == Constants.reply
                                             ? Icons.reply
-                                            : contextMenu == "Copy"
+                                            : contextMenu == Constants.copy
                                                 ? Icons.copy
                                                 : Icons.delete,
                                         color: Theme.of(context)

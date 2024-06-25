@@ -6,7 +6,9 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:rich_chat_copilot/generated/l10n.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/massage_type.dart';
 import 'package:rich_chat_copilot/lib/src/data/source/local/single_ton/firebase_single_ton.dart';
@@ -256,7 +258,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
         .collection(Constants.users)
         .doc(userId)
         .collection(Constants.chats)
-        .orderBy("timeSent", descending: true)
+        .orderBy(Constants.timeSent, descending: true)
         .snapshots()
         .map((snapshot) {
       return snapshot.docs
@@ -276,7 +278,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
           .collection(Constants.groups)
           .doc(receiverId)
           .collection(Constants.messages)
-          .orderBy("timeSent", descending: true)
+          .orderBy(Constants.timeSent, descending: true)
           .snapshots()
           .map((snapshot) {
         return snapshot.docs
@@ -291,7 +293,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
           .collection(Constants.chats)
           .doc(receiverId)
           .collection(Constants.messages)
-          .orderBy("timeSent", descending: true)
+          .orderBy(Constants.timeSent, descending: true)
           .snapshots()
           .map((snapshot) {
         return snapshot.docs
@@ -317,7 +319,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
             .doc(groupId)
             .collection(Constants.messages)
             .doc(massageId)
-            .update({"isSeen": true});
+            .update({Constants.isSeen: true});
       } else {
         //check if contact
         //set massage as seen for sender
@@ -328,7 +330,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
             .doc(receiverId)
             .collection(Constants.messages)
             .doc(massageId)
-            .update({"isSeen": true});
+            .update({Constants.isSeen: true});
 
         //set massage as seen for receiver
         await FirebaseSingleTon.db
@@ -338,7 +340,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
             .doc(senderId)
             .collection(Constants.messages)
             .doc(massageId)
-            .update({"isSeen": true});
+            .update({Constants.isSeen: true});
         //set last massage as seen for sender
 
         await FirebaseSingleTon.db
@@ -346,14 +348,14 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
             .doc(senderId)
             .collection(Constants.chats)
             .doc(receiverId)
-            .update({"isSeen": true});
+            .update({Constants.isSeen: true});
         //set last massage as seen for receiver
         await FirebaseSingleTon.db
             .collection(Constants.users)
             .doc(receiverId)
             .collection(Constants.chats)
             .doc(senderId)
-            .update({"isSeen": true});
+            .update({Constants.isSeen: true});
         emit(SetMassageAsSeenSuccess());
       }
     } catch (e) {
@@ -370,6 +372,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     required String receiverImage,
     required String groupId,
     required File file,
+    required BuildContext context,
     required MassageType massageType,
     required void Function() success,
     required void Function(String message) failure,
@@ -381,7 +384,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     String repliedTo = _massageReply == null
         ? ""
         : _massageReply!.isMe
-            ? "You"
+            ? S.of(context).you
             : _massageReply!.senderName;
     MassageType repliedMessageType =
         _massageReply?.massageType ?? MassageType.text;
@@ -444,6 +447,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
         receiverImage: event.receiverImage,
         groupId: event.groupId,
         file: event.file,
+        context: event.context,
         massageType: event.massageType,
         success: () {
           emit(SendFileMessageSuccess());
@@ -501,7 +505,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
               .collection(Constants.messages)
               .doc(massageId)
               .update({
-            "reactions": FieldValue.arrayUnion([reactionToAdd])
+            Constants.reactions: FieldValue.arrayUnion([reactionToAdd])
           });
         } else {
           //get UIDS list from reactions
@@ -523,7 +527,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
               .doc(receiverId)
               .collection(Constants.messages)
               .doc(massageId)
-              .update({"reactions": massage.reactions});
+              .update({Constants.reactions: massage.reactions});
         }
       } else {
         //handle contact massage
@@ -549,7 +553,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
               .collection(Constants.messages)
               .doc(massageId)
               .update({
-            "reactions": FieldValue.arrayUnion([reactionToAdd])
+            Constants.reactions: FieldValue.arrayUnion([reactionToAdd])
           });
         } else {
           //get UIDS list from reactions
@@ -573,7 +577,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
               .doc(receiverId)
               .collection(Constants.messages)
               .doc(massageId)
-              .update({"reactions": massage.reactions});
+              .update({Constants.reactions: massage.reactions});
           //update massage to receiver
           await FirebaseSingleTon.db
               .collection(Constants.users)
@@ -582,7 +586,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
               .doc(senderId)
               .collection(Constants.messages)
               .doc(massageId)
-              .update({"reactions": massage.reactions});
+              .update({Constants.reactions: massage.reactions});
         }
       }
       success();

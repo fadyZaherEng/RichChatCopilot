@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +16,7 @@ import 'package:rich_chat_copilot/generated/l10n.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
 import 'package:rich_chat_copilot/lib/src/core/base/widget/base_stateful_widget.dart';
 import 'package:rich_chat_copilot/lib/src/core/resources/image_paths.dart';
+import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/massage_type.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/permission_service_handler.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/show_action_dialog.dart';
@@ -157,6 +159,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
         _sendFileMassage(
           massageType: MassageType.video,
           filePath: state.file.path,
+          context: context,
         );
       } else if (state is SendReactionsToMassageSuccess) {
         _navigateBackEvent();
@@ -284,6 +287,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
                   _sendFileMassage(
                     massageType: MassageType.audio,
                     filePath: audioFile.path,
+                    context: context,
                   );
                 },
               ),
@@ -483,7 +487,10 @@ class _ChatScreenState extends BaseState<ChatScreen> {
     );
     if (croppedFile != null) {
       _sendFileMassage(
-          massageType: MassageType.image, filePath: croppedFile.path);
+        massageType: MassageType.image,
+        filePath: croppedFile.path,
+        context: context,
+      );
     }
   }
 
@@ -491,6 +498,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
   void _sendFileMassage({
     required MassageType massageType,
     required String filePath,
+    required BuildContext context,
   }) {
     _bloc.add(
       SendFileMessageEvent(
@@ -501,6 +509,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
         file: File(filePath),
         massageType: massageType,
         groupId: widget.groupId,
+        context: context,
       ),
     );
   }
@@ -521,10 +530,10 @@ class _ChatScreenState extends BaseState<ChatScreen> {
 
   void _onContextMenuSelected(String contextMenu, Massage massage) {
     switch (contextMenu) {
-      case 'Delete':
+      case Constants.delete:
         // _bloc.add(DeleteMassageEvent(massage: massage));
         break;
-      case 'Reply':
+      case Constants.reply:
         final massageReply = MassageReply(
           massage: massage.massage,
           senderName: massage.senderName,
@@ -535,7 +544,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
         );
         _bloc.setMassageReply(massageReply);
         break;
-      case 'Copy':
+      case Constants.copy:
         Clipboard.setData(ClipboardData(text: massage.massage));
         CustomSnackBarWidget.show(
           context: context,

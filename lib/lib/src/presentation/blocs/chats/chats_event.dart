@@ -53,6 +53,7 @@ class SendFileMessageEvent extends ChatsEvent {
   final File file;
   final MassageType massageType;
   final String groupId;
+  final BuildContext context;
 
   SendFileMessageEvent({
     required this.sender,
@@ -62,6 +63,7 @@ class SendFileMessageEvent extends ChatsEvent {
     required this.file,
     required this.massageType,
     required this.groupId,
+    required this.context,
   });
 }
 
@@ -76,12 +78,14 @@ class ShowImageEvent extends ChatsEvent {
 
   ShowImageEvent(this.file);
 }
+
 //select video from galley
 class SelectVideoFromGalleryEvent extends ChatsEvent {
   final File file;
 
   SelectVideoFromGalleryEvent(this.file);
 }
+
 //reactions
 class SelectReactionEvent extends ChatsEvent {
   final String massageId;
@@ -95,5 +99,5 @@ class SelectReactionEvent extends ChatsEvent {
     required this.receiverId,
     required this.reaction,
     required this.groupId,
-});
+  });
 }
