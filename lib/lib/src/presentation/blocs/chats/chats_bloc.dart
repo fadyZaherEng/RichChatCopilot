@@ -258,7 +258,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
         .collection(Constants.users)
         .doc(userId)
         .collection(Constants.chats)
-        .orderBy(Constants.timeSent, descending: true)
+        .orderBy("timeSent", descending: true)
         .snapshots()
         .map((snapshot) {
       return snapshot.docs
@@ -278,7 +278,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
           .collection(Constants.groups)
           .doc(receiverId)
           .collection(Constants.messages)
-          .orderBy(Constants.timeSent, descending: true)
+          .orderBy("timeSent", descending: true)
           .snapshots()
           .map((snapshot) {
         return snapshot.docs
@@ -293,7 +293,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
           .collection(Constants.chats)
           .doc(receiverId)
           .collection(Constants.messages)
-          .orderBy(Constants.timeSent, descending: true)
+          .orderBy("timeSent", descending: true)
           .snapshots()
           .map((snapshot) {
         return snapshot.docs
@@ -528,11 +528,11 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
               .doc(receiverId)
               .collection(Constants.messages)
               .doc(massageId)
-              .update({Constants.reactions: massage.reactions});
+              .update({"reactions": massage.reactions});
         }
       } else {
         //handle contact massage
-        print("${senderId} ${receiverId} ${massageId}");
+        print("$senderId $receiverId $massageId");
         //get reactions from firestore
         DocumentSnapshot<Map<String, dynamic>> massageData =
             await FirebaseSingleTon.db
@@ -543,7 +543,6 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
                 .collection(Constants.messages)
                 .doc(massageId)
                 .get();
-        print("DDDDDDDDDDDDDDDDD${massageData.data()}");
         //add the massage data to massage
         final massage = Massage.fromJson(massageData.data()!);
         //check if reactions list empty
@@ -557,17 +556,8 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
               .collection(Constants.messages)
               .doc(massageId)
               .update({
-            Constants.reactions: FieldValue.arrayUnion([reactionToAdd])
+            "reactions": FieldValue.arrayUnion([reactionToAdd])
           });
-          //update massage
-          // await FirebaseSingleTon.db
-          //     .collection(Constants.users)
-          //     .doc(receiverId)
-          //     .collection(Constants.chats)
-          //     .doc(senderId)
-          //     .collection(Constants.messages)
-          //     .doc(massageId)
-          //     .update({Constants.reactions: massage.reactions});
         } else {
           //get UIDS list from reactions
           final List<String> UIDS =
@@ -590,7 +580,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
               .doc(receiverId)
               .collection(Constants.messages)
               .doc(massageId)
-              .update({Constants.reactions: massage.reactions});
+              .update({"reactions": massage.reactions});
           //update massage to receiver
           await FirebaseSingleTon.db
               .collection(Constants.users)
@@ -599,7 +589,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
               .doc(senderId)
               .collection(Constants.messages)
               .doc(massageId)
-              .update({Constants.reactions: massage.reactions});
+              .update({"reactions": massage.reactions});
         }
       }
       print("sent");
