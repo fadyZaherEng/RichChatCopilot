@@ -156,11 +156,11 @@ class _ChatScreenState extends BaseState<ChatScreen> {
                   _navigateBackEvent();
                   if (emoji == '➕') {
                   } else {
-                    _massageController
-                      ..text = _massageController.text + emoji
-                      ..selection = TextSelection.fromPosition(
-                        TextPosition(offset: _massageController.text.length),
-                      );
+                    // _massageController
+                    //   ..text = _massageController.text + emoji
+                    //   ..selection = TextSelection.fromPosition(
+                    //     TextPosition(offset: _massageController.text.length),
+                    //   );
                   }
                 },
                 onContextMenuSelected: (String contextMenu, Massage massage) {
