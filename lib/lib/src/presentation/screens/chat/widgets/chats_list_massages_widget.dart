@@ -83,14 +83,7 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
               );
             }
             if (snapshot.hasData) {
-              //add list view scroll to bottom
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                widget.massagesScrollController.animateTo(
-                  widget.massagesScrollController.position.minScrollExtent,
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeInOut,
-                );
-              });
+
               final massages = snapshot.data!;
               return GroupedListView<dynamic, DateTime>(
                 keyboardDismissBehavior:
@@ -108,6 +101,14 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                 floatingHeader: true,
                 order: GroupedListOrder.DESC,
                 itemBuilder: (context, massage) {
+                  // //add list view scroll to bottom
+                  // WidgetsBinding.instance.addPostFrameCallback((_) {
+                  //   widget.massagesScrollController.animateTo(
+                  //     widget.massagesScrollController.position.minScrollExtent,
+                  //     duration: const Duration(milliseconds: 300),
+                  //     curve: Curves.easeInOut,
+                  //   );
+                  // });
                   //set massage as seen in fireStore
                   double myMassagePadding = massage.reactions.isEmpty ? 8 : 20;
                   double otherMassagePadding =
@@ -178,8 +179,8 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                     ],
                   );
                 },
-                itemComparator:(massage1, massage2) => massage1.timeSent
-                    .compareTo(massage2.timeSent),
+                itemComparator: (massage1, massage2) =>
+                    massage1.timeSent.compareTo(massage2.timeSent),
               );
             }
             return const SizedBox.shrink();

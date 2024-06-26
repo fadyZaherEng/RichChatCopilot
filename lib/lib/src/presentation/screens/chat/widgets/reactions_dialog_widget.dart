@@ -7,6 +7,7 @@ import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/display_massage_reply_type_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/my_massage_widget.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/receiver_massage_widget.dart';
 
 class ReactionsDialogWidget extends StatefulWidget {
   final bool isMe;
@@ -49,12 +50,13 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
       filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
       child: Center(
         child: Padding(
-          padding: const EdgeInsets.only(right: 20),
+          padding: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Align(
-                alignment: Alignment.centerRight,
+                alignment:
+                    widget.isMe ? Alignment.centerRight : Alignment.centerLeft,
                 child: Material(
                   color: Colors.transparent,
                   child: Container(
@@ -120,14 +122,20 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
               FadeInUp(
                 duration: const Duration(milliseconds: 500),
                 from: 100,
-                child: MyMassageWidget(
-                  massage: widget.message,
-                  isReplying: widget.message.repliedTo.isNotEmpty,
-                ),
+                child: widget.isMe
+                    ? MyMassageWidget(
+                        massage: widget.message,
+                        isReplying: widget.message.repliedTo.isNotEmpty,
+                      )
+                    : ReceiverMassageWidget(
+                        massage: widget.message,
+                        isReplying: widget.message.repliedTo.isNotEmpty,
+                      ),
                 // child: _alignMassageReplyWidget(context),
               ),
               Align(
-                alignment: Alignment.centerRight,
+                alignment: widget.isMe?
+                Alignment.centerRight : Alignment.centerLeft,
                 child: Material(
                   color: Colors.transparent,
                   child: Container(
@@ -162,8 +170,8 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                                       _contextMenu.indexOf(contextMenu);
                                 });
                                 //set the reaction back
-                                Future.delayed(const Duration(milliseconds: 500),
-                                    () {
+                                Future.delayed(
+                                    const Duration(milliseconds: 500), () {
                                   if (mounted) {
                                     setState(() {
                                       contextMenuClicked = false;
@@ -187,7 +195,8 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                                         )),
                                     Pulse(
                                       infinite: false,
-                                      duration: const Duration(milliseconds: 500),
+                                      duration:
+                                          const Duration(milliseconds: 500),
                                       animate: contextMenuClicked &&
                                           clickedContextMenuIndex ==
                                               _contextMenu.indexOf(contextMenu),
@@ -197,9 +206,7 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                                             : contextMenu == Constants.copy
                                                 ? Icons.copy
                                                 : Icons.delete,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .secondary,
+                                        color: Colors.black,
                                       ),
                                     )
                                   ],

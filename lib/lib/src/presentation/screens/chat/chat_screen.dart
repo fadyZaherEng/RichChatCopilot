@@ -131,6 +131,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
     super.initState();
     currentUser = GetUserUseCase(injector())();
     _isGroupChat = widget.groupId.isNotEmpty;
+    // _scrollToBottom();
   }
 
   @override
@@ -240,6 +241,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
                 isShowSendButton: _isShowSendButton,
                 hideEmojiContainer: () {
                   _hideEmojiContainer();
+                  _scrollToBottom();
                 },
                 emojiSelected: (category, emoji) {
                   _massageController.text =
@@ -257,14 +259,18 @@ class _ChatScreenState extends BaseState<ChatScreen> {
                 },
                 toggleEmojiKeyWordContainer: () {
                   _toggleEmojiKeyWordContainer();
+                  _scrollToBottom();
                 },
                 onTextChange: (String value) {
+                  _scrollToBottom();
                   _massageController.text = value;
                 },
                 onAttachPressed: () {
+                  _scrollToBottom();
                   _openMediaBottomSheet(context);
                 },
                 onSendTextPressed: () {
+                  _scrollToBottom();
                   //TODO: send message
                   if (_massageController.text.isNotEmpty) {
                     _bloc.add(SendTextMessageEvent(
@@ -281,12 +287,14 @@ class _ChatScreenState extends BaseState<ChatScreen> {
                 },
                 massageReply: _bloc.massageReply,
                 setReplyMessageWithNull: () {
+                  _scrollToBottom();
                   _bloc.setMassageReply(null);
                 },
                 onSendAudioPressed: ({
                   required File audioFile,
                   required bool isSendingButtonShow,
                 }) {
+                  _scrollToBottom();
                   _isShowSendButton = isSendingButtonShow;
                   _sendFileMassage(
                     massageType: MassageType.audio,
@@ -560,6 +568,18 @@ class _ChatScreenState extends BaseState<ChatScreen> {
       default:
         break;
     }
+  }
+
+  void _scrollToBottom() {
+    //add list view scroll to bottom
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _massagesScrollController.animateTo(
+        _massagesScrollController.position.minScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    });
+    setState(() {});
   }
 }
 
