@@ -57,3 +57,10 @@ final class SelectVideoFromGalleryState extends ChatsState {
   final File file;
   SelectVideoFromGalleryState({required this.file});
 }
+//reaction
+class SendReactionsToMassageLoading extends ChatsState {}
+class SendReactionsToMassageSuccess extends ChatsState {}
+class SendReactionsToMassageError extends ChatsState {
+  final String message;
+  SendReactionsToMassageError({required this.message});
+}

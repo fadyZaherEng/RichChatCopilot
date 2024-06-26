@@ -19,6 +19,7 @@ class SendTextMessageEvent extends ChatsEvent {
   final String message;
   final MassageType massageType;
   final String groupId;
+  final BuildContext context;
 
   SendTextMessageEvent({
     required this.sender,
@@ -28,6 +29,7 @@ class SendTextMessageEvent extends ChatsEvent {
     required this.message,
     required this.massageType,
     required this.groupId,
+    required this.context,
   });
 }
 
@@ -53,6 +55,7 @@ class SendFileMessageEvent extends ChatsEvent {
   final File file;
   final MassageType massageType;
   final String groupId;
+  final BuildContext context;
 
   SendFileMessageEvent({
     required this.sender,
@@ -62,6 +65,7 @@ class SendFileMessageEvent extends ChatsEvent {
     required this.file,
     required this.massageType,
     required this.groupId,
+    required this.context,
   });
 }
 
@@ -76,9 +80,26 @@ class ShowImageEvent extends ChatsEvent {
 
   ShowImageEvent(this.file);
 }
+
 //select video from galley
 class SelectVideoFromGalleryEvent extends ChatsEvent {
   final File file;
 
   SelectVideoFromGalleryEvent(this.file);
+}
+
+//reactions
+class SelectReactionEvent extends ChatsEvent {
+  final String massageId;
+  final String senderId;
+  final String receiverId;
+  final String reaction;
+  final bool groupId;
+  SelectReactionEvent({
+    required this.massageId,
+    required this.senderId,
+    required this.receiverId,
+    required this.reaction,
+    required this.groupId,
+  });
 }
