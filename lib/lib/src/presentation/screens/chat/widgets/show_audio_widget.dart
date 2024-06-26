@@ -38,52 +38,54 @@ class _ShowAudioWidgetState extends State<ShowAudioWidget> {
     position = Duration.zero;
     _isMuted = false;
     audioPlayer.onPlayerStateChanged.listen((state) {
-   if(mounted){
-     if (state == PlayerState.completed) {
-       setState(() {
-         isPlaying = false;
-         position = Duration.zero;
-       });
-     }
-     if (state == PlayerState.playing) {
-       setState(() {
-         isPlaying = true;
-       });
-     }
-     if (state == PlayerState.paused) {
-       setState(() {
-         isPlaying = false;
-       });
-     }
-   }
+      if(mounted){
+        if (state == PlayerState.completed) {
+          setState(() {
+            isPlaying = false;
+            position = Duration.zero;
+          });
+        }
+        if (state == PlayerState.playing) {
+          setState(() {
+            isPlaying = true;
+          });
+        }
+        if (state == PlayerState.paused) {
+          setState(() {
+            isPlaying = false;
+          });
+        }
+      }
     });
     // set audio duration
     audioPlayer.onDurationChanged.listen((newDuration) {
-    if(mounted){
-      setState(() {
-        duration = newDuration;
-      });
-    }
+      if(mounted){
+        setState(() {
+          duration = newDuration;
+        });
+      }
     });
     //set audio position
     audioPlayer.onPositionChanged.listen((newPosition) {
-    if(mounted){
-      setState(() {
-        position = newPosition;
-      });
-    }
+      if(mounted){
+        setState(() {
+          position = newPosition;
+        });
+      }
     });
   }
 
   @override
   void didChangeDependencies() {
-    audioPlayer
-        .play(UrlSource(widget.audioPath))
-        .then((value) => audioPlayer.pause());
-    setState(() {
-      isPlaying = false;
-    });
     super.didChangeDependencies();
+    if(mounted){
+      audioPlayer
+          .play(UrlSource(widget.audioPath))
+          .then((value) => audioPlayer.pause());//here issues in video in course review this section again
+      setState(() {
+        isPlaying = false;
+      });
+    }
   }
 
   @override

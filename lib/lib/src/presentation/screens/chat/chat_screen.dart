@@ -111,7 +111,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
               //add emoji to message
               _bloc.add(SelectReactionEvent(
                 massageId: massage.messageId,
-                senderId: massage.senderId,
+                senderId: currentUser.uId,
                 receiverId: widget.friendId,
                 reaction: emoji.emoji,
                 groupId: widget.groupId.isNotEmpty,
@@ -209,7 +209,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
                       });
                       _bloc.add(SelectReactionEvent(
                         massageId: massage.messageId,
-                        senderId: massage.senderId,
+                        senderId: currentUser.uId,
                         receiverId: widget.friendId,
                         reaction: emoji,
                         groupId: widget.groupId.isNotEmpty,
@@ -219,7 +219,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
                   onContextMenuSelected: (String contextMenu, Massage massage) {
                     Future.delayed(
                       const Duration(milliseconds: 500),
-                      () {
+                          () {
                         _navigateBackEvent();
                         _onContextMenuSelected(contextMenu, massage);
                       },
@@ -334,7 +334,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
         Permission permission = PermissionServiceHandler.getGalleryPermission(
           true,
           androidDeviceInfo:
-              Platform.isAndroid ? await DeviceInfoPlugin().androidInfo : null,
+          Platform.isAndroid ? await DeviceInfoPlugin().androidInfo : null,
         );
         if (await PermissionServiceHandler()
             .handleServicePermission(setting: permission)) {
@@ -391,9 +391,9 @@ class _ChatScreenState extends BaseState<ChatScreen> {
   }
 
   Future<void> _getMedia(
-    ImageSource img,
-    MassageType massageType,
-  ) async {
+      ImageSource img,
+      MassageType massageType,
+      ) async {
     if (img == ImageSource.gallery) {
       if (massageType == MassageType.image) {
         final picker = ImagePicker();
@@ -481,7 +481,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
           presentStyle: CropperPresentStyle.dialog,
           boundary: const CroppieBoundary(width: 520, height: 520),
           viewPort:
-              const CroppieViewPort(width: 480, height: 480, type: 'circle'),
+          const CroppieViewPort(width: 480, height: 480, type: 'circle'),
           enableExif: true,
           enableZoom: true,
           showZoomer: true,
@@ -534,7 +534,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
   void _onContextMenuSelected(String contextMenu, Massage massage) {
     switch (contextMenu) {
       case Constants.delete:
-        // _bloc.add(DeleteMassageEvent(massage: massage));
+      // _bloc.add(DeleteMassageEvent(massage: massage));
         break;
       case Constants.reply:
         final massageReply = MassageReply(
@@ -561,3 +561,4 @@ class _ChatScreenState extends BaseState<ChatScreen> {
     }
   }
 }
+

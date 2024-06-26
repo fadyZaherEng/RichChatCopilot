@@ -159,25 +159,22 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                               bottom: isMe
                                   ? myMassagePadding
                                   : otherMassagePadding),
-                          child: Hero(
-                            tag: massage.messageId,
-                            child: MassageWidget(
-                              massage: massage,
-                              isMe: isMe,
-                              isViewOnly: false,
-                              onRightSwipe: () {
-                                final massageReply = MassageReply(
-                                  massage: massage.massage,
-                                  senderName: massage.senderName,
-                                  senderId: massage.senderId,
-                                  senderImage: massage.senderImage,
-                                  massageType: massage.massageType,
-                                  isMe: isMe,
-                                );
-                                // _bloc.setMassageReply(massageReply);
-                                widget.onRightSwipe(massageReply);
-                              },
-                            ),
+                          child: MassageWidget(
+                            massage: massage,
+                            isMe: isMe,
+                            isViewOnly: false,
+                            onRightSwipe: () {
+                              final massageReply = MassageReply(
+                                massage: massage.massage,
+                                senderName: massage.senderName,
+                                senderId: massage.senderId,
+                                senderImage: massage.senderImage,
+                                massageType: massage.massageType,
+                                isMe: isMe,
+                              );
+                              // _bloc.setMassageReply(massageReply);
+                              widget.onRightSwipe(massageReply);
+                            },
                           ),
                         ),
                       ),

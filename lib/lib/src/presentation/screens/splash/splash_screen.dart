@@ -1,6 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,16 +21,18 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      await Future.delayed(const Duration(seconds: 3));
-      FirebaseSingleTon.auth.authStateChanges().listen((User? user) {
-        if (user != null) {
-          Navigator.pushReplacementNamed(context, Routes.mainScreen);
-        } else {
-          Navigator.pushReplacementNamed(context, Routes.logInScreen);
-        }
+    if (mounted) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+        await Future.delayed(const Duration(seconds: 3));
+        FirebaseSingleTon.auth.authStateChanges().listen((User? user) {
+          if (user != null) {
+            Navigator.pushReplacementNamed(context, Routes.mainScreen);
+          } else {
+            Navigator.pushReplacementNamed(context, Routes.logInScreen);
+          }
+        });
       });
-    });
+    }
   }
 
   @override
@@ -67,7 +67,8 @@ class _SplashScreenState extends State<SplashScreen>
                   Text(
                     S.of(context).appTitle,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.secondary,),
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
                   )
                 ],
               ),

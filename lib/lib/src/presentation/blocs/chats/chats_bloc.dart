@@ -481,6 +481,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     required void Function() success,
     required void Function(String message) failure,
   }) async {
+    print("massageId: $massageId");
     try {
       //save reaction as $senderId=$reaction
       final String reactionToAdd = "$senderId=$reaction";
@@ -531,15 +532,18 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
         }
       } else {
         //handle contact massage
+        print("${senderId} ${receiverId} ${massageId}");
         //get reactions from firestore
-        final massageData = await FirebaseSingleTon.db
-            .collection(Constants.users)
-            .doc(senderId)
-            .collection(Constants.chats)
-            .doc(receiverId)
-            .collection(Constants.messages)
-            .doc(massageId)
-            .get();
+        DocumentSnapshot<Map<String, dynamic>> massageData =
+            await FirebaseSingleTon.db
+                .collection(Constants.users)
+                .doc(senderId)
+                .collection(Constants.chats)
+                .doc(receiverId)
+                .collection(Constants.messages)
+                .doc(massageId)
+                .get();
+        print("DDDDDDDDDDDDDDDDD${massageData.data()}");
         //add the massage data to massage
         final massage = Massage.fromJson(massageData.data()!);
         //check if reactions list empty
@@ -555,6 +559,15 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
               .update({
             Constants.reactions: FieldValue.arrayUnion([reactionToAdd])
           });
+          //update massage
+          // await FirebaseSingleTon.db
+          //     .collection(Constants.users)
+          //     .doc(receiverId)
+          //     .collection(Constants.chats)
+          //     .doc(senderId)
+          //     .collection(Constants.messages)
+          //     .doc(massageId)
+          //     .update({Constants.reactions: massage.reactions});
         } else {
           //get UIDS list from reactions
           final List<String> UIDS =
@@ -589,9 +602,10 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
               .update({Constants.reactions: massage.reactions});
         }
       }
+      print("sent");
       success();
     } catch (e) {
-      print(e.toString());
+      print("ddddddddddddddddddddddddddddddddd${e.toString()}");
       failure(e.toString());
     }
   }
