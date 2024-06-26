@@ -130,28 +130,28 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                     children: [
                       GestureDetector(
                         onLongPress: () async {
-                          // _showReactionDialog(isMe, massage, context);
-                          final value = await Navigator.of(context).push(
-                            HeroDialogRoute(
-                              builder: (context) {
-                                return ReactionsContextMenu(
-                                  isMe: isMe,
-                                  massage: massage,
-                                  onContextMenuSelected: (emoji, massage) {
-                                    widget.onContextMenuSelected(
-                                        emoji, massage);
-                                  },
-                                  onEmojiSelected: (emoji, massage) {
-                                    widget.onEmojiSelected(emoji, massage);
-                                  },
-                                );
-                              },
-                            ),
-                          );
-                          if (value) {
-                            //show emoji keyboard
-                            widget.showEmojiKeyword(massage);
-                          }
+                           _showReactionDialog(isMe, massage, context);
+                          // final value = await Navigator.of(context).push(
+                          //   HeroDialogRoute(
+                          //     builder: (context) {
+                          //       return ReactionsContextMenu(
+                          //         isMe: isMe,
+                          //         massage: massage,
+                          //         onContextMenuSelected: (emoji, massage) {
+                          //           widget.onContextMenuSelected(
+                          //               emoji, massage);
+                          //         },
+                          //         onEmojiSelected: (emoji, massage) {
+                          //           widget.onEmojiSelected(emoji, massage);
+                          //         },
+                          //       );
+                          //     },
+                          //   ),
+                          // );
+                          // // if (value! == true) {
+                          // //   //show emoji keyboard
+                          // //   widget.showEmojiKeyword(massage);
+                          // // }
                         },
                         child: Padding(
                           padding: EdgeInsets.only(

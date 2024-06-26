@@ -116,6 +116,9 @@ class _ChatScreenState extends BaseState<ChatScreen> {
                 reaction: emoji.emoji,
                 groupId: widget.groupId.isNotEmpty,
               ));
+              Future.delayed(const Duration(milliseconds: 300), () {
+                _navigateBackEvent();
+              });
             },
           ),
         );
@@ -160,11 +163,12 @@ class _ChatScreenState extends BaseState<ChatScreen> {
           filePath: state.file.path,
           context: context,
         );
-      } else if (state is SendReactionsToMassageSuccess) {
-        _navigateBackEvent();
-      } else if (state is SendReactionsToMassageError) {
-        _navigateBackEvent();
       }
+      // else if (state is SendReactionsToMassageSuccess) {
+      //   _navigateBackEvent();
+      // } else if (state is SendReactionsToMassageError) {
+      //   _navigateBackEvent();
+      // }
     }, builder: (context, state) {
       return Scaffold(
         body: SafeArea(
@@ -194,15 +198,15 @@ class _ChatScreenState extends BaseState<ChatScreen> {
                   friendId: widget.friendId,
                   onEmojiSelected: (String emoji, Massage massage) {
                     if (emoji == '➕') {
-                      Future.delayed(const Duration(milliseconds: 500), () {
-                        _navigateBackEvent();
-                      });
-                      //show emoji keyword
-                      _showEmojiPickerDialog(massage);
-                    } else {
                       // Future.delayed(const Duration(milliseconds: 500), () {
                       //   _navigateBackEvent();
                       // });
+                      //show emoji keyword
+                      _showEmojiPickerDialog(massage);
+                    } else {
+                      Future.delayed(const Duration(milliseconds: 500), () {
+                        _navigateBackEvent();
+                      });
                       _bloc.add(SelectReactionEvent(
                         massageId: massage.messageId,
                         senderId: massage.senderId,

@@ -1,8 +1,12 @@
+import 'dart:ui';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/display_massage_reply_type_widget.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/my_massage_widget.dart';
 
 class ReactionsDialogWidget extends StatefulWidget {
   final bool isMe;
@@ -41,110 +45,114 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: IntrinsicWidth(
-        child: Wrap(
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Material(
-                    color: Colors.transparent,
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(vertical: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.shade400,
-                            spreadRadius: 1,
-                            blurRadius: 2,
-                            offset: const Offset(0, 1),
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          for (var reaction in _reactions)
-                            FadeInRight(
-                              duration: const Duration(milliseconds: 500),
-                              from: 0 + (_reactions.indexOf(reaction) * 20),
-                              child: InkWell(
-                                onTap: () {
-                                  widget.onEmojiSelected(
-                                      reaction, widget.message);
+    return BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.only(right: 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Align(
+                alignment: Alignment.centerRight,
+                child: Material(
+                  color: Colors.transparent,
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.shade400,
+                          spreadRadius: 1,
+                          blurRadius: 2,
+                          offset: const Offset(0, 1),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        for (var reaction in _reactions)
+                          FadeInRight(
+                            duration: const Duration(milliseconds: 500),
+                            from: 0 + (_reactions.indexOf(reaction) * 20),
+                            child: InkWell(
+                              onTap: () {
+                                widget.onEmojiSelected(
+                                    reaction, widget.message);
+                                setState(() {
+                                  reactionClicked = true;
+                                  clickedReactionIndex =
+                                      _reactions.indexOf(reaction);
+                                });
+                                //set the reaction back
+                                Future.delayed(
+                                    const Duration(milliseconds: 500), () {
                                   setState(() {
-                                    reactionClicked = true;
-                                    clickedReactionIndex =
-                                        _reactions.indexOf(reaction);
+                                    reactionClicked = false;
                                   });
-                                  //set the reaction back
-                                  Future.delayed(
-                                      const Duration(milliseconds: 500), () {
-                                    setState(() {
-                                      reactionClicked = false;
-                                    });
-                                  });
-                                },
-                                child: Pulse(
-                                  duration: const Duration(milliseconds: 500),
-                                  animate: reactionClicked &&
-                                      clickedReactionIndex ==
-                                          _reactions.indexOf(reaction),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      reaction,
-                                      style: const TextStyle(fontSize: 20),
-                                    ),
+                                });
+                              },
+                              child: Pulse(
+                                duration: const Duration(milliseconds: 500),
+                                animate: reactionClicked &&
+                                    clickedReactionIndex ==
+                                        _reactions.indexOf(reaction),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    reaction,
+                                    style: const TextStyle(fontSize: 20),
                                   ),
                                 ),
                               ),
                             ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Material(
-                    color: Colors.transparent,
-                    child: Pulse(
-                      duration: const Duration(milliseconds: 500),
-                      child: _alignMassageReplyWidget(context),
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Material(
-                    color: Colors.transparent,
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.5,
-                      margin: const EdgeInsets.symmetric(vertical: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.shade400,
-                            spreadRadius: 1,
-                            blurRadius: 2,
-                            offset: const Offset(0, 1),
                           ),
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          for (var contextMenu in _contextMenu)
-                            InkWell(
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              //newly added
+              FadeInUp(
+                duration: const Duration(milliseconds: 500),
+                from: 100,
+                child: MyMassageWidget(
+                  massage: widget.message,
+                  isReplying: widget.message.repliedTo.isNotEmpty,
+                ),
+                // child: _alignMassageReplyWidget(context),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Material(
+                  color: Colors.transparent,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.shade400,
+                          spreadRadius: 1,
+                          blurRadius: 2,
+                          offset: const Offset(0, 1),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        for (var contextMenu in _contextMenu)
+                          FadeInLeft(
+                            duration: const Duration(milliseconds: 500),
+                            from: 0 + (_reactions.indexOf(contextMenu) * 20),
+                            child: InkWell(
                               onTap: () {
                                 widget.onContextMenuSelected(
                                     contextMenu, widget.message);
@@ -154,16 +162,14 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                                       _contextMenu.indexOf(contextMenu);
                                 });
                                 //set the reaction back
-                                Future.delayed(
-                                  const Duration(milliseconds: 500),
-                                  () {
-                                    if (mounted) {
-                                      setState(() {
-                                        contextMenuClicked = false;
-                                      });
-                                    }
-                                  },
-                                );
+                                Future.delayed(const Duration(milliseconds: 500),
+                                    () {
+                                  if (mounted) {
+                                    setState(() {
+                                      contextMenuClicked = false;
+                                    });
+                                  }
+                                });
                               },
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -172,72 +178,42 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      contextMenu,
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .secondary,
-                                      ),
-                                    ),
+                                    Text(contextMenu,
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .secondary,
+                                        )),
                                     Pulse(
                                       infinite: false,
-                                      duration:
-                                          const Duration(milliseconds: 500),
+                                      duration: const Duration(milliseconds: 500),
                                       animate: contextMenuClicked &&
                                           clickedContextMenuIndex ==
                                               _contextMenu.indexOf(contextMenu),
                                       child: Icon(
-                                          contextMenu == "Reply"
-                                              ? Icons.reply
-                                              : contextMenu == "Copy"
-                                                  ? Icons.copy
-                                                  : Icons.delete,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .secondary),
+                                        contextMenu == Constants.reply
+                                            ? Icons.reply
+                                            : contextMenu == Constants.copy
+                                                ? Icons.copy
+                                                : Icons.delete,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                      ),
                                     )
                                   ],
                                 ),
                               ),
                             ),
-                        ],
-                      ),
+                          ),
+                      ],
                     ),
                   ),
-                )
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _alignMassageReplyWidget(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: widget.isMe
-            ? Theme.of(context).colorScheme.primary
-            : Colors.grey[400],
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade400,
-            spreadRadius: 1,
-            blurRadius: 2,
-            offset: const Offset(0, 1),
+                ),
+              )
+            ],
           ),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(4),
-        child: MassageReplyTypeWidget(
-          massageType: widget.message.massageType,
-          massage: widget.message.massage,
-          context: context,
         ),
       ),
     );

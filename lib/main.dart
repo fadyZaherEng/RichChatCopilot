@@ -84,13 +84,6 @@ class _MyAppState extends State<MyApp> {
             builder: (lightTheme, darkTheme) => MaterialApp(
               // useInheritedMediaQuery: true,
               // builder: DevicePreview.appBuilder,
-              // theme: state is GetLocalAndThemeState &&
-              //         state.theme == Constants.light
-              //     ? AppTheme(state.locale.languageCode).light
-              //     : state is GetLocalAndThemeState &&
-              //             state.theme == Constants.dark
-              //         ? AppTheme(state.locale.languageCode).dark
-              //         : null,
               theme: lightTheme,
               darkTheme: darkTheme,
               navigatorKey: navigatorKey,
