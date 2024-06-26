@@ -1,4 +1,3 @@
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,11 +10,8 @@ import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/chats/chats_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/utils/show_reactions_dialog.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/massage_widget.dart';
-import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/receiver_massage_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/stacked_reactions_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/build_date_widget.dart';
-import 'package:rich_chat_copilot/lib/src/presentation/widgets/hero_dialog_route.dart';
-import 'package:rich_chat_copilot/lib/src/presentation/widgets/minor_screen/reactions_context_menu.dart';
 
 class ChatsListMassagesWidget extends StatefulWidget {
   final Stream<List<Massage>> massagesStream;
