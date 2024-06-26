@@ -19,6 +19,7 @@ class SendTextMessageEvent extends ChatsEvent {
   final String message;
   final MassageType massageType;
   final String groupId;
+  final BuildContext context;
 
   SendTextMessageEvent({
     required this.sender,
@@ -28,6 +29,7 @@ class SendTextMessageEvent extends ChatsEvent {
     required this.message,
     required this.massageType,
     required this.groupId,
+    required this.context,
   });
 }
 

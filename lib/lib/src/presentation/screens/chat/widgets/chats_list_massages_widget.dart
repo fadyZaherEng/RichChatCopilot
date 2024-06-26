@@ -126,7 +126,7 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                     children: [
                       GestureDetector(
                         onLongPress: () async {
-                           _showReactionDialog(isMe, massage, context);
+                          _showReactionDialog(isMe, massage, context);
                           // final value = await Navigator.of(context).push(
                           //   HeroDialogRoute(
                           //     builder: (context) {
@@ -151,10 +151,10 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                         },
                         child: Padding(
                           padding: EdgeInsets.only(
-                              top: 8.0,
-                              bottom: isMe
-                                  ? myMassagePadding
-                                  : otherMassagePadding),
+                            top: 8.0,
+                            bottom:
+                                isMe ? myMassagePadding : otherMassagePadding,
+                          ),
                           child: MassageWidget(
                             massage: massage,
                             isMe: isMe,
@@ -178,8 +178,8 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                     ],
                   );
                 },
-                itemComparator: (massage1, massage2) =>
-                    massage1.timeSent.compareTo(massage2.timeSent),
+                itemComparator:(massage1, massage2) => massage1.timeSent
+                    .compareTo(massage2.timeSent),
               );
             }
             return const SizedBox.shrink();

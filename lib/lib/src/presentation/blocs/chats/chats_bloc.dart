@@ -88,7 +88,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     String repliedTo = _massageReply == null
         ? ""
         : _massageReply!.isMe
-            ? "You"
+            ? S.of(event.context).you
             : _massageReply!.senderName;
     MassageType repliedMessageType =
         _massageReply?.massageType ?? MassageType.text;
@@ -258,7 +258,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
         .collection(Constants.users)
         .doc(userId)
         .collection(Constants.chats)
-        .orderBy("timeSent", descending: true)
+        .orderBy(Constants.timeSent, descending: true)
         .snapshots()
         .map((snapshot) {
       return snapshot.docs
@@ -278,7 +278,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
           .collection(Constants.groups)
           .doc(receiverId)
           .collection(Constants.messages)
-          .orderBy("timeSent", descending: true)
+          .orderBy(Constants.timeSent, descending: true)
           .snapshots()
           .map((snapshot) {
         return snapshot.docs
@@ -293,7 +293,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
           .collection(Constants.chats)
           .doc(receiverId)
           .collection(Constants.messages)
-          .orderBy("timeSent", descending: true)
+          .orderBy(Constants.timeSent, descending: true)
           .snapshots()
           .map((snapshot) {
         return snapshot.docs
@@ -481,8 +481,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     required void Function() success,
     required void Function(String message) failure,
   }) async {
-    print("massageId: $massageId");
-    try {
+     try {
       //save reaction as $senderId=$reaction
       final String reactionToAdd = "$senderId=$reaction";
       //check if group massage and send to group else send to contact
@@ -528,7 +527,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
               .doc(receiverId)
               .collection(Constants.messages)
               .doc(massageId)
-              .update({"reactions": massage.reactions});
+              .update({Constants.reactions: massage.reactions});
         }
       } else {
         //handle contact massage
@@ -556,7 +555,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
               .collection(Constants.messages)
               .doc(massageId)
               .update({
-            "reactions": FieldValue.arrayUnion([reactionToAdd])
+            Constants.reactions: FieldValue.arrayUnion([reactionToAdd])
           });
         } else {
           //get UIDS list from reactions
@@ -580,7 +579,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
               .doc(receiverId)
               .collection(Constants.messages)
               .doc(massageId)
-              .update({"reactions": massage.reactions});
+              .update({Constants.reactions: massage.reactions});
           //update massage to receiver
           await FirebaseSingleTon.db
               .collection(Constants.users)
@@ -589,7 +588,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
               .doc(senderId)
               .collection(Constants.messages)
               .doc(massageId)
-              .update({"reactions": massage.reactions});
+              .update({Constants.reactions: massage.reactions});
         }
       }
       print("sent");

@@ -275,6 +275,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
                       message: _massageController.text,
                       massageType: MassageType.text,
                       groupId: widget.groupId,
+                      context: context,
                     ));
                   }
                 },

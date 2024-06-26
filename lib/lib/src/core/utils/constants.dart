@@ -29,4 +29,5 @@ class Constants {
   static const String delete = "Delete";
   static const String isSeen = "isSeen";
   static const String reactions = "reactions";
+  static const String timeSent = "timeSent";
 }
