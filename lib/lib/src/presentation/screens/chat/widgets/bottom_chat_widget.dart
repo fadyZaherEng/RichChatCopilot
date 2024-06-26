@@ -2,11 +2,10 @@ import 'dart:io';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:lottie/lottie.dart';
-import 'package:rich_chat_copilot/lib/src/core/resources/image_paths.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage_reply.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/massage_reply_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/record_audio_widget.dart';
+import 'package:flutter_sound_record/flutter_sound_record.dart';
 
 class BottomChatWidget extends StatefulWidget {
   final String friendName;
@@ -64,6 +63,14 @@ class BottomChatWidget extends StatefulWidget {
 }
 
 class _BottomChatWidgetState extends State<BottomChatWidget> {
+  late FlutterSoundRecord _soundRecorder;
+
+  @override
+  void initState() {
+    super.initState();
+    _soundRecorder = FlutterSoundRecord();
+  }
+
   @override
   Widget build(BuildContext context) {
     return IntrinsicHeight(
@@ -199,6 +206,7 @@ class _BottomChatWidgetState extends State<BottomChatWidget> {
                                   isSendingButtonShow: isSendingButtonShow,
                                 );
                               },
+                              flutterSoundRecord: _soundRecorder,
                             ),
                 ],
               ),
