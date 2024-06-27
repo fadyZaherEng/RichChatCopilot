@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rich_chat_copilot/generated/l10n.dart';
-import 'package:rich_chat_copilot/lib/src/core/utils/massage_type.dart';
+import 'package:rich_chat_copilot/lib/src/core/utils/enum/massage_type.dart';
 
 class MassageReplyTypeWidget extends StatelessWidget {
   final MassageType massageType;

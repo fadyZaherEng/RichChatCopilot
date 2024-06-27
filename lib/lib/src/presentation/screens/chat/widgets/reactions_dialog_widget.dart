@@ -187,11 +187,9 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(contextMenu,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 20,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .secondary,
+                                          color: Colors.black,
                                         )),
                                     Pulse(
                                       infinite: false,

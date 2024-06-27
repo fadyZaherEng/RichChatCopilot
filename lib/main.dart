@@ -7,7 +7,6 @@ import 'package:rich_chat_copilot/lib/src/config/routes/routes_manager.dart';
 import 'package:rich_chat_copilot/lib/src/di/injector.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/chats/chats_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/friends/friends_bloc.dart';
-import 'package:rich_chat_copilot/lib/src/presentation/blocs/friends_requests/friends_requests_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/login/log_in_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/main/main_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/profile/profile_bloc.dart';
@@ -62,7 +61,6 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<ChatsBloc>(create: (context) => injector()),
         BlocProvider<ProfileBloc>(create: (context) => injector()),
         BlocProvider<FriendsBloc>(create: (context) => injector()),
-        BlocProvider<FriendsRequestsBloc>(create: (context) => injector()),
       ],
       child: BlocBuilder<MainCubit, Locale>(
         buildWhen: (previousState, currentState) {

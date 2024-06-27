@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:rich_chat_copilot/generated/l10n.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
-import 'package:rich_chat_copilot/lib/src/core/utils/massage_type.dart';
+import 'package:rich_chat_copilot/lib/src/core/utils/enum/massage_type.dart';
 import 'package:rich_chat_copilot/lib/src/data/source/local/single_ton/firebase_single_ton.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/last_massage.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage.dart';

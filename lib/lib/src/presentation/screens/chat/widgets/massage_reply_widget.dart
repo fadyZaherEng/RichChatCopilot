@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
-import 'package:rich_chat_copilot/lib/src/core/utils/massage_type.dart';
+import 'package:rich_chat_copilot/lib/src/core/utils/enum/massage_type.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage_reply.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/display_massage_reply_type_widget.dart';
 

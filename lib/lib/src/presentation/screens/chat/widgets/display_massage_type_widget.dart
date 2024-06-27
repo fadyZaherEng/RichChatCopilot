@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:rich_chat_copilot/lib/src/config/routes/routes_manager.dart';
-import 'package:rich_chat_copilot/lib/src/core/utils/massage_type.dart';
+import 'package:rich_chat_copilot/lib/src/core/utils/enum/massage_type.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/show_audio_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/show_video_widget.dart';
 import 'package:skeletons/skeletons.dart';

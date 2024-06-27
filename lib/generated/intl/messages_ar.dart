@@ -44,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseImage": MessageLookupByLibrary.simpleMessage("اختر صورة"),
         "continues": MessageLookupByLibrary.simpleMessage("التالي"),
         "copied": MessageLookupByLibrary.simpleMessage("تم النسخ"),
+        "createGroup": MessageLookupByLibrary.simpleMessage("انشاء مجموعة"),
         "didReceiveTheCode":
             MessageLookupByLibrary.simpleMessage("لم تستلم الرمز"),
         "enterMessage": MessageLookupByLibrary.simpleMessage("أدخل الرسالة"),
@@ -87,7 +88,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "noUsers": MessageLookupByLibrary.simpleMessage("لا يوجد مستخدمين"),
         "ok": MessageLookupByLibrary.simpleMessage("موافق"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
+        "privateGroup": MessageLookupByLibrary.simpleMessage("المجموعة الخاصة"),
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
+        "publicGroup": MessageLookupByLibrary.simpleMessage("المجموعة العامة"),
         "requestCanceled":
             MessageLookupByLibrary.simpleMessage("تم الغاء طلب الصداقة"),
         "requestSent":

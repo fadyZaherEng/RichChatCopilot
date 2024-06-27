@@ -16,3 +16,29 @@ final class GetFriendsError extends FriendsState {
   GetFriendsError({required this.error});
 }
 
+
+final class FriendsRequestsInitial extends FriendsState {}
+
+final class GetFriendsRequestsLoading extends FriendsState {}
+
+final class GetFriendsRequestsError extends FriendsState {
+  final String message;
+
+  GetFriendsRequestsError({required this.message});
+}
+
+final class GetFriendsRequestsSuccess extends FriendsState {
+  final List<UserModel> friendsRequests;
+
+  GetFriendsRequestsSuccess({required this.friendsRequests});
+}
+final class AcceptFriendRequestsLoading extends FriendsState {}
+
+final class AcceptFriendRequestsError extends FriendsState {
+  final String message;
+
+  AcceptFriendRequestsError({required this.message});
+}
+
+final class AcceptFriendRequestsSuccess extends FriendsState {}
+

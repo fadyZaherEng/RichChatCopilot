@@ -30,7 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Accept Friend Request"),
         "addYourPhoneNumberMessage": MessageLookupByLibrary.simpleMessage(
             "Add your phone number, we\'ll send you a verification code"),
-        "appTitle": MessageLookupByLibrary.simpleMessage("Rich Chat"),
+        "appTitle": MessageLookupByLibrary.simpleMessage("Chats"),
         "areYouSureYouWantToLogOut": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to log out?"),
         "audio": MessageLookupByLibrary.simpleMessage("Audio"),
@@ -44,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseImage": MessageLookupByLibrary.simpleMessage("Choose Image"),
         "continues": MessageLookupByLibrary.simpleMessage("Continue"),
         "copied": MessageLookupByLibrary.simpleMessage("Copied"),
+        "createGroup": MessageLookupByLibrary.simpleMessage("Create Group"),
         "didReceiveTheCode":
             MessageLookupByLibrary.simpleMessage("Didn\'t recieve the code"),
         "enterMessage": MessageLookupByLibrary.simpleMessage("Enter Message"),
@@ -86,7 +87,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "noUsers": MessageLookupByLibrary.simpleMessage("No Users"),
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
+        "privateGroup": MessageLookupByLibrary.simpleMessage("Private Group"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "publicGroup": MessageLookupByLibrary.simpleMessage("Public Group"),
         "requestCanceled":
             MessageLookupByLibrary.simpleMessage("Request Canceled"),
         "requestSent":

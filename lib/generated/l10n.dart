@@ -50,10 +50,10 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Rich Chat`
+  /// `Chats`
   String get appTitle {
     return Intl.message(
-      'Rich Chat',
+      'Chats',
       name: 'appTitle',
       desc: '',
       args: [],
@@ -827,6 +827,36 @@ class S {
     return Intl.message(
       'Copied',
       name: 'copied',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Public Group`
+  String get publicGroup {
+    return Intl.message(
+      'Public Group',
+      name: 'publicGroup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Private Group`
+  String get privateGroup {
+    return Intl.message(
+      'Private Group',
+      name: 'privateGroup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create Group`
+  String get createGroup {
+    return Intl.message(
+      'Create Group',
+      name: 'createGroup',
       desc: '',
       args: [],
     );

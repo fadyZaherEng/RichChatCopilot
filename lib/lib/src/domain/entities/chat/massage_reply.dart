@@ -1,4 +1,4 @@
-import 'package:rich_chat_copilot/lib/src/core/utils/massage_type.dart';
+import 'package:rich_chat_copilot/lib/src/core/utils/enum/massage_type.dart';
 
 class MassageReply {
   final String massage;

@@ -1,11 +1,11 @@
 {
-  "appTitle":"محادثة ذكية",
-  "Powered by - Rich Chat":"تم بواسطة -محادثة ذكية",
-  "home":"الصفحة الرئيسية",
-  "settings":"الاعدادات",
-  "theme":"المظهر",
-  "language":"اللغة",
-  "welcomeMessage":"مرحبا بك في محادثة ذكية",
+  "appTitle": "محادثة ذكية",
+  "Powered by - Rich Chat": "تم بواسطة -محادثة ذكية",
+  "home": "الصفحة الرئيسية",
+  "settings": "الاعدادات",
+  "theme": "المظهر",
+  "language": "اللغة",
+  "welcomeMessage": "مرحبا بك في محادثة ذكية",
   "chats": "المحادثات",
   "groups": "المجموعات",
   "globes": "الاشخاص",
@@ -17,7 +17,7 @@
   "search": "بحث",
   "verification": "أثبات الهوية",
   "enterThe6Digit": "أدخل الرمز الذي تم ارساله على رقم هاتفك",
-  "resendCode":  "اعادة ارسال الرمز",
+  "resendCode": "اعادة ارسال الرمز",
   "didReceiveTheCode": "لم تستلم الرمز",
   "userInformation": "معلومات المستخدم",
   "enterName": "أدخل الاسم",
@@ -77,5 +77,8 @@
   "youShouldHaveAudioPermission": "يجب عليك السماح للصوت",
   "image": "صورة",
   "file": "ملف",
-  "copied": "تم النسخ"
+  "copied": "تم النسخ",
+  "publicGroup": "المجموعة العامة",
+  "privateGroup": "المجموعة الخاصة",
+  "createGroup": "انشاء مجموعة"
 }
