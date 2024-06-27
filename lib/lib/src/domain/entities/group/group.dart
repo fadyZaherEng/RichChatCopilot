@@ -19,26 +19,27 @@ class Group {
   final List<String> adminsUIDS;
   final List<String> awaitingApprovalUIDS;
 
-  Group(
-      {required this.creatorUID,
-      required this.groupName,
-      required this.groupDescription,
-      required this.groupID,
-      required this.groupLogo,
-      required this.lastMessage,
-      required this.senderUID,
-      required this.timeSent,
-      required this.createAt,
-      required this.massageType,
-      required this.massageID,
-      required this.isPrivate,
-      required this.editSettings,
-      required this.approveMembers,
-      required this.lockMassages,
-      required this.requestToJoin,
-      required this.membersUIDS,
-      required this.adminsUIDS,
-      required this.awaitingApprovalUIDS});
+  Group({
+    required this.creatorUID,
+    required this.groupName,
+    required this.groupDescription,
+    required this.groupID,
+    required this.groupLogo,
+    required this.lastMessage,
+    required this.senderUID,
+    required this.timeSent,
+    required this.createAt,
+    required this.massageType,
+    required this.massageID,
+    required this.isPrivate,
+    required this.editSettings,
+    required this.approveMembers,
+    required this.lockMassages,
+    required this.requestToJoin,
+    required this.membersUIDS,
+    required this.adminsUIDS,
+    required this.awaitingApprovalUIDS,
+  });
 
 // to map
 
@@ -95,26 +96,27 @@ class Group {
 
   //copy with
 
-  Group copyWith(
-      {String? creatorUID,
-      String? groupName,
-      String? groupDescription,
-      String? groupID,
-      String? groupLogo,
-      String? lastMessage,
-      String? senderUID,
-      DateTime? timeSent,
-      DateTime? createAt,
-      String? massageType,
-      String? massageID,
-      bool? isPrivate,
-      bool? editSettings,
-      bool? approveMembers,
-      bool? lockMassages,
-      bool? requestToJoin,
-      List<String>? membersUIDS,
-      List<String>? adminsUIDS,
-      List<String>? awaitingApprovalUIDS}) {
+  Group copyWith({
+    String? creatorUID,
+    String? groupName,
+    String? groupDescription,
+    String? groupID,
+    String? groupLogo,
+    String? lastMessage,
+    String? senderUID,
+    DateTime? timeSent,
+    DateTime? createAt,
+    String? massageType,
+    String? massageID,
+    bool? isPrivate,
+    bool? editSettings,
+    bool? approveMembers,
+    bool? lockMassages,
+    bool? requestToJoin,
+    List<String>? membersUIDS,
+    List<String>? adminsUIDS,
+    List<String>? awaitingApprovalUIDS,
+  }) {
     return Group(
         creatorUID: creatorUID ?? this.creatorUID,
         groupName: groupName ?? this.groupName,
