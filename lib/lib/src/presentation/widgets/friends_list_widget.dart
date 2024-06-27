@@ -9,6 +9,7 @@ import 'package:rich_chat_copilot/lib/src/core/utils/enum/friend_view_type.dart'
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/friends/friends_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/custom_snack_bar_widget.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/widgets/friend_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/user_image_widget.dart';
 
 class FriendsListWidget extends StatefulWidget {
@@ -91,73 +92,82 @@ class _FriendsListWidgetState extends State<FriendsListWidget> {
                 return const SizedBox(height: 15);
               },
               itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  onTap: () {
-                    Navigator.pushNamed(context, Routes.profileScreen,
-                        arguments: {"userId": friends[index].uId});
+                return FriendWidget(
+                  user: friends[index],
+                  friendViewType: widget.friendViewType,
+                  onAcceptRequest: () {
+                    //TODO: accept request
+                    _bloc.add(
+                        AcceptFriendRequestEvent(friendId: friends[index].uId));
                   },
-                  leading: UserImageWidget(
-                    image: friends[index].image,
-                    width: 50,
-                    height: 50,
-                  ),
-                  title: Text(
-                    friends[index].name,
-                    style: GoogleFonts.openSans(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: ColorSchemes.black,
-                    ),
-                  ),
-                  subtitle: Text(
-                    friends[index].aboutMe,
-                    style: GoogleFonts.openSans(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: ColorSchemes.black,
-                    ),
-                  ),
-                  trailing: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).cardColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                    onPressed: () {
-                      if (widget.friendViewType ==
-                          FriendViewType.friendRequest) {
-                        //TODO: accept request
-                        _bloc.add(AcceptFriendRequestEvent(
-                            friendId: friends[index].uId));
-                      } else if (widget.friendViewType ==
-                          FriendViewType.friend) {
-                        //ToDO navigate to chat screen
-                        Navigator.pushNamed(
-                            context, Routes.chatWithFriendScreen,
-                            arguments: {
-                              "friendId": friends[index].uId,
-                              "friendName": friends[index].name,
-                              "friendImage": friends[index].image,
-                              "groupId": ""
-                            });
-                      }else {
-                        //check the checkbox
-                      }
-                    },
-                    child: Text(
-                      widget.friendViewType == FriendViewType.friend
-                          ? S.of(context).chat.toUpperCase()
-                          : S.of(context).accept.toUpperCase(),
-                      style: GoogleFonts.openSans(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ),
                 );
+                //   ListTile(
+                //   contentPadding: EdgeInsets.zero,
+                //   onTap: () {
+                //     Navigator.pushNamed(context, Routes.profileScreen,
+                //         arguments: {"userId": friends[index].uId});
+                //   },
+                //   leading: UserImageWidget(
+                //     image: friends[index].image,
+                //     width: 50,
+                //     height: 50,
+                //   ),
+                //   title: Text(
+                //     friends[index].name,
+                //     style: GoogleFonts.openSans(
+                //       fontSize: 16,
+                //       fontWeight: FontWeight.bold,
+                //       color: ColorSchemes.black,
+                //     ),
+                //   ),
+                //   subtitle: Text(
+                //     friends[index].aboutMe,
+                //     style: GoogleFonts.openSans(
+                //       fontSize: 14,
+                //       fontWeight: FontWeight.w400,
+                //       color: ColorSchemes.black,
+                //     ),
+                //   ),
+                //   trailing: ElevatedButton(
+                //     style: ElevatedButton.styleFrom(
+                //       backgroundColor: Theme.of(context).cardColor,
+                //       shape: RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.circular(10.0),
+                //       ),
+                //     ),
+                //     onPressed: () {
+                //       if (widget.friendViewType ==
+                //           FriendViewType.friendRequest) {
+                //         //TODO: accept request
+                //         _bloc.add(AcceptFriendRequestEvent(
+                //             friendId: friends[index].uId));
+                //       } else if (widget.friendViewType ==
+                //           FriendViewType.friend) {
+                //         //ToDO navigate to chat screen
+                //         Navigator.pushNamed(
+                //             context, Routes.chatWithFriendScreen,
+                //             arguments: {
+                //               "friendId": friends[index].uId,
+                //               "friendName": friends[index].name,
+                //               "friendImage": friends[index].image,
+                //               "groupId": ""
+                //             });
+                //       }else {
+                //         //check the checkbox
+                //       }
+                //     },
+                //     child: Text(
+                //       widget.friendViewType == FriendViewType.friend
+                //           ? S.of(context).chat.toUpperCase()
+                //           : S.of(context).accept.toUpperCase(),
+                //       style: GoogleFonts.openSans(
+                //         fontSize: 14,
+                //         fontWeight: FontWeight.bold,
+                //         color: Theme.of(context).colorScheme.primary,
+                //       ),
+                //     ),
+                //   ),
+                // );
               },
             );
     });

@@ -1,5 +1,6 @@
 enum FriendViewType {
   friend,
   friendRequest,
-  groupView
+  groupView,
+  allUsers
 }
