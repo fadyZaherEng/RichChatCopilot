@@ -106,7 +106,7 @@ class _GlobeScreenState extends BaseState<GlobeScreen> {
                     return Padding(
                       padding: const EdgeInsetsDirectional.only(start: 0),
                       child: FriendWidget(
-                          user: user, friendViewType: FriendViewType.allUsers),
+                          friend: user, friendViewType: FriendViewType.allUsers),
                       // ListTile(
                       //   onTap: () {
                       //     Navigator.pushNamed(

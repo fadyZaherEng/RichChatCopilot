@@ -22,6 +22,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "NewMembersWillBeApprovedOnlyAfterAdminApproval":
+            MessageLookupByLibrary.simpleMessage(
+                "New members will be approved only after admin approval"),
         "OTPSMSNotValid":
             MessageLookupByLibrary.simpleMessage("OTP SMS Not Valid"),
         "aboutMe": MessageLookupByLibrary.simpleMessage("About Me"),
@@ -31,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "addYourPhoneNumberMessage": MessageLookupByLibrary.simpleMessage(
             "Add your phone number, we\'ll send you a verification code"),
         "appTitle": MessageLookupByLibrary.simpleMessage("Chats"),
+        "approveNewMembers":
+            MessageLookupByLibrary.simpleMessage("Approve New Members"),
         "areYouSureYouWantToLogOut": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to log out?"),
         "audio": MessageLookupByLibrary.simpleMessage("Audio"),
@@ -47,6 +52,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "createGroup": MessageLookupByLibrary.simpleMessage("Create Group"),
         "didReceiveTheCode":
             MessageLookupByLibrary.simpleMessage("Didn\'t recieve the code"),
+        "done": MessageLookupByLibrary.simpleMessage("Done"),
+        "editGroupSettings":
+            MessageLookupByLibrary.simpleMessage("Edit Group Settings"),
         "enterMessage": MessageLookupByLibrary.simpleMessage("Enter Message"),
         "enterName": MessageLookupByLibrary.simpleMessage("Enter Name"),
         "enterThe6Digit": MessageLookupByLibrary.simpleMessage(
@@ -61,10 +69,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Friends Requests"),
         "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
         "globes": MessageLookupByLibrary.simpleMessage("People"),
+        "groupSettings": MessageLookupByLibrary.simpleMessage("Group Settings"),
         "groups": MessageLookupByLibrary.simpleMessage("Groups"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "image": MessageLookupByLibrary.simpleMessage("Image"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
+        "lockMassages": MessageLookupByLibrary.simpleMessage("Lock Massages"),
         "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
@@ -86,17 +96,29 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No Messages Yet"),
         "noUsers": MessageLookupByLibrary.simpleMessage("No Users"),
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
+        "onlyAdminsCanEditGroupSettings": MessageLookupByLibrary.simpleMessage(
+            "Only admins can edit group settings,as Info, image and description"),
+        "onlyAdminsCanSendMessagesOtherMembersCanNotSendMessages":
+            MessageLookupByLibrary.simpleMessage(
+                "Only admins can send messages other members can not send messages"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
         "privateGroup": MessageLookupByLibrary.simpleMessage("Private Group"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "publicGroup": MessageLookupByLibrary.simpleMessage("Public Group"),
         "requestCanceled":
             MessageLookupByLibrary.simpleMessage("Request Canceled"),
+        "requestIncomingMembersToJoinTheGroupBeforeViewingTheGroup":
+            MessageLookupByLibrary.simpleMessage(
+                "Request incoming members to join the group before viewing the group"),
         "requestSent":
             MessageLookupByLibrary.simpleMessage("Request sent successfully"),
+        "requestToJoinGroup":
+            MessageLookupByLibrary.simpleMessage("Request to Join Group"),
         "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
         "richChat": MessageLookupByLibrary.simpleMessage("Rich Chat"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
+        "selectGroupAdmin":
+            MessageLookupByLibrary.simpleMessage("Select Group Admin"),
         "send": MessageLookupByLibrary.simpleMessage("Send"),
         "sendFriendRequests":
             MessageLookupByLibrary.simpleMessage("Send Friend Requests"),

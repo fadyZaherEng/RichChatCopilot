@@ -93,7 +93,7 @@ class _FriendsListWidgetState extends State<FriendsListWidget> {
               },
               itemBuilder: (BuildContext context, int index) {
                 return FriendWidget(
-                  user: friends[index],
+                  friend: friends[index],
                   friendViewType: widget.friendViewType,
                   onAcceptRequest: () {
                     //TODO: accept request

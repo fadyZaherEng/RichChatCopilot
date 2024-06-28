@@ -861,6 +861,116 @@ class S {
       args: [],
     );
   }
+
+  /// `Group Settings`
+  String get groupSettings {
+    return Intl.message(
+      'Group Settings',
+      name: 'groupSettings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit Group Settings`
+  String get editGroupSettings {
+    return Intl.message(
+      'Edit Group Settings',
+      name: 'editGroupSettings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Only admins can edit group settings,as Info, image and description`
+  String get onlyAdminsCanEditGroupSettings {
+    return Intl.message(
+      'Only admins can edit group settings,as Info, image and description',
+      name: 'onlyAdminsCanEditGroupSettings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Approve New Members`
+  String get approveNewMembers {
+    return Intl.message(
+      'Approve New Members',
+      name: 'approveNewMembers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New members will be approved only after admin approval`
+  String get NewMembersWillBeApprovedOnlyAfterAdminApproval {
+    return Intl.message(
+      'New members will be approved only after admin approval',
+      name: 'NewMembersWillBeApprovedOnlyAfterAdminApproval',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Request incoming members to join the group before viewing the group`
+  String get requestIncomingMembersToJoinTheGroupBeforeViewingTheGroup {
+    return Intl.message(
+      'Request incoming members to join the group before viewing the group',
+      name: 'requestIncomingMembersToJoinTheGroupBeforeViewingTheGroup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Request to Join Group`
+  String get requestToJoinGroup {
+    return Intl.message(
+      'Request to Join Group',
+      name: 'requestToJoinGroup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lock Massages`
+  String get lockMassages {
+    return Intl.message(
+      'Lock Massages',
+      name: 'lockMassages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Only admins can send messages other members can not send messages`
+  String get onlyAdminsCanSendMessagesOtherMembersCanNotSendMessages {
+    return Intl.message(
+      'Only admins can send messages other members can not send messages',
+      name: 'onlyAdminsCanSendMessagesOtherMembersCanNotSendMessages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Group Admin`
+  String get selectGroupAdmin {
+    return Intl.message(
+      'Select Group Admin',
+      name: 'selectGroupAdmin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Done`
+  String get done {
+    return Intl.message(
+      'Done',
+      name: 'done',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

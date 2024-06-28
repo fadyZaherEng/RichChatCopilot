@@ -80,5 +80,16 @@
   "copied": "تم النسخ",
   "publicGroup": "المجموعة العامة",
   "privateGroup": "المجموعة الخاصة",
-  "createGroup": "انشاء مجموعة"
+  "createGroup": "انشاء مجموعة",
+  "groupSettings": "اعدادات المجموعة",
+  "onlyAdminsCanEditGroupSettings": "لا يمكن تعديل الاعدادات فقط للمشرفين",
+  "editGroupSettings": "تعديل الاعدادات",
+  "approveNewMembers": "موافقة عضويات جديدة",
+  "NewMembersWillBeApprovedOnlyAfterAdminApproval": "عضويات جديدة سيتم الموافقة عليها فقط بعد الموافقة من المشرفين",
+  "requestIncomingMembersToJoinTheGroupBeforeViewingTheGroup": "يمكنك الطلب للاعضاء الوارديين للانضمام للمجموعة قبل عرض المجموعة",
+  "requestToJoinGroup": "طلب الانضمام للمجموعة",
+  "lockMassages": "قفل الرسائل",
+  "onlyAdminsCanSendMessagesOtherMembersCanNotSendMessages": "لا يمكنك الارسال للرسائل الاخرى فقط للمشرفين",
+  "selectGroupAdmins": "حدد المشرفين للمجموعة",
+  "done": "تم"
 }

@@ -4,6 +4,7 @@ import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/play
 import 'package:rich_chat_copilot/lib/src/presentation/screens/create_group/create_group_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/firends_requests/frients_requests_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/friends/friends_screen.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/geoup_settings/group_settings_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/home/home_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/login/login_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/main/main_screen.dart';
@@ -28,6 +29,7 @@ class Routes {
   static const String chatWithFriendScreen = "/chatWithFriendScreen";
   static const String fullVideoScreen = "/full_video_screen";
   static const String createGroupScreen = "/createGroupScreen";
+  static const String settingsGroupScreen = "/settingsGroupScreen";
 }
 
 class RoutesManager {
@@ -85,6 +87,8 @@ class RoutesManager {
         ));
         case Routes.createGroupScreen:
         return _materialRoute(const CreateGroupScreen());
+        case Routes.settingsGroupScreen:
+        return _materialRoute(const GroupSettingsScreen());
       default:
         return _materialRoute(const SplashScreen());
     }

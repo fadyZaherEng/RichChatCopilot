@@ -22,6 +22,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "NewMembersWillBeApprovedOnlyAfterAdminApproval":
+            MessageLookupByLibrary.simpleMessage(
+                "عضويات جديدة سيتم الموافقة عليها فقط بعد الموافقة من المشرفين"),
         "OTPSMSNotValid":
             MessageLookupByLibrary.simpleMessage("رمز التحقق غير صحيح"),
         "aboutMe": MessageLookupByLibrary.simpleMessage("عني"),
@@ -31,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "addYourPhoneNumberMessage": MessageLookupByLibrary.simpleMessage(
             "اضف رقم هاتفك, سوف نرسل لك رمز التحقق."),
         "appTitle": MessageLookupByLibrary.simpleMessage("محادثة ذكية"),
+        "approveNewMembers":
+            MessageLookupByLibrary.simpleMessage("موافقة عضويات جديدة"),
         "areYouSureYouWantToLogOut": MessageLookupByLibrary.simpleMessage(
             "هل انت متاكد من تسجيل الخروج؟"),
         "audio": MessageLookupByLibrary.simpleMessage("مقطع صوتي"),
@@ -47,6 +52,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "createGroup": MessageLookupByLibrary.simpleMessage("انشاء مجموعة"),
         "didReceiveTheCode":
             MessageLookupByLibrary.simpleMessage("لم تستلم الرمز"),
+        "done": MessageLookupByLibrary.simpleMessage("تم"),
+        "editGroupSettings":
+            MessageLookupByLibrary.simpleMessage("تعديل الاعدادات"),
         "enterMessage": MessageLookupByLibrary.simpleMessage("أدخل الرسالة"),
         "enterName": MessageLookupByLibrary.simpleMessage("أدخل الاسم"),
         "enterThe6Digit": MessageLookupByLibrary.simpleMessage(
@@ -61,10 +69,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("طلبات الصداقة"),
         "gallery": MessageLookupByLibrary.simpleMessage("المعرض"),
         "globes": MessageLookupByLibrary.simpleMessage("الاشخاص"),
+        "groupSettings":
+            MessageLookupByLibrary.simpleMessage("اعدادات المجموعة"),
         "groups": MessageLookupByLibrary.simpleMessage("المجموعات"),
         "home": MessageLookupByLibrary.simpleMessage("الصفحة الرئيسية"),
         "image": MessageLookupByLibrary.simpleMessage("صورة"),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
+        "lockMassages": MessageLookupByLibrary.simpleMessage("قفل الرسائل"),
         "logOut": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
@@ -87,14 +98,24 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("لا يوجد رسائل حتى الان"),
         "noUsers": MessageLookupByLibrary.simpleMessage("لا يوجد مستخدمين"),
         "ok": MessageLookupByLibrary.simpleMessage("موافق"),
+        "onlyAdminsCanEditGroupSettings": MessageLookupByLibrary.simpleMessage(
+            "لا يمكن تعديل الاعدادات فقط للمشرفين"),
+        "onlyAdminsCanSendMessagesOtherMembersCanNotSendMessages":
+            MessageLookupByLibrary.simpleMessage(
+                "لا يمكنك الارسال للرسائل الاخرى فقط للمشرفين"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
         "privateGroup": MessageLookupByLibrary.simpleMessage("المجموعة الخاصة"),
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
         "publicGroup": MessageLookupByLibrary.simpleMessage("المجموعة العامة"),
         "requestCanceled":
             MessageLookupByLibrary.simpleMessage("تم الغاء طلب الصداقة"),
+        "requestIncomingMembersToJoinTheGroupBeforeViewingTheGroup":
+            MessageLookupByLibrary.simpleMessage(
+                "يمكنك الطلب للاعضاء الوارديين للانضمام للمجموعة قبل عرض المجموعة"),
         "requestSent":
             MessageLookupByLibrary.simpleMessage(" تم ارسال الطلب بنجاح"),
+        "requestToJoinGroup":
+            MessageLookupByLibrary.simpleMessage("طلب الانضمام للمجموعة"),
         "resendCode": MessageLookupByLibrary.simpleMessage("اعادة ارسال الرمز"),
         "richChat": MessageLookupByLibrary.simpleMessage("محادثة رسمية"),
         "search": MessageLookupByLibrary.simpleMessage("بحث"),

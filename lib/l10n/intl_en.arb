@@ -80,5 +80,16 @@
   "copied": "Copied",
   "publicGroup": "Public Group",
   "privateGroup": "Private Group",
-  "createGroup": "Create Group"
+  "createGroup": "Create Group",
+  "groupSettings": "Group Settings",
+  "editGroupSettings": "Edit Group Settings",
+  "onlyAdminsCanEditGroupSettings": "Only admins can edit group settings,as Info, image and description",
+  "approveNewMembers": "Approve New Members",
+  "NewMembersWillBeApprovedOnlyAfterAdminApproval": "New members will be approved only after admin approval",
+  "requestIncomingMembersToJoinTheGroupBeforeViewingTheGroup": "Request incoming members to join the group before viewing the group",
+  "requestToJoinGroup": "Request to Join Group",
+  "lockMassages": "Lock Massages",
+  "onlyAdminsCanSendMessagesOtherMembersCanNotSendMessages": "Only admins can send messages other members can not send messages",
+  "selectGroupAdmin": "Select Group Admin",
+  "done": "Done"
 }

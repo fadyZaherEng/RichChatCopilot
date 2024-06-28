@@ -8,6 +8,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rich_chat_copilot/generated/l10n.dart';
+import 'package:rich_chat_copilot/lib/src/config/routes/routes_manager.dart';
 import 'package:rich_chat_copilot/lib/src/config/theme/color_schemes.dart';
 import 'package:rich_chat_copilot/lib/src/core/base/widget/base_stateful_widget.dart';
 import 'package:rich_chat_copilot/lib/src/core/resources/image_paths.dart';
@@ -117,7 +118,10 @@ class _CreateGroupScreenState extends BaseState<CreateGroupScreen> {
                     title: "Group Settings",
                     icon: Icons.settings,
                     iconColor: Colors.deepPurple,
-                    onTap: () {},
+                    onTap: () {
+                      //navigate to group settings
+                      Navigator.of(context).pushNamed(Routes.settingsGroupScreen);
+                    },
                   ),
                 ),
               ),

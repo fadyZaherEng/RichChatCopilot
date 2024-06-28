@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rich_chat_copilot/generated/l10n.dart';
 import 'package:rich_chat_copilot/lib/src/config/routes/routes_manager.dart';
 import 'package:rich_chat_copilot/lib/src/core/base/widget/base_stateful_widget.dart';
@@ -8,6 +9,7 @@ import 'package:rich_chat_copilot/lib/src/data/source/local/single_ton/firebase_
 import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
 import 'package:rich_chat_copilot/lib/src/domain/usecase/get_user_use_case.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/blocs/group/group_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/contacts/my_chats_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/group/group_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/people/globe_screen.dart';
@@ -131,7 +133,10 @@ class _MainScreenState extends BaseState<MainScreen>
       floatingActionButton: _selectedIndex == 1
           ? FloatingActionButton(
               onPressed: () {
-                 Navigator.pushNamed(context, Routes.createGroupScreen);
+                context.read<GroupBloc>().clearGroupAdminsList()
+                    .whenComplete(() {
+                  Navigator.pushNamed(context, Routes.createGroupScreen);
+                });
               },
               child: const Icon(CupertinoIcons.add),
             )
