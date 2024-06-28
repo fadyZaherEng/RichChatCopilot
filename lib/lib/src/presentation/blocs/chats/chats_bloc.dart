@@ -11,6 +11,7 @@ import 'package:meta/meta.dart';
 import 'package:rich_chat_copilot/generated/l10n.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/enum/massage_type.dart';
+import 'package:rich_chat_copilot/lib/src/core/utils/save_image_to_storage.dart';
 import 'package:rich_chat_copilot/lib/src/data/source/local/single_ton/firebase_single_ton.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/last_massage.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage.dart';
@@ -389,7 +390,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     MassageType repliedMessageType =
         _massageReply?.massageType ?? MassageType.text;
     //3-upload file to storage
-    String fileUrl = await _saveImageToStorage(file,
+    String fileUrl = await saveImageToStorage(file,
         "chatFiles/${massageType.name}/${sender.uId}/$receiverId/$massageId.jpg");
     print("fileUrl: $fileUrl");
     //4-update massage model with replied message
@@ -428,13 +429,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     }
   }
 
-  Future<String> _saveImageToStorage(File file, reference) async {
-    Reference ref = FirebaseSingleTon.storage.ref(reference);
-    UploadTask uploadTask = ref.putFile(file);
-    TaskSnapshot taskSnapshot = await uploadTask;
-    String downloadUrl = await taskSnapshot.ref.getDownloadURL();
-    return downloadUrl;
-  }
+
 
   FutureOr<void> _onSendFileMessageEvent(
       SendFileMessageEvent event, Emitter<ChatsState> emit) async {
