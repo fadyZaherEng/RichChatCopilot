@@ -429,8 +429,6 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     }
   }
 
-
-
   FutureOr<void> _onSendFileMessageEvent(
       SendFileMessageEvent event, Emitter<ChatsState> emit) async {
     emit(SendFileMessageLoading());
@@ -476,7 +474,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     required void Function() success,
     required void Function(String message) failure,
   }) async {
-     try {
+    try {
       //save reaction as $senderId=$reaction
       final String reactionToAdd = "$senderId=$reaction";
       //check if group massage and send to group else send to contact
@@ -610,5 +608,44 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
         emit(SendReactionsToMassageError(message: message));
       },
     );
+  }
+
+  //get unread massages stream
+  Stream<int> getUnreadMassagesStream({
+    required String userId,
+    required String receiverId,
+    required bool isGroup,
+  }) {
+    if (isGroup) {
+      return FirebaseSingleTon.db
+          .collection(Constants.groups)
+          .doc(receiverId)
+          .collection(Constants.messages)
+          .snapshots()
+          .asyncMap((event) {
+        int count = 0;
+        for (var element in event.docs) {
+          final massage = Massage.fromJson(element.data());
+          if (!massage.isSeenBy.contains(userId)) {
+            count++;
+          }
+        }
+        return count;
+      });
+    } else {
+      //handle contact massage
+      return FirebaseSingleTon.db
+          .collection(Constants.users)
+          .doc(userId)
+          .collection(Constants.chats)
+          .doc(receiverId)
+          .collection(Constants.messages)
+          .where(Constants.isSeen, isEqualTo: false)
+          .where("senderId", isEqualTo: userId)
+          .snapshots()
+          .map((event) {
+        return event.docs.length;
+      });
+    }
   }
 }

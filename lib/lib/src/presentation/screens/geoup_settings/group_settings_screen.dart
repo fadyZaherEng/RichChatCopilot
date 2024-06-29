@@ -33,7 +33,7 @@ class _GroupSettingsScreenState extends BaseState<GroupSettingsScreen> {
             children: [
               SettingsSwitchListTileWidget(
                 title: S.of(context).editGroupSettings,
-                value: true,
+                value: groupProvider.editSettings,
                 subtitle: S.of(context).onlyAdminsCanEditGroupSettings,
                 backgroundColor: Colors.green,
                 icon: Icons.edit,
@@ -45,7 +45,7 @@ class _GroupSettingsScreenState extends BaseState<GroupSettingsScreen> {
               groupProvider.approveNewMembers
                   ? SettingsSwitchListTileWidget(
                       title: S.of(context).approveNewMembers,
-                      value: false,
+                      value: groupProvider.approveNewMembers,
                       subtitle: S
                           .of(context)
                           .NewMembersWillBeApprovedOnlyAfterAdminApproval,
@@ -60,7 +60,7 @@ class _GroupSettingsScreenState extends BaseState<GroupSettingsScreen> {
               const SizedBox(height: 10),
               SettingsSwitchListTileWidget(
                 title: S.of(context).requestToJoinGroup,
-                value: false,
+                value: groupProvider.requestToJoin,
                 subtitle: S
                     .of(context)
                     .requestIncomingMembersToJoinTheGroupBeforeViewingTheGroup,
@@ -73,7 +73,7 @@ class _GroupSettingsScreenState extends BaseState<GroupSettingsScreen> {
               const SizedBox(height: 10),
               SettingsSwitchListTileWidget(
                 title: S.of(context).lockMassages,
-                value: false,
+                value: groupProvider.lockMassages,
                 subtitle: S
                     .of(context)
                     .onlyAdminsCanSendMessagesOtherMembersCanNotSendMessages,

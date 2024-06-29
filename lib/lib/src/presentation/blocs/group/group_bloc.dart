@@ -1,7 +1,13 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
+import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
+import 'package:rich_chat_copilot/lib/src/core/utils/save_image_to_storage.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/group/group.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
+import 'package:uuid/uuid.dart';
 
 part 'group_event.dart';
 
@@ -114,5 +120,140 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
   Future clearGroupAdminsList() async {
     _groupAdminsList.clear();
     emit(ClearGroupAdminsListState());
+  }
+
+  //get group members uids
+  List<String> getGroupMembersUIDS() {
+    return _groupMembersList.map((e) => e.uId).toList();
+  }
+
+  //get group admins uids
+  List<String> getGroupAdminsUIDS() {
+    return _groupAdminsList.map((e) => e.uId).toList();
+  }
+
+  //create group
+  Future<void> createGroup({
+    required Group group,
+    required File? image,
+    required Function onSuccess,
+    required Function(String) onError,
+  }) async {
+    setLoading(isLoading: true);
+    emit(CreateGroupLoadingState());
+    try {
+      var groupId = const Uuid().v4();
+      group.groupID = groupId;
+      //check if file image is null
+      if (image != null) {
+        final imageUrl =
+            await saveImageToStorage(image, "groupsImages/$groupId");
+        group.groupLogo = imageUrl;
+      }
+      //add the group admins
+      group.adminsUIDS = [group.creatorUID, ...getGroupAdminsUIDS()];
+      //add the group members
+      group.membersUIDS = [group.creatorUID, ...getGroupMembersUIDS()];
+      //add edit settings
+      group.editSettings = editSettings;
+      //add approve new members
+      group.approveMembers = approveNewMembers;
+      //add request to join
+      group.requestToJoin = requestToJoin;
+      //add lock massages
+      group.lockMassages = lockMassages;
+      //add group to firestore
+      await FirebaseFirestore.instance
+          .collection(Constants.groups)
+          .doc(groupId)
+          .set(group.toMap());
+      //on success
+      onSuccess();
+      setLoading(isLoading: false);
+      emit(CreateGroupSuccessState());
+    } catch (e) {
+      setLoading(isLoading: false);
+      onError(e.toString());
+      emit(CreateGroupErrorState());
+    }
+  }
+
+  //get stream of all private groups that contains given userId
+  Stream<List<Group>> getAllPrivateGroupsStream({
+    required String userId,
+  }) {
+    return FirebaseFirestore.instance
+        .collection(Constants.groups)
+        .where("membersUIDS", arrayContains: userId)
+        .where("isPrivate", isEqualTo: true)
+        .snapshots()
+        .asyncMap(
+      (event) async {
+        List<Group> groups = [];
+        for (var element in event.docs) {
+          groups.add(Group.fromMap(element.data()));
+        }
+        return groups;
+      },
+    );
+  }
+
+//get stream of all public groups that contains given userId
+  Stream<List<Group>> getAllPublicGroupsStream({
+    required String userId,
+  }) {
+    return FirebaseFirestore.instance
+        .collection(Constants.groups)
+        .where("membersUIDS", arrayContains: userId)
+        .where("isPrivate", isEqualTo: false)
+        .snapshots()
+        .asyncMap(
+      (event) async {
+        List<Group> groups = [];
+        for (var element in event.docs) {
+          groups.add(Group.fromMap(element.data()));
+        }
+        return groups;
+      },
+    );
+  }
+
+  //stream group data
+  Stream<DocumentSnapshot> getGroupStream({required String groupId}) {
+    return FirebaseFirestore.instance
+        .collection(Constants.groups)
+        .doc(groupId)
+        .snapshots();
+  }
+
+  //stream users data from firestore
+ Stream<List<DocumentSnapshot>> streamGroupMembersData({
+    required List<String> membersUIDS,
+  }) {
+    return Stream.fromFuture(
+      Future.wait<DocumentSnapshot>(
+        membersUIDS.map<Future<DocumentSnapshot>>(
+          (uid) async {
+            return await FirebaseFirestore.instance
+                .collection(Constants.users)
+                .doc(uid)
+                .get();
+          },
+        ),
+      ),
+    );
+    // return FirebaseFirestore.instance
+    //     .collection(Constants.users)
+    //     .where("uId", whereIn: membersUIDS)
+    //     .snapshots()
+    //     .asyncMap(
+    //   (event) async {
+    //     List<UserModel> users = [];
+    //     for (var element in event.docs) {
+    //       users.add(UserModel.fromJson(element.data()));
+    //     }
+    //     return users;
+    //   },
+    // );
   }
 }

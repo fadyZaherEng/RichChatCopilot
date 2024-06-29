@@ -1,23 +1,25 @@
+import 'package:rich_chat_copilot/lib/src/core/utils/enum/massage_type.dart';
+
 class Group {
-  final String creatorUID;
-  final String groupName;
-  final String groupDescription;
-  final String groupID;
-  final String groupLogo;
-  final String lastMessage;
-  final String senderUID;
-  final DateTime timeSent;
-  final DateTime createAt;
-  final String massageType;
-  final String massageID;
-  final bool isPrivate;
-  final bool editSettings;
-  final bool approveMembers;
-  final bool lockMassages;
-  final bool requestToJoin;
-  final List<String> membersUIDS;
-  final List<String> adminsUIDS;
-  final List<String> awaitingApprovalUIDS;
+   String creatorUID;
+   String groupName;
+   String groupDescription;
+   String groupID;
+   String groupLogo;
+   String lastMessage;
+   String senderUID;
+   DateTime timeSent;
+   DateTime createAt;
+   MassageType massageType;
+   String massageID;
+   bool isPrivate;
+   bool editSettings;
+   bool approveMembers;
+   bool lockMassages;
+   bool requestToJoin;
+   List<String> membersUIDS;
+   List<String> adminsUIDS;
+   List<String> awaitingApprovalUIDS;
 
   Group({
     required this.creatorUID,
@@ -54,7 +56,7 @@ class Group {
       'senderUID': senderUID,
       'timeSent': timeSent.millisecondsSinceEpoch,
       'createAt': createAt.millisecondsSinceEpoch,
-      'massageType': massageType,
+      'massageType': massageType.name,
       'massageID': massageID,
       'isPrivate': isPrivate,
       'editSettings': editSettings,
@@ -82,7 +84,7 @@ class Group {
             map['timeSent'] ?? DateTime.now().millisecondsSinceEpoch),
         createAt: DateTime.fromMillisecondsSinceEpoch(
             map['createAt'] ?? DateTime.now().millisecondsSinceEpoch),
-        massageType: map['massageType'],
+        massageType: map['massageType'].toString().massageTypeFromString,
         massageID: map['massageID'],
         isPrivate: map['isPrivate'],
         editSettings: map['editSettings'],
@@ -106,7 +108,7 @@ class Group {
     String? senderUID,
     DateTime? timeSent,
     DateTime? createAt,
-    String? massageType,
+    MassageType? massageType,
     String? massageID,
     bool? isPrivate,
     bool? editSettings,

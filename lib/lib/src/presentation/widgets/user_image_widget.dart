@@ -43,9 +43,21 @@ class UserImageWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
       ),
-      errorWidget: (context, url, error) => const Image(
-        image: NetworkImage(
-          "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png",
+      errorWidget: (context, url, error) => Container(
+        width: width,
+        height: height,
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          image: DecorationImage(
+            image: NetworkImage(
+              "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png",
+            ),
+            fit: BoxFit.cover,
+            // colorFilter: ColorFilter.mode(
+            //   Theme.of(context).colorScheme.primary,
+            //   BlendMode.srcATop,
+            // ),
+          ),
         ),
       ),
     );

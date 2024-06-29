@@ -1,5 +1,5 @@
 import 'package:rich_chat_copilot/lib/src/core/utils/enum/massage_type.dart';
-
+//this model for chat friend and group chat
 class Massage {
   final String senderId;
   final String senderName;
@@ -14,6 +14,9 @@ class Massage {
   final String repliedTo;
   final MassageType repliedMessageType;
   final List<String> reactions ;
+  //another attribute for group chat
+  final List<String> isSeenBy;
+  final List<String> isDeletedBy;
 
   const Massage({
     required this.senderId,
@@ -29,6 +32,8 @@ class Massage {
     required this.repliedTo,
     required this.repliedMessageType,
     this.reactions = const [],
+    this.isSeenBy = const [],
+    this.isDeletedBy = const [],
   });
 
   factory Massage.fromJson(Map<String, dynamic> json) {
@@ -47,6 +52,8 @@ class Massage {
       repliedMessageType:
           json['repliedMessageType'].toString().massageTypeFromString,
       reactions: json['reactions'] != null ? List<String>.from(json['reactions']) : [],
+      isSeenBy: json['isSeenBy'] != null ? List<String>.from(json['isSeenBy']) : [],
+      isDeletedBy: json['isDeletedBy'] != null ? List<String>.from(json['isDeletedBy']) : [],
     );
   }
 
@@ -64,7 +71,9 @@ class Massage {
       'repliedMessage': repliedMessage,
       'repliedTo': repliedTo,
       'repliedMessageType': repliedMessageType.name,
-      'reactions': reactions
+      'reactions': reactions,
+      'isSeenBy': isSeenBy,
+      'isDeletedBy': isDeletedBy
     };
   }
 
@@ -83,6 +92,8 @@ class Massage {
     String? repliedTo,
     MassageType? repliedMessageType,
     List<String>? reactions,
+    List<String>? isSeenBy,
+    List<String>? isDeletedBy,
   }) {
     return Massage(
       senderId: senderId ?? this.senderId,
@@ -98,6 +109,8 @@ class Massage {
       repliedMessageType: repliedMessageType ?? this.repliedMessageType,
       repliedTo: repliedTo ?? this.repliedTo,
       reactions: reactions ?? this.reactions,
+      isSeenBy: isSeenBy ?? this.isSeenBy,
+      isDeletedBy: isDeletedBy ?? this.isDeletedBy,
     );
   }
 
@@ -119,6 +132,8 @@ class Massage {
       repliedMessageType: repliedMessageType,
       repliedTo: repliedTo,
       reactions: reactions,
+      isSeenBy: isSeenBy,
+      isDeletedBy: isDeletedBy,
     );
   }
 }

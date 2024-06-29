@@ -17,3 +17,6 @@ final class RemoveMemberFromGroupListState extends GroupState {}
 final class RemoveMemberFromAdminListState extends GroupState {}
 final class ClearGroupMembersListState extends GroupState {}
 final class ClearGroupAdminsListState extends GroupState {}
+final class CreateGroupSuccessState extends GroupState {}
+final class CreateGroupErrorState extends GroupState {}
+final class CreateGroupLoadingState extends GroupState {}

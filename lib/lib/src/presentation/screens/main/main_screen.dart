@@ -10,8 +10,8 @@ import 'package:rich_chat_copilot/lib/src/di/data_layer_injector.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
 import 'package:rich_chat_copilot/lib/src/domain/usecase/get_user_use_case.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/group/group_bloc.dart';
-import 'package:rich_chat_copilot/lib/src/presentation/screens/contacts/my_chats_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/group/group_screen.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/my_chats/my_chats_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/people/globe_screen.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/user_image_widget.dart';
 

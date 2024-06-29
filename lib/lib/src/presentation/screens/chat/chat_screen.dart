@@ -30,6 +30,7 @@ import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/bott
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/chat_app_bar_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/chats_list_massages_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/custom_snack_bar_widget.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/group_chat_app_bar.dart';
 
 class ChatScreen extends BaseStatefulWidget {
   final String friendId;
@@ -177,7 +178,9 @@ class _ChatScreenState extends BaseState<ChatScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ChatAppBarWidget(friendId: widget.friendId),
+              _isGroupChat
+                  ? GroupChatAppBar(groupID: widget.groupId)
+                  : ChatAppBarWidget(friendId: widget.friendId),
               Expanded(
                 child: ChatsListMassagesWidget(
                   massagesStream: _bloc.getMessagesStream(
@@ -220,7 +223,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
                   onContextMenuSelected: (String contextMenu, Massage massage) {
                     Future.delayed(
                       const Duration(milliseconds: 500),
-                          () {
+                      () {
                         _navigateBackEvent();
                         _onContextMenuSelected(contextMenu, massage);
                       },
@@ -343,7 +346,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
         Permission permission = PermissionServiceHandler.getGalleryPermission(
           true,
           androidDeviceInfo:
-          Platform.isAndroid ? await DeviceInfoPlugin().androidInfo : null,
+              Platform.isAndroid ? await DeviceInfoPlugin().androidInfo : null,
         );
         if (await PermissionServiceHandler()
             .handleServicePermission(setting: permission)) {
@@ -400,9 +403,9 @@ class _ChatScreenState extends BaseState<ChatScreen> {
   }
 
   Future<void> _getMedia(
-      ImageSource img,
-      MassageType massageType,
-      ) async {
+    ImageSource img,
+    MassageType massageType,
+  ) async {
     if (img == ImageSource.gallery) {
       if (massageType == MassageType.image) {
         final picker = ImagePicker();
@@ -490,7 +493,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
           presentStyle: CropperPresentStyle.dialog,
           boundary: const CroppieBoundary(width: 520, height: 520),
           viewPort:
-          const CroppieViewPort(width: 480, height: 480, type: 'circle'),
+              const CroppieViewPort(width: 480, height: 480, type: 'circle'),
           enableExif: true,
           enableZoom: true,
           showZoomer: true,
@@ -543,7 +546,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
   void _onContextMenuSelected(String contextMenu, Massage massage) {
     switch (contextMenu) {
       case Constants.delete:
-      // _bloc.add(DeleteMassageEvent(massage: massage));
+        // _bloc.add(DeleteMassageEvent(massage: massage));
         break;
       case Constants.reply:
         final massageReply = MassageReply(
@@ -582,4 +585,3 @@ class _ChatScreenState extends BaseState<ChatScreen> {
     setState(() {});
   }
 }
-
