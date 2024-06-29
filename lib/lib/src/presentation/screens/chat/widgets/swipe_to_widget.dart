@@ -12,6 +12,7 @@ class SwipeToWidget extends StatelessWidget {
   final void Function() onRightSwipe;
   final bool isViewOnly;
   final bool isMe;
+  final bool isGroupChat;
 
   const SwipeToWidget({
     super.key,
@@ -19,6 +20,7 @@ class SwipeToWidget extends StatelessWidget {
     required this.onRightSwipe,
     required this.isViewOnly,
     required this.isMe,
+    required this.isGroupChat,
   });
 
   @override
@@ -32,10 +34,12 @@ class SwipeToWidget extends StatelessWidget {
           ? MyMassageWidget(
               massage: massage,
               isReplying: isReplying,
+              isGroupChat: isGroupChat,
             )
           : ReceiverMassageWidget(
               isReplying: isReplying,
               massage: massage,
+              isGroupChat: isGroupChat,
             ),
     );
   }

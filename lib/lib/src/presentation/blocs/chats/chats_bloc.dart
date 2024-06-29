@@ -95,22 +95,44 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
         _massageReply?.massageType ?? MassageType.text;
     //update massage model with replied message
     final massage = Massage(
-        senderId: event.sender.uId,
-        senderName: event.sender.name,
-        senderImage: event.sender.image,
-        receiverId: event.receiverId,
-        massage: event.message,
-        massageType: event.massageType,
-        timeSent: DateTime.now(),
-        messageId: massageId,
-        isSeen: false,
-        repliedMessage: repliedMessage,
-        repliedTo: repliedTo,
-        repliedMessageType: repliedMessageType,
-        reactions: []);
+      senderId: event.sender.uId,
+      senderName: event.sender.name,
+      senderImage: event.sender.image,
+      receiverId: event.receiverId,
+      massage: event.message,
+      massageType: event.massageType,
+      timeSent: DateTime.now(),
+      messageId: massageId,
+      isSeen: false,
+      repliedMessage: repliedMessage,
+      repliedTo: repliedTo,
+      repliedMessageType: repliedMessageType,
+      reactions: [],
+      isSeenBy: [event.sender.uId],
+      isDeletedBy: [],
+    );
     //check if group massage and send to group else send to contact
     if (event.groupId.isNotEmpty) {
       //handle group massage
+      await FirebaseSingleTon.db
+          .collection(Constants.groups)
+          .doc(event.groupId)
+          .collection(Constants.messages)
+          .doc(massageId)
+          .set(massage.toJson());
+      //update last massage for group
+      await FirebaseSingleTon.db
+          .collection(Constants.groups)
+          .doc(event.groupId)
+          .update({
+        "lastMessage": event.message,
+        "timeSent": DateTime.now().millisecondsSinceEpoch,
+        "senderId": event.sender.uId,
+        "massageType": event.massageType.name,
+      });
+      //set massage reply to null
+      setMassageReply(null);
+      emit(SendTextMessageSuccess());
     } else {
       //handle contact massage
       await _handleContactMassage(
@@ -125,6 +147,8 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
           emit(SendTextMessageError(message: message));
         },
       );
+      //set massage reply to null
+      setMassageReply(null);
     }
     //emit success
     // emit(SendTextMessageSuccess());
@@ -253,8 +277,9 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
   }
 
   //get chats last massages stream
-  Stream<List<LastMassage>> getChatsLastMassagesStream(
-      {required String userId}) {
+  Stream<List<LastMassage>> getChatsLastMassagesStream({
+    required String userId,
+  }) {
     return FirebaseSingleTon.db
         .collection(Constants.users)
         .doc(userId)
@@ -309,18 +334,25 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     required String senderId,
     required String receiverId,
     required String massageId,
-    required String groupId,
+    required bool isGroupChat,
+    required List<String>isSeenByList,
   }) async {
     try {
       //check if group
-      if (groupId.isNotEmpty) {
+      if (isGroupChat) {
         //handle group massage as seen
-        await FirebaseSingleTon.db
-            .collection(Constants.groups)
-            .doc(groupId)
-            .collection(Constants.messages)
-            .doc(massageId)
-            .update({Constants.isSeen: true});
+        if(isSeenByList.contains(senderId)){
+          return;
+        }else{
+          //add the current user to isSeenByList in all massages
+          await FirebaseSingleTon.db
+              .collection(Constants.groups)
+              .doc(receiverId)
+              .collection(Constants.messages)
+              .doc(massageId)
+              .update({"isSeenBy": FieldValue.arrayUnion([senderId])});
+        }
+        emit(SetMassageAsSeenSuccess());
       } else {
         //check if contact
         //set massage as seen for sender
@@ -342,14 +374,15 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
             .collection(Constants.messages)
             .doc(massageId)
             .update({Constants.isSeen: true});
-        //set last massage as seen for sender
 
+        //set last massage as seen for sender
         await FirebaseSingleTon.db
             .collection(Constants.users)
             .doc(senderId)
             .collection(Constants.chats)
             .doc(receiverId)
             .update({Constants.isSeen: true});
+
         //set last massage as seen for receiver
         await FirebaseSingleTon.db
             .collection(Constants.users)
@@ -390,9 +423,10 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     MassageType repliedMessageType =
         _massageReply?.massageType ?? MassageType.text;
     //3-upload file to storage
-    String fileUrl = await saveImageToStorage(file,
-        "chatFiles/${massageType.name}/${sender.uId}/$receiverId/$massageId.jpg");
-    print("fileUrl: $fileUrl");
+    String fileUrl = await saveImageToStorage(
+      file,
+      "chatFiles/${massageType.name}/${sender.uId}/$receiverId/$massageId.jpg",
+    );
     //4-update massage model with replied message
     final massage = Massage(
       senderId: sender.uId,
@@ -408,10 +442,32 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
       repliedTo: repliedTo,
       repliedMessageType: repliedMessageType,
       reactions: [],
+      isDeletedBy: [],
+      isSeenBy: [sender.uId],
     );
     //check if group massage and send to group else send to contact
     if (groupId.isNotEmpty) {
       //handle group massage
+      await FirebaseSingleTon.db
+          .collection(Constants.groups)
+          .doc(groupId)
+          .collection(Constants.messages)
+          .doc(massageId)
+          .set(massage.toJson());
+      //update last massage for group
+      await FirebaseSingleTon.db
+          .collection(Constants.groups)
+          .doc(groupId)
+          .update({
+          "lastMessage": fileUrl,
+          "timeSent": DateTime.now().millisecondsSinceEpoch,
+          "senderId": sender.uId,
+          "massageType": massageType.name,
+        },
+      );
+      //set massage reply to null
+      setMassageReply(null);
+      emit(SendFileMessageSuccess());
     } else {
       //handle contact massage
       await _handleContactMassage(
@@ -427,6 +483,8 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
         },
       );
     }
+    //set reply to null
+    setMassageReply(null);
   }
 
   FutureOr<void> _onSendFileMessageEvent(
@@ -480,6 +538,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
       //check if group massage and send to group else send to contact
       if (groupId) {
         //handle group massage
+
         //get reactions of massage list from firestore
         final massageData = await FirebaseSingleTon.db
             .collection(Constants.groups)
@@ -502,8 +561,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
           });
         } else {
           //get UIDS list from reactions
-          final List<String> UIDS =
-              massage.reactions.map((e) => e.split("=")[0]).toList();
+          final List<String> UIDS = massage.reactions.map((e) => e.split("=")[0]).toList();
           //check if reaction already added
           if (UIDS.contains(senderId)) {
             //get index of reaction
@@ -648,4 +706,5 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
       });
     }
   }
+
 }

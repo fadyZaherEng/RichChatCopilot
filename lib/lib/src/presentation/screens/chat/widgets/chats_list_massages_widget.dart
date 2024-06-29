@@ -22,6 +22,7 @@ class ChatsListMassagesWidget extends StatefulWidget {
   final void Function(String, Massage) onEmojiSelected;
   final void Function(String, Massage) onContextMenuSelected;
   final void Function(Massage) showEmojiKeyword;
+  final String groupId;
 
   const ChatsListMassagesWidget({
     super.key,
@@ -33,6 +34,7 @@ class ChatsListMassagesWidget extends StatefulWidget {
     required this.onEmojiSelected,
     required this.onContextMenuSelected,
     required this.showEmojiKeyword,
+    required this.groupId,
   });
 
   @override
@@ -83,7 +85,6 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
               );
             }
             if (snapshot.hasData) {
-
               final massages = snapshot.data!;
               return GroupedListView<dynamic, DateTime>(
                 keyboardDismissBehavior:
@@ -113,14 +114,25 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                   double myMassagePadding = massage.reactions.isEmpty ? 8 : 20;
                   double otherMassagePadding =
                       massage.reactions.isEmpty ? 8 : 25;
-                  if (massage.isSeen == false &&
-                      massage.senderId != widget.currentUser.uId) {
+                  if (widget.groupId.isNotEmpty) {
                     BlocProvider.of<ChatsBloc>(context).setMassageAsSeen(
                       senderId: widget.currentUser.uId,
                       receiverId: widget.friendId,
                       massageId: massage.messageId,
-                      groupId: "",
+                      isGroupChat: widget.groupId.isNotEmpty,
+                      isSeenByList: massage.isSeenBy,
                     );
+                  } else {
+                    if (massage.isSeen == false &&
+                        massage.senderId != widget.currentUser.uId) {
+                      BlocProvider.of<ChatsBloc>(context).setMassageAsSeen(
+                        senderId: widget.currentUser.uId,
+                        receiverId: widget.friendId,
+                        massageId: massage.messageId,
+                        isGroupChat: widget.groupId.isNotEmpty,
+                        isSeenByList: massage.isSeenBy,
+                      );
+                    }
                   }
                   bool isMe = massage.senderId == widget.currentUser.uId;
                   return Stack(
@@ -160,6 +172,7 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
                             massage: massage,
                             isMe: isMe,
                             isViewOnly: false,
+                            isGroupChat: widget.groupId.isNotEmpty,
                             onRightSwipe: () {
                               final massageReply = MassageReply(
                                 massage: massage.massage,
@@ -195,6 +208,7 @@ class _ChatsListMassagesWidgetState extends State<ChatsListMassagesWidget> {
       context: context,
       massage: massage,
       isMe: isMe,
+      groupId: widget.groupId,
       onContextMenuSelected: (emoji, massage) {
         widget.onContextMenuSelected(emoji, massage);
       },

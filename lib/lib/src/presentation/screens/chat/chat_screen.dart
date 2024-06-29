@@ -188,6 +188,7 @@ class _ChatScreenState extends BaseState<ChatScreen> {
                     userId: currentUser.uId,
                     isGroup: widget.groupId,
                   ),
+                  groupId: widget.groupId,
                   massagesScrollController: _massagesScrollController,
                   currentUser: currentUser,
                   onRightSwipe: (MassageReply massageReply) {

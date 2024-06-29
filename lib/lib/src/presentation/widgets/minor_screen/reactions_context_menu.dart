@@ -116,6 +116,7 @@ class _ReactionsContextMenuState extends State<ReactionsContextMenu> {
                 child: MyMassageWidget(
                   massage: widget.massage,
                   isReplying: widget.massage.repliedTo.isNotEmpty,
+                  isGroupChat: true,
                 ),
                 // child: _alignMassageReplyWidget(context),
               ),

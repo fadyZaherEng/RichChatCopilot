@@ -9,6 +9,7 @@ class MassageWidget extends StatelessWidget {
   final void Function() onRightSwipe;
   final bool isViewOnly;
   final bool isMe;
+  final bool isGroupChat;
 
   const MassageWidget({
     super.key,
@@ -16,6 +17,7 @@ class MassageWidget extends StatelessWidget {
     required this.onRightSwipe,
     required this.isViewOnly,
     required this.isMe,
+    required this.isGroupChat,
   });
 
   @override
@@ -26,23 +28,27 @@ class MassageWidget extends StatelessWidget {
             ? MyMassageWidget(
                 massage: massage,
                 isReplying: isReplying,
+                isGroupChat: isGroupChat,
               )
             : SwipeToWidget(
                 massage: massage,
                 onRightSwipe: onRightSwipe,
                 isViewOnly: isViewOnly,
                 isMe: isMe,
+                isGroupChat: isGroupChat,
               )
         : isViewOnly
             ? ReceiverMassageWidget(
                 isReplying: isReplying,
                 massage: massage,
+                isGroupChat: isGroupChat,
               )
             : SwipeToWidget(
                 isMe: isMe,
                 massage: massage,
                 isViewOnly: isViewOnly,
                 onRightSwipe: onRightSwipe,
+                isGroupChat: isGroupChat,
               );
   }
 }

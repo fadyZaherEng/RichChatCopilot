@@ -6,6 +6,7 @@ void showReactionsDialog({
   required BuildContext context,
   required Massage massage,
   required bool isMe,
+  required String groupId,
   required void Function(String,Massage) onContextMenuSelected,
   required void Function(String,Massage) onEmojiSelected,
 }) {
@@ -21,6 +22,7 @@ void showReactionsDialog({
         child: ReactionsDialogWidget(
           message: massage,
           isMe: isMe,
+          groupId: groupId,
           onContextMenuSelected: (contextMenu,massage) {
             onContextMenuSelected(contextMenu,massage);
           },

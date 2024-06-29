@@ -1,18 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/enum/massage_type.dart';
+import 'package:rich_chat_copilot/lib/src/data/source/local/single_ton/firebase_single_ton.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/display_massage_type_widget.dart';
 
 class MyMassageWidget extends StatelessWidget {
   final Massage massage;
   final bool isReplying;
+  final bool isGroupChat;
 
   const MyMassageWidget({
     super.key,
     required this.massage,
     required this.isReplying,
+    required this.isGroupChat,
   });
+
+  bool massageSeen() {
+    final uid = FirebaseSingleTon.auth.currentUser!.uid;
+    bool seen = false;
+    if (isGroupChat) {
+      List<String> isSeenBy = massage.isSeenBy;
+      if (isSeenBy.contains(uid)) {
+        //remove our id then check again
+        isSeenBy.remove(uid);
+      }
+      seen = isSeenBy.isNotEmpty;
+    } else {
+      seen = massage.isSeen;
+    }
+    return seen;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -96,7 +116,7 @@ class MyMassageWidget extends StatelessWidget {
                     ),
                     const SizedBox(width: 4),
                     Icon(
-                      massage.isSeen ? Icons.done_all : Icons.done,
+                      massageSeen() ? Icons.done_all : Icons.done,
                       color: massage.isSeen
                           ? Theme.of(context).colorScheme.primary
                           : Colors.white38,

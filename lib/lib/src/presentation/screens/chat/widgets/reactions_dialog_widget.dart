@@ -1,11 +1,9 @@
 import 'dart:ui';
 
 import 'package:animate_do/animate_do.dart';
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/chat/massage.dart';
-import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/display_massage_reply_type_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/my_massage_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/receiver_massage_widget.dart';
 
@@ -14,6 +12,7 @@ class ReactionsDialogWidget extends StatefulWidget {
   final Massage message;
   final void Function(String, Massage) onEmojiSelected;
   final void Function(String, Massage) onContextMenuSelected;
+  final String groupId;
 
   const ReactionsDialogWidget({
     super.key,
@@ -21,6 +20,7 @@ class ReactionsDialogWidget extends StatefulWidget {
     required this.message,
     required this.onEmojiSelected,
     required this.onContextMenuSelected,
+    required this.groupId,
   });
 
   @override
@@ -126,16 +126,18 @@ class _ReactionsDialogWidgetState extends State<ReactionsDialogWidget> {
                     ? MyMassageWidget(
                         massage: widget.message,
                         isReplying: widget.message.repliedTo.isNotEmpty,
+                        isGroupChat: widget.groupId.isNotEmpty,
                       )
                     : ReceiverMassageWidget(
                         massage: widget.message,
                         isReplying: widget.message.repliedTo.isNotEmpty,
+                        isGroupChat: widget.groupId.isNotEmpty,
                       ),
                 // child: _alignMassageReplyWidget(context),
               ),
               Align(
-                alignment: widget.isMe?
-                Alignment.centerRight : Alignment.centerLeft,
+                alignment:
+                    widget.isMe ? Alignment.centerRight : Alignment.centerLeft,
                 child: Material(
                   color: Colors.transparent,
                   child: Container(
