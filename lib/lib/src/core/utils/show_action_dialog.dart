@@ -14,6 +14,7 @@ Future showActionDialogWidget({
 }) async {
   return showDialog(
       context: context,
+      barrierDismissible: true,
       builder: (BuildContext context) => Dialog(
           elevation: 0,
           backgroundColor: Colors.transparent,

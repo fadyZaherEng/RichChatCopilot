@@ -352,4 +352,10 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
     _groupAdminsList.addAll(await getGroupMembersDataFromFirestore(isAdmin: true));
     emit(GroupAdminsListUpdateSuccessState());
   }
+  //changeGroupType
+  void changeGroupType(){
+    _group.isPrivate=!_group.isPrivate;
+    emit(ChangeGroupType());
+    updateGroupDataInFirestore();
+  }
 }

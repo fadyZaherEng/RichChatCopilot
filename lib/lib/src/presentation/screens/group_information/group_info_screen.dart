@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/group/group_bloc.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/screens/group/widgets/group_card_details_widget.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/widgets/user_image_widget.dart';
 
 class GroupInformationScreen extends StatefulWidget {
@@ -35,48 +36,7 @@ class _GroupInformationScreenState extends State<GroupInformationScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              InkWell(
-                                onTap: () {},
-                                child: UserImageWidget(
-                                  image: _bloc.group.groupLogo,
-                                  width: 80,
-                                  height: 80,
-                                  isBorder: false,
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              Column(
-                                children: [
-                                  Text(
-                                    _bloc.group.groupName,
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Text(
-                                    _bloc.group.groupDescription,
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
+                  GroupCardDetailsWidget(bloc: _bloc),
                 ],
               ),
             ),
