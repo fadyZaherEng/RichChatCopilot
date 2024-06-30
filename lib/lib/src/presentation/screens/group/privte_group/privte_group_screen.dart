@@ -73,16 +73,18 @@ class _PrivateGroupScreenState extends BaseState<PrivateGroupScreen> {
                             isGroup: true,
                             onTap: () {
                               //TODO: navigate to chat screen
-                              Navigator.pushNamed(
-                                context,
-                                Routes.chatWithFriendScreen,
-                                arguments: {
-                                  "friendId": groupModel.groupID,
-                                  "friendName": groupModel.groupName,
-                                  "friendImage": groupModel.groupLogo,
-                                  "groupId": groupModel.groupID,
-                                },
-                              );
+                              _bloc.setGroup(group: groupModel).whenComplete(() {
+                                Navigator.pushNamed(
+                                  context,
+                                  Routes.chatWithFriendScreen,
+                                  arguments: {
+                                    "friendId": groupModel.groupID,
+                                    "friendName": groupModel.groupName,
+                                    "friendImage": groupModel.groupLogo,
+                                    "groupId": groupModel.groupID,
+                                  },
+                                );
+                              });
                             },
                           );
                         },

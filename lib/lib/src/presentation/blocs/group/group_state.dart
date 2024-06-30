@@ -20,3 +20,5 @@ final class ClearGroupAdminsListState extends GroupState {}
 final class CreateGroupSuccessState extends GroupState {}
 final class CreateGroupErrorState extends GroupState {}
 final class CreateGroupLoadingState extends GroupState {}
+final class GroupMembersListUpdateSuccessState extends GroupState {}
+final class GroupAdminsListUpdateSuccessState extends GroupState {}

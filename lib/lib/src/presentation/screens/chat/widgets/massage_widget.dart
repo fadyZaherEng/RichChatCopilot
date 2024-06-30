@@ -28,27 +28,23 @@ class MassageWidget extends StatelessWidget {
             ? MyMassageWidget(
                 massage: massage,
                 isReplying: isReplying,
-                isGroupChat: isGroupChat,
-              )
+                isGroupChat: isGroupChat)
             : SwipeToWidget(
                 massage: massage,
                 onRightSwipe: onRightSwipe,
                 isViewOnly: isViewOnly,
                 isMe: isMe,
-                isGroupChat: isGroupChat,
-              )
+                isGroupChat: isGroupChat)
         : isViewOnly
             ? ReceiverMassageWidget(
                 isReplying: isReplying,
                 massage: massage,
-                isGroupChat: isGroupChat,
-              )
+                isGroupChat: isGroupChat)
             : SwipeToWidget(
                 isMe: isMe,
                 massage: massage,
                 isViewOnly: isViewOnly,
                 onRightSwipe: onRightSwipe,
-                isGroupChat: isGroupChat,
-              );
+                isGroupChat: isGroupChat);
   }
 }

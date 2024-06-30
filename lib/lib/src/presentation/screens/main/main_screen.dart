@@ -133,7 +133,7 @@ class _MainScreenState extends BaseState<MainScreen>
       floatingActionButton: _selectedIndex == 1
           ? FloatingActionButton(
               onPressed: () {
-                context.read<GroupBloc>().clearGroupAdminsList()
+                context.read<GroupBloc>().clearGroupData()
                     .whenComplete(() {
                   Navigator.pushNamed(context, Routes.createGroupScreen);
                 });

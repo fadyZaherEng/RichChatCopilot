@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rich_chat_copilot/lib/src/config/routes/routes_manager.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/group/group.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/blocs/group/group_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/chat/widgets/group_member_widget.dart';
@@ -44,6 +45,10 @@ class _GroupChatAppBarState extends State<GroupChatAppBar> {
                 InkWell(
                   onTap: () {
                     //TODO: navigate to group settings
+                    _bloc.updateGroupMembersList().whenComplete(() {
+                      Navigator.pushNamed(
+                          context, Routes.groupInformationScreen);
+                    });
                   },
                   child: UserImageWidget(
                     image: group.groupLogo,

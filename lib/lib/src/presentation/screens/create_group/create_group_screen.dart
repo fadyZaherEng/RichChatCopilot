@@ -465,7 +465,7 @@ class _CreateGroupScreenState extends BaseState<CreateGroupScreen> {
     );
     //create group
     _bloc.createGroup(
-      group: group,
+      newGroup: group,
       image: _image,
       onSuccess: () {
         CustomSnackBarWidget.show(

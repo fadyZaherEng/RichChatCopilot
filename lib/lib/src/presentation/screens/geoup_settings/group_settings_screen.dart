@@ -33,7 +33,7 @@ class _GroupSettingsScreenState extends BaseState<GroupSettingsScreen> {
             children: [
               SettingsSwitchListTileWidget(
                 title: S.of(context).editGroupSettings,
-                value: groupProvider.editSettings,
+                value: groupProvider.group.editSettings,
                 subtitle: S.of(context).onlyAdminsCanEditGroupSettings,
                 backgroundColor: Colors.green,
                 icon: Icons.edit,
@@ -42,10 +42,10 @@ class _GroupSettingsScreenState extends BaseState<GroupSettingsScreen> {
                 },
               ),
               const SizedBox(height: 10),
-              groupProvider.approveNewMembers
+              groupProvider.group.approveMembers
                   ? SettingsSwitchListTileWidget(
                       title: S.of(context).approveNewMembers,
-                      value: groupProvider.approveNewMembers,
+                      value: groupProvider.group.approveMembers,
                       subtitle: S
                           .of(context)
                           .NewMembersWillBeApprovedOnlyAfterAdminApproval,
@@ -60,7 +60,7 @@ class _GroupSettingsScreenState extends BaseState<GroupSettingsScreen> {
               const SizedBox(height: 10),
               SettingsSwitchListTileWidget(
                 title: S.of(context).requestToJoinGroup,
-                value: groupProvider.requestToJoin,
+                value: groupProvider.group.requestToJoin,
                 subtitle: S
                     .of(context)
                     .requestIncomingMembersToJoinTheGroupBeforeViewingTheGroup,
@@ -73,7 +73,7 @@ class _GroupSettingsScreenState extends BaseState<GroupSettingsScreen> {
               const SizedBox(height: 10),
               SettingsSwitchListTileWidget(
                 title: S.of(context).lockMassages,
-                value: groupProvider.lockMassages,
+                value: groupProvider.group.lockMassages,
                 subtitle: S
                     .of(context)
                     .onlyAdminsCanSendMessagesOtherMembersCanNotSendMessages,

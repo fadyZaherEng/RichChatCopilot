@@ -1,10 +1,13 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/constants.dart';
+import 'package:rich_chat_copilot/lib/src/core/utils/enum/massage_type.dart';
 import 'package:rich_chat_copilot/lib/src/core/utils/save_image_to_storage.dart';
+import 'package:rich_chat_copilot/lib/src/data/source/local/single_ton/firebase_single_ton.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/group/group.dart';
 import 'package:rich_chat_copilot/lib/src/domain/entities/login/user.dart';
 import 'package:uuid/uuid.dart';
@@ -21,11 +24,32 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
   }
 
   bool _isLoading = false;
-  bool _editSettings = false;
-  bool _approveNewMembers = false;
-  bool _requestToJoin = false;
-  bool _lockMassages = false;
-  Group? _group;
+
+  // bool _editSettings = false;
+  // bool _approveNewMembers = false;
+  // bool _requestToJoin = false;
+  // bool _lockMassages = false;
+  Group _group = Group(
+    creatorUID: "",
+    groupName: "",
+    groupDescription: "",
+    groupID: "",
+    groupLogo: "",
+    lastMessage: "",
+    senderUID: "",
+    timeSent: DateTime.now(),
+    createAt: DateTime.now(),
+    massageType: MassageType.text,
+    massageID: "",
+    isPrivate: true,
+    editSettings: true,
+    approveMembers: false,
+    lockMassages: false,
+    requestToJoin: false,
+    membersUIDS: [],
+    adminsUIDS: [],
+    awaitingApprovalUIDS: [],
+  );
 
   final List<UserModel> _groupMembersList = [];
   final List<UserModel> _groupAdminsList = [];
@@ -33,15 +57,25 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
   //getter
   bool get iSLoading => _isLoading;
 
-  bool get editSettings => _editSettings;
+  // bool get editSettings => _editSettings;
+  //
+  // bool get approveNewMembers => _approveNewMembers;
+  //
+  // bool get requestToJoin => _requestToJoin;
+  //
+  // bool get lockMassages => _lockMassages;
+  Future<void> updateGroupDataInFirestore() async {
+    try {
+      await FirebaseSingleTon.db
+          .collection(Constants.groups)
+          .doc(_group.groupID)
+          .update(_group.toMap());
+    } catch (e) {
+      print(e);
+    }
+  }
 
-  bool get approveNewMembers => _approveNewMembers;
-
-  bool get requestToJoin => _requestToJoin;
-
-  bool get lockMassages => _lockMassages;
-
-  Group? get group => _group;
+  Group get group => _group;
 
   List<UserModel> get groupMembersList => _groupMembersList;
 
@@ -57,30 +91,38 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
 
   //editSettings
   void setEditSettings({required bool editSettings}) {
-    _editSettings = editSettings;
+    _group.editSettings = editSettings;
     emit(GroupEditSettingsState());
+    if(_group.groupID.isEmpty)return;
+    updateGroupDataInFirestore();
   }
 
   //approveNewMembers
   void setApproveNewMembers({required bool approveNewMembers}) {
-    _approveNewMembers = approveNewMembers;
+    _group.approveMembers = approveNewMembers;
     emit(GroupApproveNewMembersState());
+    if(_group.groupID.isEmpty)return;
+    updateGroupDataInFirestore();
   }
 
   //requestToJoin
   void setRequestToJoin({required bool requestToJoin}) {
-    _requestToJoin = requestToJoin;
+    _group.requestToJoin = requestToJoin;
     emit(GroupRequestToJoinState());
+    if(_group.groupID.isEmpty)return;
+    updateGroupDataInFirestore();
   }
 
   //lockMassages
   void setLockMassages({required bool lockMassages}) {
-    _lockMassages = lockMassages;
+    _group.lockMassages = lockMassages;
     emit(GroupLockMassagesState());
+    if(_group.groupID.isEmpty)return;
+    updateGroupDataInFirestore();
   }
 
   //group
-  void setGroup({required Group group}) {
+  Future<void> setGroup({required Group group})async {
     _group = group;
     emit(GroupModelState());
   }
@@ -88,38 +130,66 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
   //groupMembersList
   void addMemberToGroup({required UserModel groupMember}) {
     _groupMembersList.add(groupMember);
+    _group.membersUIDS.add(groupMember.uId);
     emit(GroupMembersListState());
+    if(_group.groupID.isEmpty)return;
+    updateGroupDataInFirestore();
   }
 
   //groupAdminsList
   void addMemberToAdmin({required UserModel groupAdmin}) {
     _groupAdminsList.add(groupAdmin);
+    _group.adminsUIDS.add(groupAdmin.uId);
     emit(GroupAdminsListState());
+    if(_group.groupID.isEmpty)return;
+    updateGroupDataInFirestore();
   }
 
   //remove member from group
   void removeMemberFromGroup({required UserModel user}) {
     _groupMembersList.remove(user);
     _groupAdminsList.remove(user);
+    _group.membersUIDS.remove(user.uId); //TODO: check this code
     emit(RemoveMemberFromGroupListState());
+    if(_group.groupID.isEmpty)return;
+    updateGroupDataInFirestore();
   }
 
   //remove member from admins
   void removeAdminFromAdmins({required UserModel user}) {
     _groupAdminsList.remove(user);
+    _group.adminsUIDS.remove(user.uId);
     emit(RemoveMemberFromAdminListState());
+    if(_group.groupID.isEmpty)return;
+    updateGroupDataInFirestore();
   }
 
   // clear Group members
-  Future clearGroupMembersList() async {
+  Future clearGroupData() async {
     _groupMembersList.clear();
-    emit(ClearGroupMembersListState());
-  }
-
-  // clear Group admins
-  Future clearGroupAdminsList() async {
     _groupAdminsList.clear();
-    emit(ClearGroupAdminsListState());
+    _group = Group(
+      creatorUID: "",
+      groupName: "",
+      groupDescription: "",
+      groupID: "",
+      groupLogo: "",
+      lastMessage: "",
+      senderUID: "",
+      timeSent: DateTime.now(),
+      createAt: DateTime.now(),
+      massageType: MassageType.text,
+      massageID: "",
+      isPrivate: true,
+      editSettings: true,
+      approveMembers: false,
+      lockMassages: false,
+      requestToJoin: false,
+      membersUIDS: [],
+      adminsUIDS: [],
+      awaitingApprovalUIDS: [],
+    );
+    emit(ClearGroupMembersListState());
   }
 
   //get group members uids
@@ -134,7 +204,7 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
 
   //create group
   Future<void> createGroup({
-    required Group group,
+    required Group newGroup,
     required File? image,
     required Function onSuccess,
     required Function(String) onError,
@@ -143,30 +213,31 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
     emit(CreateGroupLoadingState());
     try {
       var groupId = const Uuid().v4();
-      group.groupID = groupId;
+      newGroup.groupID = groupId;
       //check if file image is null
       if (image != null) {
         final imageUrl =
             await saveImageToStorage(image, "groupsImages/$groupId");
-        group.groupLogo = imageUrl;
+        newGroup.groupLogo = imageUrl;
       }
       //add the group admins
-      group.adminsUIDS = [group.creatorUID, ...getGroupAdminsUIDS()];
+      newGroup.adminsUIDS = [newGroup.creatorUID, ...getGroupAdminsUIDS()];
       //add the group members
-      group.membersUIDS = [group.creatorUID, ...getGroupMembersUIDS()];
+      newGroup.membersUIDS = [newGroup.creatorUID, ...getGroupMembersUIDS()];
+      setGroup(group: newGroup);
       //add edit settings
-      group.editSettings = editSettings;
-      //add approve new members
-      group.approveMembers = approveNewMembers;
-      //add request to join
-      group.requestToJoin = requestToJoin;
-      //add lock massages
-      group.lockMassages = lockMassages;
+      // group.editSettings = editSettings;
+      // //add approve new members
+      // group.approveMembers = approveNewMembers;
+      // //add request to join
+      // group.requestToJoin = requestToJoin;
+      // //add lock massages
+      // group.lockMassages = lockMassages;
       //add group to firestore
       await FirebaseFirestore.instance
           .collection(Constants.groups)
           .doc(groupId)
-          .set(group.toMap());
+          .set(newGroup.toMap());
       //on success
       onSuccess();
       setLoading(isLoading: false);
@@ -227,7 +298,7 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
   }
 
   //stream users data from firestore
- Stream<List<DocumentSnapshot>> streamGroupMembersData({
+  Stream<List<DocumentSnapshot>> streamGroupMembersData({
     required List<String> membersUIDS,
   }) {
     return Stream.fromFuture(
@@ -255,5 +326,30 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
     //     return users;
     //   },
     // );
+  }
+  //get list of group members data from firestore with uids
+  Future<List<UserModel>>getGroupMembersDataFromFirestore({required bool isAdmin})async{
+    List<UserModel>groupMembersList=[];
+    List<String>membersUIDS=isAdmin?_group.adminsUIDS:_group.membersUIDS;
+    for(var uid in membersUIDS){
+      var user=await FirebaseFirestore.instance
+          .collection(Constants.users)
+          .doc(uid)
+          .get();
+      groupMembersList.add(UserModel.fromJson(user.data()!));
+    }
+    return groupMembersList;
+  }
+  //update group members list
+  Future<void>updateGroupMembersList()async{
+    _groupMembersList.clear();
+    _groupMembersList.addAll(await getGroupMembersDataFromFirestore(isAdmin: false));
+    emit(GroupMembersListUpdateSuccessState());
+  }
+  //update group admins list
+  Future<void>updateGroupAdminsList()async{
+    _groupAdminsList.clear();
+    _groupAdminsList.addAll(await getGroupMembersDataFromFirestore(isAdmin: true));
+    emit(GroupAdminsListUpdateSuccessState());
   }
 }
