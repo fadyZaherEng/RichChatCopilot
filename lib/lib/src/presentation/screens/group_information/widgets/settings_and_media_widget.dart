@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:rich_chat_copilot/lib/src/config/routes/routes_manager.dart';
+import 'package:rich_chat_copilot/lib/src/presentation/blocs/group/group_bloc.dart';
 import 'package:rich_chat_copilot/lib/src/presentation/screens/create_group/widgets/setting_list_tile_widget.dart';
 
 class SettingsAndMediaWidget extends StatelessWidget {
-  const SettingsAndMediaWidget({super.key});
+  final bool isAdmin;
+  final GroupBloc bloc;
+  const SettingsAndMediaWidget({
+    super.key,
+    required this.isAdmin,
+    required this.bloc,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +37,11 @@ class SettingsAndMediaWidget extends StatelessWidget {
               icon: Icons.settings,
               iconColor: Colors.deepPurple,
               onTap: () {
-                //navigate to media screen
+                if(!isAdmin){
+                  // Sho.show(context, "Only admin can edit group settings");
+                }
+                //navigate to group settings
+                Navigator.pushNamed(context, Routes.settingsGroupScreen);
               },
             ),
           ],
