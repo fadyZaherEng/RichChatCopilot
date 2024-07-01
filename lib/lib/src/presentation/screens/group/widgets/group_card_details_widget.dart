@@ -58,7 +58,7 @@ class GroupCardDetailsWidget extends StatelessWidget {
                                     context: context,
                                     title: "Change Group Type",
                                     content:
-                                        "Are You Sure want to change the group type to ${bloc.group.isPrivate ? "Public" : "Private"}",
+                                        "Are You Sure want to change the group type to: ${bloc.group.isPrivate ? "Public" : "Private"}",
                                     textAction: "Change",
                                     onActionTap: (value) {
                                       //change group type
