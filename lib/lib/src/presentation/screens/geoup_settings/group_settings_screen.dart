@@ -85,6 +85,7 @@ class _GroupSettingsScreenState extends BaseState<GroupSettingsScreen> {
               ),
               const SizedBox(height: 10),
               Card(
+                elevation: 2,
                 color: _getGroupAdminColor(),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),

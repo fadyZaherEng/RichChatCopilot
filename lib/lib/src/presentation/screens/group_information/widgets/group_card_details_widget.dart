@@ -6,19 +6,17 @@ import 'package:rich_chat_copilot/lib/src/presentation/widgets/user_image_widget
 
 class GroupCardDetailsWidget extends StatelessWidget {
   final GroupBloc bloc;
-
+  final bool isAdmin;
   const GroupCardDetailsWidget({
     super.key,
     required this.bloc,
+    required this.isAdmin,
   });
 
   @override
   Widget build(BuildContext context) {
-    final uid = FirebaseSingleTon.auth.currentUser!.uid;
-    //check if admin or not
-    bool isAdmin = bloc.group.adminsUIDS.contains(uid);
     return Card(
-      elevation: 5,
+      elevation: 2,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
